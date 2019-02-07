@@ -1,0 +1,11 @@
+__pycache__/
+detectron/
+.backup/
+*.avi
+*.mp4
+*.pdf
+*.jpg
+*.pkl
+*.pbtxt
+*.pyc
+weights/
