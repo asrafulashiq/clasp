@@ -23,16 +23,16 @@ video_out = None
 
 bin_detector = BinDetector(cfg=conf.detection_cfg, weights=conf.detection_wts)
 
-for im, imfile in tqdm(utils.get_images_from_dir(src_folder, skip_init=300,
-                                            skip_end=3000, delta=5)):
+for im, imfile in tqdm(utils.get_images_from_dir(src_folder, skip_init=350,
+                                                skip_end=3000, delta=5)):
     new_im, boxes, _class = bin_detector.predict_box(im)
     if video_out is None:
         video_out = cv2.VideoWriter(
-            './video.mp4', cv2.VideoWriter_fourcc(*"MJPG"), 30, (new_im.shape[1], new_im.shape[0]))
+            './video.avi', cv2.VideoWriter_fourcc(*"MJPG"), 10, (new_im.shape[1], new_im.shape[0]))
     if not video_out is None:
         video_out.write(new_im)
     # utils.plot_cv(new_im)
-    # cv2.imwrite(str(out_folder/imfile.name), new_im )
+    # cv2.imwrite(str(out_folder/imfil e.name), new_im )
 
 cv2.destroyAllWindows()
 if not video_out is None:
