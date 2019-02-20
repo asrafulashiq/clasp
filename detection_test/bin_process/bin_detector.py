@@ -118,11 +118,15 @@ def vis_one_image_opencv(
             boxes, segms, keypoints)
 
     if boxes is None or boxes.shape[0] == 0 or max(boxes[:, 4]) < thresh:
-        return im, None, None
+        return None, None, None, None
 
     # Display in largest to smallest order to reduce occlusion
     areas = (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])
     sorted_inds = np.argsort(-areas)
+
+    _boxes = []
+    _score = []
+    _class = []
 
     for i in sorted_inds:
         bbox = boxes[i, :4]
@@ -140,8 +144,11 @@ def vis_one_image_opencv(
             im = vis_bbox(
                 im, (bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]), class_str)
 
+        _boxes.append(bbox)
+        _score.append(score)
+        _class.append(class_str)
 
-    return im, boxes, class_str
+    return im, np.array(_boxes), np.array(_score), np.array(_class)
 
 
 class Conf():
@@ -150,11 +157,11 @@ class Conf():
 
 def parse_conf(**kw):
     conf = Conf()
-    for k, v in kw.items():
-        setattr(conf, k, v)
     conf.thresh = 0.7
     conf.kp_thresh = 2.0
     conf.im_or_folder = None
+    for k, v in kw.items():
+        setattr(conf, k, v)
     return conf
 
 
@@ -213,7 +220,7 @@ class BinDetector():
         self.dummy_coco_dataset = dummy_datasets.get_clasp_dataset()
 
 
-    def predict_box(self, im, show=True):
+    def predict_box(self, im, show=False):
         timers = defaultdict(Timer)
         t = time.time()
         with c2_utils.NamedCudaScope(0):
@@ -223,13 +230,11 @@ class BinDetector():
 
         # if len()
 
-        n_im, boxes, _class = vis_one_image_opencv(
+        n_im, boxes, scores,_class = vis_one_image_opencv(
             im, cls_boxes, segms=None, keypoints=None, thresh=self.args.thresh,
             kp_thresh=self.args.kp_thresh,
-            show_box=show, dataset=self.dummy_coco_dataset, show_class=True)
-        return n_im, boxes, _class
-
-
+            show_box=show, dataset=self.dummy_coco_dataset, show_class=show)
+        return n_im, boxes, scores, _class
 
 
 if __name__ == '__main__':

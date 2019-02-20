@@ -7,13 +7,6 @@ sys.path.append('../detectron')
 
 _HOME = os.environ['HOME']
 
-class Configure():
-    """ configuration class """
-    def __init__(self, args=None):
-        if isinstance(args, argparse.Namespace):
-            for k, v in args.__dict__.items():
-                setattr(self, k, v)
-
 
 def get_arg():
     """ get command-line arguments """
@@ -33,4 +26,4 @@ def get_arg():
 
     return parser.parse_args()
 
-conf = Configure(get_arg())
+conf = get_arg()

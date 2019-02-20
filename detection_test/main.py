@@ -1,13 +1,16 @@
 # user-defined imports
-import utils
-from config import conf
-from detector import BinDetector
-
 # other imports
 from pathlib import Path
 import cv2
-from tqdm import tqdm
 
+from tqdm import tqdm
+from bin_process.bin_manager import BinManager
+import tools.utils as utils
+from config import conf
+import logging
+
+log = logging.getLogger(__name__)
+log.setLevel(logging.DEBUG)
 
 file_num = '9A'
 camera = '9'
@@ -18,22 +21,16 @@ assert src_folder.exists()
 out_folder = Path(conf.root) / 'output' / file_num / camera
 out_folder.mkdir(parents=True, exist_ok=True)
 
+bin_manager = BinManager(camera=camera, weights=conf.detection_wts,
+                         cfg=conf.detection_cfg)
 
-video_out = None
 
-bin_detector = BinDetector(cfg=conf.detection_cfg, weights=conf.detection_wts)
-
-for im, imfile in tqdm(utils.get_images_from_dir(src_folder, skip_init=350,
+for im, imfile in tqdm(utils.get_images_from_dir(src_folder, skip_init=931,
                                                 skip_end=3000, delta=5)):
-    new_im, boxes, _class = bin_detector.predict_box(im)
-    if video_out is None:
-        video_out = cv2.VideoWriter(
-            './video.avi', cv2.VideoWriter_fourcc(*"MJPG"), 10, (new_im.shape[1], new_im.shape[0]))
-    if not video_out is None:
-        video_out.write(new_im)
+    logging.info(f'processing : {imfile}')
+    new_im = bin_manager.run_detector_on_image(im)
     # utils.plot_cv(new_im)
-    # cv2.imwrite(str(out_folder/imfil e.name), new_im )
+    cv2.imwrite(str(out_folder/imfile.name), new_im )
 
 cv2.destroyAllWindows()
-if not video_out is None:
-    video_out.release()
+

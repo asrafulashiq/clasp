@@ -1,8 +1,8 @@
 """ utility functions """
 import pathlib
 from matplotlib import pyplot as plt
-import cv2
 import matplotlib
+import cv2
 
 
 def plot_cv(image, axes=None, show=True, fig_number=None):
