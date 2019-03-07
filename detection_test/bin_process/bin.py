@@ -3,6 +3,7 @@
 
 import math
 from collections import deque
+import tools.utils_box as utils
 
 class Bin:
 
@@ -12,7 +13,6 @@ class Bin:
         self._label = label
         self.state = state
         self.pos = pos  # (x1, y1, x2, y2)
-
 
     def init_conf(self):
         self._state_conf_num = 20
@@ -67,12 +67,12 @@ class Bin:
 
     def set_bound(self, width, height):
         """ Bound of the whole scene """
-        self._bound = (w, h)
+        self._bound = (width, height)
 
     @staticmethod
     def dist(x1, y1, x2, y2):
         """ distance between two points  """
-        return math.sqrt((x1-x2)**2 + (y1-y2)**2)
+        return utils.dist(x1, y1, x2, y2)
 
     @staticmethod
     def calc_centroid(x1, y1, x2, y2):
@@ -91,34 +91,7 @@ class Bin:
         return Bin.dist(x1, y1, x2, y2)
 
     def iou_bbox(self, bbox, ratio_type='min'):
-        a = self.pos
-        b = bbox
-
-        x1 = max(a[0], b[0])
-        y1 = max(a[1], b[1])
-        x2 = min(a[2], b[2])
-        y2 = min(a[3], b[3])
-
-        # AREA OF OVERLAP - Area where the boxes intersect
-        width = (x2 - x1)
-        height = (y2 - y1)
-        # handle case where there is NO overlap
-        if (width < 0) or (height < 0):
-            return 0.0
-        area_overlap = width * height
-
-        # COMBINED AREA
-        if ratio_type == 'min':
-            b_area = (bbox[2]-bbox[0])*(bbox[3]-bbox[1])
-            area_combined = min(b_area, self.area)
-        else:
-            area_a = (a[2] - a[0]) * (a[3] - a[1])
-            area_b = (b[2] - b[0]) * (b[3] - b[1])
-            area_combined = area_a + area_b - area_overlap
-
-        # RATIO OF AREA OF OVERLAP OVER COMBINED AREA
-        iou = area_overlap / (area_combined+1e-5)
-        return iou
+        return utils.iou_bbox(self.pos, bbox, ratio_type)
 
     def __eq__(self, bin2):
         if self.pos == bin2.pos and self.label == bin2.label and \
