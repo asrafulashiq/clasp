@@ -20,8 +20,8 @@ def sample_from_folder(folder_name, out_folder, delta=30,
 
 
 if __name__ == "__main__":
-    video_parents = ['7A']
-    camera_names = ['9']
+    video_parents = ['7A', '9A']
+    camera_names = ['11']
 
     for vid in video_parents:
         for cam in camera_names:
@@ -30,6 +30,6 @@ if __name__ == "__main__":
             sample_from_folder(
                 src_folder, OUT_DIR,
                 delta = 50,
-                skip_initial=300,
-                skip_final=2000,
+                skip_initial=1200,
+                skip_final=400,
             )
