@@ -19,7 +19,7 @@ def get_arg():
 
     parser.add_argument('--detection_wts', type=str,
                         default='/home/ash/Desktop/clasp/weights/detection-weights' +
-                        '/train/clasp_detect/generalized_rcnn/model_final.pkl')
+                        '/train/clasp_detect/generalized_rcnn/model_iter2999.pkl')
     parser.add_argument('--detection_cfg', type=str,
                         default='/home/ash/Desktop/clasp/detectron/' +
                         'configs/my_cfg/e2e_faster_rcnn_R-50-C4_1x.yaml')

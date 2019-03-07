@@ -36,8 +36,17 @@ LABELS = (
         },
         'inserter': 'sloth.items.RectItemInserter',
         'item':     CustomRectItem,
-        'hotkey':   'c',
+        'hotkey':   'f',
         'text':     'binFULL',
+    },
+    {
+        'attributes': {
+            'class':      'dvi',
+        },
+        'inserter': 'sloth.items.RectItemInserter',
+        'item':     CustomRectItem,
+        'hotkey':   'd',
+        'text':     'dvi',
     }
 
 )

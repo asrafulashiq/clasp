@@ -23,6 +23,7 @@ data['categories'] = [
     {"id": 1, "name": 'person', "supercategory": 'person'},
     {"id": 2, "name": 'binEMPTY', "supercategory": 'bin'},
     {"id": 3, "name": 'binFULL', "supercategory": 'bin'},
+    {"id": 4, "name": 'dvi', "supercategory": 'dvi'}
 ]
 
 data['annotations'] = []

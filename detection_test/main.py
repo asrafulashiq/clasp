@@ -25,7 +25,7 @@ bin_manager = BinManager(camera=camera, weights=conf.detection_wts,
                          cfg=conf.detection_cfg)
 
 
-for im, imfile in tqdm(utils.get_images_from_dir(src_folder, skip_init=931,
+for im, imfile in tqdm(utils.get_images_from_dir(src_folder, skip_init=350,
                                                 skip_end=3000, delta=5)):
     logging.info(f'processing : {imfile}')
     new_im = bin_manager.run_detector_on_image(im)
