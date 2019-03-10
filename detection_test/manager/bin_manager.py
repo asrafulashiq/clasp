@@ -5,20 +5,17 @@ import os
 import numpy as np
 
 from bin_process.bin import Bin
-from bin_process.bin_detector import BinDetector
 from visutils.vis import vis_bins
 
 
 class BinManager:
 
-    def __init__(self, bins=None, detector=None, log=None, camera='9',
-                cfg=None, weights=None):
+    def __init__(self, bins=None, log=None, camera='9'):
         self.log = log
         if log is None:
             self.log = logging.getLogger('bin manager')
             self.log.setLevel(logging.DEBUG)
 
-        self._detector = detector
         if bins is None:
             self._current_bins = []
         else:
@@ -27,11 +24,6 @@ class BinManager:
 
         # initialize configuration
         self.init_conf()
-        if weights is not None and cfg is not None:
-            assert os.path.exists(weights), f"{weights} path not found"
-            assert os.path.exists(cfg), f"{cfg} path not found"
-            self.init_detector(cfg=cfg, weights=weights)
-
 
     def init_conf(self):
         """ config for bin manager """
@@ -43,9 +35,6 @@ class BinManager:
         self._thres_incoming_bin_exit = 460  # x
         self._thres_out_bin_exit = 350
 
-    def init_detector(self, cfg=None, weights=None):
-        self.log.info("Bin Detector initializing")
-        self._detector = BinDetector(cfg=cfg, weights=weights)
 
     def __len__(self):
         return len(self._current_bins)
@@ -66,20 +55,10 @@ class BinManager:
         self._current_bins.append(new_bin)
         self.log.info(f"Bin {self._bin_count} enters")
 
+    def update_state(self, im=None, boxes=None, scores=None,
+                              classes=None):
 
-    def run_detector_on_image(self, im=None):
         if im is None:
-            self.log.warning("No image detected")
-            return im
-
-        if self._detector is None:
-            self.log.error("Detector not initialized")
-            return im
-
-        new_im, boxes, scores, classes = self._detector.predict_box(im, show=True)
-
-        if boxes is None:
-            self.log.info("No bin detected")
             return im
 
         explored_indices = []

@@ -188,7 +188,7 @@ def convert_from_cls_format(cls_boxes, cls_segms, cls_keyps):
     return boxes, segms, keyps, classes
 
 
-class BinDetector():
+class Detector():
     def __init__(self, cfg=None, weights=None):
         self.args = parse_conf(
             cfg=cfg, weights=weights
