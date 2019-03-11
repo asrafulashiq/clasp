@@ -1,5 +1,5 @@
 import json
-from pathlib import Path
+from pathlib2 import Path
 import pandas as pd
 import numpy as np
 import cv2
@@ -15,15 +15,17 @@ for file in json_dir.iterdir():
 print(anns[0])
 
 
-dict_cat = {'person': 1, 'binEMPTY': 2, 'binFULL': 3}
+# dict_cat = {'person': 1, 'binEMPTY': 2, 'binFULL': 3}
+dict_cat = {'binEMPTY': 2, 'binFULL': 3}
+
 
 data = {}
 
 data['categories'] = [
     {"id": 1, "name": 'person', "supercategory": 'person'},
     {"id": 2, "name": 'binEMPTY', "supercategory": 'bin'},
-    {"id": 3, "name": 'binFULL', "supercategory": 'bin'},
-    {"id": 4, "name": 'dvi', "supercategory": 'dvi'}
+    {"id": 3, "name": 'binFULL', "supercategory": 'bin'}
+    # {"id": 4, "name": 'dvi', "supercategory": 'dvi'}
 ]
 
 data['annotations'] = []
@@ -42,8 +44,10 @@ for each_ann_file in anns:
         counter_im += 1
 
     for _ann in each_ann_file['annotations']:
+        if _ann['class'] not in dict_cat:
+            continue
         tmp = {
-            "id": counter_im,
+            "id": counter_id,
             "image_id": dict_im[fname],
             "category_id": dict_cat[_ann['class']],
             "area": _ann['width'] * _ann['height'],
@@ -55,16 +59,17 @@ for each_ann_file in anns:
             "iscrowd": 0,
         }
         data['annotations'].append(tmp)
-        counter_im += 1
+        counter_id += 1
 
 data['images'] = []
 
 for k in dict_im:
+    h, w, _ = cv2.imread(k).shape
     data['images'].append(
         {
             'file_name': k,
             'id': dict_im[k],
-            'width': 1920, 'height': 1088
+            'width': w, 'height': h
         }
     )
 

@@ -38,3 +38,4 @@ class Manager:
             self.log.info("No bin detected")
             return im
 
+        

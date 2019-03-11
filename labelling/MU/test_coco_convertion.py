@@ -5,8 +5,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cv2
 
-annFile = './detection.json'
-ROOT = Path('./')
+annFile = './pax_detection.json'
+ROOT = Path('/media/ash/New Volume/pax_data/')
 
 coco = COCO(annFile)
 
@@ -19,7 +19,7 @@ nms = set([cat['supercategory'] for cat in cats])
 print('COCO supercategories: \n{}'.format(' '.join(nms)))
 
 
-catIds = coco.getCatIds(catNms=['binEMPTY'])
+catIds = coco.getCatIds(catNms=['person'])
 imgIds = coco.getImgIds(catIds=catIds)
 #imgIds = coco.getImgIds(imgIds = [324158])
 img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
