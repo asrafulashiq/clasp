@@ -7,16 +7,24 @@ import tools.utils_box as utils
 
 class Bin:
 
-    def __init__(self, label=None, state=None, pos=None):
+    def __init__(self, label=None, state=None, pos=None,
+                 default_state="bin_empty", maxlen=15):
+
+        self.maxlen = maxlen
         self.init_conf()
 
+        self._default_state = default_state
         self._label = label
         self.state = state
         self.pos = pos  # (x1, y1, x2, y2)
 
     def init_conf(self):
         self._state_conf_num = 20
-        self._state_store_list = deque([], maxlen=30)
+        self._state_store_list = deque([], maxlen=self.maxlen)
+        self._idle_count = 0
+
+    def increment_idle(self):
+        self._idle_count += 1
 
     @property
     def label(self):
@@ -47,16 +55,20 @@ class Bin:
     def height(self):
         return self._pos[3] - self._pos[1]
 
+    @property
+    def idle_count(self):
+        return self._idle_count
+
     @pos.setter
     def pos(self, new_pos):
         self._pos = new_pos
+        self._idle_count = 0
 
     @state.setter
     def state(self, new_state):
         self._state_store_list.append(new_state)
-        if len(self._state_store_list) < \
-            self._state_store_list.maxlen:
-            self._state = "bin_empty"
+        if len(self._state_store_list) < self._state_store_list.maxlen:
+            self._state = self._default_state
         else:
             self._state = max(self._state_store_list,
                               key=self._state_store_list.count)

@@ -210,9 +210,8 @@ class BinDetector():
     def create_model(self):
         merge_cfg_from_file(self.args.cfg)
         # cfg.NUM_GPUS = 1
-        cfg.immutable(False)
         self.args.weights = cache_url(self.args.weights, cfg.DOWNLOAD_CACHE)
-        assert_and_infer_cfg(cache_urls=False)
+        assert_and_infer_cfg(cache_urls=False, make_immutable=True)
 
         assert not cfg.MODEL.RPN_ONLY, \
             'RPN models are not supported'
@@ -230,6 +229,7 @@ class BinDetector():
 
         self.model = infer_engine.initialize_model_from_cfg(self.args.weights)
         self.dummy_coco_dataset = dummy_datasets.get_clasp_dataset()
+
 
     def predict_box(self, im, show=False):
         timers = defaultdict(Timer)
@@ -255,7 +255,7 @@ class PAXDetector():
         self.create_model()
 
     def create_model(self):
-        cfg.immutable(False)
+        # cfg.immutable(False)
         merge_cfg_from_file(self.args.cfg)
         # cfg.NUM_GPUS = 1
         self.args.weights = cache_url(self.args.weights, cfg.DOWNLOAD_CACHE)
@@ -277,13 +277,11 @@ class PAXDetector():
                 self.model, im, None, timers=timers
             )
 
-
         n_im, boxes, scores, _class = vis_one_image_opencv(
             im, cls_boxes, segms=None, keypoints=None, thresh=self.args.thresh,
             kp_thresh=self.args.kp_thresh,
             show_box=show, dataset=self.dummy_coco_dataset, show_class=show)
         return n_im, boxes, scores, _class
-
 
 
 if __name__ == '__main__':

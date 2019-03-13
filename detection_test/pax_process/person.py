@@ -9,7 +9,6 @@ class Person:
 
         self.label = label  # set label
         self.pos = pos  # set pos : (x1, y1, x2, y2)
-        
 
     @property
     def label(self):

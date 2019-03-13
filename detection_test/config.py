@@ -17,12 +17,20 @@ def get_arg():
     parser.add_argument('--out_dir', '--out', default=_HOME+'/dataset/clasp_videos/output',
                         help='output directory')
 
-    parser.add_argument('--detection_wts', type=str,
-                        default='/home/ash/Desktop/clasp/weights/detection-weights' +
-                        '/train/clasp_detect/generalized_rcnn/model_iter2999.pkl')
-    parser.add_argument('--detection_cfg', type=str,
-                        default='/home/ash/Desktop/clasp/detectron/' +
-                        'configs/my_cfg/e2e_faster_rcnn_R-50-C4_1x.yaml')
+    parser.add_argument('--bin_detection_wts', type=str,
+                        default='/home/ash/Desktop/clasp/labelling/trained_model_bin' +
+                        '/train/clasp_bin/generalized_rcnn/model_final.pkl')
+    parser.add_argument('--bin_detection_cfg', type=str,
+                        default='/home/ash/detectron/configs/my_cfg/' +
+                        'faster_R-50-FPN_2x.yaml')
+
+    parser.add_argument('--pax_detection_wts', type=str,
+                        default='/home/ash/Desktop/clasp/labelling/trained_model_pax' +
+                        '/train/clasp_pax/generalized_rcnn/model_final.pkl')
+    parser.add_argument('--pax_detection_cfg', type=str,
+                        default='/home/ash/detectron/configs/my_cfg/' +
+                        'pax_faster_R-50-FPN_2x.yaml')
+
 
     return parser.parse_args()
 
