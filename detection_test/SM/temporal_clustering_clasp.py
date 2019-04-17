@@ -623,7 +623,7 @@ min_cluster_size = 3
 iou_thr = 0.1
 # video sequence detections
 boxs = np.loadtxt(
-    "/home/siddique/Desktop/CLASP/Results/Exp10A/cam11/det10ACam11PersonMASK_30FPS_cluster_score",
+    "/home/ashraful/Downloads/det10ACam11PersonMASK_30FPS_cluster_score",
     delimiter=",",
 )
 # masks = masks[np.where(boxs[:, 8] == 0 ), :,:][0]
@@ -641,7 +641,9 @@ pax_boxs = boxs[np.where(boxs[:, 7] == 1), :][0]
 # final_model.load_weights(checkpoint_path)
 
 ## frame by frame qualitative tracking evaluation
-path = "/media/siddique/RemoteServer/CLASP/CLASP_Data/Data_GT/ourdataset/exp10A/cam11/30FPS/*.png"
+# path = "/media/siddique/RemoteServer/CLASP/CLASP_Data/Data_GT/ourdataset/exp10A/cam11/30FPS/*.png"
+path = "/home/ashraful/dataset/clasp_data/10A/11/*.png"
+
 files = glob.glob(path)
 files.sort(key=lambda f: int("".join(filter(str.isdigit, f))))
 fr = 1
@@ -693,7 +695,7 @@ for names in files:
             print("Total tracked ID:", ID_ind)
             pax_eval.append(pax_track)
             fig.savefig(
-                "/media/siddique/CLASP2019/eval_track/visualize/exp10A/" + names[-10:],
+                "/home/ashraful/Desktop/tmp/exp10A/" + names[-10:],
                 dpi=dpi,
             )
         plt.close("all")
@@ -701,7 +703,7 @@ for names in files:
 
 pax_track = np.array(pax_eval)
 np.savetxt(
-    "/media/siddique/CLASP2019/eval_track/exp10A_track",
+    "~/Desktop/tmp/exp10A_track",
     pax_eval,
     fmt="%.4e",
     delimiter=",",
