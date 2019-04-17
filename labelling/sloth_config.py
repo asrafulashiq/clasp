@@ -10,7 +10,6 @@ class CustomRectItem(RectItem):
         # set drawing pen to red with width 2
         self.setPen(QPen(Qt.red, 2))
 
-
 LABELS = (
     {
         'attributes': {
