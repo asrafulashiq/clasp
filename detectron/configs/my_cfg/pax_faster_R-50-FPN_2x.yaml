@@ -21,7 +21,7 @@ FAST_RCNN:
   ROI_XFORM_RESOLUTION: 7
   ROI_XFORM_SAMPLING_RATIO: 2
 TRAIN:
-  WEIGHTS: /home/ash/detectron/wts/faster-R-50-FPN-2x/model_final.pkl
+  WEIGHTS: ~/clasp/detectron/wts/faster-R-50-FPN-2x/model_final.pkl
   DATASETS: ('clasp_pax', )
   SCALES: (800,)
   MAX_SIZE: 800

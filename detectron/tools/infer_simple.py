@@ -32,8 +32,8 @@ import logging
 import os
 import sys
 import time
-
-sys.path.append('/home/ash/Desktop/clasp/detectron')
+import pickle
+from pathlib import Path
 
 from caffe2.python import workspace
 
@@ -79,6 +79,13 @@ def parse_args():
         type=str
     )
     parser.add_argument(
+        '--output-keypoint',
+        dest='output_keypoint',
+        help='file for saving keypoint',
+        default='',
+        type=str
+    )
+    parser.add_argument(
         '--image-ext',
         dest='image_ext',
         help='image file name extension (default: jpg)',
@@ -95,7 +102,7 @@ def parse_args():
         '--output-ext',
         dest='output_ext',
         help='output image file format (default: pdf)',
-        default='pdf',
+        default='png',
         type=str
     )
     parser.add_argument(
@@ -109,11 +116,11 @@ def parse_args():
         '--kp-thresh',
         dest='kp_thresh',
         help='Threshold for visualizing keypoints',
-        default=2.0,
+        default=0.0,
         type=float
     )
     parser.add_argument(
-        'im_or_folder', help='image or folder of images', default=None
+        'im_or_folder', help='image or folder of images', default=None,
     )
     if len(sys.argv) == 1:
         parser.print_help()
@@ -123,8 +130,6 @@ def parse_args():
 
 def main(args):
     logger = logging.getLogger(__name__)
-
-    import pdb; pdb.set_trace()
 
     merge_cfg_from_file(args.cfg)
     cfg.NUM_GPUS = 1
@@ -137,9 +142,7 @@ def main(args):
         'Models that require precomputed proposals are not supported'
 
     model = infer_engine.initialize_model_from_cfg(args.weights)
-    # dummy_coco_dataset = dummy_datasets.get_coco_dataset()
-    dummy_coco_dataset = dummy_datasets.get_clasp_dataset()
-
+    dummy_coco_dataset = dummy_datasets.get_coco_dataset()
 
     if os.path.isdir(args.im_or_folder):
         im_list = glob.iglob(args.im_or_folder + '/*.' + args.image_ext)
@@ -167,7 +170,8 @@ def main(args):
                 'rest (caches and auto-tuning need to warm up)'
             )
 
-        vis_utils.vis_one_image(
+        # import pdb; pdb.set_trace()
+        kps = vis_utils.vis_one_image(
             im[:, :, ::-1],  # BGR -> RGB for visualization
             im_name,
             args.output_dir,
@@ -175,13 +179,20 @@ def main(args):
             cls_segms,
             cls_keyps,
             dataset=dummy_coco_dataset,
-            box_alpha=0.7,
+            box_alpha=0.3,
             show_class=True,
             thresh=args.thresh,
             kp_thresh=args.kp_thresh,
             ext=args.output_ext,
-            out_when_no_box=args.out_when_no_box
+            out_when_no_box=args.out_when_no_box,
+            return_kp=True,
+            return_box=True
         )
+
+        if args.output_keypoint != '':
+            filename = Path(args.output_keypoint) / (Path(im_name).name+'.pkl')
+            with open(str(filename), "wb") as f_pickle:
+                pickle.dump(kps, f_pickle)
 
 
 if __name__ == '__main__':

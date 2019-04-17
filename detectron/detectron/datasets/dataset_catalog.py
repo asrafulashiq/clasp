@@ -35,18 +35,30 @@ _IM_PREFIX = 'image_prefix'
 _DEVKIT_DIR = 'devkit_directory'
 _RAW_DIR = 'raw_dir'
 
-_HOME = os.environ['HOME']
+
+_HOME_DIR = os.environ['HOME']
 
 # Available datasets
 _DATASETS = {
-
-    'clasp_detect':{
+    'keypoints_lunar_all_train': {
         _IM_DIR:
-            _HOME + '/dataset/clasp_detection',
+            _HOME_DIR + '/dataset/lunar_pose_all',
         _ANN_FN:
-            _HOME + '/dataset/clasp_detection/detection.json'
+             _HOME_DIR + '/dataset/lunar_pose_all/annotations/keypoints.json'
     },
 
+    'clasp_bin':{
+        _IM_DIR:
+            _HOME_DIR + '/dataset/clasp_data',
+        _ANN_FN:
+            _HOME_DIR + '/dataset/clasp_annotations/bin_detection.json'
+    },
+    'clasp_pax': {
+        _IM_DIR:
+            _HOME_DIR + '/dataset/clasp_data',
+        _ANN_FN:
+            _HOME_DIR + '/dataset/clasp_annotations/bin_detection.json'
+    },
     'cityscapes_fine_instanceonly_seg_train': {
         _IM_DIR:
             _DATA_DIR + '/cityscapes/images',
