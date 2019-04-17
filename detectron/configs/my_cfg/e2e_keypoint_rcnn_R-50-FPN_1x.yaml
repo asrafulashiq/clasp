@@ -36,7 +36,7 @@ KRCNN:
   KEYPOINT_CONFIDENCE: bbox
 TRAIN:
   # WEIGHTS: /home/ash/Desktop/lunar_pose_all/dectron-output/train/keypoints_lunar_all_train/generalized_rcnn/model_iter9999.pkl
-  WEIGHTS: /home/ash/Desktop/detectron/wts/R-50-FPN/model_final.pkl
+  WEIGHTS: /home/ashraful/clasp/detectron/wts/R-50-FPN/model_final.pkl
   DATASETS: ('keypoints_lunar_all_train',)
   SCALES: (640, 672, 704, 736, 768, 800)
   MAX_SIZE: 1333
