@@ -1,5 +1,5 @@
 import json
-from pathlib2 import Path
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import cv2
@@ -73,5 +73,5 @@ for k in dict_im:
         }
     )
 
-with open('detection.json', 'w') as ftarget:
+with open('bin_detection.json', 'w') as ftarget:
     json.dump(data, ftarget)
