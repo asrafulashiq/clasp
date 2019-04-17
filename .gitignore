@@ -1,5 +1,5 @@
 __pycache__/
-detectron/
+# detectron/
 .backup/
 *.avi
 *.mp4
