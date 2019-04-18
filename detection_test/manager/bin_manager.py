@@ -89,9 +89,12 @@ class BinManager:
 
         if self._camera == '11':
             # set label based on camera 9
-            mbin = self._manager_cam_9._left_bins.pop(0)
-            label = mbin.label
-            state = mbin.state
+            try:
+                mbin = self._manager_cam_9._left_bins.pop(0)
+                label = mbin.label
+                state = mbin.state
+            except IndexError:
+                state = "bin_full"
 
         new_bin = Bin(
             label=label,

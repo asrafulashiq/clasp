@@ -623,7 +623,7 @@ min_cluster_size = 3
 iou_thr = 0.1
 # video sequence detections
 boxs = np.loadtxt(
-    "/home/ashraful/Downloads/det10ACam11PersonMASK_30FPS_cluster_score",
+    "/home/ashraful/dataset/det10ACam11PersonMASK_30FPS_cluster_score",
     delimiter=",",
 )
 # masks = masks[np.where(boxs[:, 8] == 0 ), :,:][0]
@@ -695,7 +695,7 @@ for names in files:
             print("Total tracked ID:", ID_ind)
             pax_eval.append(pax_track)
             fig.savefig(
-                "/home/ashraful/Desktop/tmp/exp10A/" + names[-10:],
+                "/home/ashraful/Desktop/tmp/exp10A/" + names[-8:],
                 dpi=dpi,
             )
         plt.close("all")
@@ -703,7 +703,7 @@ for names in files:
 
 pax_track = np.array(pax_eval)
 np.savetxt(
-    "~/Desktop/tmp/exp10A_track",
+    "/home/ashraful/Desktop/tmp/exp10A_track",
     pax_eval,
     fmt="%.4e",
     delimiter=",",

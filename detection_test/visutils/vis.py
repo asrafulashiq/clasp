@@ -34,11 +34,12 @@ def vis_class_label(img, pos, class_str, label, font_scale=1.3):
                 _GRAY, lineType=cv2.LINE_AA, thickness=2)
 
     # put label
-    ((lbl_w, lbl_h), _) = cv2.getTextSize(str(label), font, 3*font_scale, 5)
-    lbl_tl = int((x0+x1)/2) - int(0.3 * lbl_w), int((y0+y1)/2) - \
-                int(0 * lbl_h)
-    cv2.putText(img, str(label), lbl_tl, font, 3*font_scale,
-                color, thickness=5, lineType=cv2.LINE_AA)
+    if label:
+        ((lbl_w, lbl_h), _) = cv2.getTextSize(str(label), font, 3*font_scale, 5)
+        lbl_tl = int((x0+x1)/2) - int(0.3 * lbl_w), int((y0+y1)/2) - \
+                    int(0 * lbl_h)
+        cv2.putText(img, str(label), lbl_tl, font, 3*font_scale,
+                    color, thickness=5, lineType=cv2.LINE_AA)
 
     return img
 
@@ -77,5 +78,5 @@ def vis_pax(img, pax):
         bbox = person.pos
         label = person.label
         img = vis_bbox(img, bbox, class_str='person')
-        # img = vis_class_label(img, bbox, 'person', label)
+        img = vis_class_label(img, bbox, 'person', label)
     return img

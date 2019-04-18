@@ -34,7 +34,7 @@ import sys
 import time
 import numpy as np
 
-sys.path.insert(0, '/home/ash/detectron')
+sys.path.insert(0, os.environ['HOME']+'clasp/detectron')
 
 
 from caffe2.python import workspace

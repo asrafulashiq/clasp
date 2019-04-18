@@ -11,14 +11,15 @@ from manager.main_manager import Manager
 
 log = ClaspLogger()
 
-file_num = '9A'
+file_num = '10A'
 cameras = ['9', '11']
 
 
 manager = Manager(log=log, file_num=file_num, bin_cfg=conf.bin_detection_cfg,
                   bin_weights=conf.bin_detection_wts,
                   pax_cfg=conf.pax_detection_cfg,
-                  pax_weights=conf.pax_detection_wts)
+                  pax_weights=conf.pax_detection_wts,
+                  config=conf)
 
 imlist = []
 src_folder = {}
@@ -32,7 +33,7 @@ for cam in cameras:
     out_folder[cam].mkdir(parents=True, exist_ok=True)
 
     imlist.append(utils.get_images_from_dir(src_folder[cam], skip_init=350,
-                              skip_end=500, delta=5))
+                              skip_end=3500, delta=1))
 
 
 for out1, out2 in tqdm(zip(*imlist)):

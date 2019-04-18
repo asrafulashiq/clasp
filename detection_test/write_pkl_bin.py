@@ -12,8 +12,8 @@ import pickle
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
-file_num = '9A'
-cameras = ['9', '11']
+file_num = '10A'
+cameras = ['11']
 
 detector = BinDetector(cfg=conf.bin_detection_cfg,
                        weights=conf.bin_detection_wts)
@@ -29,15 +29,16 @@ for camera in cameras:
     pickle_file = Path(conf.root) / 'out_pkl' / \
         ('bin_' + file_num+'_'+camera+'.pkl')
 
-
     _dict = {}
 
-    for im, imfile, frame_num in tqdm(utils.get_images_from_dir(src_folder, skip_init=200,
-                                                                skip_end=400, delta=5)):
+    for im, imfile, frame_num in tqdm(utils.get_images_from_dir(src_folder, skip_init=1200,
+                                                                skip_end=3500, delta=1)):
         logging.info(f'processing : {imfile}')
 
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)
         _dict[frame_num] = [boxes, scores, _class]
+        if boxes is not None:
+            import pdb; pdb.set_trace()
         # utils.plot_cv(new_im)
         cv2.imwrite(str(out_folder/imfile.name), new_im)
 

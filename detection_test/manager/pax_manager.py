@@ -3,18 +3,22 @@
 import logging
 import os
 import numpy as np
+import cv2
 
 from pax_process.person import Person
 from visutils.vis import vis_pax
+import tools.MU_utils as mutils
 
+
+HOME = os.environ["HOME"]
 
 class PAXManager:
     """ passenger manager """
 
-    def __init__(self, pax=None, log=None, detector=None, camera='9'):
+    def __init__(self, pax=None, log=None, detector=None, camera="9"):
         self.log = log
         if log is None:
-            self.log = logging.getLogger('pax manager')
+            self.log = logging.getLogger("pax manager")
             self.log.setLevel(logging.DEBUG)
             self.log.clasp_log = self.log.info
 
@@ -25,8 +29,12 @@ class PAXManager:
         self._camera = camera
 
         # initialize configuration
-        if camera == '9':
+        if camera == "9":
             self.init_cam_9()
+
+        # FIXME : temporary
+        if camera == "11":
+            self.dummy_pax_from_MU()
 
         self.detector = detector
 
@@ -60,12 +68,76 @@ class PAXManager:
         self._pax_count = 0
 
         self._pax_count += 1
-        new_pax = Person(
-            label=self._pax_count,
-            pos=box
-        )
+        new_pax = Person(label=self._pax_count, pos=box)
         self._current_pax.append(new_pax)
         # self.log.clasp_log(f"Person {self._pax_count} enters")
+
+    def dummy_pax_from_MU(self):
+        boxs = np.loadtxt(
+            HOME + "/dataset/det10ACam11PersonMASK_30FPS_cluster_score", delimiter=","
+        )
+
+        boxs = mutils.temporal_format(boxs)
+        boxs = boxs[np.where(boxs[:, 6] >= 0.4), :][0]
+
+        self.pax_boxs = boxs[np.where(boxs[:, 7] == 1), :][0]
+        # format: [frame,ins_ind,x,y,w,h,score,class_id,angle]
+        self.det_cluster_id = []
+        self.pax_boxs_window = []
+        self.ID_ind = 1
+
+    def update_dummy(self, im, frame_num):
+
+        # parameters for tracker
+        time_lag = 5
+        score_th = 0.15
+        min_cluster_size = 3
+        iou_thr = 0.1
+        ID_ind = self.ID_ind
+
+
+        fr = frame_num + 64
+        pax_boxs = self.pax_boxs
+        det_cluster_id = self.det_cluster_id
+        pax_boxs_window = self.pax_boxs_window
+
+        fr_pax_box = pax_boxs[np.where(pax_boxs[:, 0] == fr), :][0]
+
+        if len(fr_pax_box) > 0:
+            im_h, im_w, _ = im.shape
+            im = cv2.cvtColor(im, cv2.COLOR_BGR2RGB)
+            if len(det_cluster_id) > 0:
+                pax_boxs_prev = np.vstack([det_cluster_id, fr_pax_box])
+            else:
+                pax_boxs_window.append(fr_pax_box)
+                pax_boxs_prev, _ = mutils.expand_from_temporal_list(
+                    pax_boxs_window, None
+                )
+            # wait for loop back frames
+            if fr >= pax_boxs_prev[:, 0][0] + time_lag - 1:
+                det_cluster_id, bbox, scores, labels, self.ID_ind = \
+                    mutils.tracking_temporal_clustering(
+                            fr,
+                            pax_boxs_prev,
+                            time_lag,
+                            min_cluster_size,
+                            iou_thr,
+                            det_cluster_id,
+                            ID_ind,
+                            score_th,
+                            None, # ax
+                            im_h,
+                            im_w,
+                    )
+                if len(bbox) > 0:
+                    self._current_pax = []
+                    for pi in range(len(bbox)):
+                        new_pax = Person(label=labels[pi], pos=bbox[pi])
+                        self._current_pax.append(new_pax)
+
+        self.pax_boxs_window = pax_boxs_window
+        self.det_cluster_id = det_cluster_id
+        return
 
     def update_state(self, im, boxes, scores, classes):
 
@@ -75,7 +147,7 @@ class PAXManager:
         if classes is None:
             return
 
-        ind = [i for i in range(len(classes)) if classes[i] == 'person']
+        ind = [i for i in range(len(classes)) if classes[i] == "person"]
 
         if len(ind) > 0:
             boxes, scores, classes = boxes[ind], scores[ind], classes[ind]
@@ -114,7 +186,6 @@ class PAXManager:
 
         #         self.add_pax(box)  # add new pax
 
-
         #! Just for now
         if len(ind) > 0:
             self._current_pax = []
@@ -126,7 +197,6 @@ class PAXManager:
                 box, _, cls = boxes[i], scores[i], classes[i]
 
                 self.add_pax(box)  # add new pax
-
 
         # detect pax exit
         # self.process_exit()
