@@ -19,7 +19,7 @@ manager = Manager(log=log, file_num=file_num, bin_cfg=conf.bin_detection_cfg,
                   bin_weights=conf.bin_detection_wts,
                   pax_cfg=conf.pax_detection_cfg,
                   pax_weights=conf.pax_detection_wts,
-                  config=conf)
+                  config=conf, bin_only=True)
 
 imlist = []
 src_folder = {}

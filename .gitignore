@@ -11,3 +11,4 @@ __pycache__/
 weights/
 .vscode/
 *.png
+*.txt

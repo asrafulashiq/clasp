@@ -7,6 +7,7 @@ import numpy as np
 
 HOME = os.environ["HOME"]
 
+
 class Manager:
     def __init__(
         self,
@@ -16,11 +17,13 @@ class Manager:
         pax_cfg=None,
         pax_weights=None,
         file_num="9A",
-        config=None
+        config=None,
+        bin_only=False
     ):
         self._bin_detector = None
         self._pax_detector = None
         self.file_num = file_num
+        self.bin_only = bin_only
 
         self.config = config
         self.log = log
@@ -46,7 +49,6 @@ class Manager:
         self._det_pax = {}
         for cam in ["9", "11"]:
             self.get_dummy_detection_pkl(self.file_num, cam)
-
 
     def get_dummy_detection_pkl(self, file_num="9A", camera="9"):
         import pickle
@@ -76,10 +78,11 @@ class Manager:
 
         # FIXME
         # for camera in ["9", "11"]:
-        for camera in ["11"]:
-            self._pax_managers[camera] = PAXManager(camera=camera, log=self.log)
-            if self._pax_detector is not None:
-                self._pax_managers[camera].detector = self._pax_detector
+        if not self.bin_only:
+            for camera in ["11"]:
+                self._pax_managers[camera] = PAXManager(camera=camera, log=self.log)
+                if self._pax_detector is not None:
+                    self._pax_managers[camera].detector = self._pax_detector
 
     def init_pax_detector(self, cfg=None, weights=None):
         self.log.info("Pax Detector initializing")
@@ -100,9 +103,6 @@ class Manager:
             self.log.warning("No image detected")
             return im
 
-        # if frame_num >= 2646:
-        #     a = 3
-
         # get dummy results
         if cam in self._bin_managers:
             if frame_num in self._det_bin[cam]:
@@ -113,8 +113,9 @@ class Manager:
         # if cam in self._pax_managers:
         #     boxes, scores, classes = self._det_pax[cam][frame_num]
         #     self._pax_managers[cam].update_state(im, boxes, scores, classes)
-        if cam in self._pax_managers:
-            self._pax_managers[cam].update_dummy(im, frame_num=frame_num)
+        if not self.bin_only:
+            if cam in self._pax_managers:
+                self._pax_managers[cam].update_dummy(im, frame_num=frame_num)
 
         if return_im:
             return self.draw(im, cam=cam)
@@ -123,7 +124,8 @@ class Manager:
         if cam in self._bin_managers:
             im = self._bin_managers[cam].visualize(im)
 
-        if cam in self._pax_managers:
-            im = self._pax_managers[cam].visualize(im)
+        if not self.bin_only:
+            if cam in self._pax_managers:
+                im = self._pax_managers[cam].visualize(im)
 
         return im
