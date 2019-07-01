@@ -313,16 +313,16 @@ def vis_one_image(
                           bbox[2] - bbox[0],
                           bbox[3] - bbox[1],
                           fill=False, edgecolor='g',
-                          linewidth=2, alpha=box_alpha))
+                          linewidth=4, alpha=box_alpha))
 
         if show_class:
             ax.text(
                 bbox[0], bbox[1] - 2,
                 get_class_string(classes[i], score, dataset),
-                fontsize=5,
+                fontsize=10,
                 family='serif',
                 bbox=dict(
-                    facecolor='g', alpha=0.4, pad=0, edgecolor='none'),
+                    facecolor='g', alpha=0.5, pad=0, edgecolor='none'),
                 color='white')
 
         # show mask
