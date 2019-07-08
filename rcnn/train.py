@@ -45,7 +45,7 @@ if __name__ == "__main__":
                         default=0.8)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--batch-size", type=int, default=5)
-    parser.add_argument("--epoch", type=int, default=100)
+    parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
     args = parser.parse_args()
     print(args)
