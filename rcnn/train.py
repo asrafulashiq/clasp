@@ -62,15 +62,16 @@ if __name__ == "__main__":
     dataset_train = coco_utils.get_coco(args.root, args.annFile,
                                         transforms=get_transform(True))
     dataset_test = coco_utils.get_coco(args.root, args.annFile,
-                                        transforms=get_transform(False))
+                                       transforms=get_transform(False))
 
     # split into train and test
     train_size = int(args.split * len(dataset_train))
     test_size = len(dataset_train) - train_size
     indices = torch.randperm(len(dataset_train)).tolist()
 
-    dataset_train =  torch.utils.data.Subset(dataset_train, indices[:train_size])
-    dataset_test =  torch.utils.data.Subset(dataset_test, indices[train_size:])
+    dataset_train = torch.utils.data.Subset(
+        dataset_train, indices[:train_size])
+    dataset_test = torch.utils.data.Subset(dataset_test, indices[train_size:])
     # define data loader
     data_loader_train = torch.utils.data.DataLoader(
         dataset_train, batch_size=args.batch_size, shuffle=True,
