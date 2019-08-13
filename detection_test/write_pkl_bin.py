@@ -1,5 +1,5 @@
-# user-defined imports
-# other imports
+
+import os, sys
 from pathlib import Path
 import cv2
 from tqdm import tqdm
@@ -8,15 +8,13 @@ from config import conf
 import logging
 from manager.detector import BinDetector
 import pickle
-
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
-file_num = 'exp1'
+file_num = '9A'
 cameras = ['9']
 
-detector = BinDetector(cfg=conf.bin_detection_cfg,
-                       weights=conf.bin_detection_wts)
+detector = BinDetector(ckpt=conf.bin_detection_wts, thres=0.1)
 
 for camera in cameras:
 
@@ -37,7 +35,6 @@ for camera in cameras:
 
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)
         _dict[frame_num] = [boxes, scores, _class]
-        # utils.plot_cv(new_im)
         cv2.imwrite(str(out_folder/imfile.name), new_im)
 
     with open(str(pickle_file), 'wb') as fp:

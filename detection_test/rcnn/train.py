@@ -103,12 +103,12 @@ if __name__ == "__main__":
                                                    gamma=0.1)
     # start training
     for epoch in range(args.epoch):
-        train_one_epoch(model, optimizer, data_loader_train, device, epoch,
-                        print_freq=10)
+        # train_one_epoch(model, optimizer, data_loader_train, device, epoch,
+        #                 print_freq=10)
 
-        lr_scheduler.step()
+        # lr_scheduler.step()
 
-        torch.save(model.state_dict(), str(out_file))
+        # torch.save(model.state_dict(), str(out_file))
 
         evaluate(model, data_loader_test, device=device)
 
