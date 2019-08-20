@@ -18,3 +18,5 @@ if __name__ == "__main__":
     print(args)
 
     path_pkl = args.root + ("bin_" + args.file_num + "_" + args.camera + ".pkl")
+
+    

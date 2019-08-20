@@ -29,22 +29,23 @@ if __name__ == "__main__":
     HOME = os.environ["HOME"]
     parser = argparse.ArgumentParser(prog="Detection parser")
     parser.add_argument("--root", type=str,
-                        default=HOME + "/dataset/clasp/clasp_data",
+                        default=HOME + "/dataset/ALERT/alert_frames",
                         help="root directory where the images are downloaded to")
 
     parser.add_argument("--annFile", type=str,
-                        default=HOME + "/dataset/clasp/clasp_annotations/bin_detection.json",
+                        default=HOME + "/dataset/clasp/clasp_annotations/ann.json",
                         help="annotation file")
     parser.add_argument("--out-dir", type=str, help="model output directory",
-                        default=HOME + "/dataset/clasp/trained_model_bin")
+                        default=HOME + "/dataset/clasp/trained_model")
 
     parser.add_argument("--out-name", type=str, help="output model name",
-                        default="model_bin.pkl")
+                        default="model.pkl")
 
     parser.add_argument("--split", type=float, help="train-test split",
                         default=0.8)
+    parser.add_argument("--ckpt", type=str, default=None)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--batch-size", type=int, default=5)
+    parser.add_argument("--batch-size", type=int, default=10)
     parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
     args = parser.parse_args()
@@ -91,9 +92,12 @@ if __name__ == "__main__":
     model = model.get_model(num_classes=4)
     model.to(device)
 
+    if args.ckpt is not None:
+        model.load_state_dict(torch.load(args.ckpt))
+
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.SGD(params, lr=0.005,
+    optimizer = torch.optim.SGD(params, lr=args.lr,
                                 momentum=0.9, weight_decay=0.0005)
 
     # and a learning rate scheduler which decreases the learning rate by
@@ -103,13 +107,10 @@ if __name__ == "__main__":
                                                    gamma=0.1)
     # start training
     for epoch in range(args.epoch):
-        # train_one_epoch(model, optimizer, data_loader_train, device, epoch,
-        #                 print_freq=10)
+        train_one_epoch(model, optimizer, data_loader_train, device, epoch,
+                        print_freq=10)
+        print("Finished epoch {}".format(epoch))
+        lr_scheduler.step()
+        torch.save(model.state_dict(), str(out_file))
 
-        # lr_scheduler.step()
-
-        # torch.save(model.state_dict(), str(out_file))
-
-        evaluate(model, data_loader_test, device=device)
-
-        # save model
+        # evaluate(model, data_loader_test, device=device)

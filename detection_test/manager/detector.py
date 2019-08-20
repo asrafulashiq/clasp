@@ -144,16 +144,19 @@ class PAXDetector():
         self.create_model()
 
     def create_model(self):
-        self.model = rcnn.rcnn_utils.RCNN_Detector(
+        self.model = rcnn_utils.RCNN_Detector(
             ckpt=self.ckpt,
             labels_to_keep=(1,), thres=self.thres)
         self.dummy_coco_dataset = get_clasp_dataset()
 
     def predict_box(self, im, show=False):
-        ret = self.model(im, threshold=0.5)
+        ret = self.model(im)
         if ret is not None:
             boxes, scores, classes = ret
-            classes = [get_class_string(cls, self.dummy_coco_dataset)
-                            for cls in classes]
-            return boxes, scores, classes
-        return ret
+            nim = im
+            if show:
+                nim, boxes, scores, classes = vis_one_image_opencv(im, boxes, scores, classes, 
+                            thresh=self.thres, dataset=self.dummy_coco_dataset)
+            return nim, boxes, scores, classes
+        else:
+            return im, None, None, None

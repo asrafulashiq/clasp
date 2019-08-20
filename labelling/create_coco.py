@@ -17,10 +17,7 @@ print(anns[0])
 
 # dict_cat = {'person': 1, 'binEMPTY': 2, 'binFULL': 3}
 dict_cat = {'binEMPTY': 2, 'binFULL': 3}
-
-
 data = {}
-
 data['categories'] = [
     {"id": 1, "name": 'person', "supercategory": 'person'},
     {"id": 2, "name": 'binEMPTY', "supercategory": 'bin'},

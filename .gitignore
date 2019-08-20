@@ -9,6 +9,8 @@ __pycache__/
 *.pbtxt
 *.pyc
 weights/
-.vscode/
+.vscode/*
 *.png
 *.txt
+*/.vscode
+settings.json

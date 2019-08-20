@@ -1,0 +1,156 @@
+import json
+from pathlib import Path
+import pandas as pd
+import numpy as np
+import cv2
+import argparse
+import os
+import parse
+from pycocotools.coco import COCO
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+
+
+def parse_file(fname):
+    p = parse.parse('cam{cam:d}{exp}', fname)
+    cam = p['cam']
+    exp = p['exp']
+    nfname = f'{exp}/cam{cam:02d}'
+    return nfname
+
+
+if __name__ == "__main__":
+    HOME = os.environ['HOME']
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--root", type=str,
+                        default=HOME+'/dataset/ALERT/annotation')
+    parser.add_argument("--out", type=str, help="save path of json",
+                        default=HOME+'/dataset/clasp/clasp_annotations')
+    parser.add_argument("--out-name", type=str, default="ann.json")
+    parser.add_argument("--im-folder", type=str,
+                        default=HOME+'/dataset/ALERT/alert_frames')
+    parser.add_argument("--test", action='store_true')
+
+    args = parser.parse_args()
+    print(args)
+
+    Path(args.out).mkdir(exist_ok=True)
+    out_path = os.path.join(args.out, args.out_name)
+
+    if args.test:
+        coco = COCO(out_path)
+
+        # display COCO categories and supercategories
+        cats = coco.loadCats(coco.getCatIds())
+        nms = [cat['name'] for cat in cats]
+        print('COCO categories: \n{}\n'.format(' '.join(nms)))
+
+        catIds = coco.getCatIds(catNms=['items'])
+        imgIds = coco.getImgIds(catIds=catIds)
+        for _ in range(20):
+            plt.close('all')
+            img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
+
+            imfile = Path(args.im_folder) / img['file_name']
+
+            I = cv2.imread(str(imfile))
+
+            # load and display instance annotations
+            print(imfile)
+            annIds = coco.getAnnIds(imgIds=img['id'], iscrowd=None)
+            anns = coco.loadAnns(annIds)
+
+            for ann in anns:
+                bb = ann['bbox']
+                bb[2] = bb[0] + bb[2] -1
+                bb[3] = bb[1] + bb[3] -1
+                bb = tuple([int(i) for i in bb])
+                cv2.rectangle(I, bb[:2], bb[2:], (0, 255, 0), 5)
+
+            plt.imshow(I[:,:,::-1])
+            plt.axis('off')
+            plt.show()
+        raise SystemExit
+
+    # concatenate all annotations
+    path_dir = Path(args.root)
+    anns = []
+    for json_dir in path_dir.iterdir():
+        for file in json_dir.iterdir():
+            if str(file).endswith('json'):
+                fdata = json.load(file.open())
+                anns.extend(fdata)
+
+    print(anns[0])
+
+    dict_cat = {'passengers': 1, 'items': 2}
+    data = {}
+    data['categories'] = [
+        {"id": 1, "name": 'passengers', "supercategory": 'passengers'},
+        {"id": 2, "name": 'items', "supercategory": 'items'}
+    ]
+
+    data['annotations'] = []
+    data['images'] = []
+
+    dict_im = {}
+
+    counter_id = 1
+    counter_im = 1
+
+    for each_ann_file in tqdm(anns):
+        fcam = parse_file(each_ann_file['camera'])
+        frame = f"{int(each_ann_file['frame']):06d}.jpg"
+        fname = os.path.join(fcam, frame)
+
+        if not fname in dict_im:
+            dict_im[fname] = counter_im
+            counter_im += 1
+
+        for _ann in each_ann_file['passengers']:
+            tmp = {
+                "id": counter_id,
+                "image_id": dict_im[fname],
+                "category_id": dict_cat['passengers'],
+                "area": _ann['size']['width'] * _ann['size']['height'],
+                'segmentation': [],
+                "bbox": [
+                    _ann['location']['x'], _ann['location']['y'],
+                    _ann['size']['width'], _ann['size']['height']
+                ],
+                "iscrowd": 0,
+            }
+            data['annotations'].append(tmp)
+            counter_id += 1
+
+        for _ann in each_ann_file['items']:
+            tmp = {
+                "id": counter_id,
+                "image_id": dict_im[fname],
+                "category_id": dict_cat['items'],
+                "area": _ann['size']['width'] * _ann['size']['height'],
+                'segmentation': [],
+                "bbox": [
+                    _ann['location']['x'], _ann['location']['y'],
+                    _ann['size']['width'], _ann['size']['height']
+                ],
+                "iscrowd": 0,
+            }
+            data['annotations'].append(tmp)
+            counter_id += 1
+        
+    for k in tqdm(dict_im):
+        imfile = os.path.join(args.im_folder, k)
+        h, w, _ = cv2.imread(imfile).shape
+        data['images'].append(
+            {
+                'file_name': k,
+                'id': dict_im[k],
+                'width': w, 'height': h
+            }
+        )
+
+    Path(args.out).mkdir(exist_ok=True)
+    out_path = os.path.join(args.out, args.out_name)
+    with open(out_path, 'w') as ftarget:
+        json.dump(data, ftarget)
