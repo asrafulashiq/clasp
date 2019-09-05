@@ -2,6 +2,7 @@ import random
 import torch
 
 from torchvision.transforms import functional as F
+import cv2
 
 
 def _flip_coco_person_keypoints(kps, width):
@@ -48,3 +49,11 @@ class ToTensor(object):
     def __call__(self, image, target):
         image = F.to_tensor(image)
         return image, target
+
+class Resize(object):
+    def __init__(self, size):
+        self.size = size  # w, h
+
+    def __call__(self, image, target):
+        image = F.resize(image, self.size[::-1])
+        return image, target        

@@ -14,9 +14,10 @@ import model
 import coco_utils
 
 
-def get_transform(train=True):
+def get_transform(train=True, size=(640, 360)):
     transforms = []
     # converts the image, a PIL image, into a PyTorch Tensor
+    transforms.append(T.Resize(size))
     transforms.append(T.ToTensor())
     if train:
         # during training, randomly flip the training images
@@ -49,6 +50,8 @@ if __name__ == "__main__":
     parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
     args = parser.parse_args()
+
+    args.size = (640, 360)  # width, height
     print(args)
 
     np.random.seed(args.seed)
@@ -61,9 +64,11 @@ if __name__ == "__main__":
     out_file = out_dir / file_write_name
 
     dataset_train = coco_utils.get_coco(args.root, args.annFile,
-                                        transforms=get_transform(True))
+                                        transforms=get_transform(True, args.size))
     dataset_test = coco_utils.get_coco(args.root, args.annFile,
-                                       transforms=get_transform(False))
+                                       transforms=get_transform(False, args.size))
+
+    print(dataset_train[0])
 
     # split into train and test
     train_size = int(args.split * len(dataset_train))
@@ -103,8 +108,8 @@ if __name__ == "__main__":
     # and a learning rate scheduler which decreases the learning rate by
     # 10x every 3 epochs
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
-                                                   step_size=3,
-                                                   gamma=0.1)
+                                                   step_size=50,
+                                                   gamma=0.5)
     # start training
     for epoch in range(args.epoch):
         train_one_epoch(model, optimizer, data_loader_train, device, epoch,

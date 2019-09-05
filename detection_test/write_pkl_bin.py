@@ -8,7 +8,7 @@ from config import conf
 import logging
 from manager.detector import BinDetector
 import pickle
-
+import matplotlib.pyplot as plt
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)

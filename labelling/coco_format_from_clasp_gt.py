@@ -32,6 +32,8 @@ if __name__ == "__main__":
     parser.add_argument("--test", action='store_true')
 
     args = parser.parse_args()
+
+    args.size = (640, 360)  # width, height
     print(args)
 
     Path(args.out).mkdir(exist_ok=True)
@@ -51,9 +53,12 @@ if __name__ == "__main__":
             plt.close('all')
             img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
 
+            width, height = img['width'], img['height']
+
             imfile = Path(args.im_folder) / img['file_name']
 
             I = cv2.imread(str(imfile))
+            I = cv2.resize(I, (width, height), interpolation=1)
 
             # load and display instance annotations
             print(imfile)
@@ -76,6 +81,8 @@ if __name__ == "__main__":
     path_dir = Path(args.root)
     anns = []
     for json_dir in path_dir.iterdir():
+        if json_dir.name != "exp1":
+            continue
         for file in json_dir.iterdir():
             if str(file).endswith('json'):
                 fdata = json.load(file.open())
@@ -107,16 +114,23 @@ if __name__ == "__main__":
             dict_im[fname] = counter_im
             counter_im += 1
 
+        imfile = os.path.join(args.im_folder, fname)
+        h, w, _ = cv2.imread(imfile).shape
+
         for _ann in each_ann_file['passengers']:
+
+            rat_w, rat_h = args.size[0] / w, args.size[1] / h
+
             tmp = {
                 "id": counter_id,
                 "image_id": dict_im[fname],
                 "category_id": dict_cat['passengers'],
-                "area": _ann['size']['width'] * _ann['size']['height'],
+                # "area": _ann['size']['width'] * _ann['size']['height'],
+                "area": args.size[0] * args.size[1],
                 'segmentation': [],
                 "bbox": [
-                    _ann['location']['x'], _ann['location']['y'],
-                    _ann['size']['width'], _ann['size']['height']
+                    _ann['location']['x']*rat_w, _ann['location']['y']*rat_h,
+                    _ann['size']['width']*rat_w, _ann['size']['height']*rat_h
                 ],
                 "iscrowd": 0,
             }
@@ -124,29 +138,33 @@ if __name__ == "__main__":
             counter_id += 1
 
         for _ann in each_ann_file['items']:
+
+            rat_w, rat_h = args.size[0] / w, args.size[1] / h
+
             tmp = {
                 "id": counter_id,
                 "image_id": dict_im[fname],
                 "category_id": dict_cat['items'],
-                "area": _ann['size']['width'] * _ann['size']['height'],
+                "area": args.size[0] * args.size[1],
                 'segmentation': [],
                 "bbox": [
-                    _ann['location']['x'], _ann['location']['y'],
-                    _ann['size']['width'], _ann['size']['height']
+                    _ann['location']['x']*rat_w, _ann['location']['y']*rat_h,
+                    _ann['size']['width']*rat_w, _ann['size']['height']*rat_h
                 ],
                 "iscrowd": 0,
             }
             data['annotations'].append(tmp)
             counter_id += 1
         
-    for k in tqdm(dict_im):
-        imfile = os.path.join(args.im_folder, k)
-        h, w, _ = cv2.imread(imfile).shape
+    for k in dict_im:
+        # imfile = os.path.join(args.im_folder, k)
+        # h, w, _ = cv2.imread(imfile).shape
         data['images'].append(
             {
                 'file_name': k,
                 'id': dict_im[k],
-                'width': w, 'height': h
+                # 'width': w, 'height': h
+                'width': args.size[0], 'height': args.size[1]
             }
         )
 
