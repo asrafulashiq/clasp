@@ -29,7 +29,7 @@ class_to_color = {
 def get_clasp_dataset():
     """A dummy CLASP dataset that includes only the 'classes' field."""
     classes = [
-        '__background__', 'person', 'bin_empty', 'bin_full', 'dvi'
+        '__background__', 'passengers', 'items', 'other'
     ]
     ds = {i: name for i, name in enumerate(classes)}
     return ds

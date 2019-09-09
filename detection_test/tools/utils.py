@@ -3,6 +3,7 @@ import pathlib
 from matplotlib import pyplot as plt
 import matplotlib
 import cv2
+import skimage
 
 
 def plot_cv(image, axes=None, show=True, fig_number=None):
@@ -33,9 +34,11 @@ def get_frame_list(src_dir, skip_init=0, num_files=None, skip_end=0, delta=1):
     return range(*indices.indices(len(files_in_dir))), files_in_dir[indices]
 
 
-def get_images_from_dir(src_dir, skip_init=0, skip_end=0, num_files=None, delta=1):
+def get_images_from_dir(src_dir, size=(640, 360), skip_init=0, skip_end=0, num_files=None, delta=1):
     """ get images as numpy array from a folder"""
     for frame_num, imfile in zip(*get_frame_list(src_dir, skip_init,
                                                  num_files, skip_end, delta)):
-        image = cv2.imread(str(imfile))
-        yield image, imfile, frame_num
+        # image = cv2.imread(str(imfile))
+        image = skimage.io.imread(str(imfile))
+        image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
+        yield image, imfile, frame_num + 1

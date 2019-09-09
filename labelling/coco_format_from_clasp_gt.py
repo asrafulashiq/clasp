@@ -81,7 +81,7 @@ if __name__ == "__main__":
     path_dir = Path(args.root)
     anns = []
     for json_dir in path_dir.iterdir():
-        if json_dir.name != "exp1":
+        if json_dir.name != "exp1":  #### Work with only exp1
             continue
         for file in json_dir.iterdir():
             if str(file).endswith('json'):

@@ -10,9 +10,9 @@ def get_arg():
     """ get command-line arguments """
     parser = argparse.ArgumentParser(description='Arguments for program')
     parser.add_argument('--root', type=str,
-                        default=_HOME+'/dataset/clasp/clasp_data/data',
+                        default=_HOME+'/dataset/ALERT/alert_frames',
                         help='root direcotory of all frames')
-    parser.add_argument('--out_dir', '--out', default=_HOME+'/dataset/clasp/clasp_videos/output',
+    parser.add_argument('--out_dir', '--out', default=_HOME+'/dataset/clasp/clasp_data/output',
                         help='output directory')
 
     parser.add_argument('--bin_detection_wts', type=str,
@@ -21,6 +21,10 @@ def get_arg():
     parser.add_argument('--pax_detection_wts', type=str,
                         default=_HOME+'/dataset/clasp/trained_model/model.pkl')
 
+    parser.add_argument('--size', type=str, default='640x360',
+                        help='image size(width x height)')
+
     return parser.parse_args()
 
 conf = get_arg()
+conf.size = [int(x) for x in conf.size.split('x')]
