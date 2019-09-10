@@ -26,18 +26,25 @@ if __name__ == "__main__":
                         default=HOME+'/dataset/ALERT/annotation')
     parser.add_argument("--out", type=str, help="save path of json",
                         default=HOME+'/dataset/clasp/clasp_annotations')
-    parser.add_argument("--out-name", type=str, default="ann.json")
+    parser.add_argument("--out-name", type=str, default="anns")
     parser.add_argument("--im-folder", type=str,
                         default=HOME+'/dataset/ALERT/alert_frames')
     parser.add_argument("--test", action='store_true')
+    parser.add_argument("--exp", default=None, type=str, nargs='*')
+    parser.add_argument("--cam", default='cam9', type=str, nargs='*')
+    parser.add_argument('--size', type=str, default='640x360',
+                        help='image size(width x height)')
 
     args = parser.parse_args()
 
-    args.size = (640, 360)  # width, height
+    args.size = tuple(int(x) for x in args.size.split('x'))
     print(args)
 
     Path(args.out).mkdir(exist_ok=True)
-    out_path = os.path.join(args.out, args.out_name)
+    out_name = args.out_name + '_' + ('all' if args.exp is None
+                                      else '_'.join(args.exp)
+                                      ) + '_'.join(args.cam) + '.json'
+    out_path = os.path.join(args.out, out_name)
 
     if args.test:
         coco = COCO(out_path)
@@ -67,12 +74,12 @@ if __name__ == "__main__":
 
             for ann in anns:
                 bb = ann['bbox']
-                bb[2] = bb[0] + bb[2] -1
-                bb[3] = bb[1] + bb[3] -1
+                bb[2] = bb[0] + bb[2] - 1
+                bb[3] = bb[1] + bb[3] - 1
                 bb = tuple([int(i) for i in bb])
                 cv2.rectangle(I, bb[:2], bb[2:], (0, 255, 0), 5)
 
-            plt.imshow(I[:,:,::-1])
+            plt.imshow(I[:, :, ::-1])
             plt.axis('off')
             plt.show()
         raise SystemExit
@@ -81,12 +88,12 @@ if __name__ == "__main__":
     path_dir = Path(args.root)
     anns = []
     for json_dir in path_dir.iterdir():
-        if json_dir.name != "exp1":  #### Work with only exp1
-            continue
-        for file in json_dir.iterdir():
-            if str(file).endswith('json'):
-                fdata = json.load(file.open())
-                anns.extend(fdata)
+        if args.exp is not None and (json_dir.name in args.exp):
+            for file in json_dir.iterdir():
+                if file.stem in args.cam:
+                    if str(file).endswith('json'):
+                        fdata = json.load(file.open())
+                        anns.extend(fdata)
 
     print(anns[0])
 
@@ -155,7 +162,7 @@ if __name__ == "__main__":
             }
             data['annotations'].append(tmp)
             counter_id += 1
-        
+
     for k in dict_im:
         # imfile = os.path.join(args.im_folder, k)
         # h, w, _ = cv2.imread(imfile).shape
@@ -168,7 +175,5 @@ if __name__ == "__main__":
             }
         )
 
-    Path(args.out).mkdir(exist_ok=True)
-    out_path = os.path.join(args.out, args.out_name)
     with open(out_path, 'w') as ftarget:
         json.dump(data, ftarget)

@@ -35,12 +35,12 @@ for camera in cameras:
 
     for im, imfile, frame_num in tqdm(utils.get_images_from_dir(src_folder,
                                                                 size=conf.size,
-                                                                skip_init=400,
-                                                                skip_end=500, delta=100)):
+                                                                skip_init=0,
+                                                                skip_end=0, delta=100)):
         logging.info(f'processing : {imfile}')
 
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)
-        _dict[frame_num] = [boxes, scores, _class]
+        _dict[frame_num] = [boxes, scores, _class, imfile]
         if new_im is not None:
             skimage.io.imsave(str(out_folder/imfile.name), new_im)
 

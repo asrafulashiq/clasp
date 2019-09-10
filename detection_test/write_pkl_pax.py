@@ -8,12 +8,14 @@ from config import conf
 import logging
 from manager.detector_pax import PAXDetector
 import pickle
+import skimage
+
 
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
-file_num = '9A'
-cameras = ['9', '11']
+file_num = 'exp3'
+cameras = ['cam09']
 
 detector = PAXDetector(cfg=conf.pax_detection_cfg,
                        weights=conf.pax_detection_wts)
@@ -23,10 +25,12 @@ for camera in cameras:
     src_folder = Path(conf.root) / file_num / camera
     assert src_folder.exists()
 
-    out_folder = Path(conf.root) / 'out_pkl' / file_num / camera / 'pax'
+    out_folder = Path(conf.out_dir) / 'out_detection' / file_num / camera / 'pax'
     out_folder.mkdir(parents=True, exist_ok=True)
 
-    pickle_file = Path(conf.root) / 'out_pkl' / ('pax_' + file_num+'_'+camera+'.pkl')
+    pickle_file = Path(conf.out_dir) / 'out_pkl' / \
+        ('pax_' + file_num+'_' + camera + '.pkl')
+    pickle_file.parent.mkdir(exist_ok=True)
 
     _dict = {}
 
