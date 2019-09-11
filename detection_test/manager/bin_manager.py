@@ -6,6 +6,7 @@ import numpy as np
 
 from bin_process.bin import Bin
 from visutils.vis import vis_bins
+import tools.utils_geo as geo
 
 
 class BinManager:
@@ -44,13 +45,16 @@ class BinManager:
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
-        self._thres_incoming_bin_exit = 460 / 3 # x
+        self._thres_incoming_bin_exit = 460 / 3  # x
         self._thres_out_bin_exit = 350 / 3
-        self._thres_incoming_bin_init_x = 1420 / 3 
+        self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
+        self._box_conveyor_belt = [
+            (26, 210), (61, 82), (496, 180), (467, 302)
+        ]  # conveyor belt co-ords (x,y) from bottom left
 
-        self._default_bin_state = "bin_full"
-        self.maxlen = 30
+        self._default_bin_state = "items"
+        self.maxlen = 5
 
     def init_cam_11(self):
         self._left_bins = []
@@ -61,17 +65,16 @@ class BinManager:
         self._thres_incoming_bin_init_x = 1700
         self._thres_max_idle_count = 5
 
-        self._default_bin_state = "bin_full"
+        self._default_bin_state = "items"
         self.maxlen = 5
 
+    # * ONLY FOR CAMERA 11
 
-    #* ONLY FOR CAMERA 11
     def set_cam9_manager(self, _manager):
         if self._camera == 'cam11':
             self._manager_cam_9 = _manager
         else:
             raise Exception("This is only allowed in camera 11")
-
 
     def __len__(self):
         return len(self._current_bins)
@@ -94,7 +97,7 @@ class BinManager:
                 label = mbin.label
                 state = mbin.state
             except IndexError:
-                state = "bin_full"
+                state = "items"
 
         new_bin = Bin(
             label=label,
@@ -166,6 +169,10 @@ class BinManager:
                 if Bin.calc_centroid(*box)[0] > self._thres_incoming_bin_init_x:
                     continue
 
+                if not geo.point_in_box(Bin.calc_centroid(*box),
+                                        self._box_conveyor_belt):
+                    continue
+
                 if self._camera == 'cam11' and cls == 'items':
                     continue
 
@@ -187,7 +194,7 @@ class BinManager:
                 # bin exit
                 self.log.clasp_log(f"Bin {bin.label} exits")
                 self._left_bins.append(bin)
-            elif self._camera == 'cam11' and bin.state == "bin_empty":
+            elif self._camera == 'cam11':
                 # if bin is emptied in camera 11, then don't process
                 self.log.clasp_log(f"Bin {bin.label} divested")
                 # self._left_bins.append(bin)
@@ -196,4 +203,3 @@ class BinManager:
                     _ind.append(i)
 
         self._current_bins = [self._current_bins[i] for i in _ind]
-

@@ -8,7 +8,7 @@ import tools.utils_box as utils
 class Bin:
 
     def __init__(self, label=None, state=None, pos=None,
-                 default_state="bin_empty", maxlen=15):
+                 default_state="items", maxlen=10):
 
         self.maxlen = maxlen
         self.init_conf()

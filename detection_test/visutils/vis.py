@@ -14,7 +14,7 @@ class_to_color = {
     'other': _RED
 }
 
-def vis_class_label(img, pos, class_str, label, font_scale=1):
+def vis_class_label(img, pos, class_str, label, font_scale=0.5):
     """Visualizes the class."""
     img = img.astype(np.uint8)
     x0, y0 = int(pos[0]), int(pos[1])
@@ -32,7 +32,7 @@ def vis_class_label(img, pos, class_str, label, font_scale=1):
     # Show text.
     txt_tl = x0, y0 - int(0.3 * txt_h)
     cv2.putText(img, txt, txt_tl, font, font_scale,
-                _GRAY, lineType=cv2.LINE_AA, thickness=2)
+                _GRAY, lineType=cv2.LINE_AA, thickness=1)
 
     # put label
     if label:
@@ -40,7 +40,7 @@ def vis_class_label(img, pos, class_str, label, font_scale=1):
         lbl_tl = int((x0+x1)/2) - int(0.3 * lbl_w), int((y0+y1)/2) - \
                     int(0 * lbl_h)
         cv2.putText(img, str(label), lbl_tl, font, 3*font_scale,
-                    color, thickness=5, lineType=cv2.LINE_AA)
+                    color, thickness=2, lineType=cv2.LINE_AA)
 
     return img
 

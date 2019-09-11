@@ -17,7 +17,7 @@ log.setLevel(logging.DEBUG)
 file_num = 'exp2'
 cameras = ['cam11']
 
-detector = DummyDetector(ckpt=conf.bin_detection_wts, thres=0.2)
+detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.2)
 
 for camera in cameras:
 

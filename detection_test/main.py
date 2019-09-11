@@ -33,10 +33,10 @@ for cam in cameras:
                               skip_end=3000, delta=10))
 
 
-for out1 in tqdm(imlist[0]):
+for out1 in imlist[0]:
     im, imfile, frame_num = out1
 
-    # log.info(f'processing : {imfile}')
+    log.info(f'processing : {frame_num}')
     new_im = manager.run_detector_image(im, cam=cameras[0], frame_num=frame_num)
     # utils.plot_cv(new_im)
     skimage.io.imsave(str(out_folder[cameras[0]]/imfile.name), new_im)
