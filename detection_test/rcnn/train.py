@@ -33,7 +33,7 @@ if __name__ == "__main__":
                         default=HOME + "/dataset/ALERT/alert_frames",
                         help="root directory where the images are downloaded to")
 
-    parser.add_argument("--annFile", type=str,
+    parser.add_argument("--ann-file", type=str,
                         default=HOME + "/dataset/clasp/clasp_annotations/ann.json",
                         help="annotation file")
     parser.add_argument("--out-dir", type=str, help="model output directory",
@@ -63,9 +63,9 @@ if __name__ == "__main__":
     out_dir.mkdir(exist_ok=True, parents=True)
     out_file = out_dir / file_write_name
 
-    dataset_train = coco_utils.get_coco(args.root, args.annFile,
+    dataset_train = coco_utils.get_coco(args.root, args.ann_file,
                                         transforms=get_transform(True, args.size))
-    dataset_test = coco_utils.get_coco(args.root, args.annFile,
+    dataset_test = coco_utils.get_coco(args.root, args.ann_file,
                                        transforms=get_transform(False, args.size))
 
     print(dataset_train[0])

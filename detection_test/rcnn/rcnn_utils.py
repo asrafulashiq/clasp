@@ -40,7 +40,7 @@ class RCNN_Detector():
             output = self.model([imt.to(self.device)])
         output = {k: v.cpu().data.numpy()
                   for k, v in output[0].items()}
-        index = ( np.isin(output["labels"], self.labels_to_keep) &
+        index = (np.isin(output["labels"], self.labels_to_keep) &
                  (output["scores"] > self.thres))
         if index.size > 0:
             boxes = output["boxes"][index]
