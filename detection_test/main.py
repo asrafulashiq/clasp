@@ -7,18 +7,15 @@ import tools.utils as utils
 from config import conf
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
-
+import skimage
 
 log = ClaspLogger()
 
-file_num = '10A'
-cameras = ['9', '11']
+file_num = 'exp2'
+cameras = ['cam09']
 
 
-manager = Manager(log=log, file_num=file_num, bin_cfg=conf.bin_detection_cfg,
-                  bin_weights=conf.bin_detection_wts,
-                  pax_cfg=conf.pax_detection_cfg,
-                  pax_weights=conf.pax_detection_wts,
+manager = Manager(log=log, file_num=file_num,
                   config=conf, bin_only=True)
 
 imlist = []
@@ -29,28 +26,28 @@ for cam in cameras:
     src_folder[cam] = Path(conf.root) / file_num / cam
     assert src_folder[cam].exists()
 
-    out_folder[cam] = Path(conf.root) / 'output' / file_num / cam
+    out_folder[cam] = Path(conf.out_dir) / 'run' / file_num / cam
     out_folder[cam].mkdir(parents=True, exist_ok=True)
 
-    imlist.append(utils.get_images_from_dir(src_folder[cam], skip_init=350,
-                              skip_end=3500, delta=1))
+    imlist.append(utils.get_images_from_dir(src_folder[cam], skip_init=800,
+                              skip_end=3000, delta=10))
 
 
-for out1, out2 in tqdm(zip(*imlist)):
+for out1 in tqdm(imlist[0]):
     im, imfile, frame_num = out1
 
     # log.info(f'processing : {imfile}')
     new_im = manager.run_detector_image(im, cam=cameras[0], frame_num=frame_num)
     # utils.plot_cv(new_im)
-    cv2.imwrite(str(out_folder[cameras[0]]/imfile.name), new_im)
+    skimage.io.imsave(str(out_folder[cameras[0]]/imfile.name), new_im)
 
-    im, imfile, frame_num = out2
+    # im, imfile, frame_num = out2
 
     # log.info(f'processing : {imfile}')
-    new_im = manager.run_detector_image(
-        im, cam=cameras[1], frame_num=frame_num)
-    # utils.plot_cv(new_im)
-    cv2.imwrite(str(out_folder[cameras[1]]/imfile.name), new_im)
+    # new_im = manager.run_detector_image(
+    #     im, cam=cameras[1], frame_num=frame_num)
+    # # utils.plot_cv(new_im)
+    # skimage.io.imsave(str(out_folder[cameras[1]]/imfile.name), new_im)
 
 # for im, imfile, frame_num in tqdm():
 #     logging.info(f'processing : {imfile}')
@@ -58,5 +55,4 @@ for out1, out2 in tqdm(zip(*imlist)):
 #     # utils.plot_cv(new_im)
 #     cv2.imwrite(str(out_folder/imfile.name), new_im)
 
-cv2.destroyAllWindows()
 

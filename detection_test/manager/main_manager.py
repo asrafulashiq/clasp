@@ -47,16 +47,16 @@ class Manager:
         # ! DUMMY
         self._det_bin = {}
         self._det_pax = {}
-        for cam in ["9", "11"]:
+        for cam in ["cam09", "cam11"]:
             self.get_dummy_detection_pkl(self.file_num, cam)
 
-    def get_dummy_detection_pkl(self, file_num="9A", camera="9"):
+    def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
         import pickle
         import os
 
-        root = self.config.root + "/out_pkl/"
-        _bin = root + ("bin_" + file_num + "_" + camera + ".pkl")
-        _pax = root + ("pax_" + file_num + "_" + camera + ".pkl")
+        root = self.config.out_dir + "/out_pkl/"
+        _bin = root + (file_num + "_" + camera + ".pkl")
+        # _pax = root + ("pax_" + file_num + "_" + camera + ".pkl")
         with open(_bin, "rb") as fp:
             self._det_bin[camera] = pickle.load(fp)
         # with open(_pax, 'rb') as fp:
@@ -69,17 +69,17 @@ class Manager:
         self._bin_managers = {}
         self._pax_managers = {}
 
-        for camera in ["9", "11"]:
+        for camera in ["cam09", "cam11"]:
             self._bin_managers[camera] = BinManager(camera=camera, log=self.log)
             if self._bin_detector is not None:
                 self._bin_managers[camera].detector = self._bin_detector
-            if camera == "11":
-                self._bin_managers[camera].set_cam9_manager(self._bin_managers["9"])
+            if camera == "cam11":
+                self._bin_managers[camera].set_cam9_manager(self._bin_managers["cam09"])
 
         # FIXME
         # for camera in ["9", "11"]:
         if not self.bin_only:
-            for camera in ["11"]:
+            for camera in ["cam11"]:
                 self._pax_managers[camera] = PAXManager(camera=camera, log=self.log)
                 if self._pax_detector is not None:
                     self._pax_managers[camera].detector = self._pax_detector
@@ -88,15 +88,26 @@ class Manager:
         self.log.info("Pax Detector initializing")
         from manager.detector_pax import PAXDetector
 
-        self._pax_detector = PAXDetector(cfg=cfg, weights=weights)
+        self._pax_detector = PAXDetector(ckpt=weights)
 
     def init_bin_detector(self, cfg=None, weights=None):
         self.log.info("Bin Detector initializing")
         from manager.detector import BinDetector
 
-        self._bin_detector = BinDetector(cfg=cfg, weights=weights)
+        self._bin_detector = BinDetector(ckpt=weights)
+    
+    def filter_det(self, ret, class_to_keep="items"):
+        boxes, scores, classes, _ = ret
+        ind = np.where(classes == class_to_keep)
+        if len(ind[0]) == 0:
+            return None, None, None
+        boxes = boxes[ind]
+        scores = scores[ind]
+        classes = classes[ind]
+        return boxes, scores, classes
 
-    def run_detector_image(self, im=None, cam="9", frame_num=None, return_im=True):
+
+    def run_detector_image(self, im=None, cam="cam09", frame_num=None, return_im=True):
 
         self.log.addinfo(self.file_num, cam, frame_num)
         if im is None:
@@ -106,7 +117,7 @@ class Manager:
         # get dummy results
         if cam in self._bin_managers:
             if frame_num in self._det_bin[cam]:
-                boxes, scores, classes = self._det_bin[cam][frame_num]
+                boxes, scores, classes, _ = self._det_bin[cam][frame_num]
                 self._bin_managers[cam].update_state(im, boxes, scores, classes)
 
         #### FIXME This is temporary

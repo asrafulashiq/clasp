@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
 file_num = 'exp2'
-cameras = ['cam09']
+cameras = ['cam11']
 
 detector = DummyDetector(ckpt=conf.bin_detection_wts, thres=0.2)
 
@@ -28,7 +28,7 @@ for camera in cameras:
     out_folder.mkdir(parents=True, exist_ok=True)
 
     pickle_file = Path(conf.out_dir) / 'out_pkl' / \
-        ('bin_' + file_num+'_' + camera + '.pkl')
+        ( file_num+'_' + camera + '.pkl')
     pickle_file.parent.mkdir(exist_ok=True)
 
     _dict = {}

@@ -4,16 +4,17 @@ import numpy as np
 _GRAY = (218, 227, 218)
 _GREEN = (18, 127, 15)
 _WHITE = (255, 255, 255)
-_RED = (10, 10, 255)
-_BLUE = (255, 10, 10)
+_RED = (255, 10, 10)
+_BLUE = (10, 10, 255)
 
-CLASS_TO_COLOR = {
-    'person': _BLUE,
-    'bin_empty': _GREEN,
-    'bin_full': _RED
+
+class_to_color = {
+    'passengers': _BLUE,
+    'items': _GREEN,
+    'other': _RED
 }
 
-def vis_class_label(img, pos, class_str, label, font_scale=1.3):
+def vis_class_label(img, pos, class_str, label, font_scale=1):
     """Visualizes the class."""
     img = img.astype(np.uint8)
     x0, y0 = int(pos[0]), int(pos[1])
@@ -26,7 +27,7 @@ def vis_class_label(img, pos, class_str, label, font_scale=1.3):
     back_tl = x0, y0 - int(1.3 * txt_h)
     back_br = x0 + txt_w, y0
 
-    color = CLASS_TO_COLOR.get(class_str, _RED)
+    color = class_to_color.get(class_str, _RED)
     cv2.rectangle(img, back_tl, back_br, color, -1)
     # Show text.
     txt_tl = x0, y0 - int(0.3 * txt_h)
@@ -44,13 +45,13 @@ def vis_class_label(img, pos, class_str, label, font_scale=1.3):
     return img
 
 
-def vis_bbox(img, bbox, class_str=None, thick=3):
+def vis_bbox(img, bbox, class_str=None, thick=2):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
     (x0, y0, x1, y1) = bbox
     x0, y0 = int(x0), int(y0)
     x1, y1 = int(x1), int(y1)
-    color = CLASS_TO_COLOR.get(class_str, _RED)
+    color = class_to_color.get(class_str, _RED)
 
     overlay = img.copy()
     cv2.rectangle(img, (x0, y0), (x1, y1), color, thickness=thick)
@@ -77,6 +78,6 @@ def vis_pax(img, pax):
     for person in pax:
         bbox = person.pos
         label = person.label
-        img = vis_bbox(img, bbox, class_str='person')
-        img = vis_class_label(img, bbox, 'person', label)
+        img = vis_bbox(img, bbox, class_str=person.cls)
+        img = vis_class_label(img, bbox, 'passengers', label)
     return img

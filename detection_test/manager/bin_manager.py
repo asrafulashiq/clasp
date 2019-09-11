@@ -10,7 +10,7 @@ from visutils.vis import vis_bins
 
 class BinManager:
 
-    def __init__(self, bins=None, log=None, detector=None, camera='9'):
+    def __init__(self, bins=None, log=None, detector=None, camera='cam09'):
         self.log = log
         if log is None:
             self.log = logging.getLogger('bin manager')
@@ -25,9 +25,9 @@ class BinManager:
         self._camera = camera
 
         # initialize configuration
-        if camera == '9':
+        if camera == 'cam09':
             self.init_cam_9()
-        elif camera == '11':
+        elif camera == 'cam11':
             self.init_cam_11()
 
         self.detector = detector
@@ -44,12 +44,12 @@ class BinManager:
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
-        self._thres_incoming_bin_exit = 460  # x
-        self._thres_out_bin_exit = 350
-        self._thres_incoming_bin_init_x = 1420
+        self._thres_incoming_bin_exit = 460 / 3 # x
+        self._thres_out_bin_exit = 350 / 3
+        self._thres_incoming_bin_init_x = 1420 / 3 
         self._thres_max_idle_count = 5
 
-        self._default_bin_state = "bin_empty"
+        self._default_bin_state = "bin_full"
         self.maxlen = 30
 
     def init_cam_11(self):
@@ -67,7 +67,7 @@ class BinManager:
 
     #* ONLY FOR CAMERA 11
     def set_cam9_manager(self, _manager):
-        if self._camera == '11':
+        if self._camera == 'cam11':
             self._manager_cam_9 = _manager
         else:
             raise Exception("This is only allowed in camera 11")
@@ -87,7 +87,7 @@ class BinManager:
         label = self._bin_count
         state = cls
 
-        if self._camera == '11':
+        if self._camera == 'cam11':
             # set label based on camera 9
             try:
                 mbin = self._manager_cam_9._left_bins.pop(0)
@@ -117,7 +117,7 @@ class BinManager:
             return
 
         ind = [i for i in range(len(classes)) if classes[i]
-               in ('bin_empty', 'bin_full')]
+               in ('items', )]
 
         if len(ind) > 0:
             boxes, scores, classes = boxes[ind], scores[ind], classes[ind]
@@ -166,7 +166,7 @@ class BinManager:
                 if Bin.calc_centroid(*box)[0] > self._thres_incoming_bin_init_x:
                     continue
 
-                if self._camera == '11' and cls == 'bin_empty':
+                if self._camera == 'cam11' and cls == 'items':
                     continue
 
                 self.add_bin(box, cls)  # add new bin
@@ -187,7 +187,7 @@ class BinManager:
                 # bin exit
                 self.log.clasp_log(f"Bin {bin.label} exits")
                 self._left_bins.append(bin)
-            elif self._camera == '11' and bin.state == "bin_empty":
+            elif self._camera == 'cam11' and bin.state == "bin_empty":
                 # if bin is emptied in camera 11, then don't process
                 self.log.clasp_log(f"Bin {bin.label} divested")
                 # self._left_bins.append(bin)
