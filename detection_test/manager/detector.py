@@ -62,7 +62,7 @@ def vis_class(img, pos, class_str, font_scale=0.5):
     return img
 
 
-def vis_bbox(img, bbox, class_str=None, thick=3):
+def vis_bbox(img, bbox, class_str=None, thick=2):
     """Visualizes a bounding box."""
     img = img.astype(np.uint8)
     (x0, y0, w, h) = bbox
@@ -169,10 +169,16 @@ class BinDetector():
 
 
 class PAXDetector():
-    def __init__(self, ckpt=None, thres=0.5):
+    def __init__(self, ckpt=None, thres=0.5, labels_to_keep=(1,2)):
         self.model = None
         self.ckpt = ckpt
+
+        # threshold for score 
         self.thres = thres
+
+        self.labels_to_keep = labels_to_keep 
+        # 1 : pax, 2: items
+
         self.create_model()
 
     def create_model(self):
