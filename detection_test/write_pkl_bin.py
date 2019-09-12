@@ -15,7 +15,7 @@ log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
 file_num = 'exp2'
-cameras = ['cam11']
+cameras = ['cam09']
 
 detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.2)
 
@@ -36,7 +36,7 @@ for camera in cameras:
     for im, imfile, frame_num in tqdm(utils.get_images_from_dir(src_folder,
                                                                 size=conf.size,
                                                                 skip_init=400,
-                                                                skip_end=3000, delta=10)):
+                                                                skip_end=5000, delta=5)):
         logging.info(f'processing : {imfile}')
 
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)

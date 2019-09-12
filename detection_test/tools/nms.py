@@ -13,14 +13,15 @@ def multi_nms(dets, scores, classes, thresh=0.1, low_score=0.5):
         _det = dets[ind]
         _scr = scores[ind]
         _cls = classes[ind]
-        _keep = nms(_det, _scr, thresh=thresh)
-        keep = [i for i in _keep if _scr[i] > low_score]
+        keep = nms(_det, _scr, thresh=thresh)
+        # keep = [i for i in _keep if _scr[i] > low_score]
 
         new_dets.append(_det[keep])
         new_scores.append(_scr[keep])
         new_classes.append(_cls[keep])
 
-    return np.vstack(new_dets), np.vstack(new_scores), np.vstack(new_classes)
+    return np.vstack(new_dets), np.vstack(new_scores).flatten(), \
+        np.vstack(new_classes).flatten()
 
 
 def nms(dets, scores, thresh):

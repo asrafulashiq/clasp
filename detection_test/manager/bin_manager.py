@@ -7,6 +7,8 @@ import numpy as np
 from bin_process.bin import Bin
 from visutils.vis import vis_bins
 import tools.utils_geo as geo
+import tools.utils_box as utils_box
+from tools import nms
 
 
 class BinManager:
@@ -45,9 +47,11 @@ class BinManager:
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
-        self._thres_incoming_bin_exit = 460 / 3  # x
+        self._thres_incoming_bin_bound = [
+            (143, 230), (170, 120), (496, 180), (467, 302)
+        ]  # bound for detecting incoming
         self._thres_out_bin_exit = 350 / 3
-        self._thres_incoming_bin_init_x = 1420 / 3
+        # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
         self._box_conveyor_belt = [
             (26, 210), (61, 82), (496, 180), (467, 302)
@@ -85,7 +89,7 @@ class BinManager:
     def __iter__(self):
         return iter(self._current_bins)
 
-    def add_bin(self, box, cls):
+    def add_bin(self, box, cls, im):
         self._bin_count += 1
         label = self._bin_count
         state = cls
@@ -106,6 +110,7 @@ class BinManager:
             default_state=self._default_bin_state,
             maxlen=self.maxlen
         )
+        new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
         self.log.clasp_log(f"Bin {self._bin_count} enters")
 
@@ -123,7 +128,9 @@ class BinManager:
                in ('items', )]
 
         if len(ind) > 0:
-            boxes, scores, classes = boxes[ind], scores[ind], classes[ind]
+            _boxes, _scores, _classes = boxes[ind], scores[ind], classes[ind]
+            boxes, scores, classes = nms.multi_nms(_boxes, _scores, _classes,
+                                                   thresh=0.4, low_score=0.3)
         else:
             boxes, scores, classes = None, None, None
 
@@ -133,11 +140,13 @@ class BinManager:
 
         if len(ind) > 0:
             for bin in self._current_bins:
+                status, _bb_track = bin.update_tracker(im)
                 iou_to_boxes = []
                 for _counter in range(boxes.shape[0]):
                     _iou = bin.iou_bbox(boxes[_counter])
                     iou_to_boxes.append(_iou)
-                    tmp_iou[_counter] = max(tmp_iou.get(_counter, 0), _iou)
+                    tmp_iou[_counter] = max(tmp_iou.get(_counter, 0),
+                                            utils_box.iou_bbox(boxes[_counter], bin.pos))
 
                 closest_index = np.argmax(iou_to_boxes)
                 if closest_index in explored_indices:
@@ -145,8 +154,13 @@ class BinManager:
                     continue
 
                 if iou_to_boxes[closest_index] > self._min_iou:
-                    bin.pos = boxes[closest_index]
-                    bin.state = classes[closest_index]
+                    new_box = boxes[closest_index]
+                    if status:
+                        _track_iou = bin.iou_bbox(_bb_track)
+                        if _track_iou > iou_to_boxes[closest_index]:
+                            new_box = _bb_track
+                    bin.pos = new_box
+                    # bin.state = classes[closest_index]
                     explored_indices.append(closest_index)
                 else:
                     bin.increment_idle()
@@ -159,24 +173,22 @@ class BinManager:
                 # if new bin is closest to a current bin
                 # set the current bin as new bin
                 box, _, cls = boxes[i], scores[i], classes[i]
+                c_box = Bin.calc_centroid(*box)
 
-                if Bin.calc_centroid(*box)[0] < self._thres_incoming_bin_exit:
+                if not geo.point_in_box(c_box, self._thres_incoming_bin_bound):
                     continue
 
                 if tmp_iou.get(i, 0) > self._min_iou:
                     continue
 
-                if Bin.calc_centroid(*box)[0] > self._thres_incoming_bin_init_x:
-                    continue
-
-                if not geo.point_in_box(Bin.calc_centroid(*box),
+                if not geo.point_in_box(c_box,
                                         self._box_conveyor_belt):
                     continue
 
-                if self._camera == 'cam11' and cls == 'items':
-                    continue
+                # if self._camera == 'cam11' and cls == 'items':
+                #     continue
 
-                self.add_bin(box, cls)  # add new bin
+                self.add_bin(box, cls, im)  # add new bin
 
         # detect bin exit
         self.process_exit()

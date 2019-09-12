@@ -30,7 +30,7 @@ for cam in cameras:
     out_folder[cam].mkdir(parents=True, exist_ok=True)
 
     imlist.append(utils.get_images_from_dir(src_folder[cam], skip_init=800,
-                              skip_end=3000, delta=10))
+                              skip_end=3000, delta=5))
 
 
 for out1 in imlist[0]:
