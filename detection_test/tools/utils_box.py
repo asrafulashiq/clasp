@@ -36,7 +36,7 @@ def iou_bbox(bbox1, bbox2, ratio_type='min'):
 
     # COMBINED AREA
     if ratio_type == 'min':
-        area_combined = min(area_a, area_b)
+        area_combined = area_a #min(area_a, area_b)
     else:
         area_combined = area_a + area_b - area_overlap
 

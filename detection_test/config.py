@@ -15,10 +15,10 @@ def get_arg():
     parser.add_argument('--out_dir', '--out', default=_HOME+'/dataset/clasp/clasp_data/output',
                         help='output directory')
 
-    parser.add_argument('--bin_detection_wts', type=str,
+    parser.add_argument('--bin-ckpt', type=str,
                         default=_HOME+'/dataset/clasp/trained_model/model.pkl')
 
-    parser.add_argument('--pax_detection_wts', type=str,
+    parser.add_argument('--pax-ckpt', type=str,
                         default=_HOME+'/dataset/clasp/trained_model/model.pkl')
 
     parser.add_argument('--size', type=str, default='640x360',

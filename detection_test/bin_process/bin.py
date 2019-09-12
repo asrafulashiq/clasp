@@ -4,11 +4,12 @@
 import math
 from collections import deque
 import tools.utils_box as utils
+import cv2
 
 class Bin:
 
     def __init__(self, label=None, state=None, pos=None,
-                 default_state="bin_empty", maxlen=15):
+                 default_state="items", maxlen=10):
 
         self.maxlen = maxlen
         self.init_conf()
@@ -17,6 +18,10 @@ class Bin:
         self._label = label
         self.state = state
         self.pos = pos  # (x1, y1, x2, y2)
+
+        # bin tracker
+        # self.tracker = cv2.TrackerKCF_create()
+        self.tracker = cv2.TrackerBoosting_create()
 
     def init_conf(self):
         self._state_conf_num = 20
@@ -44,7 +49,7 @@ class Bin:
 
     @property
     def width(self):
-        return self._pos[2] - self._pos[0]
+        return self._pos[2] - self._pos[0] + 1
 
     @property
     def centroid(self):
@@ -53,7 +58,7 @@ class Bin:
 
     @property
     def height(self):
-        return self._pos[3] - self._pos[1]
+        return self._pos[3] - self._pos[1] + 1
 
     @property
     def idle_count(self):
@@ -110,3 +115,20 @@ class Bin:
             self.state == bin2.state:
             return True
         return False
+
+    def init_tracker(self, box, frame):
+        bb = tuple([box[0], box[1], box[2]-box[0]+1, box[3]-box[1]+1])
+        self.tracker.init(frame, bb)
+
+    def update_tracker(self, frame):
+        status, bb = self.tracker.update(frame)
+
+        if status:
+            x, y, w, h = bb
+            x2, y2 = x + w, y + h
+            bbox = [x, y, x2, y2]
+        else:
+            # tracker failed
+            bbox = None
+        return status, bbox
+
