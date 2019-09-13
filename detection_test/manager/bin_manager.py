@@ -50,12 +50,19 @@ class BinManager:
         self._thres_incoming_bin_bound = [
             (143, 230), (170, 120), (496, 180), (467, 302)
         ]  # bound for detecting incoming
-        self._thres_out_bin_exit = 350 / 3
+        # self._thres_out_bin_exit = 350 / 3
+
+        self._thres_out_bin_bound = [
+            (122, 231), (149, 111), (73, 91), (48, 213)
+        ]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
         self._box_conveyor_belt = [
             (26, 210), (61, 82), (496, 180), (467, 302)
         ]  # conveyor belt co-ords (x,y) from bottom left
+
+        self._max_det_fail = 5
+        self._max_track_fail = 10
 
         self._default_bin_state = "items"
         self.maxlen = 5
@@ -141,6 +148,11 @@ class BinManager:
         if len(ind) > 0:
             for bin in self._current_bins:
                 status, _bb_track = bin.update_tracker(im)
+                if not status:
+                    bin.increment_track_fail()
+                else:
+                    bin.reset_track_fail()
+
                 iou_to_boxes = []
                 for _counter in range(boxes.shape[0]):
                     _iou = bin.iou_bbox(boxes[_counter])
@@ -150,20 +162,29 @@ class BinManager:
 
                 closest_index = np.argmax(iou_to_boxes)
                 if closest_index in explored_indices:
-                    bin.increment_idle()
+                    bin.increment_det_fail()
                     continue
 
                 if iou_to_boxes[closest_index] > self._min_iou:
+                    bin.reset_det_fail()
                     new_box = boxes[closest_index]
                     if status:
                         _track_iou = bin.iou_bbox(_bb_track)
-                        if _track_iou > iou_to_boxes[closest_index]:
+                        # _track_iou = utils_box.iou_bbox(_bb_track, new_box)
+                        if _track_iou > iou_to_boxes[closest_index] * 0.8:
                             new_box = _bb_track
+                            bin.reset_track_fail()
+                        else:
+                            bin.init_tracker(new_box, im)
+
                     bin.pos = new_box
-                    # bin.state = classes[closest_index]
                     explored_indices.append(closest_index)
                 else:
-                    bin.increment_idle()
+                    bin.increment_det_fail()
+                    # bin.increment_idle()
+        else:
+            for bin in self._current_bins:
+                bin.increment_det_fail()
 
         # refine detected bins and detect new bin
         if len(ind) > 0:
@@ -191,27 +212,42 @@ class BinManager:
                 self.add_bin(box, cls, im)  # add new bin
 
         # detect bin exit
-        self.process_exit()
+        self.process_exit(im)
         return 0
 
     def visualize(self, im):
         return vis_bins(im, self._current_bins)
 
-    def process_exit(self):
+    def process_exit(self, im):
         _ind = []
         for i in range(len(self)):
             bin = self._current_bins[i]
             # if self._camera == '9':
-            if bin.centroid[0] < self._thres_out_bin_exit:
+            if geo.point_in_box(bin.centroid, self._thres_out_bin_bound):
                 # bin exit
                 self.log.clasp_log(f"Bin {bin.label} exits")
                 self._left_bins.append(bin)
-            elif self._camera == 'cam11':
-                # if bin is emptied in camera 11, then don't process
-                self.log.clasp_log(f"Bin {bin.label} divested")
-                # self._left_bins.append(bin)
+            # elif self._camera == 'cam11':
+            #     # if bin is emptied in camera 11, then don't process
+            #     self.log.clasp_log(f"Bin {bin.label} divested")
+            #     # self._left_bins.append(bin)
             else:
-                if bin.idle_count < self._thres_max_idle_count:
+                # if bin.idle_count < self._thres_max_idle_count:
+                #     _ind.append(i)
+
+                pass_det = bin.num_det_fail < self._max_det_fail
+                pass_track =  bin.num_track_fail < self._max_track_fail
+                if pass_det and pass_track:
                     _ind.append(i)
+                else:
+                    # something is wrong
+                    if (not pass_det):
+                        pass
+                    else:
+                        # divestment or revestment
+                        self.log.info(f"Bin {bin.label} - New divestment/revestment")
+                        _ind.append(i)
+                        bin.init_tracker(bin.pos, im)
+                        bin.reset_track_fail()
 
         self._current_bins = [self._current_bins[i] for i in _ind]
