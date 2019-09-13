@@ -7,7 +7,6 @@ import tools.utils_box as utils
 import cv2
 
 class Bin:
-
     def __init__(self, label=None, state=None, pos=None,
                  default_state="items", maxlen=10):
 
@@ -20,8 +19,7 @@ class Bin:
         self.pos = pos  # (x1, y1, x2, y2)
 
         # bin tracker
-        # self.tracker = cv2.TrackerKCF_create()
-        self.tracker = cv2.TrackerBoosting_create()
+        self.tracker = cv2.TrackerKCF_create()
 
     def init_conf(self):
         self._state_conf_num = 20
