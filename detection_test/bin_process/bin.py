@@ -1,4 +1,5 @@
-"""Bin class description
+"""
+Bin class description
 """
 
 import math
@@ -18,16 +19,40 @@ class Bin:
         self.state = state
         self.pos = pos  # (x1, y1, x2, y2)
 
-        # bin tracker
-        self.tracker = cv2.TrackerKCF_create()
 
     def init_conf(self):
         self._state_conf_num = 20
         self._state_store_list = deque([], maxlen=self.maxlen)
+        
         self._idle_count = 0
+        self._num_detection_fail = 0
+        self._num_tracker_fail = 0
+
+        self._pos_count = 0
+
+    def init_tracker(self, box, frame):
+        self.tracker = cv2.TrackerKCF_create()
+        bb = tuple([box[0], box[1], box[2]-box[0]+1, box[3]-box[1]+1])
+        self.tracker.init(frame, bb)
+
 
     def increment_idle(self):
         self._idle_count += 1
+
+    def increment_det_fail(self):
+        self._num_detection_fail += 1
+    
+    def increment_track_fail(self):
+        self._num_tracker_fail += 1
+
+
+    @property
+    def num_det_fail(self):
+        return self._num_detection_fail
+    
+    @property
+    def num_track_fail(self):
+        return self._num_tracker_fail
 
     @property
     def label(self):
@@ -35,11 +60,11 @@ class Bin:
 
     @property
     def state(self):
-        return self._state
+        return "items"
 
     @property
     def cls(self):
-        return self._state
+        return "items"
 
     @property
     def pos(self):
@@ -65,16 +90,23 @@ class Bin:
     @pos.setter
     def pos(self, new_pos):
         self._pos = new_pos
-        self._idle_count = 0
+        self._pos_count += 1
+
+
+    def reset_det_fail(self):
+        self._num_detection_fail = 0
+    
+    def reset_track_fail(self):
+        self._num_tracker_fail = 0
 
     @state.setter
     def state(self, new_state):
         self._state_store_list.append(new_state)
-        if len(self._state_store_list) < self._state_store_list.maxlen:
-            self._state = self._default_state
-        else:
-            self._state = max(self._state_store_list,
-                              key=self._state_store_list.count)
+        # if len(self._state_store_list) < self._state_store_list.maxlen:
+        #     self._state = self._default_state
+        # else:
+        #     self._state = max(self._state_store_list,
+        #                       key=self._state_store_list.count)
 
     @property
     def area(self):
@@ -113,10 +145,6 @@ class Bin:
             self.state == bin2.state:
             return True
         return False
-
-    def init_tracker(self, box, frame):
-        bb = tuple([box[0], box[1], box[2]-box[0]+1, box[3]-box[1]+1])
-        self.tracker.init(frame, bb)
 
     def update_tracker(self, frame):
         status, bb = self.tracker.update(frame)
