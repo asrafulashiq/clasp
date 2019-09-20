@@ -27,6 +27,7 @@ class BinManager:
         self._camera = camera
 
         # initialize configuration
+        self._mul = 3
         if camera == "cam09":
             self.init_cam_9()
         elif camera == "cam11":
@@ -43,6 +44,7 @@ class BinManager:
         self._detector = _det
 
     def init_cam_9(self):
+
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
@@ -64,11 +66,11 @@ class BinManager:
             (467, 302),
         ]  # conveyor belt co-ords (x,y) from bottom left
 
-        self._max_det_fail = 5
-        self._max_track_fail = 10
+        self._max_det_fail = 5 * self._mul
+        self._max_track_fail = 10 * self._mul
 
         self._default_bin_state = "items"
-        self.maxlen = 5
+        self.maxlen = 5 * self._mul
         self._rat_track_det = 0.8
 
     def init_cam_11(self):
@@ -86,11 +88,11 @@ class BinManager:
 
         self._thres_out_bin_bound = [(0, 77), (0, 187), (15, 184), (15, 72)]
 
-        self._max_det_fail = 5
-        self._max_track_fail = 10
+        self._max_det_fail = 5 * self._mul
+        self._max_track_fail = 10 * self._mul
 
         self._default_bin_state = "items"
-        self.maxlen = 5
+        self.maxlen = 5 * self._mul
         self._rat_track_det = 1.6
 
     # * ONLY FOR CAMERA 11
@@ -192,7 +194,8 @@ class BinManager:
                             and _track_iou
                             > iou_to_boxes[closest_index] * self._rat_track_det
                         ) or (
-                            self._camera == "cam11" and iou_to_boxes[closest_index] < 0.50
+                            self._camera == "cam11"
+                            and utils_box.iou_bbox(_bb_track, new_box) > 0.85
                         ):
                             new_box = _bb_track
                             bin.reset_track_fail()
@@ -201,6 +204,10 @@ class BinManager:
 
                     bin.pos = new_box
                     explored_indices.append(closest_index)
+
+                    if bin._pos_count < 40 and not status:
+                        bin.init_tracker(new_box, im)
+
                 else:
                     bin.increment_det_fail()
                     # bin.increment_idle()
@@ -266,6 +273,7 @@ class BinManager:
                         self.log.clasp_log(f"Bin {bin.label} divested")
                     else:
                         # divestment or revestment
+
                         self.log.info(f"Bin {bin.label} - New divestment/revestment")
                         _ind.append(i)
                         bin.init_tracker(bin.pos, im)

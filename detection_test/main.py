@@ -29,7 +29,9 @@ for cam in cameras:
     out_folder[cam].mkdir(parents=True, exist_ok=True)
 
     imlist.append(
-        utils.get_images_from_dir(src_folder[cam], skip_init=800, skip_end=3000, delta=5)
+        utils.get_images_from_dir(
+            src_folder[cam], skip_init=800, skip_end=3000, delta=2
+        )
     )
 
 
@@ -41,12 +43,12 @@ for out1, out2 in zip(*imlist):
     # utils.plot_cv(new_im)
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
-    im, imfile, frame_num = out2
+    # im, imfile, frame_num = out2
 
-    # log.info(f'processing : {imfile}')
-    new_im = manager.run_detector_image(im, cam=cameras[1], frame_num=frame_num)
-    # utils.plot_cv(new_im)
-    skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
+    # # log.info(f'processing : {imfile}')
+    # new_im = manager.run_detector_image(im, cam=cameras[1], frame_num=frame_num)
+    # # utils.plot_cv(new_im)
+    # skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
 # for im, imfile, frame_num in tqdm():
 #     logging.info(f'processing : {imfile}')
