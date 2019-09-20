@@ -18,7 +18,7 @@ class Manager:
         pax_weights=None,
         file_num="9A",
         config=None,
-        bin_only=False
+        bin_only=False,
     ):
         self._bin_detector = None
         self._pax_detector = None
@@ -78,11 +78,11 @@ class Manager:
 
         # FIXME
         # for camera in ["9", "11"]:
-        if not self.bin_only:
-            for camera in ["cam11"]:
-                self._pax_managers[camera] = PAXManager(camera=camera, log=self.log)
-                if self._pax_detector is not None:
-                    self._pax_managers[camera].detector = self._pax_detector
+        # if not self.bin_only:
+        #     for camera in ["cam11"]:
+        #         self._pax_managers[camera] = PAXManager(camera=camera, log=self.log)
+        #         if self._pax_detector is not None:
+        #             self._pax_managers[camera].detector = self._pax_detector
 
     def init_pax_detector(self, cfg=None, weights=None):
         self.log.info("Pax Detector initializing")
@@ -95,7 +95,7 @@ class Manager:
         from manager.detector import BinDetector
 
         self._bin_detector = BinDetector(ckpt=weights)
-    
+
     def filter_det(self, ret, class_to_keep="items"):
         boxes, scores, classes, _ = ret
         ind = np.where(classes == class_to_keep)
@@ -105,7 +105,6 @@ class Manager:
         scores = scores[ind]
         classes = classes[ind]
         return boxes, scores, classes
-
 
     def run_detector_image(self, im=None, cam="cam09", frame_num=None, return_im=True):
 
@@ -118,7 +117,9 @@ class Manager:
         if cam in self._bin_managers:
             if frame_num in self._det_bin[cam]:
                 boxes, scores, classes, _ = self._det_bin[cam][frame_num]
-                self._bin_managers[cam].update_state(im, boxes, scores, classes)
+                self._bin_managers[cam].update_state(
+                    im, boxes, scores, classes, frame_num
+                )
 
         #### FIXME This is temporary
         # if cam in self._pax_managers:
