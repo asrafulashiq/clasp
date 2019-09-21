@@ -30,6 +30,8 @@ def get_arg():
         "--pax-ckpt", type=str, default=_HOME + "/dataset/clasp/trained_model/model.pkl"
     )
 
+    parser.add_argument("--write", action="store_false")
+
     parser.add_argument("--size", type=str, default="640x360", help="image size(width x height)")
 
     return parser.parse_args()

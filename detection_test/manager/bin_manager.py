@@ -12,7 +12,7 @@ from tools import nms
 
 
 class BinManager:
-    def __init__(self, bins=None, log=None, detector=None, camera="cam09"):
+    def __init__(self, bins=None, log=None, detector=None, camera="cam09", write=True):
         self.log = log
         if log is None:
             self.log = logging.getLogger("bin manager")
@@ -35,6 +35,7 @@ class BinManager:
 
         self.detector = detector
 
+
     @property
     def detector(self):
         return self._detector
@@ -49,8 +50,8 @@ class BinManager:
         self._min_iou = 0.4
         self._bin_count = 0
         self._thres_incoming_bin_bound = [
-            (143, 230),
-            (170, 120),
+            (182, 243),
+            (199, 123),
             (496, 180),
             (467, 302),
         ]  # bound for detecting incoming
@@ -195,7 +196,7 @@ class BinManager:
                             > iou_to_boxes[closest_index] * self._rat_track_det
                         ) or (
                             self._camera == "cam11"
-                            and utils_box.iou_bbox(_bb_track, new_box) > 0.85
+                            and utils_box.iou_bbox(_bb_track, new_box, 'min') > 0.85
                         ):
                             new_box = _bb_track
                             bin.reset_track_fail()
@@ -205,7 +206,7 @@ class BinManager:
                     bin.pos = new_box
                     explored_indices.append(closest_index)
 
-                    if bin._pos_count < 40 and not status:
+                    if bin._pos_count < 40 * self._mul and not status:
                         bin.init_tracker(new_box, im)
 
                 else:
@@ -255,14 +256,7 @@ class BinManager:
                 # bin exit
                 self.log.clasp_log(f"Bin {bin.label} exits")
                 self._left_bins.append(bin)
-            # elif self._camera == 'cam11':
-            #     # if bin is emptied in camera 11, then don't process
-            #     self.log.clasp_log(f"Bin {bin.label} divested")
-            #     # self._left_bins.append(bin)
             else:
-                # if bin.idle_count < self._thres_max_idle_count:
-                #     _ind.append(i)
-
                 pass_det = bin.num_det_fail < self._max_det_fail
                 pass_track = bin.num_track_fail < self._max_track_fail
                 if pass_det and pass_track:

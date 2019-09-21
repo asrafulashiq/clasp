@@ -4,6 +4,7 @@ from manager.pax_manager import PAXManager
 import logging
 import os
 import numpy as np
+from pathlib import Path
 
 HOME = os.environ["HOME"]
 
@@ -12,13 +13,12 @@ class Manager:
     def __init__(
         self,
         log=None,
-        bin_cfg=None,
         bin_weights=None,
-        pax_cfg=None,
         pax_weights=None,
         file_num="9A",
         config=None,
         bin_only=False,
+        write=True
     ):
         self._bin_detector = None
         self._pax_detector = None
@@ -32,16 +32,6 @@ class Manager:
             self.log.setLevel(logging.DEBUG)
             self.log.clasp_log = self.log.info
 
-        # if pax_weights is not None and pax_cfg is not None:
-        #     assert os.path.exists(pax_weights), f"{pax_weights} path not found"
-        #     assert os.path.exists(pax_cfg), f"{pax_cfg} path not found"
-        #     self.init_pax_detector(cfg=pax_cfg, weights=pax_weights)
-
-        # if bin_weights is not None and bin_cfg is not None:
-        #     assert os.path.exists(bin_weights), f"{bin_weights} path not found"
-        #     assert os.path.exists(bin_cfg), f"{bin_cfg} path not found"
-        #     self.init_bin_detector(cfg=bin_cfg, weights=bin_weights)
-
         self.init_cameras()
 
         # ! DUMMY
@@ -49,6 +39,12 @@ class Manager:
         self._det_pax = {}
         for cam in ["cam09", "cam11"]:
             self.get_dummy_detection_pkl(self.file_num, cam)
+        
+        self.current_frame = None
+        self.write = write
+        if write:
+            self.write_list = []
+        
 
     def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
         import pickle
@@ -108,6 +104,7 @@ class Manager:
 
     def run_detector_image(self, im=None, cam="cam09", frame_num=None, return_im=True):
 
+        self.current_frame = frame_num
         self.log.addinfo(self.file_num, cam, frame_num)
         if im is None:
             self.log.warning("No image detected")
@@ -139,5 +136,20 @@ class Manager:
         if not self.bin_only:
             if cam in self._pax_managers:
                 im = self._pax_managers[cam].visualize(im)
-
         return im
+
+    def write_info(self):
+        for cam, bin_manager in self._bin_managers.items():
+            for each_bin in bin_manager._current_bins:
+                bbox = ",".join(str(int(i)) for i in each_bin.pos)
+                line = f"{self.file_num},{cam},{self.current_frame},{each_bin.label},{each_bin.cls},{bbox}"
+                self.write_list.append(line)
+
+
+    def final_write(self):
+        if self.write:
+            write_file = Path(self.config.out_dir) / "run" / "info.csv"
+            write_file.parent.mkdir(exist_ok=True, parents=True)
+
+            with write_file.open("w") as fp:
+                fp.write("\n".join(self.write_list))
