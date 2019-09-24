@@ -18,7 +18,7 @@ class Manager:
         file_num="9A",
         config=None,
         bin_only=False,
-        write=True
+        write=True,
     ):
         self._bin_detector = None
         self._pax_detector = None
@@ -39,12 +39,11 @@ class Manager:
         self._det_pax = {}
         for cam in ["cam09", "cam11"]:
             self.get_dummy_detection_pkl(self.file_num, cam)
-        
+
         self.current_frame = None
         self.write = write
         if write:
             self.write_list = []
-        
 
     def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
         import pickle
@@ -66,11 +65,15 @@ class Manager:
         self._pax_managers = {}
 
         for camera in ["cam09", "cam11"]:
-            self._bin_managers[camera] = BinManager(camera=camera, log=self.log)
+            self._bin_managers[camera] = BinManager(
+                camera=camera, log=self.log
+            )
             if self._bin_detector is not None:
                 self._bin_managers[camera].detector = self._bin_detector
             if camera == "cam11":
-                self._bin_managers[camera].set_cam9_manager(self._bin_managers["cam09"])
+                self._bin_managers[camera].set_cam9_manager(
+                    self._bin_managers["cam09"]
+                )
 
         # FIXME
         # for camera in ["9", "11"]:
@@ -102,7 +105,9 @@ class Manager:
         classes = classes[ind]
         return boxes, scores, classes
 
-    def run_detector_image(self, im=None, cam="cam09", frame_num=None, return_im=True):
+    def run_detector_image(
+        self, im=None, cam="cam09", frame_num=None, return_im=True
+    ):
 
         self.current_frame = frame_num
         self.log.addinfo(self.file_num, cam, frame_num)
@@ -144,7 +149,6 @@ class Manager:
                 bbox = ",".join(str(int(i)) for i in each_bin.pos)
                 line = f"{self.file_num},{cam},{self.current_frame},{each_bin.label},{each_bin.cls},{bbox}"
                 self.write_list.append(line)
-
 
     def final_write(self):
         if self.write:
