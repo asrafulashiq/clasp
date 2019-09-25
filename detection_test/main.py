@@ -38,12 +38,16 @@ for cam in cameras:
 for out1, out2 in zip(*imlist):
     im, imfile, frame_num = out1
     log.info(f"processing : {frame_num}")
-    new_im = manager.run_detector_image(im, cam=cameras[0], frame_num=frame_num)
+    new_im = manager.run_detector_image(
+        im, cam=cameras[0], frame_num=frame_num
+    )
     # utils.plot_cv(new_im)
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
     im, imfile, frame_num = out2
-    new_im = manager.run_detector_image(im, cam=cameras[1], frame_num=frame_num)
+    new_im = manager.run_detector_image(
+        im, cam=cameras[1], frame_num=frame_num
+    )
     skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
     if conf.write:
