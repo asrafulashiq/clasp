@@ -23,16 +23,37 @@ def get_arg():
     )
 
     parser.add_argument(
-        "--bin-ckpt", type=str, default=_HOME + "/dataset/clasp/trained_model/model.pkl"
+        "--bin-ckpt",
+        type=str,
+        default=_HOME + "/dataset/clasp/trained_model/model.pkl",
     )
 
     parser.add_argument(
-        "--pax-ckpt", type=str, default=_HOME + "/dataset/clasp/trained_model/model.pkl"
+        "--pax-ckpt",
+        type=str,
+        default=_HOME + "/dataset/clasp/trained_model/model.pkl",
     )
 
     parser.add_argument("--write", action="store_false")
 
-    parser.add_argument("--size", type=str, default="640x360", help="image size(width x height)")
+    parser.add_argument(
+        "--size",
+        type=str,
+        default="640x360",
+        help="image size(width x height)",
+    )
+
+    parser.add_argument(
+        "--info",
+        # default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info.csv",
+        default=None,
+        type=str,
+        help="info file to load",
+    )
+
+    parser.add_argument("--skip-init", type=int, default=5961)
+    parser.add_argument("--skip-end", type=int, default=1000)
+    parser.add_argument("--delta", type=int, default=2)
 
     return parser.parse_args()
 

@@ -17,6 +17,7 @@ cameras = ["cam09", "cam11"]
 
 manager = Manager(log=log, file_num=file_num, config=conf, bin_only=True)
 
+
 imlist = []
 src_folder = {}
 out_folder = {}
@@ -30,12 +31,24 @@ for cam in cameras:
 
     imlist.append(
         utils.get_images_from_dir(
-            src_folder[cam], skip_init=700, skip_end=200, delta=2
+            src_folder[cam], skip_init=conf.skip_init,
+            skip_end=conf.skip_end, delta=conf.delta
         )
     )
 
 
 for out1, out2 in zip(*imlist):
+
+    if conf.info is not None:
+        im, imfile, frame_num = out1
+        manager.load_info(conf.info, frame_num, im, camera='cam09')
+
+        im, imfile, frame_num = out2
+        manager.load_info(conf.info, frame_num, im, camera='cam11')
+
+        conf.info = None
+        continue
+
     im, imfile, frame_num = out1
     log.info(f"processing : {frame_num}")
     new_im = manager.run_detector_image(

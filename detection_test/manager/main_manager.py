@@ -5,6 +5,8 @@ import logging
 import os
 import numpy as np
 from pathlib import Path
+import pandas as pd
+
 
 HOME = os.environ["HOME"]
 
@@ -13,9 +15,7 @@ class Manager:
     def __init__(
         self,
         log=None,
-        bin_weights=None,
-        pax_weights=None,
-        file_num="9A",
+        file_num="exp2",
         config=None,
         bin_only=False,
         write=True,
@@ -45,6 +45,46 @@ class Manager:
         if write:
             self.write_list = []
 
+    def get_info_fram_frame(self, df, frame, cam="cam09"):
+        if frame not in df['frame'].values:
+            frame += 1
+        info = df[(df["frame"] == frame) & (df["camera"] == cam)]
+        list_info = []
+        for _, row in info.iterrows():
+            list_info.append(
+                [
+                    row["id"],
+                    row["class"],
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                ]
+            )
+        return list_info
+
+    def load_info(self, info_file, frame_num, image, camera='cam09'):
+        df = pd.read_csv(
+            str(info_file),
+            sep=",",
+            header=None,
+            names=[
+                "file",
+                "camera",
+                "frame",
+                "id",
+                "class",
+                "x1",
+                "y1",
+                "x2",
+                "y2",
+            ],
+            index_col=None,
+        )
+        
+        list_info = self.get_info_fram_frame(df, frame_num, camera)
+        self._bin_managers[camera].add_info(list_info, image)
+
     def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
         import pickle
         import os
@@ -68,8 +108,8 @@ class Manager:
             self._bin_managers[camera] = BinManager(
                 camera=camera, log=self.log
             )
-            if self._bin_detector is not None:
-                self._bin_managers[camera].detector = self._bin_detector
+            # if self._bin_detector is not None:
+            #     self._bin_managers[camera].detector = self._bin_detector
             if camera == "cam11":
                 self._bin_managers[camera].set_cam9_manager(
                     self._bin_managers["cam09"]
@@ -83,17 +123,17 @@ class Manager:
         #         if self._pax_detector is not None:
         #             self._pax_managers[camera].detector = self._pax_detector
 
-    def init_pax_detector(self, cfg=None, weights=None):
-        self.log.info("Pax Detector initializing")
-        from manager.detector_pax import PAXDetector
+    # def init_pax_detector(self, cfg=None, weights=None):
+    #     self.log.info("Pax Detector initializing")
+    #     from manager.detector_pax import PAXDetector
 
-        self._pax_detector = PAXDetector(ckpt=weights)
+    #     self._pax_detector = PAXDetector(ckpt=weights)
 
-    def init_bin_detector(self, cfg=None, weights=None):
-        self.log.info("Bin Detector initializing")
-        from manager.detector import BinDetector
+    # def init_bin_detector(self, cfg=None, weights=None):
+    #     self.log.info("Bin Detector initializing")
+    #     from manager.detector import BinDetector
 
-        self._bin_detector = BinDetector(ckpt=weights)
+    #     self._bin_detector = BinDetector(ckpt=weights)
 
     def filter_det(self, ret, class_to_keep="items"):
         boxes, scores, classes, _ = ret
