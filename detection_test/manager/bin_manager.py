@@ -50,14 +50,14 @@ class BinManager:
         self._min_iou = 0.4
         self._bin_count = 0
         self._thres_incoming_bin_bound = [
-            (182, 243),
-            (199, 123),
+            (123, 227),
+            (146, 111),
             (496, 180),
             (467, 302),
         ]  # bound for detecting incoming
         # self._thres_out_bin_exit = 350 / 3
 
-        self._thres_out_bin_bound = [(122, 231), (149, 111), (73, 91), (48, 213)]
+        self._thres_out_bin_bound = [(111, 225), (131, 113), (73, 91), (48, 213)]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
         self._box_conveyor_belt = [
@@ -83,13 +83,13 @@ class BinManager:
         self._thres_incoming_bin_init_x = 1700
         self._thres_max_idle_count = 5
 
-        self._thres_incoming_bin_bound = [(617, 189), (617, 90), (351, 64), (351, 186)]
+        self._thres_incoming_bin_bound = [(617, 189), (617, 90), (430, 70), (430, 176)]
 
         self._box_conveyor_belt = [(636, 189), (636, 60), (8, 60), (8, 189)]  #
 
         self._thres_out_bin_bound = [(0, 77), (0, 187), (15, 184), (15, 72)]
 
-        self._max_det_fail = 5 * self._mul
+        self._max_det_fail = 3 * self._mul
         self._max_track_fail = 10 * self._mul
 
         self._default_bin_state = "items"
@@ -274,3 +274,19 @@ class BinManager:
                         bin.reset_track_fail()
 
         self._current_bins = [self._current_bins[i] for i in _ind]
+
+
+    def add_info(self, list_info, im):
+        for each_i in list_info:
+            _id, cls, x1, y1, x2, y2 = each_i
+            if cls == "items":
+                box = [x1, y1, x2, y2]
+                new_bin = Bin(
+                    label=_id,
+                    state=cls,
+                    pos=box,
+                    default_state=self._default_bin_state,
+                    maxlen=self.maxlen,
+                )
+                new_bin.init_tracker(box, im)
+                self._current_bins.append(new_bin)
