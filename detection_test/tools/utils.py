@@ -35,13 +35,17 @@ def plot_cv(image, axes=None, show=True, fig_number=None):
 
 
 def get_images_from_dir(
-    src_dir, size=(640, 360), skip_init=0, skip_end=0, num_files=None, delta=1,
+    src_dir, size=(640, 360), skip_init=0, skip_end=0, end_file=None, delta=1,
     fmt="{:06d}.jpg"
 ):
     """ get images as numpy array from a folder"""
 
     files_in_dir = sorted(list(src_dir.iterdir()))
-    frame_list = range(skip_init + 1, len(files_in_dir) - skip_end, delta)
+    if end_file is None:
+        frame_list = range(skip_init + 1, len(files_in_dir) - skip_end, delta)
+    else:
+        frame_list = range(skip_init + 1, end_file, delta)
+
 
     for frame_num in frame_list:
         imfile = pathlib.Path(files_in_dir[0].parent) / fmt.format(frame_num)

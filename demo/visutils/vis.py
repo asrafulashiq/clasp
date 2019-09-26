@@ -14,7 +14,7 @@ class_to_color = {
     'other': _RED
 }
 
-def vis_class_label(img, pos, class_str, label, color=_GREEN, font_scale=0.5, thickness=1):
+def vis_class_label(img, pos, class_str, label, font_scale=0.5):
     """Visualizes the class."""
     img = img.astype(np.uint8)
     x0, y0 = int(pos[0]), int(pos[1])
@@ -27,46 +27,39 @@ def vis_class_label(img, pos, class_str, label, color=_GREEN, font_scale=0.5, th
     back_tl = x0, y0 - int(1.3 * txt_h)
     back_br = x0 + txt_w, y0
 
-    cv2.rectangle(img, back_tl, back_br, color, thickness=thickness)
+    color = class_to_color.get(class_str, _RED)
+    cv2.rectangle(img, back_tl, back_br, color, -1)
     # Show text.
     txt_tl = x0, y0 - int(0.3 * txt_h)
     cv2.putText(img, txt, txt_tl, font, font_scale,
-                color, lineType=cv2.LINE_AA, thickness=thickness)
+                _GRAY, lineType=cv2.LINE_AA, thickness=1)
 
     # put label
     if label:
         ((lbl_w, lbl_h), _) = cv2.getTextSize(str(label), font, 3*font_scale, 5)
         lbl_tl = int((x0+x1)/2) - int(0.3 * lbl_w), int((y0+y1)/2) - \
                     int(0 * lbl_h)
-        cv2.putText(img, str(label), lbl_tl, font, 1.5* font_scale,
-                    color, thickness=2*thickness, lineType=cv2.LINE_AA)
+        cv2.putText(img, str(label), lbl_tl, font, 3*font_scale,
+                    color, thickness=2, lineType=cv2.LINE_AA)
 
     return img
 
 
-def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
+def vis_bbox(img, bbox, class_str=None, thick=2):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
     (x0, y0, x1, y1) = bbox
     x0, y0 = int(x0), int(y0)
     x1, y1 = int(x1), int(y1)
+    color = class_to_color.get(class_str, _RED)
 
     overlay = img.copy()
     cv2.rectangle(img, (x0, y0), (x1, y1), color, thickness=thick)
+
+    alpha = 0.2
     cv2.rectangle(overlay, (x0, y0), (x1, y1), color, -1)  # filled rectangle
 
     cv2.addWeighted(overlay, alpha, img, 1-alpha, 0, img)
-
-    return img
-
-
-def vis_bbox_with_str(img, bbox, class_str, label, color=_GREEN,  thick=2):
-    """Visualizes a bounding box."""
-    # img = img.astype(np.uint8)
-    img = vis_bbox(img, bbox, thick=thick, color=color, alpha=0.15)
-
-    # add text
-    img = vis_class_label(img, bbox, class_str, label, color=color, font_scale=0.5, thickness=1)
 
     return img
 
