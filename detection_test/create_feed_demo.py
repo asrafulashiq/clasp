@@ -1,0 +1,193 @@
+# user-defined imports
+# other imports
+from pathlib import Path
+import cv2
+from tqdm import tqdm
+import tools.utils as utils
+from config import conf
+from visutils.vis_feed import VisFeed
+import glob, os
+import pandas as pd
+import skimage
+import shutil
+import pandas as pd
+import visutils.vis as vis
+
+
+class InfoClass:
+    def __init__(self):
+        bin_file = "./info/info.csv"
+        pax_file_9 = "./info/cam09exp2_logs_full_seg.txt"
+        pax_file_11 = "./info/cam11exp2_logs_full_seg.txt"
+
+        bin_names = [
+            "file",
+            "camera",
+            "frame",
+            "id",
+            "class",
+            "x1",
+            "y1",
+            "x2",
+            "y2",
+        ]
+        self.df_bin = pd.read_csv(
+            str(bin_file),
+            sep=",",
+            header=None,
+            names=bin_names,
+            index_col=None,
+        )
+
+        pax_names = ["frame", "id", "x1", "y1", "w", "h", "cam", "TU", "type"]
+
+        df_pax_9 = pd.read_csv(
+            str(pax_file_9),
+            sep=",",
+            header=None,
+            names=pax_names,
+            index_col=None,
+        )
+
+        df_pax_11 = pd.read_csv(
+            str(pax_file_11),
+            sep=",",
+            header=None,
+            names=pax_names,
+            index_col=None,
+        )
+
+        self.df_pax = pd.concat((df_pax_9, df_pax_11))
+        self.df_pax = self.refine_pax_df()
+    
+    def refine_pax_df(self):
+        df = self.df_pax
+        df["x1"] = df["x1"] / 3
+        df["y1"] = df["y1"] / 3
+        df["x2"] = df["x1"] + df["w"] / 3 - 1
+        df["y2"] = df["y1"] + df["h"] / 3 - 1
+        df["camera"] = df["cam"].apply(lambda x: x[:5])
+        return df
+
+    def get_info_fram_frame(self, frame, cam="cam09"):
+
+        # get pax info
+        df = self.df_pax
+        info = df[(df["frame"] == frame) & (df["camera"] == cam)]
+        list_info_pax = []
+        for _, row in info.iterrows():
+            list_info_pax.append(
+                [
+                    row["id"],
+                    "pax",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                ]
+            )
+    
+        # get bin info
+        if frame % 2 == 0:
+            frame += 1
+        df = self.df_bin
+        info = df[(df["frame"] == frame) & (df["camera"] == cam)]
+        list_info_bin = []
+        for _, row in info.iterrows():
+            list_info_bin.append(
+                [
+                    row["id"],
+                    "item",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                ]
+            )
+        return list_info_bin, list_info_pax
+
+    def draw_im(self, im, info_bin, info_pax):
+        for each_i  in info_bin:
+            bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
+            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=(33, 217, 94), thick=2)
+
+        for each_i  in info_pax:
+            bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
+            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=(23, 38, 176), thick=2)
+        return im
+    
+
+if __name__ == "__main__":
+
+    file_num = "exp2"
+    cameras = ["cam09", "cam11"]
+
+
+    out_folder = {}
+    imlist = []
+
+    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
+    if feed_folder.exists():
+        shutil.rmtree(str(feed_folder))
+
+    feed_folder.mkdir(exist_ok=True)
+
+    # get latest log file
+    list_of_files = glob.iglob("./logs/*.txt")
+    logfile = max(list_of_files, key=os.path.getctime)
+    log_data = pd.read_csv(
+        logfile, header=None, names=["filenum", "cam", "frame", "msg"]
+    )
+
+
+    vis_feed = VisFeed()
+
+    Info = InfoClass()
+
+    imlist = []
+    src_folder = {}
+    out_folder = {}
+
+    for cam in cameras:
+        src_folder[cam] = Path(conf.root) / file_num / cam
+        assert src_folder[cam].exists()
+
+        imlist.append(
+            utils.get_images_from_dir(
+                src_folder[cam],
+                skip_init=conf.skip_init,
+                skip_end=conf.skip_end,
+                delta=conf.delta,
+                end_file=conf.end_file
+            )
+        )
+
+
+    for out1, out2 in tqdm(zip(*imlist)):
+        im1, imfile1, _ = out1
+        im2, imfile2, _ = out2
+
+        frame_num = int(Path(imfile1).stem) - 1
+
+        # get msg
+        msglist = log_data[log_data["frame"] == frame_num]
+        if not msglist.empty:
+            msglist = msglist.iloc[:, 1:].values
+        else:
+            msglist = []
+
+        # draw image
+        info_bin, info_pax = Info.get_info_fram_frame(frame_num, 'cam09')
+        im1 = Info.draw_im(im1, info_bin, info_pax)
+
+        info_bin, info_pax = Info.get_info_fram_frame(frame_num, 'cam11')
+        im2 = Info.draw_im(im2, info_bin, info_pax)
+
+
+        im_feed = vis_feed.draw(im1, im2, frame_num, msglist)
+
+        f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
+        skimage.io.imsave(str(f_write), im_feed)
+
+    cv2.destroyAllWindows()
+
