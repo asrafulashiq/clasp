@@ -14,7 +14,7 @@ class_to_color = {
     'other': _RED
 }
 
-def vis_class_label(img, pos, class_str, label, color=_GREEN, font_scale=0.5, thickness=1):
+def vis_class_label(img, pos, class_str, label, color=_RED, font_scale=0.5, thickness=1):
     """Visualizes the class."""
     img = img.astype(np.uint8)
     x0, y0 = int(pos[0]), int(pos[1])
@@ -60,7 +60,7 @@ def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
     return img
 
 
-def vis_bbox_with_str(img, bbox, class_str, label, color=_GREEN,  thick=2):
+def vis_bbox_with_str(img, bbox, class_str, label, color=_RED,  thick=2):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
     img = vis_bbox(img, bbox, thick=thick, color=color, alpha=0.15)

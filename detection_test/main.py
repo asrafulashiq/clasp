@@ -32,7 +32,8 @@ for cam in cameras:
     imlist.append(
         utils.get_images_from_dir(
             src_folder[cam], skip_init=conf.skip_init,
-            skip_end=conf.skip_end, delta=conf.delta
+            skip_end=conf.skip_end, delta=conf.delta,
+            end_file=conf.end_file
         )
     )
 

@@ -17,8 +17,6 @@ import visutils.vis as vis
 class InfoClass:
     def __init__(self):
         bin_file = "./info/info.csv"
-        pax_file_9 = "./info/cam09exp2_logs_full_seg.txt"
-        pax_file_11 = "./info/cam11exp2_logs_full_seg.txt"
 
         bin_names = [
             "file",
@@ -41,58 +39,10 @@ class InfoClass:
             index_col=None,
         )
 
-        pax_names = ["frame", "id", "x1", "y1", "w", "h", "cam", "TU", "type"]
-
-        df_pax_9 = pd.read_csv(
-            str(pax_file_9),
-            sep=",",
-            header=None,
-            names=pax_names,
-            index_col=None,
-        )
-
-        df_pax_11 = pd.read_csv(
-            str(pax_file_11),
-            sep=",",
-            header=None,
-            names=pax_names,
-            index_col=None,
-        )
-
-        self.df_pax = pd.concat((df_pax_9, df_pax_11))
-        self.df_pax = self.refine_pax_df()
-    
-    def refine_pax_df(self):
-        df = self.df_pax
-        df["x1"] = df["x1"] / 3
-        df["y1"] = df["y1"] / 3
-        df["x2"] = df["x1"] + df["w"] / 3 - 1
-        df["y2"] = df["y1"] + df["h"] / 3 - 1
-        df["camera"] = df["cam"].apply(lambda x: x[:5])
-        df["type"] = df["type"].str.lower()
-        return df
-
     def get_info_fram_frame(self, frame, cam="cam09"):
 
         # get pax info
-        df = self.df_pax
         msglist = []
-        info = df[(df["frame"] == frame) & (df["camera"] == cam)]
-        list_info_pax = []
-        list_event_pax = []
-        for _, row in info.iterrows():
-            if row['type'] == 'loc':
-                list_info_pax.append(
-                    [
-                        row["id"],
-                        "pax",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                    ]
-                )
-        
         # get bin info
         if frame % 2 == 0:
             frame += 1
@@ -120,7 +70,7 @@ class InfoClass:
                     ]
                 )
                 msglist.append([row['camera'], row['frame'], row['msg']])
-        return list_info_bin, list_info_pax, list_event_bin, list_event_pax, msglist
+        return list_info_bin, [], list_event_bin, [], msglist
 
 
 
@@ -144,7 +94,7 @@ if __name__ == "__main__":
     out_folder = {}
     imlist = []
 
-    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
+    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed_2"
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
 

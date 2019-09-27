@@ -19,7 +19,7 @@ cameras = ["cam09", "cam11"]
 out_folder = {}
 imlist = []
 
-feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
+feed_folder = Path(conf.out_dir) / "run" / file_num / "feed_2"
 if feed_folder.exists():
     shutil.rmtree(str(feed_folder))
 
