@@ -74,14 +74,17 @@ class InfoClass:
 
 
 
-    def draw_im(self, im, info_bin, info_pax):
+    def draw_im(self, im, info_bin, color=(232, 202, 200), thick=1):
         for each_i  in info_bin:
+            if each_i[0] == 10:
+                color = (255, 0, 0)
+                thick = 2
+            else:
+                color = (232, 202, 200)
+                thick = 1
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=(33, 217, 94), thick=2)
+            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=color, thick=thick)
 
-        for each_i  in info_pax:
-            bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=(23, 38, 176), thick=2)
         return im
     
 
@@ -94,7 +97,7 @@ if __name__ == "__main__":
     out_folder = {}
     imlist = []
 
-    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed_2"
+    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed_3"
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
 

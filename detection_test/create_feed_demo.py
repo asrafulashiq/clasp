@@ -95,9 +95,11 @@ class InfoClass:
         
         # get bin info
         if frame % 2 == 0:
-            frame += 1
+            _frame = frame + 1
+        else:
+            _frame = frame
         df = self.df_bin
-        info = df[(df["frame"] == frame) & (df["camera"] == cam)]
+        info = df[(df["frame"] == _frame) & (df["camera"] == cam)]
         list_info_bin = []
         list_event_bin = []
         for _, row in info.iterrows():
@@ -113,6 +115,8 @@ class InfoClass:
                     ]
                 )
             else: # event type
+                if row['frame'] != frame:
+                    continue
                 list_event_bin.append(
                     [
                         row['type'],
