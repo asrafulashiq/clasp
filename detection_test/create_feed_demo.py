@@ -12,6 +12,8 @@ import skimage
 import shutil
 import pandas as pd
 import visutils.vis as vis
+from parse import parse
+from collections import defaultdict
 
 
 class InfoClass:
@@ -31,7 +33,7 @@ class InfoClass:
             "x2",
             "y2",
             "type",
-            "msg"
+            "msg",
         ]
         self.df_bin = pd.read_csv(
             str(bin_file),
@@ -61,7 +63,11 @@ class InfoClass:
 
         self.df_pax = pd.concat((df_pax_9, df_pax_11))
         self.df_pax = self.refine_pax_df()
-    
+        self.get_association_info()
+
+        print("loaded")
+        self.bin_pax = {}
+
     def refine_pax_df(self):
         df = self.df_pax
         df["x1"] = df["x1"] / 3
@@ -72,6 +78,28 @@ class InfoClass:
         df["type"] = df["type"].str.lower()
         return df
 
+    def get_association_info(self):
+        self.dict_association = defaultdict(dict)
+        nu_file = "./info/cam_09_exp2_associated_events.csv"
+        df_tmp = pd.read_csv(
+            nu_file, header=None, names=["frame", "des"]
+        )
+
+        for _, row in df_tmp.iterrows():
+            frame = row['frame']
+            des = row['des']
+            des = parse("[{}]", des)
+            if des is None:
+                continue
+            des = des[0]
+            for each_split in des.split(","):
+                pp = parse("'P{}-B{}'", each_split)
+                if pp is None:
+                    continue
+                pax_id, bin_id = 'P'+str(pp[0]), 'B'+str(int(pp[1])-1)
+                self.dict_association[frame][bin_id] = pax_id          
+
+
     def get_info_fram_frame(self, frame, cam="cam09"):
 
         # get pax info
@@ -81,7 +109,7 @@ class InfoClass:
         list_info_pax = []
         list_event_pax = []
         for _, row in info.iterrows():
-            if row['type'] == 'loc':
+            if row["type"] == "loc":
                 list_info_pax.append(
                     [
                         row["id"],
@@ -92,7 +120,7 @@ class InfoClass:
                         row["y2"],
                     ]
                 )
-        
+
         # get bin info
         if frame % 2 == 0:
             _frame = frame + 1
@@ -103,47 +131,57 @@ class InfoClass:
         list_info_bin = []
         list_event_bin = []
         for _, row in info.iterrows():
-            if row['type'] == 'loc':
+            if row["type"] == "loc":
+                _id = 'B'+str(row["id"])
+                if frame in self.dict_association and _id in self.dict_association[frame]:
+                    self.bin_pax[_id] = self.dict_association[frame][_id]
+                else:
+                    pass
                 list_info_bin.append(
                     [
-                        row["id"],
+                        _id,
                         "item",
                         row["x1"],
                         row["y1"],
                         row["x2"],
                         row["y2"],
+                        self.bin_pax.get(_id, "")
                     ]
                 )
-            else: # event type
-                if row['frame'] != frame:
+            else:  # event type
+                if row["frame"] != frame:
                     continue
-                list_event_bin.append(
-                    [
-                        row['type'],
-                        row['msg']
-                    ]
-                )
-                msglist.append([row['camera'], row['frame'], row['msg']])
-        return list_info_bin, list_info_pax, list_event_bin, list_event_pax, msglist
+                list_event_bin.append([row["type"], row["msg"]])
+                msglist.append([row["camera"], row["frame"], row["msg"]])
+        return (
+            list_info_bin,
+            list_info_pax,
+            list_event_bin,
+            list_event_pax,
+            msglist,
+        )
 
-
-
-    def draw_im(self, im, info_bin, info_pax):
-        for each_i  in info_bin:
+    def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
+        for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=(33, 217, 94), thick=2)
+            im = vis.vis_bbox_with_str(
+                im, bbox, each_i[-1], each_i[0], color=(33, 217, 94), thick=2,
+                font_scale=font_scale
+            )
 
-        for each_i  in info_pax:
+        for each_i in info_pax:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(im, bbox, each_i[1], each_i[0], color=(23, 38, 176), thick=2)
+            im = vis.vis_bbox_with_str(
+                im, bbox, "", each_i[0], color=(23, 38, 176), thick=2,
+                font_scale=font_scale
+            )
         return im
-    
+
 
 if __name__ == "__main__":
 
     file_num = "exp2"
     cameras = ["cam09", "cam11"]
-
 
     out_folder = {}
     imlist = []
@@ -172,10 +210,9 @@ if __name__ == "__main__":
                 skip_init=conf.skip_init,
                 skip_end=conf.skip_end,
                 delta=conf.delta,
-                end_file=conf.end_file
+                end_file=conf.end_file,
             )
         )
-
 
     for out1, out2 in tqdm(zip(*imlist)):
         im1, imfile1, _ = out1
@@ -184,12 +221,15 @@ if __name__ == "__main__":
         frame_num = int(Path(imfile1).stem) - 1
 
         # draw image
-        info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(frame_num, 'cam09')
-        im1 = Info.draw_im(im1, info_bin, info_pax)
+        info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(
+            frame_num, "cam09"
+        )
+        im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
-        info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(frame_num, 'cam11')
-        im2 = Info.draw_im(im2, info_bin, info_pax)
-
+        info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
+            frame_num, "cam11"
+        )
+        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.5)
 
         # get message
         msglist.extend(mlist)
