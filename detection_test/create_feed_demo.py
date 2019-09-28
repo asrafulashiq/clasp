@@ -16,6 +16,10 @@ from parse import parse
 from collections import defaultdict
 
 
+def to_sec(frame, fps=30):
+    return int(frame) // fps
+
+
 class InfoClass:
     def __init__(self):
         bin_file = "./info/info.csv"
@@ -81,13 +85,11 @@ class InfoClass:
     def get_association_info(self):
         self.dict_association = defaultdict(dict)
         nu_file = "./info/cam_09_exp2_associated_events.csv"
-        df_tmp = pd.read_csv(
-            nu_file, header=None, names=["frame", "des"]
-        )
+        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
 
         for _, row in df_tmp.iterrows():
-            frame = row['frame']
-            des = row['des']
+            frame = row["frame"]
+            des = row["des"]
             des = parse("[{}]", des)
             if des is None:
                 continue
@@ -96,9 +98,8 @@ class InfoClass:
                 pp = parse("'P{}-B{}'", each_split)
                 if pp is None:
                     continue
-                pax_id, bin_id = 'P'+str(pp[0]), 'B'+str(int(pp[1])-1)
-                self.dict_association[frame][bin_id] = pax_id          
-
+                pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]) - 1)
+                self.dict_association[frame][bin_id] = pax_id
 
     def get_info_fram_frame(self, frame, cam="cam09"):
 
@@ -132,8 +133,11 @@ class InfoClass:
         list_event_bin = []
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                _id = 'B'+str(row["id"])
-                if frame in self.dict_association and _id in self.dict_association[frame]:
+                _id = "B" + str(row["id"])
+                if (
+                    frame in self.dict_association
+                    and _id in self.dict_association[frame]
+                ):
                     self.bin_pax[_id] = self.dict_association[frame][_id]
                 else:
                     pass
@@ -145,14 +149,19 @@ class InfoClass:
                         row["y1"],
                         row["x2"],
                         row["y2"],
-                        self.bin_pax.get(_id, "")
+                        self.bin_pax.get(_id, ""),
                     ]
                 )
             else:  # event type
                 if row["frame"] != frame:
                     continue
+                if row['type'] not in ('enter', 'exit'):
+                    continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append([row["camera"], row["frame"], row["msg"]])
+                msglist.append(
+                    [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
+                )
+
         return (
             list_info_bin,
             list_info_pax,
@@ -165,15 +174,25 @@ class InfoClass:
         for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
             im = vis.vis_bbox_with_str(
-                im, bbox, each_i[-1], each_i[0], color=(33, 217, 94), thick=2,
-                font_scale=font_scale
+                im,
+                bbox,
+                each_i[0],
+                each_i[-1],
+                color=(33, 217, 14),
+                thick=2,
+                font_scale=font_scale,
             )
 
         for each_i in info_pax:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
             im = vis.vis_bbox_with_str(
-                im, bbox, "", each_i[0], color=(23, 38, 176), thick=2,
-                font_scale=font_scale
+                im,
+                bbox,
+                each_i[0],
+                None,
+                color=(23, 23, 246),
+                thick=2,
+                font_scale=font_scale,
             )
         return im
 
@@ -229,7 +248,7 @@ if __name__ == "__main__":
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
             frame_num, "cam11"
         )
-        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.5)
+        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         # get message
         msglist.extend(mlist)
