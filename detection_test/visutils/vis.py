@@ -24,12 +24,12 @@ def vis_class_label(
         txt = class_str
         ((txt_w, txt_h), _) = cv2.getTextSize(txt, font, font_scale, thickness)
         # Place text background.
-        back_tl = x0 , y0 - int(1.5 * txt_h)
+        back_tl = x0, y0 - int(1.5 * txt_h)
         back_br = x0 + int(1.5 * txt_w), y0
 
         cv2.rectangle(img, back_tl, back_br, color, thickness=thickness)
         # Show text.
-        txt_tl = x0 + int(0.05 * txt_w) , y0 - int(0.3 * txt_h)
+        txt_tl = x0 + int(0.05 * txt_w), y0 - int(0.3 * txt_h)
         cv2.putText(
             img,
             txt,
@@ -64,6 +64,36 @@ def vis_class_label(
     return img
 
 
+def vis_txt(img, pos, txt, color=_RED, font_scale=0.5, thickness=1, y_pad=0):
+    """Visualizes the class."""
+    img = img.astype(np.uint8)
+    x0, y0 = int(pos[0]), int(pos[1])
+    x1, y1 = int(pos[2]), int(pos[3])
+    # Compute text size.
+    font = cv2.FONT_HERSHEY_SIMPLEX
+
+    # put label
+    ((lbl_w, lbl_h), _) = cv2.getTextSize(
+        str(txt), font, font_scale, thickness
+    )
+    lbl_tl = (
+        int((x0 + x1) / 2) - int(0.3 * lbl_w),
+        int((y0 + y1) / 2) + int(y_pad * lbl_h),
+    )
+    cv2.putText(
+        img,
+        str(txt),
+        lbl_tl,
+        font,
+        font_scale,
+        color,
+        thickness=thickness//2,
+        lineType=cv2.LINE_AA,
+    )
+
+    return img
+
+
 def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
@@ -81,22 +111,32 @@ def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
 
 
 def vis_bbox_with_str(
-    img, bbox, class_str, label, color=_RED, thick=2, font_scale=0.5
+    img, bbox, label, belongs_to=None, color=_RED, thick=2, font_scale=0.5
 ):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
     img = vis_bbox(img, bbox, thick=thick, color=color, alpha=0.15)
 
     # add text
-    img = vis_class_label(
+    img = vis_txt(
         img,
         bbox,
-        class_str,
-        label,
+        str(label),
         color=color,
-        font_scale=font_scale,
         thickness=thick,
+        font_scale=font_scale,
     )
+
+    if belongs_to is not None:
+        img = vis_txt(
+            img,
+            bbox,
+            str(belongs_to),
+            color=(0, 255, 150),
+            thickness=thick,
+            font_scale=font_scale*0.7,
+            y_pad=1.5
+        )   
 
     return img
 
