@@ -111,7 +111,8 @@ def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
 
 
 def vis_bbox_with_str(
-    img, bbox, label, belongs_to=None, color=_RED, thick=2, font_scale=0.5
+    img, bbox, label, belongs_to=None, color=_RED, thick=2, font_scale=0.5,
+    color_txt = None,
 ):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
@@ -122,8 +123,8 @@ def vis_bbox_with_str(
         img,
         bbox,
         str(label),
-        color=color,
-        thickness=thick,
+        color= color_txt,
+        thickness=thick*2,
         font_scale=font_scale,
     )
 
@@ -132,8 +133,8 @@ def vis_bbox_with_str(
             img,
             bbox,
             str(belongs_to),
-            color=(0, 255, 150),
-            thickness=thick,
+            color= color_txt, #(0, 255, 150),
+            thickness=thick*2,
             font_scale=font_scale*0.7,
             y_pad=1.5
         )   
