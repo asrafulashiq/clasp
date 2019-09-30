@@ -78,8 +78,6 @@ class InfoClass:
         df["y1"] = df["y1"] / 3
         df["x2"] = df["x2"] / 3
         df["y2"] = df["y2"] / 3
-        # df["x2"] = df["x1"] + df["w"] / 3 - 1
-        # df["y2"] = df["y1"] + df["h"] / 3 - 1
         df["camera"] = df["cam"].apply(lambda x: x[:5])
         df["type"] = df["type"].str.lower()
         return df
@@ -172,44 +170,56 @@ class InfoClass:
             msglist,
         )
 
-    def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
+    def draw_im(self, im, info_bin, info_pax, font_scale=0.5, cam='cam09'):
         for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(
-                im,
-                bbox,
-                each_i[0],
-                each_i[-1],
-                color=(33, 217, 14),
-                thick=2,
-                font_scale=font_scale,
-                color_txt=(252, 3, 69)
-            )
+            _inc = ('B19', 'B20', 'B21')
+
+            if each_i[0] in _inc:
+                im = vis.vis_bbox_with_str(
+                    im,
+                    bbox,
+                    each_i[0],
+                    each_i[-1],
+                    color=(33, 217, 14),
+                    thick=2,
+                    font_scale=font_scale,
+                    color_txt=(252, 3, 69)
+                )
 
         for each_i in info_pax:
-            bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(
-                im,
-                bbox,
-                each_i[0],
-                None,
-                color=(23, 23, 246),
-                thick=2,
-                font_scale=font_scale,
-                color_txt=(252, 211, 3)
-            )
+            if cam=='cam09':
+                _inc = ('P15', )
+            else:
+                _inc = ('P16')
+            if each_i[0] in _inc:
+                if cam == 'cam11':
+                    each_i[0] = 'P15'
+                bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
+                im = vis.vis_bbox_with_str(
+                    im,
+                    bbox,
+                    each_i[0],
+                    None,
+                    color=(23, 23, 246),
+                    thick=2,
+                    font_scale=font_scale,
+                    color_txt=(252, 211, 3)
+                )
         return im
 
 
 if __name__ == "__main__":
 
     file_num = "exp2"
-    cameras = ["cam09", "cam11"]
 
     out_folder = {}
     imlist = []
 
-    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed2"
+    conf.skip_init = 2340
+    conf.end_file = 3570
+
+    feed_folder = Path(conf.out_dir) / "demo" / "life_of_bin"
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
 
@@ -222,6 +232,9 @@ if __name__ == "__main__":
     imlist = []
     src_folder = {}
     out_folder = {}
+
+    # for cam in cameras:
+    cameras = ['cam09', 'cam11']
 
     for cam in cameras:
         src_folder[cam] = Path(conf.root) / file_num / cam
@@ -247,12 +260,12 @@ if __name__ == "__main__":
         info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(
             frame_num, "cam09"
         )
-        im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
+        im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75, cam='cam09')
 
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
             frame_num, "cam11"
         )
-        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7, cam='cam11')
 
         # get message
         msglist.extend(mlist)

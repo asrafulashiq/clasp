@@ -350,6 +350,19 @@ class BinManager:
                     if not pass_det:
                         self.log.clasp_log(f"Bin {bin.label} divested")
 
+                        if self._camera == 'cam11':
+                             msg = f"B{bin.label} empty"
+                             self._current_events.append(
+                                [
+                                    self.current_frame,
+                                    bin.label,
+                                    bin.cls,
+                                    *bin.pos,
+                                    "exit",
+                                    msg,
+                                ]
+                            )
+
                         # check if bin has overlap with other bins
                         for other_bin in self._current_bins:
                             if other_bin.label != bin.label:
