@@ -17,7 +17,7 @@ from collections import defaultdict
 
 
 def to_sec(frame, fps=30):
-    return int(frame) // fps
+    return str(int(frame) // fps)+'s'
 
 
 class InfoClass:
@@ -87,19 +87,19 @@ class InfoClass:
         nu_file = "./info/cam_09_exp2_associated_events.csv"
         df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
 
-        for _, row in df_tmp.iterrows():
-            frame = row["frame"]
-            des = row["des"]
-            des = parse("[{}]", des)
-            if des is None:
-                continue
-            des = des[0]
-            for each_split in des.split(","):
-                pp = parse("'P{}-B{}'", each_split)
-                if pp is None:
-                    continue
-                pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]) - 1)
-                self.dict_association[frame][bin_id] = pax_id
+        # for _, row in df_tmp.iterrows():
+        #     frame = row["frame"]
+        #     des = row["des"]
+        #     des = parse("[{}]", des)
+        #     if des is None:
+        #         continue
+        #     des = des[0]
+        #     for each_split in des.split(","):
+        #         pp = parse("'P{}-B{}'", each_split)
+        #         if pp is None:
+        #             continue
+        #         pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]) - 1)
+        #         self.dict_association[frame][bin_id] = pax_id
 
     def get_info_fram_frame(self, frame, cam="cam09"):
 
@@ -109,6 +109,9 @@ class InfoClass:
         info = df[(df["frame"] == frame) & (df["camera"] == cam)]
         list_info_pax = []
         list_event_pax = []
+
+        line_pt = [None, None]
+
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 list_info_pax.append(
@@ -121,6 +124,11 @@ class InfoClass:
                         row["y2"],
                     ]
                 )
+
+                if (cam=='cam09' and row['id'] == 'P15') or (cam=='cam11' and row['id'] == 'P16'):
+                    cx = int((float(row['x1']) + float(row['x2']))/2)
+                    cy = int((float(row['y1']) + float(row['y2']))/2)
+                    line_pt[0] = (cx, cy)
 
         # get bin info
         if frame % 2 == 0:
@@ -152,15 +160,22 @@ class InfoClass:
                         self.bin_pax.get(_id, ""),
                     ]
                 )
+
+                if _id == 'B21':
+                    cx = int((float(row['x1']) + float(row['x2']))/2)
+                    cy = int((float(row['y1']) + float(row['y2']))/2)
+                    line_pt[1] = (cx, cy)
+
             else:  # event type
                 if row["frame"] != frame:
                     continue
                 if row['type'] not in ('enter', 'exit'):
                     continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append(
-                    [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
-                )
+                if 'B21' in row['msg']: 
+                    msglist.append(
+                        [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
+                    )
 
         return (
             list_info_bin,
@@ -168,6 +183,7 @@ class InfoClass:
             list_event_bin,
             list_event_pax,
             msglist,
+            line_pt
         )
 
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5, cam='cam09'):
@@ -217,7 +233,7 @@ if __name__ == "__main__":
     imlist = []
 
     conf.skip_init = 2340
-    conf.end_file = 3570
+    conf.end_file = 3600
 
     feed_folder = Path(conf.out_dir) / "demo" / "life_of_bin"
     if feed_folder.exists():
@@ -257,15 +273,23 @@ if __name__ == "__main__":
         frame_num = int(Path(imfile1).stem) - 1
 
         # draw image
-        info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(
+        info_bin, info_pax, event_bin, event_pax, msglist, lpt = Info.get_info_fram_frame(
             frame_num, "cam09"
         )
         im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75, cam='cam09')
+        if lpt[0] is not None and lpt[1] is not None:
+            cv2.line(im1, lpt[0], lpt[1], (235, 164, 52), thickness=3)
+            cv2.circle(im1, lpt[0], 8, (255, 0, 0), -1)
+            cv2.circle(im1, lpt[1], 8, (255, 0, 0), -1)
 
-        info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
+        info_bin, info_pax, event_bin, event_pax, mlist, lpt = Info.get_info_fram_frame(
             frame_num, "cam11"
         )
         im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7, cam='cam11')
+        if lpt[0] is not None and lpt[1] is not None:
+            cv2.line(im2, lpt[0], lpt[1], (235, 164, 52), thickness=3)
+            cv2.circle(im2, lpt[0], 8, (255, 0, 0), -1)
+            cv2.circle(im2, lpt[1], 8, (255, 0, 0), -1)
 
         # get message
         msglist.extend(mlist)

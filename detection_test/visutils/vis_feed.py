@@ -72,8 +72,8 @@ class FeedModule:
         self.width = width
         self.height = height
         self.padding = padding
-        self.formatter = "{:^8}{:^8}{:<40}"
-        self.header = self.formatter.format("Camera", "Time", "Message")
+        self.formatter = "{:<5}{:^8}{:<40}"
+        self.header = "{:<5}{:<8}{:<40}".format("Cam", "Time", "Message")
 
         self.msg_q = deque([], maxlen=max_msg)
 
@@ -131,12 +131,12 @@ class FeedModule:
                     lineType=cv2.LINE_AA)
 
 
-        for i, msg in enumerate(reversed(self.msg_q)):
+        for i, msg in enumerate(self.msg_q):
             x1, y1, x2, y2 = self.msg_bounds[i]
             y2 = y2 - int(0.5 * txt_h)
 
             cv2.putText(canvas, msg, (x1, y2), self.font,
-                        self.fontScale, _BLACK, self.fontThick,
+                        self.fontScale*0.75, _BLACK, self.fontThick,
                         lineType=cv2.LINE_AA)
 
         return canvas
@@ -162,8 +162,8 @@ class VisFeed():
         self.im_mod_3 = FeedModule(w_, h_)
 
     def draw(self, im1, im2, frame_num, msglist):
-        can1 = self.im_mod_1.draw(im1, text=str(to_sec(frame_num)).zfill(4))
-        can2 = self.im_mod_2.draw(im2, text=str(to_sec(frame_num)).zfill(4))
+        can1 = self.im_mod_1.draw(im1, text=str(to_sec(frame_num)).zfill(4)+' sec')
+        can2 = self.im_mod_2.draw(im2, text=str(to_sec(frame_num)).zfill(4)+' sec')
         can3 = self.im_mod_3.drawText(msglist)
 
         canvas = np.concatenate((can1, can2, can3), axis=1)
