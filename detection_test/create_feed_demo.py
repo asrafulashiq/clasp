@@ -23,8 +23,8 @@ def to_sec(frame, fps=30):
 class InfoClass:
     def __init__(self):
         bin_file = "./info/info.csv"
-        pax_file_9 = "./info/cam09exp2_logs_full_seg.txt"
-        pax_file_11 = "./info/cam11exp2_logs_full_seg.txt"
+        pax_file_9 = "./info/cam09exp2_logs_full_segv2.txt"
+        pax_file_11 = "./info/cam11exp2_logs_full_segv2.txt"
 
         bin_names = [
             "file",
@@ -47,7 +47,7 @@ class InfoClass:
             index_col=None,
         )
 
-        pax_names = ["frame", "id", "x1", "y1", "w", "h", "cam", "TU", "type"]
+        pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
 
         df_pax_9 = pd.read_csv(
             str(pax_file_9),
@@ -76,8 +76,10 @@ class InfoClass:
         df = self.df_pax
         df["x1"] = df["x1"] / 3
         df["y1"] = df["y1"] / 3
-        df["x2"] = df["x1"] + df["w"] / 3 - 1
-        df["y2"] = df["y1"] + df["h"] / 3 - 1
+        df["x2"] = df["x2"] / 3
+        df["y2"] = df["y2"] / 3
+        # df["x2"] = df["x1"] + df["w"] / 3 - 1
+        # df["y2"] = df["y1"] + df["h"] / 3 - 1
         df["camera"] = df["cam"].apply(lambda x: x[:5])
         df["type"] = df["type"].str.lower()
         return df
@@ -87,19 +89,19 @@ class InfoClass:
         nu_file = "./info/cam_09_exp2_associated_events.csv"
         df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
 
-        for _, row in df_tmp.iterrows():
-            frame = row["frame"]
-            des = row["des"]
-            des = parse("[{}]", des)
-            if des is None:
-                continue
-            des = des[0]
-            for each_split in des.split(","):
-                pp = parse("'P{}-B{}'", each_split)
-                if pp is None:
-                    continue
-                pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]) - 1)
-                self.dict_association[frame][bin_id] = pax_id
+        # for _, row in df_tmp.iterrows():
+        #     frame = row["frame"]
+        #     des = row["des"]
+        #     des = parse("[{}]", des)
+        #     if des is None:
+        #         continue
+        #     des = des[0]
+        #     for each_split in des.split(","):
+        #         pp = parse("'P{}-B{}'", each_split)
+        #         if pp is None:
+        #             continue
+        #         pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]) - 1)
+        #         self.dict_association[frame][bin_id] = pax_id
 
     def get_info_fram_frame(self, frame, cam="cam09"):
 
@@ -181,6 +183,7 @@ class InfoClass:
                 color=(33, 217, 14),
                 thick=2,
                 font_scale=font_scale,
+                color_txt=(252, 3, 69)
             )
 
         for each_i in info_pax:
@@ -193,6 +196,7 @@ class InfoClass:
                 color=(23, 23, 246),
                 thick=2,
                 font_scale=font_scale,
+                color_txt=(252, 211, 3)
             )
         return im
 
@@ -205,7 +209,7 @@ if __name__ == "__main__":
     out_folder = {}
     imlist = []
 
-    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
+    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed2"
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
 

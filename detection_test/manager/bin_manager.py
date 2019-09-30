@@ -154,16 +154,30 @@ class BinManager:
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
         self.log.clasp_log(f"Bin {self._bin_count} enters")
-        self._current_events.append(
-            [
-                self.current_frame,
-                new_bin.label,
-                new_bin.cls,
-                *new_bin.pos,
-                "enter",
-                f"Item {new_bin.label} enters in camera {self._camera[-2:]}",
-            ]
-        )
+
+        if self._camera == 'cam09':
+            self._current_events.append(
+                [
+                    self.current_frame,
+                    new_bin.label,
+                    new_bin.cls,
+                    *new_bin.pos,
+                    "enter",
+                    f"B{new_bin.label} enters conveyor belt",
+                ]
+            )
+        else:
+            self._current_events.append(
+                [
+                    self.current_frame,
+                    new_bin.label,
+                    new_bin.cls,
+                    *new_bin.pos,
+                    "enter",
+                    f"B{new_bin.label} exits X-Ray",
+                ]
+            )
+
 
     def update_state(self, im, boxes, scores, classes, frame_num):
 
