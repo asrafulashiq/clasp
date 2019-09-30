@@ -13767,46 +13767,77 @@ exp2,cam11,1681,3,items,594,101,636,185,enter,B3 exits X-Ray
 exp2,cam11,1725,5,items,593,95,640,178,enter,B5 exits X-Ray
 exp2,cam11,1883,7,items,595,101,638,181,enter,B7 exits X-Ray
 exp2,cam11,1943,4,items,592,97,638,180,enter,B4 exits X-Ray
+exp2,cam11,1981,5,items,146,0,231,17,exit,B5 empty
+exp2,cam11,2037,3,items,226,78,338,193,exit,B3 empty
 exp2,cam11,2083,9,items,594,97,639,180,enter,B9 exits X-Ray
 exp2,cam11,2135,10,items,593,96,639,178,enter,B10 exits X-Ray
+exp2,cam11,2199,4,items,137,77,255,191,exit,B4 empty
 exp2,cam11,2207,7,items,96,88,163,173,chng,Item 7 divested/revested
 exp2,cam11,2277,7,items,98,82,165,176,chng,Item 7 divested/revested
 exp2,cam11,2405,7,items,97,83,162,188,chng,Item 7 divested/revested
 exp2,cam11,2421,15,items,594,94,638,178,enter,B15 exits X-Ray
+exp2,cam11,2423,1,items,1,99,33,176,exit,B1 empty
+exp2,cam11,2443,7,items,91,82,156,179,exit,B7 empty
+exp2,cam11,2535,9,items,53,92,112,205,exit,B9 empty
+exp2,cam11,2535,10,items,172,89,241,192,exit,B10 empty
 exp2,cam11,2559,11,items,594,97,638,178,enter,B11 exits X-Ray
+exp2,cam11,2763,15,items,119,83,197,217,exit,B15 empty
 exp2,cam11,2795,13,items,593,95,640,183,enter,B13 exits X-Ray
+exp2,cam11,2839,11,items,122,86,196,166,exit,B11 empty
+exp2,cam11,3133,13,items,140,126,236,214,exit,B13 empty
 exp2,cam11,3155,21,items,594,95,638,176,enter,B21 exits X-Ray
 exp2,cam11,3259,20,items,592,95,640,178,enter,B20 exits X-Ray
+exp2,cam11,3475,20,items,169,1,248,28,exit,B20 empty
 exp2,cam11,3545,21,items,195,87,269,174,chng,Item 21 divested/revested
+exp2,cam11,3571,21,items,197,87,275,169,exit,B21 empty
 exp2,cam11,3705,22,items,594,105,638,168,enter,B22 exits X-Ray
 exp2,cam11,3841,23,items,593,98,639,177,enter,B23 exits X-Ray
 exp2,cam11,3975,24,items,594,97,639,174,enter,B24 exits X-Ray
 exp2,cam11,4129,27,items,593,90,639,170,enter,B27 exits X-Ray
+exp2,cam11,4137,22,items,176,87,276,153,exit,B22 empty
 exp2,cam11,4183,28,items,594,89,639,170,enter,B28 exits X-Ray
+exp2,cam11,4371,24,items,205,61,284,162,exit,B24 empty
 exp2,cam11,4405,29,items,595,96,638,176,enter,B29 exits X-Ray
 exp2,cam11,4459,23,items,79,90,139,159,chng,Item 23 divested/revested
+exp2,cam11,4507,23,items,46,100,128,167,exit,B23 empty
 exp2,cam11,4515,27,items,212,77,295,163,chng,Item 27 divested/revested
 exp2,cam11,4589,27,items,92,124,178,236,chng,Item 27 divested/revested
 exp2,cam11,4605,28,items,75,77,166,201,chng,Item 28 divested/revested
 exp2,cam11,4619,30,items,591,118,639,182,enter,B30 exits X-Ray
+exp2,cam11,4627,28,items,60,76,141,195,exit,B28 empty
 exp2,cam11,4695,27,items,0,131,23,225,exit,B27 empty
+exp2,cam11,4765,30,items,559,11,634,82,exit,B30 empty
+exp2,cam11,4883,29,items,228,81,303,186,exit,B29 empty
 exp2,cam11,5203,31,items,592,99,638,182,enter,B31 exits X-Ray
 exp2,cam11,5421,32,items,594,93,639,172,enter,B32 exits X-Ray
 exp2,cam11,5583,31,items,31,99,93,183,chng,Item 31 divested/revested
+exp2,cam11,5585,31,items,31,99,93,183,exit,B31 empty
 exp2,cam11,5597,33,items,594,93,639,172,enter,B33 exits X-Ray
 exp2,cam11,5655,37,items,589,91,639,173,enter,B37 exits X-Ray
 exp2,cam11,5709,34,items,594,97,637,178,enter,B34 exits X-Ray
 exp2,cam11,5811,38,items,594,91,638,171,enter,B38 exits X-Ray
+exp2,cam11,5829,32,items,135,106,212,189,exit,B32 empty
 exp2,cam11,5873,39,items,594,95,638,182,enter,B39 exits X-Ray
 exp2,cam11,5961,33,items,174,78,242,168,chng,Item 33 divested/revested
+exp2,cam11,5965,33,items,174,78,242,168,exit,B33 empty
 exp2,cam11,6055,34,items,234,65,307,165,chng,Item 34 divested/revested
 exp2,cam11,6109,40,items,593,98,639,176,enter,B40 exits X-Ray
 exp2,cam11,6189,38,items,174,95,270,161,chng,Item 38 divested/revested
+exp2,cam11,6211,38,items,219,64,288,168,exit,B38 empty
 exp2,cam11,6233,41,items,593,92,639,174,enter,B41 exits X-Ray
 exp2,cam11,6243,34,items,148,69,214,165,chng,Item 34 divested/revested
+exp2,cam11,6277,39,items,276,96,354,208,exit,B39 empty
+exp2,cam11,6319,34,items,134,77,205,174,exit,B34 empty
 exp2,cam11,6345,42,items,596,94,637,173,enter,B42 exits X-Ray
+exp2,cam11,6391,37,items,46,99,132,165,exit,B37 empty
 exp2,cam11,6415,43,items,595,95,638,175,enter,B43 exits X-Ray
+exp2,cam11,6469,40,items,333,73,405,175,exit,B40 empty
+exp2,cam11,6475,41,items,41,1,98,38,exit,B41 empty
 exp2,cam11,6609,45,items,593,97,639,177,enter,B45 exits X-Ray
 exp2,cam11,6663,46,items,595,94,637,176,enter,B46 exits X-Ray
+exp2,cam11,6881,43,items,86,66,202,168,exit,B43 empty
+exp2,cam11,6887,45,items,233,68,317,178,exit,B45 empty
 exp2,cam11,6909,42,items,55,94,157,184,chng,Item 42 divested/revested
+exp2,cam11,6911,42,items,55,94,157,184,exit,B42 empty
 exp2,cam11,6939,47,items,594,105,639,167,enter,B47 exits X-Ray
+exp2,cam11,7019,46,items,238,112,343,231,exit,B46 empty
