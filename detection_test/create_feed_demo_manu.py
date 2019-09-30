@@ -16,7 +16,6 @@ from parse import parse
 from collections import defaultdict
 
 
-
 def to_sec(frame, fps=30):
     return str(int(frame) // fps)+'s'
 
@@ -24,8 +23,8 @@ def to_sec(frame, fps=30):
 class InfoClass:
     def __init__(self):
         bin_file = "./info/info.csv"
-        pax_file_9 = "./info/cam09exp2_logs_full_segv2.txt"
-        pax_file_11 = "./info/cam11exp2_logs_full_segv2.txt"
+        pax_file_9 = "./info/cam09exp2_logs_full_segv1.txt"
+        pax_file_11 = "./info/cam11exp2_logs_full_segv1.txt"
 
         bin_names = [
             "file",
@@ -66,16 +65,12 @@ class InfoClass:
             index_col=None,
         )
 
-        self.tmp_msg = []
-
         self.df_pax = pd.concat((df_pax_9, df_pax_11))
         self.df_pax = self.refine_pax_df()
         self.get_association_info()
 
         print("loaded")
         self.bin_pax = {}
-
-        
 
     def refine_pax_df(self):
         df = self.df_pax
@@ -89,9 +84,8 @@ class InfoClass:
 
     def get_association_info(self):
         self.dict_association = defaultdict(dict)
-        self.asso_msg = {}
-        nu_file = "./info/cam_09_exp2_associated_events.csv"
-        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
+        nu_file = "./info/cam_09_exp2_associated_events_manu.csv"
+        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"], index_col=None)
 
         for _, row in df_tmp.iterrows():
             frame = row["frame"]
@@ -102,26 +96,19 @@ class InfoClass:
             des = des[0]
             for each_split in des.split(","):
                 pp = parse("'P{}-B{}'", each_split)
-                if pp is not None:
-                    pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]))
-                    if 'stealing' in pax_id:
-                        if each_split not in self.tmp_msg:
-                            self.asso_msg[frame] = [
-                                '09', frame, each_split
-                            ]
-                            self.tmp_msg.append(each_split)
-                    else:
-                        self.dict_association[frame][bin_id] = pax_id
-        self.tmp = []
+                if pp is None:
+                    continue
+                pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]) - 1)
+                self.dict_association[frame][bin_id] = pax_id
 
     def get_info_fram_frame(self, frame, cam="cam09"):
-
         # get pax info
         df = self.df_pax
         msglist = []
         info = df[(df["frame"] == frame) & (df["camera"] == cam)]
         list_info_pax = []
         list_event_pax = []
+
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 list_info_pax.append(
@@ -144,7 +131,6 @@ class InfoClass:
         info = df[(df["frame"] == _frame) & (df["camera"] == cam)]
         list_info_bin = []
         list_event_bin = []
-
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 _id = "B" + str(row["id"])
@@ -166,73 +152,80 @@ class InfoClass:
                         self.bin_pax.get(_id, ""),
                     ]
                 )
+
             else:  # event type
                 if row["frame"] != frame:
-                    continue
-                if row['type'] == 'enter' and row['camera'] == 'cam09':
                     continue
                 if row['type'] not in ('enter', 'exit'):
                     continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append(
-                    [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
-                )
-            if frame in self.asso_msg:
-                rr = self.asso_msg[frame]
-                if rr[2] not in self.tmp:
-                    msglist.append(
-                        [
-                            rr[0], to_sec(rr[1]), rr[2]
-                        ]
-                    )
-                    self.tmp.append(rr[2])
+                bin_inc = ('B9', 'B10', 'B11', 'B12', 'B13', 'B15', 'B16')
+                for each_ii in bin_inc:
+                    if each_ii in row['msg']:
+                        msglist.append(
+                            [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
+                        )
+                        break
 
         return (
             list_info_bin,
             list_info_pax,
             list_event_bin,
             list_event_pax,
-            msglist,
+            msglist
         )
 
-    def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
+    def draw_im(self, im, info_bin, info_pax, font_scale=0.5, cam='cam09'):
         for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(
-                im,
-                bbox,
-                each_i[0],
-                each_i[-1],
-                color=(33, 217, 14),
-                thick=2,
-                font_scale=font_scale,
-                color_txt=(252, 3, 69)
-            )
+            _inc = ('B9', 'B10', 'B11', 'B12', 'B13', 'B15', 'B16')
 
+            if each_i[0] in _inc:
+                im = vis.vis_bbox_with_str(
+                    im,
+                    bbox,
+                    each_i[0],
+                    each_i[-1],
+                    color=(33, 217, 14),
+                    thick=2,
+                    font_scale=font_scale,
+                    color_txt=(252, 3, 69)
+                )
+
+        conv_pax = {'P9':'P12', 'P13':'P13', 'P15':'P14'}
         for each_i in info_pax:
-            bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-            im = vis.vis_bbox_with_str(
-                im,
-                bbox,
-                each_i[0],
-                None,
-                color=(23, 23, 246),
-                thick=2,
-                font_scale=font_scale,
-                color_txt=(252, 211, 3)
-            )
+            if cam=='cam09':
+                _inc = ('P12', 'P13', 'P14')
+            else:
+                _inc = ('P9', 'P13', 'P15')
+            if each_i[0] in _inc:
+                if cam == 'cam11':
+                    each_i[0] = conv_pax[each_i[0]]
+                bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
+                im = vis.vis_bbox_with_str(
+                    im,
+                    bbox,
+                    each_i[0],
+                    None,
+                    color=(23, 23, 246),
+                    thick=2,
+                    font_scale=font_scale,
+                    color_txt=(252, 211, 3)
+                )
         return im
 
 
 if __name__ == "__main__":
 
     file_num = "exp2"
-    cameras = ["cam09", "cam11"]
 
     out_folder = {}
     imlist = []
 
-    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed3"
+    conf.skip_init = 1580
+    conf.end_file = 3600
+
+    feed_folder = Path(conf.out_dir) / "demo" / "feed_manu"
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
 
@@ -245,6 +238,9 @@ if __name__ == "__main__":
     imlist = []
     src_folder = {}
     out_folder = {}
+
+    # for cam in cameras:
+    cameras = ['cam09', 'cam11']
 
     for cam in cameras:
         src_folder[cam] = Path(conf.root) / file_num / cam
@@ -270,12 +266,14 @@ if __name__ == "__main__":
         info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(
             frame_num, "cam09"
         )
-        im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
+        im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75, cam='cam09')
+
 
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
             frame_num, "cam11"
         )
-        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7, cam='cam11')
+
 
         # get message
         msglist.extend(mlist)
