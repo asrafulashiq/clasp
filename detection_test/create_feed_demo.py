@@ -112,6 +112,28 @@ class InfoClass:
                             self.tmp_msg.append(each_split)
                     else:
                         self.dict_association[frame][bin_id] = pax_id
+
+        nu_file = "./info/cam_11_exp2_associated_events.csv"
+        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
+
+        for _, row in df_tmp.iterrows():
+            frame = row["frame"]
+            des = row["des"]
+            des = parse("[{}]", des)
+            if des is None:
+                continue
+            des = des[0]
+            for each_split in des.split(","):
+
+                if 'stealing' in each_split:
+                    if each_split not in self.tmp_msg:
+                        self.asso_msg[frame] = [
+                                '11', frame, each_split
+                            ]
+                        self.tmp_msg.append(each_split)
+
+
+
         self.tmp = []
 
     def get_info_fram_frame(self, frame, cam="cam09"):
