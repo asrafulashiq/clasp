@@ -55,17 +55,16 @@ for out1, out2 in zip(*imlist):
     new_im = manager.run_detector_image(
         im, cam=cameras[0], frame_num=frame_num
     )
-    # utils.plot_cv(new_im)
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
-    # im, imfile, frame_num = out2
-    # new_im = manager.run_detector_image(
-    #     im, cam=cameras[1], frame_num=frame_num
-    # )
-    # skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
+    im, imfile, frame_num = out2
+    new_im = manager.run_detector_image(
+        im, cam=cameras[1], frame_num=frame_num
+    )
+    skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
-    # if conf.write:
-    #     manager.write_info()
+    if conf.write:
+        manager.write_info()
 
 if conf.write:
     manager.final_write()
