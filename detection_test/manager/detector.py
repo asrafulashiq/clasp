@@ -125,8 +125,9 @@ class DummyDetector:
 
     def create_model(self):
         self.model = rcnn_utils.RCNN_Detector(
-            ckpt=self.ckpt, labels_to_keep=(1, 2), thres=self.thres
+            ckpt=self.ckpt, labels_to_keep=self.labels_to_keep, thres=self.thres
         )
+        #TODO: lables to keep is important, 1 means pax, 2 is bins
         self.dummy_coco_dataset = get_clasp_dataset()
 
     def predict_box(self, im, show=False):
