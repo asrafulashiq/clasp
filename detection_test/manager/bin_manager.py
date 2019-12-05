@@ -30,7 +30,7 @@ class BinManager:
         self._camera = camera
 
         # initialize configuration
-        self._mul = 3
+        self._mul = 1
         if camera == "cam09":
             self.init_cam_9()
         elif camera == "cam11":
