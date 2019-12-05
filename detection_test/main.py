@@ -11,7 +11,7 @@ import skimage
 
 log = ClaspLogger()
 
-file_num = "exp1"
+file_num = "exp2"
 cameras = ["cam09", "cam11"]
 
 
