@@ -90,9 +90,6 @@ class BinManager:
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
-        self._thres_incoming_bin_exit = 1530  # x
-        self._thres_out_bin_exit = 110
-        self._thres_incoming_bin_init_x = 1700
         self._thres_max_idle_count = 5
 
         self._thres_incoming_bin_bound = [
@@ -106,12 +103,12 @@ class BinManager:
 
         self._thres_out_bin_bound = [(0, 77), (0, 187), (15, 184), (15, 72)]
 
-        self._max_det_fail = 3 * self._mul
+        self._max_det_fail = 2 * self._mul
         self._max_track_fail = 10 * self._mul
 
         self._default_bin_state = "items"
-        self.maxlen = 5 * self._mul
-        self._rat_track_det = 1.6
+        self.maxlen = 3 * self._mul
+        self._rat_track_det = 1.2
 
     # * ONLY FOR CAMERA 11
 
