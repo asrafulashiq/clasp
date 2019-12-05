@@ -12,7 +12,7 @@ def get_arg():
     parser.add_argument(
         "--root",
         type=str,
-        default=_HOME + "/dataset/ALERT/alert_frames",
+        default=_HOME + "/dataset/ALERT/alert_frames_2",
         help="root direcotory of all frames",
     )
     parser.add_argument(

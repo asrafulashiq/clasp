@@ -53,26 +53,26 @@ class BinManager:
         self._min_iou = 0.4
         self._bin_count = 0
         self._thres_incoming_bin_bound = [
-            (123, 227),
-            (146, 111),
-            (496, 180),
-            (467, 302),
+            (135, 117),  #(123, 227),
+            (134, 235), #(146, 111),
+            (481, 222),#(496, 180),
+            (475, 110)#(467, 302),
         ]  # bound for detecting incoming
         # self._thres_out_bin_exit = 350 / 3
 
         self._thres_out_bin_bound = [
-            (111, 225),
-            (131, 113),
-            (73, 91),
-            (48, 213),
+            (60, 122),#(111, 225),
+           (65, 243), #(131, 113),
+           (137, 236), #(73, 91),
+            (137, 119)#(48, 213),
         ]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
         self._box_conveyor_belt = [
-            (26, 210),
-            (61, 82),
-            (496, 180),
-            (467, 302),
+            (51, 120),#(26, 210),
+            (60, 233), #(61, 82),
+           (480, 226), #(496, 180),
+            (474, 110)#(467, 302),
         ]  # conveyor belt co-ords (x,y) from bottom left
 
         self._max_det_fail = 5 * self._mul
