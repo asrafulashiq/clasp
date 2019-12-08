@@ -103,6 +103,9 @@ class BinManager:
         self.maxlen = 3 * self._mul
         self._rat_track_det = 1.2
 
+        self._min_dim = 40
+        self._max_area = 140 * 140
+
 
     # NOTE: ONLY FOR CAMERA 11
     def set_cam9_manager(self, _manager):
@@ -197,9 +200,21 @@ class BinManager:
                         _boxes, _scores, _classes, thresh=0.4, low_score=0.3
                     )
             else:
-                boxes, scores, classes = nms.multi_nms(
-                    _boxes, _scores, _classes, thresh=0.4, low_score=0.3
-                )
+                ind = []
+                for i in range(len(_boxes)):
+                    w, h = (_boxes[i][2] - _boxes[i][0], _boxes[i][3] - _boxes[i][1])
+                    if w > self._min_dim and h > self._min_dim and w * h < self._max_area:
+                        ind.append(i)
+                if len(ind) == 0:
+                    boxes, scores, classes = None, None, None
+                else:
+                    _boxes, _scores, _classes = (_boxes[ind], _scores[ind], _classes[ind])
+                    boxes, scores, classes = nms.multi_nms(
+                        _boxes, _scores, _classes, thresh=0.4, low_score=0.3
+                    )
+                # boxes, scores, classes = nms.multi_nms(
+                #     _boxes, _scores, _classes, thresh=0.4, low_score=0.3
+                # )
         else:
             boxes, scores, classes = None, None, None
 
@@ -300,6 +315,15 @@ class BinManager:
                 # if self._camera == 'cam11' and cls == 'items':
                 #     continue
 
+                # NOTE: check if high overlap with existing bins
+                to_add = True
+                for bin in self._current_bins:
+                    if bin.iou_bbox(box, ratio_type='min') > 0.35:
+                        to_add = False
+                        break
+                if not to_add:
+                    continue
+
                 self.add_bin(box, cls, im)  # add new bin
 
         # detect bin exit
@@ -397,3 +421,17 @@ class BinManager:
                 )
                 new_bin.init_tracker(box, im)
                 self._current_bins.append(new_bin)
+
+    def add_exit_info(self, list_info):
+        for each_i in list_info:
+            _id, cls, x1, y1, x2, y2 = each_i
+            if cls == "items":
+                box = [x1, y1, x2, y2]
+                new_bin = Bin(
+                    label=_id,
+                    state=cls,
+                    pos=box,
+                    default_state=self._default_bin_state,
+                    maxlen=self.maxlen,
+                )
+                self._left_bins.append(new_bin)
