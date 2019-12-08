@@ -80,8 +80,8 @@ class BinManager:
         self.maxlen = 5 * self._mul
         self._rat_track_det = 0.8
 
-        self._min_area = 40 * 40
-        self._min_dim = 40
+        # self._min_area = 40 * 40
+        self._min_dim = 60
         self._max_area = 120 * 120
 
     def init_cam_11(self):
@@ -210,27 +210,41 @@ class BinManager:
         #####################################################
         ################ Track previous bin #################
         #####################################################
-        if len(ind) > 0:
+        if len(ind) > 0 and len(self._current_bins) > 0:
+            M_iou = []
             for bin in self._current_bins:
+                iou_to_boxes = []
+                for _counter in range(boxes.shape[0]):
+                    _iou = bin.iou_bbox(boxes[_counter])
+                    iou_to_boxes.append(_iou)
+                M_iou.append(iou_to_boxes)
+            M_iou = np.array(M_iou)
+            M_iou[M_iou < self._min_iou] = 0
+
+            box_ind_min = utils_box.get_min_ind(M_iou)
+
+            for bcount, bin in enumerate(self._current_bins):
                 status, _bb_track = bin.update_tracker(im)
                 if not status:
                     bin.increment_track_fail()
                 else:
                     bin.reset_track_fail()
 
-                iou_to_boxes = []
-                for _counter in range(boxes.shape[0]):
-                    _iou = bin.iou_bbox(boxes[_counter])
-                    iou_to_boxes.append(_iou)
-                    tmp_iou[_counter] = max(
-                        tmp_iou.get(_counter, 0), utils_box.iou_bbox(boxes[_counter], bin.pos)
-                    )
+                # iou_to_boxes = []
+                # for _counter in range(boxes.shape[0]):
+                #     _iou = bin.iou_bbox(boxes[_counter])
+                #     iou_to_boxes.append(_iou)
+                #     # tmp_iou[_counter] = max(
+                #     #     tmp_iou.get(_counter, 0), utils_box.iou_bbox(boxes[_counter], bin.pos)
+                #     # )
 
-                closest_index = np.argmax(iou_to_boxes)
-                if closest_index in explored_indices:
+                # closest_index = np.argmax(iou_to_boxes)
+                closest_index = int(box_ind_min[bcount])
+                if closest_index < 0 or closest_index in explored_indices: 
                     bin.increment_det_fail()
                     continue
 
+                iou_to_boxes = M_iou[bcount, :]
                 # NOTE: '_min_iou' threshold to regain tracking
                 if iou_to_boxes[closest_index] > self._min_iou:
                     bin.reset_det_fail()
