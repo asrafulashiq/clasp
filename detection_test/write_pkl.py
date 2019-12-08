@@ -32,7 +32,9 @@ for camera in cameras:
     _dict = {}
 
     for im, imfile, frame_num in tqdm(
-        utils.get_images_from_dir(src_folder, size=conf.size, skip_init=1500, skip_end=5000, delta=2)
+        utils.get_images_from_dir(
+            src_folder, size=conf.size, skip_init=1500, skip_end=5000, delta=1
+        )
     ):
         logging.info(f"processing : {imfile}")
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)

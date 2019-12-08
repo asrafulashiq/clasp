@@ -45,15 +45,15 @@ def get_arg():
 
     parser.add_argument(
         "--info",
-        # default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/back/info.csv",
-        default=None,
+        default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info.csv",
+        # default=None,
         type=str,
         help="info file to load",
     )
 
-    parser.add_argument("--skip-init", type=int, default=3660)
+    parser.add_argument("--skip-init", type=int, default=2400)
     parser.add_argument("--skip-end", type=int, default=None)
-    parser.add_argument("--end-file", type=int, default=5000)
+    parser.add_argument("--end-file", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)
 
     return parser.parse_args()
