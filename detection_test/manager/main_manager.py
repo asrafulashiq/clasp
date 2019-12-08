@@ -38,7 +38,7 @@ class Manager:
         if write:
             self.write_list = []
 
-    def get_info_fram_frame(self, df, frame, cam="cam09"):
+    def get_info_from_frame(self, df, frame, cam="cam09"):
         if frame not in df["frame"].values:
             frame += 1
         info = df[(df["frame"] == frame) & (df["camera"] == cam)]
@@ -46,6 +46,15 @@ class Manager:
         for _, row in info.iterrows():
             list_info.append([row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"]])
         return list_info
+
+    def write_info_upto_frame(self, df, frame, cam="cam09"):
+        if frame not in df["frame"].values:
+            frame += 1
+        info = df[(df["frame"] <= frame)]
+        for _, row in info.iterrows():
+            line = ",".join([str(_s) for _s in row.values])
+            self.write_list.append(line)
+
 
     def load_info(self, info_file, frame_num, image, camera="cam09"):
         df = pd.read_csv(
@@ -56,8 +65,9 @@ class Manager:
             index_col=None,
         )
 
-        list_info = self.get_info_fram_frame(df, frame_num, camera)
+        list_info = self.get_info_from_frame(df, frame_num, camera)
         self._bin_managers[camera].add_info(list_info, image)
+        self.write_info_upto_frame(df, frame_num)
 
     def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
         import pickle

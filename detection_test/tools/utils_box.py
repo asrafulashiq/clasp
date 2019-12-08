@@ -50,3 +50,25 @@ def iou_bbox(bbox1, bbox2, ratio_type='comb'):
 def dist(x1, y1, x2, y2):
     """ distance between two points  """
     return math.sqrt((x1-x2)**2 + (y1-y2)**2)
+
+
+import numpy as np
+
+def get_min_ind(M):
+    r, c = M.shape
+    Mc = M.copy()
+    M_f = M.flatten()
+    ind_sort = np.argsort(-M_f)
+    row_processed = []
+
+    out = np.ones(r) * (-1)
+
+    for i in range(ind_sort.shape[0]):
+        ind = ind_sort[i]
+        cr, cc = np.unravel_index(ind, (r, c))
+        if Mc[cr, cc] > 0:
+            row_processed.append(cr)
+            out[cr] = cc
+            Mc[cr, :] = 0
+            Mc[:, cc] = 0
+    return out
