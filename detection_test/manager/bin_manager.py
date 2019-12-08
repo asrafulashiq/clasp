@@ -61,8 +61,8 @@ class BinManager:
         self._thres_out_bin_bound = [
             (60, 122),  # (111, 225),
             (65, 243),  # (131, 113),
-            (137, 236),  # (73, 91),
-            (137, 119),  # (48, 213),
+            (147, 236),  # (73, 91),
+            (147, 119),  # (48, 213),
         ]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
