@@ -4,7 +4,7 @@ Module for utility functions of bounding box processing
 
 import math
 
-def iou_bbox(bbox1, bbox2, ratio_type='min'):
+def iou_bbox(bbox1, bbox2, ratio_type='comb'):
     """Intersection of two bounding boxes
 
     Arguments:
