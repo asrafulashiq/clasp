@@ -12,14 +12,7 @@ HOME = os.environ["HOME"]
 
 
 class Manager:
-    def __init__(
-        self,
-        log=None,
-        file_num="exp2",
-        config=None,
-        bin_only=False,
-        write=True,
-    ):
+    def __init__(self, log=None, file_num="exp2", config=None, bin_only=False, write=True):
         self._bin_detector = None
         self._pax_detector = None
         self.file_num = file_num
@@ -46,42 +39,23 @@ class Manager:
             self.write_list = []
 
     def get_info_fram_frame(self, df, frame, cam="cam09"):
-        if frame not in df['frame'].values:
+        if frame not in df["frame"].values:
             frame += 1
         info = df[(df["frame"] == frame) & (df["camera"] == cam)]
         list_info = []
         for _, row in info.iterrows():
-            list_info.append(
-                [
-                    row["id"],
-                    row["class"],
-                    row["x1"],
-                    row["y1"],
-                    row["x2"],
-                    row["y2"],
-                ]
-            )
+            list_info.append([row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"]])
         return list_info
 
-    def load_info(self, info_file, frame_num, image, camera='cam09'):
+    def load_info(self, info_file, frame_num, image, camera="cam09"):
         df = pd.read_csv(
             str(info_file),
             sep=",",
             header=None,
-            names=[
-                "file",
-                "camera",
-                "frame",
-                "id",
-                "class",
-                "x1",
-                "y1",
-                "x2",
-                "y2",
-            ],
+            names=["file", "camera", "frame", "id", "class", "x1", "y1", "x2", "y2", "type", "msg"],
             index_col=None,
         )
-        
+
         list_info = self.get_info_fram_frame(df, frame_num, camera)
         self._bin_managers[camera].add_info(list_info, image)
 
@@ -105,15 +79,11 @@ class Manager:
         self._pax_managers = {}
 
         for camera in ["cam09", "cam11"]:
-            self._bin_managers[camera] = BinManager(
-                camera=camera, log=self.log
-            )
+            self._bin_managers[camera] = BinManager(camera=camera, log=self.log)
             # if self._bin_detector is not None:
             #     self._bin_managers[camera].detector = self._bin_detector
             if camera == "cam11":
-                self._bin_managers[camera].set_cam9_manager(
-                    self._bin_managers["cam09"]
-                )
+                self._bin_managers[camera].set_cam9_manager(self._bin_managers["cam09"])
 
         # FIXME
         # for camera in ["9", "11"]:
@@ -145,9 +115,7 @@ class Manager:
         classes = classes[ind]
         return boxes, scores, classes
 
-    def run_detector_image(
-        self, im=None, cam="cam09", frame_num=None, return_im=True
-    ):
+    def run_detector_image(self, im=None, cam="cam09", frame_num=None, return_im=True):
 
         self.current_frame = frame_num
         self.log.addinfo(self.file_num, cam, frame_num)
@@ -159,9 +127,7 @@ class Manager:
         if cam in self._bin_managers:
             if frame_num in self._det_bin[cam]:
                 boxes, scores, classes, _ = self._det_bin[cam][frame_num]
-                self._bin_managers[cam].update_state(
-                    im, boxes, scores, classes, frame_num
-                )
+                self._bin_managers[cam].update_state(im, boxes, scores, classes, frame_num)
 
         #### FIXME This is temporary
         # if cam in self._pax_managers:
@@ -187,18 +153,29 @@ class Manager:
         for cam, bin_manager in self._bin_managers.items():
             for each_bin in bin_manager._current_bins:
                 bbox = ",".join(str(int(i)) for i in each_bin.pos)
-                line = f"{self.file_num},{cam},{self.current_frame},{each_bin.label},{each_bin.cls},{bbox}," + \
-                        f"loc, -1"
+                line = (
+                    f"{self.file_num},{cam},{self.current_frame},{each_bin.label},{each_bin.cls},{bbox},"
+                    + f"loc, -1"
+                )
                 self.write_list.append(line)
 
     def final_write(self):
         if self.write:
             for cam, bin_manager in self._bin_managers.items():
                 for event in bin_manager._current_events:
-                    frame, _id, cls, x1, y1, x2, y2, _type, msg = event 
+                    frame, _id, cls, x1, y1, x2, y2, _type, msg = event
                     line = "{},{},{},{},{},{},{},{},{},{},{}".format(
-                        self.file_num, cam, frame, _id, cls, int(x1),
-                        int(y1), int(x2), int(y2), _type, msg
+                        self.file_num,
+                        cam,
+                        frame,
+                        _id,
+                        cls,
+                        int(x1),
+                        int(y1),
+                        int(x2),
+                        int(y2),
+                        _type,
+                        msg,
                     )
                     self.write_list.append(line)
 

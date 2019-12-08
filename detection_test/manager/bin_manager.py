@@ -12,9 +12,7 @@ from tools import nms
 
 
 class BinManager:
-    def __init__(
-        self, bins=None, log=None, detector=None, camera="cam09", write=True
-    ):
+    def __init__(self, bins=None, log=None, detector=None, camera="cam09", write=True):
         self.log = log
         if log is None:
             self.log = logging.getLogger("bin manager")
@@ -30,7 +28,7 @@ class BinManager:
         self._camera = camera
 
         # initialize configuration
-        self._mul = 1
+        self._mul = 2
         if camera == "cam09":
             self.init_cam_9()
         elif camera == "cam11":
@@ -53,26 +51,26 @@ class BinManager:
         self._min_iou = 0.4
         self._bin_count = 0
         self._thres_incoming_bin_bound = [
-            (135, 117),  #(123, 227),
-            (134, 235), #(146, 111),
-            (481, 222),#(496, 180),
-            (475, 110)#(467, 302),
+            (165, 117),  # (123, 227),
+            (164, 235),  # (146, 111),
+            (481, 222),  # (496, 180),
+            (475, 110),  # (467, 302),
         ]  # bound for detecting incoming
         # self._thres_out_bin_exit = 350 / 3
 
         self._thres_out_bin_bound = [
-            (60, 122),#(111, 225),
-           (65, 243), #(131, 113),
-           (137, 236), #(73, 91),
-            (137, 119)#(48, 213),
+            (60, 122),  # (111, 225),
+            (65, 243),  # (131, 113),
+            (137, 236),  # (73, 91),
+            (137, 119),  # (48, 213),
         ]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
         self._box_conveyor_belt = [
-            (51, 120),#(26, 210),
-            (60, 233), #(61, 82),
-           (480, 226), #(496, 180),
-            (474, 110)#(467, 302),
+            (51, 120),  # (26, 210),
+            (60, 233),  # (61, 82),
+            (480, 226),  # (496, 180),
+            (474, 110),  # (467, 302),
         ]  # conveyor belt co-ords (x,y) from bottom left
 
         self._max_det_fail = 5 * self._mul
@@ -92,12 +90,7 @@ class BinManager:
         self._bin_count = 0
         self._thres_max_idle_count = 5
 
-        self._thres_incoming_bin_bound = [
-            (617, 189),
-            (617, 90),
-            (430, 70),
-            (430, 176),
-        ]
+        self._thres_incoming_bin_bound = [(617, 189), (617, 90), (430, 70), (430, 176)]
 
         self._box_conveyor_belt = [(636, 189), (636, 60), (8, 60), (8, 189)]  #
 
@@ -110,8 +103,8 @@ class BinManager:
         self.maxlen = 3 * self._mul
         self._rat_track_det = 1.2
 
-    # * ONLY FOR CAMERA 11
 
+    # NOTE: ONLY FOR CAMERA 11
     def set_cam9_manager(self, _manager):
         if self._camera == "cam11":
             self._manager_cam_9 = _manager
@@ -152,7 +145,7 @@ class BinManager:
         self._current_bins.append(new_bin)
         self.log.clasp_log(f"Bin {self._bin_count} enters")
 
-        if self._camera == 'cam09':
+        if self._camera == "cam09":
             self._current_events.append(
                 [
                     self.current_frame,
@@ -175,7 +168,6 @@ class BinManager:
                 ]
             )
 
-
     def update_state(self, im, boxes, scores, classes, frame_num):
 
         self.current_frame = frame_num
@@ -194,24 +186,13 @@ class BinManager:
             if self._camera == "cam09":
                 ind = []
                 for i in range(len(_boxes)):
-                    w, h = (
-                        _boxes[i][2] - _boxes[i][0],
-                        _boxes[i][3] - _boxes[i][1],
-                    )
-                    if (
-                        w > self._min_dim
-                        and h > self._min_dim
-                        and w * h < self._max_area
-                    ):
+                    w, h = (_boxes[i][2] - _boxes[i][0], _boxes[i][3] - _boxes[i][1])
+                    if w > self._min_dim and h > self._min_dim and w * h < self._max_area:
                         ind.append(i)
                 if len(ind) == 0:
                     boxes, scores, classes = None, None, None
                 else:
-                    _boxes, _scores, _classes = (
-                        _boxes[ind],
-                        _scores[ind],
-                        _classes[ind],
-                    )
+                    _boxes, _scores, _classes = (_boxes[ind], _scores[ind], _classes[ind])
                     boxes, scores, classes = nms.multi_nms(
                         _boxes, _scores, _classes, thresh=0.4, low_score=0.3
                     )
@@ -226,6 +207,9 @@ class BinManager:
 
         tmp_iou = {}
 
+        #####################################################
+        ################ Track previous bin #################
+        #####################################################
         if len(ind) > 0:
             for bin in self._current_bins:
                 status, _bb_track = bin.update_tracker(im)
@@ -239,8 +223,7 @@ class BinManager:
                     _iou = bin.iou_bbox(boxes[_counter])
                     iou_to_boxes.append(_iou)
                     tmp_iou[_counter] = max(
-                        tmp_iou.get(_counter, 0),
-                        utils_box.iou_bbox(boxes[_counter], bin.pos),
+                        tmp_iou.get(_counter, 0), utils_box.iou_bbox(boxes[_counter], bin.pos)
                     )
 
                 closest_index = np.argmax(iou_to_boxes)
@@ -248,6 +231,7 @@ class BinManager:
                     bin.increment_det_fail()
                     continue
 
+                # NOTE: '_min_iou' threshold to regain tracking
                 if iou_to_boxes[closest_index] > self._min_iou:
                     bin.reset_det_fail()
                     new_box = boxes[closest_index]
@@ -255,12 +239,10 @@ class BinManager:
                         _track_iou = bin.iou_bbox(_bb_track)
                         if (
                             self._camera == "cam09"
-                            and _track_iou
-                            > iou_to_boxes[closest_index] * self._rat_track_det
+                            and _track_iou > iou_to_boxes[closest_index] * self._rat_track_det
                         ) or (
                             self._camera == "cam11"
-                            and utils_box.iou_bbox(_bb_track, new_box, "min")
-                            > 0.85
+                            and utils_box.iou_bbox(_bb_track, new_box, "min") > 0.85
                         ):
                             new_box = _bb_track
                             bin.reset_track_fail()
@@ -280,7 +262,9 @@ class BinManager:
             for bin in self._current_bins:
                 bin.increment_det_fail()
 
-        # refine detected bins and detect new bin
+        ############################################################
+        ##################   Detect new bin ########################
+        ############################################################
         if len(ind) > 0:
             for i in range(boxes.shape[0]):
                 if i in explored_indices:
@@ -327,14 +311,7 @@ class BinManager:
                     msg = f"B{bin.label} empty"
 
                 self._current_events.append(
-                    [
-                        self.current_frame,
-                        bin.label,
-                        bin.cls,
-                        *bin.pos,
-                        "exit",
-                        msg,
-                    ]
+                    [self.current_frame, bin.label, bin.cls, *bin.pos, "exit", msg]
                 )
 
             else:
@@ -347,25 +324,16 @@ class BinManager:
                     if not pass_det:
                         self.log.clasp_log(f"Bin {bin.label} divested")
 
-                        if self._camera == 'cam11':
-                             msg = f"B{bin.label} empty"
-                             self._current_events.append(
-                                [
-                                    self.current_frame,
-                                    bin.label,
-                                    bin.cls,
-                                    *bin.pos,
-                                    "exit",
-                                    msg,
-                                ]
+                        if self._camera == "cam11":
+                            msg = f"B{bin.label} empty"
+                            self._current_events.append(
+                                [self.current_frame, bin.label, bin.cls, *bin.pos, "exit", msg]
                             )
 
                         # check if bin has overlap with other bins
                         for other_bin in self._current_bins:
                             if other_bin.label != bin.label:
-                                _iou = utils_box.iou_bbox(
-                                    bin.pos, other_bin.pos, "combined"
-                                )
+                                _iou = utils_box.iou_bbox(bin.pos, other_bin.pos, "combined")
 
                                 if _iou > 0.5:
                                     self._current_events.append(
@@ -382,9 +350,7 @@ class BinManager:
 
                     else:
                         # divestment or revestment
-                        self.log.info(
-                            f"Bin {bin.label} - New divestment/revestment"
-                        )
+                        self.log.info(f"Bin {bin.label} - New divestment/revestment")
                         _ind.append(i)
                         bin.init_tracker(bin.pos, im)
                         bin.reset_track_fail()
@@ -407,6 +373,7 @@ class BinManager:
             _id, cls, x1, y1, x2, y2 = each_i
             if cls == "items":
                 box = [x1, y1, x2, y2]
+                self._bin_count = max(self._bin_count, _id)
                 new_bin = Bin(
                     label=_id,
                     state=cls,

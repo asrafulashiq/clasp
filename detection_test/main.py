@@ -8,6 +8,8 @@ from config import conf
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
+import os
+
 
 log = ClaspLogger()
 
@@ -22,12 +24,24 @@ imlist = []
 src_folder = {}
 out_folder = {}
 
+# Store image names
 for cam in cameras:
     src_folder[cam] = Path(conf.root) / file_num / cam
     assert src_folder[cam].exists()
 
     out_folder[cam] = Path(conf.out_dir) / "run" / file_num / cam
     out_folder[cam].mkdir(parents=True, exist_ok=True)
+
+
+    imfiles = utils.get_fp_from_dir(
+        src_folder[cam], out_folder=out_folder[cam],
+        skip_init=conf.skip_init,
+        skip_end=conf.skip_end, delta=conf.delta,
+        end_file=conf.end_file
+    )
+    for fp in imfiles:
+        if os.path.exists(fp):
+            os.remove(str(fp))
 
     imlist.append(
         utils.get_images_from_dir(
@@ -37,6 +51,7 @@ for cam in cameras:
         )
     )
 
+# Process
 
 for out1, out2 in zip(*imlist):
 
