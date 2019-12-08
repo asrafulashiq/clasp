@@ -15,7 +15,7 @@ log.setLevel(logging.DEBUG)
 
 file_num = "exp2"
 # cameras = ["cam11", "cam13", "cam09", "cam01"]
-cameras = ["cam11", "cam09"]
+cameras = ["cam13"]
 
 detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.3, labels_to_keep=(2,))
 
