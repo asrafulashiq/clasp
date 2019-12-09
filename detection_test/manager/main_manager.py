@@ -12,11 +12,22 @@ HOME = os.environ["HOME"]
 
 
 class Manager:
-    def __init__(self, log=None, file_num="exp2", config=None, bin_only=False, write=True):
+    def __init__(
+        self,
+        log=None,
+        file_num="exp2",
+        config=None,
+        bin_only=False,
+        write=True, # whether to save intermediate results
+        cameras=["cam09", "cam11"] # which cameras to consider
+    ):
         self._bin_detector = None
         self._pax_detector = None
         self.file_num = file_num
         self.bin_only = bin_only
+
+        # NOTE: cameras to consider
+        self.cameras = cameras
 
         self.config = config
         self.log = log
@@ -27,10 +38,10 @@ class Manager:
 
         self.init_cameras()
 
-        # ! DUMMY
+        ########## get detection results from pkl ##########
         self._det_bin = {}
         self._det_pax = {}
-        for cam in ["cam09", "cam11"]:
+        for cam in self.cameras:
             self.get_dummy_detection_pkl(self.file_num, cam)
 
         self.current_frame = None
@@ -47,22 +58,28 @@ class Manager:
             list_info.append([row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"]])
         return list_info
 
+
     def write_info_upto_frame(self, df, frame, cam="cam09"):
         if frame not in df["frame"].values:
             frame += 1
-        info = df[(df["frame"] <= frame)]
+        info = df[(df["frame"] <= frame) & (df["camera"] == cam)]
         for _, row in info.iterrows():
             line = ",".join([str(_s) for _s in row.values])
             self.write_list.append(line)
 
+
     def write_exit_info_upto_frame(self, df, frame, cam="cam09"):
         if frame not in df["frame"].values:
             frame += 1
-        info = df[(df["frame"] <= frame) & (df["type"] == "exit") & (df["camera"] == cam)]
+        info = df[(df["frame"] <= frame) & 
+        ((df["type"] == "exit") | (df["type"] == "empty")) & 
+        (df["camera"] == cam)]
         if not info.empty:
             list_info = []
             for _, row in info.iterrows():
-                list_info.append([row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"]])
+                list_info.append(
+                    [row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"], row["type"]]
+                )
             self._bin_managers[cam].add_exit_info(list_info)
 
 
@@ -71,16 +88,26 @@ class Manager:
             str(info_file),
             sep=",",
             header=None,
-            names=["file", "camera", "frame", "id", "class", "x1", "y1", "x2", "y2", "type", "msg"],
+            names=[
+                "file",
+                "camera",
+                "frame",
+                "id",
+                "class",
+                "x1",
+                "y1",
+                "x2",
+                "y2",
+                "type",
+                "msg",
+            ],
             index_col=None,
         )
 
         list_info = self.get_info_from_frame(df, frame_num, camera)
         self._bin_managers[camera].add_info(list_info, image)
-        self.write_info_upto_frame(df, frame_num)
+        self.write_info_upto_frame(df, frame_num, camera)
         self.write_exit_info_upto_frame(df, frame_num, camera)
-
-        # load exit bin for cam 11
 
 
     def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
@@ -95,39 +122,17 @@ class Manager:
         # with open(_pax, 'rb') as fp:
         #     self._det_pax[camera] = pickle.load(fp)
 
-        # pax box from MU data
-
     def init_cameras(self):
         # bin_manager in camera 9 and 11
         self._bin_managers = {}
         self._pax_managers = {}
 
-        for camera in ["cam09", "cam11"]:
+        for camera in self.cameras:
             self._bin_managers[camera] = BinManager(camera=camera, log=self.log)
-            # if self._bin_detector is not None:
-            #     self._bin_managers[camera].detector = self._bin_detector
             if camera == "cam11":
                 self._bin_managers[camera].set_cam9_manager(self._bin_managers["cam09"])
-
-        # FIXME
-        # for camera in ["9", "11"]:
-        # if not self.bin_only:
-        #     for camera in ["cam11"]:
-        #         self._pax_managers[camera] = PAXManager(camera=camera, log=self.log)
-        #         if self._pax_detector is not None:
-        #             self._pax_managers[camera].detector = self._pax_detector
-
-    # def init_pax_detector(self, cfg=None, weights=None):
-    #     self.log.info("Pax Detector initializing")
-    #     from manager.detector_pax import PAXDetector
-
-    #     self._pax_detector = PAXDetector(ckpt=weights)
-
-    # def init_bin_detector(self, cfg=None, weights=None):
-    #     self.log.info("Bin Detector initializing")
-    #     from manager.detector import BinDetector
-
-    #     self._bin_detector = BinDetector(ckpt=weights)
+            if camera == "cam13":
+                self._bin_managers[camera].set_cam9_manager(self._bin_managers["cam11"])
 
     def filter_det(self, ret, class_to_keep="items"):
         boxes, scores, classes, _ = ret
