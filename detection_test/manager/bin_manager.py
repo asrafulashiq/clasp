@@ -33,9 +33,13 @@ class BinManager:
             self.init_cam_9()
         elif camera == "cam11":
             self.init_cam_11()
+        elif camera == "cam13":
+            self.init_cam_13()
 
         self.detector = detector
         self.current_frame = -1
+
+        self._empty_bins = []
 
     @property
     def detector(self):
@@ -46,7 +50,6 @@ class BinManager:
         self._detector = _det
 
     def init_cam_9(self):
-
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
@@ -94,9 +97,11 @@ class BinManager:
 
         self._box_conveyor_belt = [(636, 189), (636, 60), (8, 60), (8, 189)]  #
 
-        self._thres_out_bin_bound = [(0, 77), (0, 187), (15, 184), (15, 72)]
+        # self._thres_out_bin_bound = [(0, 77), (0, 187), (15, 184), (15, 72)]
+        self._thres_out_bin_bound = [(0, 77), (0, 187), (90, 184), (90, 62)]
+        # NOTE: changed out bin bound to work on camera 13
 
-        self._max_det_fail = 2 * self._mul
+        self._max_det_fail = 4 * self._mul
         self._max_track_fail = 10 * self._mul
 
         self._default_bin_state = "items"
@@ -106,13 +111,37 @@ class BinManager:
         self._min_dim = 40
         self._max_area = 140 * 140
 
+    def init_cam_13(self):
+        self._left_bins = []
+        self._min_iou = 0.4
+        self._bin_count = 0
+        self._thres_max_idle_count = 5
 
-    # NOTE: ONLY FOR CAMERA 11
+        self._thres_incoming_bin_bound = [(380, 51), (380, 180), (590, 167), (590, 48)]
+
+        self._box_conveyor_belt = [(177, 65), (180, 194), (590, 167), (590, 48)]  #
+
+        self._thres_out_bin_bound = [(177, 65), (180, 194), (74, 200), (74, 76)]
+
+        self._max_det_fail = 5 * self._mul
+        self._max_track_fail = 10 * self._mul
+
+        self._default_bin_state = "items"
+        self.maxlen = 3 * self._mul
+        self._rat_track_det = 1.2
+
+        self._min_dim = 60
+        self._max_area = 150 * 150
+
+
+    # NOTE: ONLY FOR CAMERA 11 or 13
     def set_cam9_manager(self, _manager):
         if self._camera == "cam11":
             self._manager_cam_9 = _manager
+        elif self._camera == "cam13":
+            self._manager_cam_11 = _manager
         else:
-            raise Exception("This is only allowed in camera 11")
+            raise Exception("This is only allowed in camera 11 or 13")
 
     def __len__(self):
         return len(self._current_bins)
@@ -131,11 +160,43 @@ class BinManager:
         if self._camera == "cam11":
             # set label based on camera 9
             try:
-                mbin = self._manager_cam_9._left_bins.pop(0)
-                label = mbin.label
-                state = mbin.state
+                while len(self._manager_cam_9._left_bins) > 0:
+                    mbin = self._manager_cam_9._left_bins.pop(0)
+                    label = mbin.label
+                    state = mbin.state
+                    # don't use label that is already is being used
+                    tmp_labs = []
+                    for bin in self._current_bins:
+                        tmp_labs.append(bin.label)
+                    for bin in self._left_bins:
+                        tmp_labs.append(bin.label)
+                    if label in tmp_labs:
+                        continue
+                    break
+                else:
+                    return
             except IndexError:
                 state = "items"
+        elif self._camera == "cam13":
+            # set label based on camera 9
+            try:
+                while len(self._manager_cam_11._left_bins) > 0:
+                    mbin = self._manager_cam_11._left_bins.pop(0)
+                    label = mbin.label
+                    state = mbin.state
+                    tmp_labs = []
+                    for bin in self._current_bins:
+                        tmp_labs.append(bin.label)
+                    for bin in self._left_bins:
+                        tmp_labs.append(bin.label)
+                    if label in tmp_labs:
+                        continue
+                    break
+                else:
+                    return
+            except IndexError:
+                state = "items"
+                return
 
         new_bin = Bin(
             label=label,
@@ -146,7 +207,7 @@ class BinManager:
         )
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
-        self.log.clasp_log(f"Bin {self._bin_count} enters")
+        self.log.clasp_log(f"{self._camera} : Bin {self._bin_count} enters")
 
         if self._camera == "cam09":
             self._current_events.append(
@@ -218,8 +279,14 @@ class BinManager:
         else:
             boxes, scores, classes = None, None, None
 
-        explored_indices = []
+        if len(ind) > 0:
+            # Sort boxes by x axis
+            box_x_pos = [box[0] for box in boxes]
+            ind_sort = np.argsort(box_x_pos)
+            boxes, scores, classes = boxes[ind_sort], scores[ind_sort], classes[ind_sort]
 
+
+        explored_indices = []
         tmp_iou = {}
 
         #####################################################
@@ -321,6 +388,10 @@ class BinManager:
                     if bin.iou_bbox(box, ratio_type='min') > 0.35:
                         to_add = False
                         break
+                    if self._camera == "cam13":
+                        if bin.pos[0] > box[0]:
+                            to_add = False
+                            break
                 if not to_add:
                     continue
 
@@ -340,13 +411,13 @@ class BinManager:
             # if self._camera == '9':
             if geo.point_in_box(bin.centroid, self._thres_out_bin_bound):
                 # bin exit
-                self.log.clasp_log(f"Bin {bin.label} exits")
+                self.log.clasp_log(f"{self._camera} : Bin {bin.label} exits")
                 self._left_bins.append(bin)
 
                 if self._camera == "cam09":
                     msg = f"B{bin.label} enters X-Ray"
                 else:
-                    msg = f"B{bin.label} empty"
+                    msg = f"B{bin.label} exits"
 
                 self._current_events.append(
                     [self.current_frame, bin.label, bin.cls, *bin.pos, "exit", msg]
@@ -360,14 +431,16 @@ class BinManager:
                 else:
                     # something is wrong
                     if not pass_det:
-                        self.log.clasp_log(f"Bin {bin.label} divested")
+                        self.log.clasp_log(f"{self._camera} : Bin {bin.label} divested")
 
                         if self._camera == "cam11":
                             msg = f"B{bin.label} empty"
                             self._current_events.append(
-                                [self.current_frame, bin.label, bin.cls, *bin.pos, "exit", msg]
+                                [self.current_frame, bin.label, bin.cls, *bin.pos, "empty", msg]
                             )
+                        self._empty_bins.append(bin)
 
+                        # TODO: what does this do? Fix It
                         # check if bin has overlap with other bins
                         for other_bin in self._current_bins:
                             if other_bin.label != bin.label:
@@ -387,8 +460,9 @@ class BinManager:
                                     break
 
                     else:
+                        # NOTE: bin content changed
                         # divestment or revestment
-                        self.log.info(f"Bin {bin.label} - New divestment/revestment")
+                        self.log.info(f"{self._camera} : Bin {bin.label} - New divestment/revestment")
                         _ind.append(i)
                         bin.init_tracker(bin.pos, im)
                         bin.reset_track_fail()
@@ -424,7 +498,7 @@ class BinManager:
 
     def add_exit_info(self, list_info):
         for each_i in list_info:
-            _id, cls, x1, y1, x2, y2 = each_i
+            _id, cls, x1, y1, x2, y2, _type = each_i
             if cls == "items":
                 box = [x1, y1, x2, y2]
                 new_bin = Bin(
@@ -434,4 +508,8 @@ class BinManager:
                     default_state=self._default_bin_state,
                     maxlen=self.maxlen,
                 )
-                self._left_bins.append(new_bin)
+                if _type == "exit":
+                    self._left_bins.append(new_bin)
+                elif _type == "empty":
+                    self._empty_bins.append(new_bin)
+                self._bin_count = max(self._bin_count, _id)

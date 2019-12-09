@@ -15,7 +15,7 @@ log.setLevel(logging.DEBUG)
 
 file_num = "exp2"
 # cameras = ["cam11", "cam13", "cam09", "cam01"]
-cameras = ["cam13"]
+cameras = ["cam09", "cam11", "cam13"]
 
 detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.3, labels_to_keep=(2,))
 
@@ -33,7 +33,7 @@ for camera in cameras:
 
     for im, imfile, frame_num in tqdm(
         utils.get_images_from_dir(
-            src_folder, size=conf.size, skip_init=1500, skip_end=5000, delta=1
+            src_folder, size=conf.size, skip_init=700, skip_end=500, delta=1
         )
     ):
         logging.info(f"processing : {imfile}")
