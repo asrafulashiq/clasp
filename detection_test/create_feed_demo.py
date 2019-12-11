@@ -16,16 +16,15 @@ from parse import parse
 from collections import defaultdict
 
 
-
 def to_sec(frame, fps=30):
-    return str(int(frame) // fps)+'s'
+    return str(int(frame) // fps) + "s"
 
 
 class InfoClass:
     def __init__(self):
-        bin_file = "./info/info.csv"
-        pax_file_9 = "./info/cam09exp2_logs_full_segv2.txt"
-        pax_file_11 = "./info/cam11exp2_logs_full_segv2.txt"
+        bin_file = "./info/info_back.csv"
+        pax_file_9 = "./info/cam09exp2_logs_seg.txt"
+        pax_file_11 = "./info/cam11exp2_logs_seg.txt"
 
         bin_names = [
             "file",
@@ -41,29 +40,23 @@ class InfoClass:
             "msg",
         ]
         self.df_bin = pd.read_csv(
-            str(bin_file),
-            sep=",",
-            header=None,
-            names=bin_names,
-            index_col=None,
+            str(bin_file), sep=",", header=None, names=bin_names, index_col=None
         )
+
+        # #! Temporary
+        # self.df_bin["x1"] = self.df_bin["x1"] / 3
+        # self.df_bin["y1"] = self.df_bin["y1"] / 3
+        # self.df_bin["x2"] = self.df_bin["x2"] / 3
+        # self.df_bin["y2"] = self.df_bin["y2"] / 3
 
         pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
 
         df_pax_9 = pd.read_csv(
-            str(pax_file_9),
-            sep=",",
-            header=None,
-            names=pax_names,
-            index_col=None,
+            str(pax_file_9), sep=",", header=None, names=pax_names, index_col=None
         )
 
         df_pax_11 = pd.read_csv(
-            str(pax_file_11),
-            sep=",",
-            header=None,
-            names=pax_names,
-            index_col=None,
+            str(pax_file_11), sep=",", header=None, names=pax_names, index_col=None
         )
 
         self.tmp_msg = []
@@ -74,8 +67,6 @@ class InfoClass:
 
         print("loaded")
         self.bin_pax = {}
-
-        
 
     def refine_pax_df(self):
         df = self.df_pax
@@ -104,11 +95,9 @@ class InfoClass:
                 pp = parse("'P{}-B{}'", each_split)
                 if pp is not None:
                     pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]))
-                    if 'stealing' in pax_id:
+                    if "stealing" in pax_id:
                         if each_split not in self.tmp_msg:
-                            self.asso_msg[frame] = [
-                                '09', frame, each_split
-                            ]
+                            self.asso_msg[frame] = ["09", frame, each_split]
                             self.tmp_msg.append(each_split)
                     else:
                         self.dict_association[frame][bin_id] = pax_id
@@ -125,18 +114,14 @@ class InfoClass:
             des = des[0]
             for each_split in des.split(","):
 
-                if 'stealing' in each_split:
+                if "stealing" in each_split:
                     if each_split not in self.tmp_msg:
-                        self.asso_msg[frame] = [
-                                '11', frame, each_split
-                            ]
+                        self.asso_msg[frame] = ["11", frame, each_split]
                         self.tmp_msg.append(each_split)
-
-
 
         self.tmp = []
 
-    def get_info_fram_frame(self, frame, cam="cam09"):
+    def get_info_from_frame(self, frame, cam="cam09"):
 
         # get pax info
         df = self.df_pax
@@ -147,17 +132,11 @@ class InfoClass:
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 list_info_pax.append(
-                    [
-                        row["id"],
-                        "pax",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                    ]
+                    [row["id"], "pax", row["x1"], row["y1"], row["x2"], row["y2"]]
                 )
 
         # get bin info
+        # Generally, bins are extracted for each odd frame
         if frame % 2 == 0:
             _frame = frame + 1
         else:
@@ -170,10 +149,7 @@ class InfoClass:
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 _id = "B" + str(row["id"])
-                if (
-                    frame in self.dict_association
-                    and _id in self.dict_association[frame]
-                ):
+                if frame in self.dict_association and _id in self.dict_association[frame]:
                     self.bin_pax[_id] = self.dict_association[frame][_id]
                 else:
                     pass
@@ -191,31 +167,19 @@ class InfoClass:
             else:  # event type
                 if row["frame"] != frame:
                     continue
-                if row['type'] == 'enter' and row['camera'] == 'cam09':
+                if row["type"] == "enter" and row["camera"] == "cam09":
                     continue
-                if row['type'] not in ('enter', 'exit'):
+                if row["type"] not in ("enter", "exit"):
                     continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append(
-                    [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
-                )
+                msglist.append([row["camera"][-2:], to_sec(row["frame"]), row["msg"]])
             if frame in self.asso_msg:
                 rr = self.asso_msg[frame]
                 if rr[2] not in self.tmp:
-                    msglist.append(
-                        [
-                            rr[0], to_sec(rr[1]), rr[2]
-                        ]
-                    )
+                    msglist.append([rr[0], to_sec(rr[1]), rr[2]])
                     self.tmp.append(rr[2])
 
-        return (
-            list_info_bin,
-            list_info_pax,
-            list_event_bin,
-            list_event_pax,
-            msglist,
-        )
+        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax, msglist)
 
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
@@ -228,7 +192,7 @@ class InfoClass:
                 color=(33, 217, 14),
                 thick=2,
                 font_scale=font_scale,
-                color_txt=(252, 3, 69)
+                color_txt=(252, 3, 69),
             )
 
         for each_i in info_pax:
@@ -241,20 +205,20 @@ class InfoClass:
                 color=(23, 23, 246),
                 thick=2,
                 font_scale=font_scale,
-                color_txt=(252, 211, 3)
+                color_txt=(252, 211, 3),
             )
         return im
 
 
 if __name__ == "__main__":
 
-    file_num = "exp2"
+    file_num = "exp2_train"
     cameras = ["cam09", "cam11"]
 
     out_folder = {}
     imlist = []
 
-    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed3"
+    feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
 
@@ -289,12 +253,12 @@ if __name__ == "__main__":
         frame_num = int(Path(imfile1).stem) - 1
 
         # draw image
-        info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(
+        info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_from_frame(
             frame_num, "cam09"
         )
         im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
-        info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
+        info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_from_frame(
             frame_num, "cam11"
         )
         im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
@@ -305,5 +269,4 @@ if __name__ == "__main__":
 
         f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
         skimage.io.imsave(str(f_write), im_feed)
-
 
