@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
-file_num = "exp2"
+file_num = "exp2_train"
 # cameras = ["cam11", "cam13", "cam09", "cam01"]
 cameras = ["cam09", "cam11", "cam13"]
 
@@ -33,7 +33,7 @@ for camera in cameras:
 
     for im, imfile, frame_num in tqdm(
         utils.get_images_from_dir(
-            src_folder, size=conf.size, skip_init=700, skip_end=500, delta=1
+            src_folder, size=conf.size, skip_init=1500, skip_end=50, delta=1
         )
     ):
         logging.info(f"processing : {imfile}")
