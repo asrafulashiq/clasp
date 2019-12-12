@@ -6,8 +6,10 @@ import matplotlib.pyplot as plt
 import cv2
 import os
 
-annFile = './bin_detection.json'
-ROOT = Path(os.environ['HOME'] + '/dataset/clasp_data')
+annFile = 'annotations/anns_exp2_traincam9_cam11.json'
+ROOT = Path(os.environ['HOME'] + '/dataset/ALERT/alert_frames_2')
+
+size = (640, 360)
 
 coco = COCO(annFile)
 
@@ -30,11 +32,15 @@ while True:
 	imfile = ROOT / img['file_name']
 
 	I = cv2.imread(str(imfile))
+	I = cv2.resize(I, size)
 
 	# load and display instance annotations
 	print(imfile)
 	annIds = coco.getAnnIds(imgIds=img['id'], iscrowd=None)
 	anns = coco.loadAnns(annIds)
+
+	if len(anns) == 0:
+		continue
 
 	for ann in anns:
 	    bb = ann['bbox']
@@ -46,3 +52,4 @@ while True:
 	plt.imshow(I[:,:,::-1])
 	plt.axis('off')
 	plt.show()
+	print(imfile)

@@ -30,7 +30,7 @@ if __name__ == "__main__":
     HOME = os.environ["HOME"]
     parser = argparse.ArgumentParser(prog="Detection parser")
     parser.add_argument("--root", type=str,
-                        default=HOME + "/dataset/ALERT/alert_frames",
+                        default=HOME + "/dataset/ALERT/alert_frames_2",
                         help="root directory where the images are downloaded to")
 
     parser.add_argument("--ann-file", type=str,
