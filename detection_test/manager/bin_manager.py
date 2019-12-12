@@ -117,7 +117,7 @@ class BinManager:
         self._bin_count = 0
         self._thres_max_idle_count = 5
 
-        self._thres_incoming_bin_bound = [(380, 51), (380, 180), (590, 167), (590, 48)]
+        self._thres_incoming_bin_bound = [(450, 51), (450, 180), (590, 167), (590, 48)]
 
         self._box_conveyor_belt = [(177, 65), (180, 194), (590, 167), (590, 48)]  #
 
@@ -130,7 +130,7 @@ class BinManager:
         self.maxlen = 3 * self._mul
         self._rat_track_det = 1.2
 
-        self._min_dim = 60
+        self._min_dim = 40
         self._max_area = 150 * 150
 
 
@@ -220,7 +220,7 @@ class BinManager:
                     f"B{new_bin.label} enters conveyor belt",
                 ]
             )
-        else:
+        elif self._camera == "cam11":
             self._current_events.append(
                 [
                     self.current_frame,
@@ -337,7 +337,7 @@ class BinManager:
                             self._camera == "cam09"
                             and _track_iou > iou_to_boxes[closest_index] * self._rat_track_det
                         ) or (
-                            self._camera == "cam11"
+                            (self._camera == "cam11" or  self._camera == "cam13") 
                             and utils_box.iou_bbox(_bb_track, new_box, "min") > 0.85
                         ):
                             new_box = _bb_track
@@ -509,7 +509,8 @@ class BinManager:
                     maxlen=self.maxlen,
                 )
                 if _type == "exit":
-                    self._left_bins.append(new_bin)
+                    if self._camera == "cam09":
+                        self._left_bins.append(new_bin)
                 elif _type == "empty":
                     self._empty_bins.append(new_bin)
                 self._bin_count = max(self._bin_count, _id)

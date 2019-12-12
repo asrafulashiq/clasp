@@ -22,6 +22,9 @@ imlist = []
 src_folder = {}
 out_folder = {}
 
+
+#! NOTE: camera 13 is 50 frames behind
+
 # Store image names
 for cam in cameras:
     src_folder[cam] = Path(conf.root) / file_num / cam
@@ -29,6 +32,9 @@ for cam in cameras:
 
     out_folder[cam] = Path(conf.out_dir) / "run" / file_num / cam
     out_folder[cam].mkdir(parents=True, exist_ok=True)
+
+    if cam == "cam13":
+        conf.skip_init = conf.skip_init - 50
 
     imfiles = utils.get_fp_from_dir(
         src_folder[cam], out_folder=out_folder[cam],

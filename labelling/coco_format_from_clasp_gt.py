@@ -24,14 +24,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", type=str,
                         default=HOME+'/dataset/ALERT/annotation')
-    parser.add_argument("--out", type=str, help="save path of json",
-                        default=HOME+'/dataset/clasp/clasp_annotations')
+    parser.add_argument("--out", type=str, help="save path of json", default="annotations")
+                        # default=HOME+'/dataset/clasp/clasp_annotations')
     parser.add_argument("--out-name", type=str, default="anns")
     parser.add_argument("--im-folder", type=str,
-                        default=HOME+'/dataset/ALERT/alert_frames')
+                        default=HOME+'/dataset/ALERT/alert_frames_2')
     parser.add_argument("--test", action='store_true')
     parser.add_argument("--exp", default=None, type=str, nargs='*')
-    parser.add_argument("--cam", default='cam9', type=str, nargs='*')
+    parser.add_argument("--cam", default=None, type=str, nargs='*')
     parser.add_argument('--size', type=str, default='640x360',
                         help='image size(width x height)')
 
@@ -124,25 +124,25 @@ if __name__ == "__main__":
         imfile = os.path.join(args.im_folder, fname)
         h, w, _ = cv2.imread(imfile).shape
 
-        for _ann in each_ann_file['passengers']:
+        # for _ann in each_ann_file['passengers']:
 
-            rat_w, rat_h = args.size[0] / w, args.size[1] / h
+        #     rat_w, rat_h = args.size[0] / w, args.size[1] / h
 
-            tmp = {
-                "id": counter_id,
-                "image_id": dict_im[fname],
-                "category_id": dict_cat['passengers'],
-                # "area": _ann['size']['width'] * _ann['size']['height'],
-                "area": args.size[0] * args.size[1],
-                'segmentation': [],
-                "bbox": [
-                    _ann['location']['x']*rat_w, _ann['location']['y']*rat_h,
-                    _ann['size']['width']*rat_w, _ann['size']['height']*rat_h
-                ],
-                "iscrowd": 0,
-            }
-            data['annotations'].append(tmp)
-            counter_id += 1
+        #     tmp = {
+        #         "id": counter_id,
+        #         "image_id": dict_im[fname],
+        #         "category_id": dict_cat['passengers'],
+        #         # "area": _ann['size']['width'] * _ann['size']['height'],
+        #         "area": args.size[0] * args.size[1],
+        #         'segmentation': [],
+        #         "bbox": [
+        #             _ann['location']['x']*rat_w, _ann['location']['y']*rat_h,
+        #             _ann['size']['width']*rat_w, _ann['size']['height']*rat_h
+        #         ],
+        #         "iscrowd": 0,
+        #     }
+        #     data['annotations'].append(tmp)
+        #     counter_id += 1
 
         for _ann in each_ann_file['items']:
 
