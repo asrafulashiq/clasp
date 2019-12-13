@@ -56,7 +56,7 @@ class InfoClass:
         else:
             _frame = frame
         df = self.df_bin
-        info = df[(df["frame"] == _frame) & (df["camera"] == cam)]
+        info = df[(df["frame"] == _frame - 50) & (df["camera"] == cam)]
         list_info_bin = []
         list_event_bin = []
         for _, row in info.iterrows():
@@ -113,13 +113,13 @@ class InfoClass:
 
 if __name__ == "__main__":
 
-    file_num = "exp2"
+    file_num = "exp2_train"
 
     out_folder = {}
     imlist = []
 
-    conf.skip_init = 1701
-    conf.end_file = 3000
+    conf.skip_init = 2500
+    conf.end_file = 11000
     conf.delta = 2
 
     feed_folder = Path(conf.out_dir) / "demo" / "feed_bin_only"

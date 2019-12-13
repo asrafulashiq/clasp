@@ -23,8 +23,8 @@ def to_sec(frame, fps=30):
 class InfoClass:
     def __init__(self):
         bin_file = "./info/info.csv"
-        pax_file_9 = "./info/cam09exp2_logs_full_segv2.txt"
-        pax_file_11 = "./info/cam11exp2_logs_full_segv2.txt"
+        pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
+        pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
 
         bin_names = [
             "file",
@@ -204,7 +204,7 @@ class InfoClass:
 
 if __name__ == "__main__":
 
-    file_num = "exp2"
+    file_num = "exp2_train"
 
     out_folder = {}
     imlist = []
