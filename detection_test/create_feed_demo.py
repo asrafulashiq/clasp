@@ -22,9 +22,9 @@ def to_sec(frame, fps=30):
 
 class InfoClass:
     def __init__(self):
-        bin_file = "./info/info_back.csv"
-        pax_file_9 = "./info/cam09exp2_logs_seg.txt"
-        pax_file_11 = "./info/cam11exp2_logs_seg.txt"
+        bin_file = "./info/info.csv"
+        pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
+        pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
 
         bin_names = [
             "file",
@@ -80,6 +80,7 @@ class InfoClass:
 
     def get_association_info(self):
         self.dict_association = defaultdict(dict)
+        self.asso_info = defaultdict(dict)
         self.asso_msg = {}
         nu_file = "./info/cam_09_exp2_associated_events.csv"
         df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
@@ -101,6 +102,7 @@ class InfoClass:
                             self.tmp_msg.append(each_split)
                     else:
                         self.dict_association[frame][bin_id] = pax_id
+                        self.asso_info[bin_id][frame] = pax_id
 
         nu_file = "./info/cam_11_exp2_associated_events.csv"
         df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
@@ -142,15 +144,20 @@ class InfoClass:
         else:
             _frame = frame
         df = self.df_bin
-        info = df[(df["frame"] == _frame) & (df["camera"] == cam)]
+        info = df[(df["frame"] == _frame - 48) & (df["camera"] == cam)]
         list_info_bin = []
         list_event_bin = []
 
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 _id = "B" + str(row["id"])
-                if frame in self.dict_association and _id in self.dict_association[frame]:
-                    self.bin_pax[_id] = self.dict_association[frame][_id]
+                # if frame in self.dict_association and _id in self.dict_association[frame]:
+                #     self.bin_pax[_id] = self.dict_association[frame][_id]
+                if _id in self.asso_info:
+                    ffs = list(self.asso_info[_id])
+                    for _f in ffs:
+                        if frame >= _f:
+                            self.bin_pax[_id] = self.asso_info[_id][_f]
                 else:
                     pass
                 list_info_bin.append(
@@ -265,6 +272,7 @@ if __name__ == "__main__":
 
         # get message
         msglist.extend(mlist)
+        msglist = list(reversed(msglist))
         im_feed = vis_feed.draw(im1, im2, frame_num, msglist)
 
         f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
