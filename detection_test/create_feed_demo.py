@@ -22,9 +22,10 @@ def to_sec(frame, fps=30):
 
 class InfoClass:
     def __init__(self):
-        bin_file = "./info/info.csv"
+        bin_file = "./info/info_offset.csv"
         pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
         pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
+        pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
 
         bin_names = [
             "file",
@@ -43,11 +44,9 @@ class InfoClass:
             str(bin_file), sep=",", header=None, names=bin_names, index_col=None
         )
 
-        # #! Temporary
-        # self.df_bin["x1"] = self.df_bin["x1"] / 3
-        # self.df_bin["y1"] = self.df_bin["y1"] / 3
-        # self.df_bin["x2"] = self.df_bin["x2"] / 3
-        # self.df_bin["y2"] = self.df_bin["y2"] / 3
+        #!  CHECK OUT
+        self.df_bin['frame'] = self.df_bin['frame']
+        # self.df_bin[self.df_bin['camera'] == 'cam13']['frame'] -= 50
 
         pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
 
@@ -59,9 +58,15 @@ class InfoClass:
             str(pax_file_11), sep=",", header=None, names=pax_names, index_col=None
         )
 
+        df_pax_13 = pd.read_csv(
+            str(pax_file_13), sep=",", header=None, names=pax_names, index_col=None
+        )
+
+        # df_pax_13['frame'] = df_pax_13['frame']
+
         self.tmp_msg = []
 
-        self.df_pax = pd.concat((df_pax_9, df_pax_11))
+        self.df_pax = pd.concat((df_pax_9, df_pax_11, df_pax_13))
         self.df_pax = self.refine_pax_df()
         self.get_association_info()
 
@@ -144,7 +149,9 @@ class InfoClass:
         else:
             _frame = frame
         df = self.df_bin
-        info = df[(df["frame"] == _frame - 48) & (df["camera"] == cam)]
+
+        #! NOTE frame changed
+        info = df[(df["frame"] == _frame) & (df["camera"] == cam)]
         list_info_bin = []
         list_event_bin = []
 
@@ -220,7 +227,7 @@ class InfoClass:
 if __name__ == "__main__":
 
     file_num = "exp2_train"
-    cameras = ["cam09", "cam11"]
+    cameras = ["cam09", "cam11", "cam13"]
 
     out_folder = {}
     imlist = []
@@ -243,6 +250,9 @@ if __name__ == "__main__":
         src_folder[cam] = Path(conf.root) / file_num / cam
         assert src_folder[cam].exists()
 
+        if cam == "cam13":
+            conf.skip_init -= 50
+
         imlist.append(
             utils.get_images_from_dir(
                 src_folder[cam],
@@ -253,9 +263,10 @@ if __name__ == "__main__":
             )
         )
 
-    for out1, out2 in tqdm(zip(*imlist)):
+    for out1, out2, out3 in tqdm(zip(*imlist)):
         im1, imfile1, _ = out1
         im2, imfile2, _ = out2
+        im3, imfile3, _ = out3
 
         frame_num = int(Path(imfile1).stem) - 1
 
@@ -270,11 +281,15 @@ if __name__ == "__main__":
         )
         im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
+        frame_num3 = int(Path(imfile3).stem) - 1
+        info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_from_frame(
+            frame_num3, "cam13"
+        )
+        im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
+
         # get message
         msglist.extend(mlist)
-        msglist = list(reversed(msglist))
-        im_feed = vis_feed.draw(im1, im2, frame_num, msglist)
+        im_feed = vis_feed.draw(im1, im2, im3, frame_num, msglist)
 
         f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
         skimage.io.imsave(str(f_write), im_feed)
-

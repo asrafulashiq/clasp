@@ -130,8 +130,8 @@ class FeedModule:
                     self.fontScale, _BLACK, 2 * self.fontThick,
                     lineType=cv2.LINE_AA)
 
-
-        for i, msg in enumerate(self.msg_q):
+        msg_rev = list(reversed(self.msg_q))
+        for i, msg in enumerate(msg_rev):
             x1, y1, x2, y2 = self.msg_bounds[i]
             y2 = y2 - int(0.5 * txt_h)
 
@@ -158,15 +158,19 @@ class VisFeed():
         self.im_mod_2 = ImModule(w_, h_, pre_text="Camera 11 : ", padding=padding)
 
         # mod3
-        w_, h_ = int(self.width * m3), int(self.height)
-        self.im_mod_3 = FeedModule(w_, h_)
+        self.im_mod_3 = ImModule(w_, h_, pre_text="Camera 13 : ", padding=padding)
 
-    def draw(self, im1, im2, frame_num, msglist):
+        # mod 4
+        w_, h_ = int(self.width * m3), int(self.height)
+        self.im_mod_4 = FeedModule(w_, h_)
+
+    def draw(self, im1, im2, im3, frame_num, msglist):
         can1 = self.im_mod_1.draw(im1, text=str(to_sec(frame_num)).zfill(4)+' sec')
         can2 = self.im_mod_2.draw(im2, text=str(to_sec(frame_num)).zfill(4)+' sec')
-        can3 = self.im_mod_3.drawText(msglist)
+        can3 = self.im_mod_3.draw(im3, text=str(to_sec(frame_num)).zfill(4)+' sec')
+        can4 = self.im_mod_4.drawText(msglist)
 
-        canvas = np.concatenate((can1, can2, can3), axis=1)
+        canvas = np.concatenate((can1, can2, can3, can4), axis=1)
 
         return canvas
 
