@@ -1,5 +1,8 @@
-# user-defined imports
-# other imports
+"""
+Main script for full demo
+"""
+
+
 from pathlib import Path
 import cv2
 from tqdm import tqdm
@@ -16,16 +19,22 @@ from parse import parse
 from collections import defaultdict
 
 
+# PAX and Bin detection files
+bin_file = "./info/info_offset.csv"
+
+pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
+pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
+pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
+
+nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
+nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
+
+
 def to_sec(frame, fps=30):
     return str(int(frame) // fps) + "s"
 
-
 class InfoClass:
     def __init__(self):
-        bin_file = "./info/info_offset.csv"
-        pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
-        pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
-        pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
 
         bin_names = [
             "file",
@@ -87,8 +96,7 @@ class InfoClass:
         self.dict_association = defaultdict(dict)
         self.asso_info = defaultdict(dict)
         self.asso_msg = {}
-        nu_file = "./info/cam_09_exp2_associated_events.csv"
-        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
+        df_tmp = pd.read_csv(nu_file_cam9, header=None, names=["frame", "des"])
 
         for _, row in df_tmp.iterrows():
             frame = row["frame"]
@@ -109,8 +117,8 @@ class InfoClass:
                         self.dict_association[frame][bin_id] = pax_id
                         self.asso_info[bin_id][frame] = pax_id
 
-        nu_file = "./info/cam_11_exp2_associated_events.csv"
-        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
+        
+        df_tmp = pd.read_csv(nu_file_cam11, header=None, names=["frame", "des"])
 
         for _, row in df_tmp.iterrows():
             frame = row["frame"]
@@ -251,7 +259,7 @@ if __name__ == "__main__":
         assert src_folder[cam].exists()
 
         if cam == "cam13":
-            conf.skip_init -= 50
+            conf.skip_init -= 50  # cam 13 lags by 50 frames
 
         imlist.append(
             utils.get_images_from_dir(
