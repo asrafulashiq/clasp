@@ -1,3 +1,8 @@
+"""
+Convert RPI detection file to NU-compatible
+"""
+
+
 import numpy as np
 import pandas as pd
 
