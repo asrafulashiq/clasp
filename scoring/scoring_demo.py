@@ -28,7 +28,7 @@ else:
 if "-xfr" in sys.argv:
 	xfrThreshold = int(sys.argv[sys.argv.index("-xfr") + 1])
 else:
-	xfrThreshold = 30;
+	xfrThreshold = 50;
 
 if "-c" in sys.argv:
 	camera_filter = sys.argv[sys.argv.index("-c") + 1]
