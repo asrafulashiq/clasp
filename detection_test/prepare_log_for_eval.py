@@ -71,7 +71,9 @@ df_pax = pd.concat((df_pax_9, df_pax_11, df_pax_13))
 asso_info = get_association_info(nu_file_cam9, nu_file_cam11)
 
 ########################## Create Log ###########################
-full_logs = []
+full_logs_9 = []
+full_logs_11 = []
+full_logs_13 = []
 
 bin_ids = []  # for determining first used
 for _, row in tqdm(df_bin.iterrows()):
@@ -105,7 +107,12 @@ for _, row in tqdm(df_bin.iterrows()):
         + f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} first-used: {first_used} "
         + "partial-complete: NA"
     )
-    full_logs.append(log_msg)
+    if cam == '09':
+        full_logs_9.append(log_msg)
+    elif cam == '11':
+        full_logs_11.append(log_msg)
+    else:
+        full_logs_13.append(log_msg)
 
 # PAX
 pax_ids = []
@@ -128,12 +135,27 @@ for _, row in tqdm(df_pax.iterrows()):
         pax_ids.append(_id)
     else:
         first_used = "False"
+    if "TSO" in _id:
+        pax_type = "TSO"
+    else:
+        pax_type = "PAX"
     log_msg = (
-        f"LOC: type: PAX camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
-        + f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} first-used: {first_used} "
+        f"LOC: type: {pax_type} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
+        + f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: NA first-used: {first_used} "
         + "partial-complete: NA"
     )
-    full_logs.append(log_msg)
+    if cam == '09':
+        full_logs_9.append(log_msg)
+    elif cam == '11':
+        full_logs_11.append(log_msg)
+    else:
+        full_logs_13.append(log_msg)
 
-with open("out_log.txt", "w") as fp:
-    fp.write("\n".join(full_logs))
+with open("ata_cam9.txt", "w") as fp:
+    fp.write("\n".join(full_logs_9))
+
+with open("ata_cam11.txt", "w") as fp:
+    fp.write("\n".join(full_logs_11))
+
+with open("ata_cam13.txt", "w") as fp:
+    fp.write("\n".join(full_logs_13))

@@ -22,21 +22,9 @@ def plot_cv(image, axes=None, show=True, fig_number=None):
     return axes
 
 
-# def get_frame_list(src_dir, skip_init=0, num_files=None, skip_end=0, delta=1):
-#     """get all frames from a directory"""
-#     if not isinstance(src_dir, pathlib.PurePath):
-#         src_dir = pathlib.Path(src_dir)
-#     files_in_dir = sorted(list(src_dir.iterdir()))
-#     if not num_files is None:
-#         indices = slice(skip_init, skip_init+delta*num_files, delta)
-#     else:
-#         indices = slice(skip_init, len(files_in_dir)-skip_end, delta)
-#     return range(*indices.indices(len(files_in_dir))), files_in_dir[indices]
-
-
 def get_images_from_dir(
     src_dir, size=(640, 360), skip_init=0, skip_end=0, end_file=None, delta=1,
-    fmt="{:06d}.jpg"
+    fmt="{:06d}.jpg", file_only=False
 ):
     """ get images as numpy array from a folder"""
 
@@ -52,8 +40,11 @@ def get_images_from_dir(
         if not imfile.exists():
             print(imfile, "does not exist")
             continue
-        image = skimage.io.imread(str(imfile))
-        image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
+        if file_only:
+            image = None
+        else:
+            image = skimage.io.imread(str(imfile))
+            image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
         yield image, imfile, frame_num
 
 
