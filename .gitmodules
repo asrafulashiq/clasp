@@ -1,3 +1,0 @@
-[submodule "detection_test/detection_test/vis_demo"]
-	path = detection_test/detection_test/vis_demo
-	url = https://github.com/asrafulashiq/clasp_visualization.git
