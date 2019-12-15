@@ -22,17 +22,17 @@ def get_arg():
         help="output directory",
     )
 
-    parser.add_argument(
-        "--bin-ckpt",
-        type=str,
-        default=_HOME + "/dataset/clasp/trained_model/model.pkl",
-    )
+    # parser.add_argument(
+    #     "--bin-ckpt",
+    #     type=str,
+    #     default=_HOME + "/dataset/clasp/trained_model/model.pkl",
+    # )
 
-    parser.add_argument(
-        "--pax-ckpt",
-        type=str,
-        default=_HOME + "/dataset/clasp/trained_model/model.pkl",
-    )
+    # parser.add_argument(
+    #     "--pax-ckpt",
+    #     type=str,
+    #     default=_HOME + "/dataset/clasp/trained_model/model.pkl",
+    # )
 
     parser.add_argument("--write", action="store_false")
 
@@ -45,16 +45,17 @@ def get_arg():
 
     parser.add_argument(
         "--info",
-        default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info.csv",
-        # default=None,
+        # default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info.csv",
+        default=None,
         type=str,
         help="info file to load",
     )
 
-    parser.add_argument("--skip-init", type=int, default=4400)
+    parser.add_argument("--skip-init", type=int, default=2200)
     parser.add_argument("--skip-end", type=int, default=100)
     parser.add_argument("--end-file", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)
+    parser.add_argument("--plot", action="store_true")
 
     return parser.parse_args()
 
