@@ -283,6 +283,7 @@ if __name__ == "__main__":
     if conf.plot:
         vis_feed = VisFeed()  # Visualization class
 
+        # Output folder path of the feed
         feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
         if feed_folder.exists():
             shutil.rmtree(str(feed_folder))
@@ -325,7 +326,7 @@ if __name__ == "__main__":
 
         frame_num = int(Path(imfile1).stem) - 1
 
-        # draw image
+        # Cam 09
         info_bin, info_pax, event_bin, event_pax, msglist, logs = Info.get_info_from_frame(
             frame_num, "cam09"
         )
@@ -333,6 +334,7 @@ if __name__ == "__main__":
         if conf.plot:
             im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
+        # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
             frame_num, "cam11"
         )
@@ -340,6 +342,7 @@ if __name__ == "__main__":
         if conf.plot:
             im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
+        # Cam 13
         frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
             frame_num3, "cam13"
@@ -348,6 +351,7 @@ if __name__ == "__main__":
         if conf.plot:
             im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
 
+        # News feed info
         if conf.plot:
             # get message
             msglist.extend(mlist)
@@ -356,6 +360,7 @@ if __name__ == "__main__":
             f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
 
+    # Write ata output file for scoring
     with open("ata_cam9.txt", "w") as fp:
         fp.write("\n".join(full_log_cam09))
 
