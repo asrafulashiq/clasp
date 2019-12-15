@@ -164,13 +164,16 @@ class VisFeed():
         w_, h_ = int(self.width * m3), int(self.height)
         self.im_mod_4 = FeedModule(w_, h_)
 
-    def draw(self, im1, im2, im3, frame_num, msglist):
+    def draw(self, im1, im2, im3, frame_num, msglist, with_feed=True):
         can1 = self.im_mod_1.draw(im1, text=str(to_sec(frame_num)).zfill(4)+' sec')
         can2 = self.im_mod_2.draw(im2, text=str(to_sec(frame_num)).zfill(4)+' sec')
         can3 = self.im_mod_3.draw(im3, text=str(to_sec(frame_num)).zfill(4)+' sec')
         can4 = self.im_mod_4.drawText(msglist)
 
-        canvas = np.concatenate((can1, can2, can3, can4), axis=1)
+        if with_feed:
+            canvas = np.concatenate((can1, can2, can3, can4), axis=1)
+        else:
+            canvas = np.concatenate((can1, can2, can3), axis=1)
 
         return canvas
 
