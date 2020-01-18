@@ -13,9 +13,8 @@ import matplotlib.pyplot as plt
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
-file_num = "exp2_train"
-# cameras = ["cam11", "cam13", "cam09", "cam01"]
-cameras = ["cam11", "cam13"]
+file_num = "exp2_test"
+cameras = ["cam09", "cam11", "cam13"]
 
 detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.3, labels_to_keep=(2,))
 
@@ -33,7 +32,7 @@ for camera in cameras:
 
     for im, imfile, frame_num in tqdm(
         utils.get_images_from_dir(
-            src_folder, size=conf.size, skip_init=1500, skip_end=50, delta=1
+            src_folder, size=conf.size, skip_init=500, skip_end=1, delta=1
         )
     ):
         logging.info(f"processing : {imfile}")
