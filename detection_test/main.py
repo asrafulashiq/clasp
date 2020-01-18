@@ -13,7 +13,7 @@ import os
 
 log = ClaspLogger()
 
-file_num = "exp2_train"
+file_num = "exp1"
 cameras = ["cam09", "cam11", "cam13"]
 
 manager = Manager(log=log, file_num=file_num, config=conf, bin_only=True, cameras=cameras)
@@ -34,11 +34,13 @@ for cam in cameras:
     out_folder[cam].mkdir(parents=True, exist_ok=True)
 
     if cam == "cam13":
-        conf.skip_init = conf.skip_init - 50
+        skip_init = conf.skip_init - 50
+    else:
+        skip_init = conf.skip_init
 
     imfiles = utils.get_fp_from_dir(
         src_folder[cam], out_folder=out_folder[cam],
-        skip_init=conf.skip_init,
+        skip_init=skip_init,
         skip_end=conf.skip_end, delta=conf.delta,
         end_file=conf.end_file
     )
@@ -48,7 +50,7 @@ for cam in cameras:
 
     imlist.append(
         utils.get_images_from_dir(
-            src_folder[cam], skip_init=conf.skip_init,
+            src_folder[cam], skip_init=skip_init,
             skip_end=conf.skip_end, delta=conf.delta,
             end_file=conf.end_file
         )

@@ -22,11 +22,11 @@ def get_arg():
         help="output directory",
     )
 
-    parser.add_argument(
-        "--bin-ckpt",
-        type=str,
-        default=_HOME + "/dataset/clasp/trained_model/model.pkl",
-    )
+    # parser.add_argument(
+    #     "--bin-ckpt",
+    #     type=str,
+    #     default=_HOME + "/dataset/clasp/trained_model/model.pkl",
+    # )
 
     # parser.add_argument(
     #     "--pax-ckpt",
