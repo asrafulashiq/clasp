@@ -58,7 +58,7 @@ for cam in cameras:
 
 # Process
 
-for out1, out2, out3 in zip(*imlist):
+for out1, out2, out3 in tqdm(zip(*imlist)):
 
     if conf.info is not None:
         im, imfile, frame_num = out1
