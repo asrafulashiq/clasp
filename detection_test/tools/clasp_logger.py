@@ -2,6 +2,8 @@ import logging
 import os
 import datetime
 
+from colorama import Fore, Back
+
 class ClaspLogger():
     def __init__(self, name="__clasp__"):
 
@@ -36,4 +38,4 @@ class ClaspLogger():
 
     def clasp_log(self, msg):
         self.clasp_logger.info("%s,%s", self.pre_msg, msg)
-        self.info(msg)
+        self.info(Fore.YELLOW + msg)

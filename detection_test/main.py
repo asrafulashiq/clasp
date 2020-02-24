@@ -9,12 +9,16 @@ from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
+from colorama import init, Fore
+
+
+init(autoreset=True)
 
 
 log = ClaspLogger()
 
 file_num = "exp1"
-cameras = ["cam09", "cam11", "cam13"]
+cameras = ["cam09", "cam11"]
 
 manager = Manager(log=log, file_num=file_num, config=conf, bin_only=True, cameras=cameras)
 
@@ -58,7 +62,8 @@ for cam in cameras:
 
 # Process
 
-for out1, out2, out3 in tqdm(zip(*imlist)):
+
+for out1, out2 in tqdm(zip(*imlist)):
 
     if conf.info is not None:
         im, imfile, frame_num = out1
@@ -67,15 +72,15 @@ for out1, out2, out3 in tqdm(zip(*imlist)):
         im, imfile, frame_num = out2
         manager.load_info(conf.info, frame_num, im, camera=cameras[1])
 
-        im, imfile, frame_num = out3
-        manager.load_info(conf.info, frame_num, im, camera=cameras[2])
+        # im, imfile, frame_num = out3
+        # manager.load_info(conf.info, frame_num, im, camera=cameras[2])
 
         conf.info = None
         continue
 
     # Cam 09
     im, imfile, frame_num = out1
-    log.info(f"processing : {frame_num}")
+    log.info(f"processing : {Fore.CYAN}{frame_num}")
     new_im = manager.run_detector_image(
         im, cam=cameras[0], frame_num=frame_num
     )
@@ -88,12 +93,12 @@ for out1, out2, out3 in tqdm(zip(*imlist)):
     )
     skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
-    # Cam 13
-    im, imfile, frame_num = out3
-    new_im = manager.run_detector_image(
-        im, cam=cameras[2], frame_num=frame_num
-    )
-    skimage.io.imsave(str(out_folder[cameras[2]] / imfile.name), new_im)
+    # # Cam 13
+    # im, imfile, frame_num = out3
+    # new_im = manager.run_detector_image(
+    #     im, cam=cameras[2], frame_num=frame_num
+    # )
+    # skimage.io.imsave(str(out_folder[cameras[2]] / imfile.name), new_im)
 
 
     if conf.write:

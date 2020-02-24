@@ -9,6 +9,7 @@ from visutils.vis import vis_bins
 import tools.utils_geo as geo
 import tools.utils_box as utils_box
 from tools import nms
+from colorama import Fore, Back
 
 
 class BinManager:
@@ -64,8 +65,8 @@ class BinManager:
         self._thres_out_bin_bound = [
             (60, 122),  # (111, 225),
             (65, 243),  # (131, 113),
-            (147, 236),  # (73, 91),
-            (147, 119),  # (48, 213),
+            (107, 236),  # (73, 91),
+            (107, 119),  # (48, 213),
         ]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
@@ -462,7 +463,7 @@ class BinManager:
                     else:
                         # NOTE: bin content changed
                         # divestment or revestment
-                        self.log.info(f"{self._camera} : Bin {bin.label} - New divestment/revestment")
+                        self.log.info(Back.CYAN + f"{self._camera} : Bin {bin.label} - New divestment/revestment")
                         _ind.append(i)
                         bin.init_tracker(bin.pos, im)
                         bin.reset_track_fail()

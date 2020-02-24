@@ -18,8 +18,8 @@ class Manager:
         file_num="exp2",
         config=None,
         bin_only=False,
-        write=True, # whether to save intermediate results
-        cameras=["cam09", "cam11"] # which cameras to consider
+        write=True,  # whether to save intermediate results
+        cameras=["cam09", "cam11"],  # which cameras to consider
     ):
         self._bin_detector = None
         self._pax_detector = None
@@ -58,7 +58,6 @@ class Manager:
             list_info.append([row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"]])
         return list_info
 
-
     def write_info_upto_frame(self, df, frame, cam="cam09"):
         if frame not in df["frame"].values:
             frame += 1
@@ -67,21 +66,29 @@ class Manager:
             line = ",".join([str(_s) for _s in row.values])
             self.write_list.append(line)
 
-
     def write_exit_info_upto_frame(self, df, frame, cam="cam09"):
         if frame not in df["frame"].values:
             frame += 1
-        info = df[(df["frame"] <= frame) & 
-        ((df["type"] == "exit") | (df["type"] == "empty")) & 
-        (df["camera"] == cam)]
+        info = df[
+            (df["frame"] <= frame)
+            & ((df["type"] == "exit") | (df["type"] == "empty"))
+            & (df["camera"] == cam)
+        ]
         if not info.empty:
             list_info = []
             for _, row in info.iterrows():
                 list_info.append(
-                    [row["id"], row["class"], row["x1"], row["y1"], row["x2"], row["y2"], row["type"]]
+                    [
+                        row["id"],
+                        row["class"],
+                        row["x1"],
+                        row["y1"],
+                        row["x2"],
+                        row["y2"],
+                        row["type"],
+                    ]
                 )
             self._bin_managers[cam].add_exit_info(list_info)
-
 
     def load_info(self, info_file, frame_num, image, camera="cam09"):
         df = pd.read_csv(
@@ -108,7 +115,6 @@ class Manager:
         self._bin_managers[camera].add_info(list_info, image)
         self.write_info_upto_frame(df, frame_num, camera)
         self.write_exit_info_upto_frame(df, frame_num, camera)
-
 
     def get_dummy_detection_pkl(self, file_num="9A", camera="cam09"):
         import pickle

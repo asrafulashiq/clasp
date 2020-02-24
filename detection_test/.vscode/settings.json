@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/ash/.conda/envs/torch/bin/python",
+    "python.pythonPath": "/home/ash/anaconda/bin/python",
     "python.linting.flake8Enabled": false,
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
