@@ -84,8 +84,8 @@ class BinManager:
         self.maxlen = 5 * self._mul
         self._rat_track_det = 0.8
 
-        # self._min_area = 40 * 40
-        self._min_dim = 60
+        self._min_area = 40 * 70
+        self._min_dim = 40
         self._max_area = 120 * 120
 
     def init_cam_11(self):
@@ -252,7 +252,8 @@ class BinManager:
                 ind = []
                 for i in range(len(_boxes)):
                     w, h = (_boxes[i][2] - _boxes[i][0], _boxes[i][3] - _boxes[i][1])
-                    if w > self._min_dim and h > self._min_dim and w * h < self._max_area:
+                    if (w > self._min_dim and h > self._min_dim 
+                        and w * h < self._max_area and w * h > self._min_area):
                         ind.append(i)
                 if len(ind) == 0:
                     boxes, scores, classes = None, None, None

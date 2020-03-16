@@ -12,7 +12,8 @@ class_to_color = {"passengers": _BLUE, "items": _GREEN, "other": _RED}
 
 
 def vis_class_label(
-    img, pos, class_str, label, color=_RED, font_scale=0.5, thickness=1
+    img, pos, class_str, label, color=_RED, font_scale=0.5, thickness=1,
+    color_str=_RED
 ):
     """Visualizes the class."""
     img = img.astype(np.uint8)
@@ -22,12 +23,12 @@ def vis_class_label(
     font = cv2.FONT_HERSHEY_SIMPLEX
     if len(class_str) != 0:
         txt = class_str
-        ((txt_w, txt_h), _) = cv2.getTextSize(txt, font, font_scale, thickness)
+        ((txt_w, txt_h), _) = cv2.getTextSize(txt, font, 0.5, 1)
         # Place text background.
         back_tl = x0, y0 - int(1.5 * txt_h)
         back_br = x0 + int(1.5 * txt_w), y0
 
-        cv2.rectangle(img, back_tl, back_br, color, thickness=thickness)
+        cv2.rectangle(img, back_tl, back_br, color, thickness=1)
         # Show text.
         txt_tl = x0 + int(0.05 * txt_w), y0 - int(0.3 * txt_h)
         cv2.putText(
@@ -35,10 +36,10 @@ def vis_class_label(
             txt,
             txt_tl,
             font,
-            font_scale,
-            color,
+            0.5,
+            color_str,
             lineType=cv2.LINE_AA,
-            thickness=thickness,
+            thickness=1,
         )
 
     # put label
@@ -56,7 +57,7 @@ def vis_class_label(
             lbl_tl,
             font,
             1.2 * font_scale,
-            color,
+            color_str,
             thickness=thickness,
             lineType=cv2.LINE_AA,
         )
@@ -148,7 +149,17 @@ def vis_bins(img, bins):
         cls = bin.cls
         label = bin.label
         img = vis_bbox(img, bbox, class_str=cls)
-        img = vis_class_label(img, bbox, cls, label)
+
+        if hasattr(bin, 'track_state'):
+            if bin.track_state is not None and 'mask' in bin.track_state:
+                mask = bin.track_state['mask'] > 0.3
+                im_mask = np.zeros_like(img)
+                im_mask[mask] = (255, 255, 110)
+                cv2.addWeighted(im_mask, 0.3, img, 1, 0, img)                
+
+        img = vis_class_label(img, bbox, cls, label, color_str=(255,0,0), font_scale=0.7,
+            thickness=2)
+
     return img
 
 

@@ -39,8 +39,8 @@ def get_arg():
 
     parser.add_argument(
         "--info",
-        default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info.csv",
-        # default=None,
+        # default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info_b.csv",
+        default=None,
         type=str,
         help="info file to load",
     )

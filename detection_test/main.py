@@ -48,7 +48,7 @@ for cam in cameras:
         skip_end=conf.skip_end, delta=conf.delta,
         end_file=conf.end_file
     )
-    for fp in imfiles:
+    for fp in imfiles[1:]:
         if os.path.exists(fp):
             os.remove(str(fp))
 
@@ -76,6 +76,8 @@ for out1, out2 in tqdm(zip(*imlist)):
         # manager.load_info(conf.info, frame_num, im, camera=cameras[2])
 
         conf.info = None
+        if conf.write:
+            manager.write_info()
         continue
 
     # Cam 09

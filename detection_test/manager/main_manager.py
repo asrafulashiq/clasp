@@ -162,15 +162,30 @@ class Manager:
         if cam in self._bin_managers:
             if frame_num in self._det_bin[cam]:
                 boxes, scores, classes, _ = self._det_bin[cam][frame_num]
-                self._bin_managers[cam].update_state(im, boxes, scores, classes, frame_num)
+
+                # * Something wrong with frame 2757 to 2761 of exp1 cam 09
+                if (self.file_num == 'exp1' and cam == 'cam09' and 
+                    frame_num >= 2757 and frame_num <= 2762 
+                ):
+                    boxes, scores, classes, _ = self._det_bin[cam][2756]
+                    boxes[[0, 2]] -= 7
+                    for bin in self._bin_managers[cam]._current_bins:
+                        pos = bin.pos
+                        pos[0] -=7
+                        pos[2] -=7
+                        bin.pos = pos
+                        if frame_num > 2761:
+                            bin.init_tracker(pos, im)
+                else:
+                    self._bin_managers[cam].update_state(im, boxes, scores, classes, frame_num)
 
         #### FIXME This is temporary
         # if cam in self._pax_managers:
         #     boxes, scores, classes = self._det_pax[cam][frame_num]
         #     self._pax_managers[cam].update_state(im, boxes, scores, classes)
-        if not self.bin_only:
-            if cam in self._pax_managers:
-                self._pax_managers[cam].update_dummy(im, frame_num=frame_num)
+        # if not self.bin_only:
+        #     if cam in self._pax_managers:
+        #         self._pax_managers[cam].update_dummy(im, frame_num=frame_num)
 
         if return_im:
             return self.draw(im, cam=cam)
