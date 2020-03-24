@@ -54,13 +54,19 @@ class BinManager:
         self._left_bins = []
         self._min_iou = 0.4
         self._bin_count = 0
+        # self._thres_incoming_bin_bound = [
+        #     (165, 117),
+        #     (164, 235),
+        #     (481, 222),
+        #     (475, 110),
+        # ]  # bound for detecting incoming
+
         self._thres_incoming_bin_bound = [
-            (165, 117),  # (123, 227),
-            (164, 235),  # (146, 111),
-            (481, 222),  # (496, 180),
-            (475, 110),  # (467, 302),
-        ]  # bound for detecting incoming
-        # self._thres_out_bin_exit = 350 / 3
+            (165, 117),
+            (164, 340),
+            (590, 292),
+            (570, 114),
+        ] 
 
         self._thres_out_bin_bound = [
             (60, 122),  # (111, 225),
@@ -378,8 +384,8 @@ class BinManager:
                 if tmp_iou.get(i, 0) > self._min_iou:
                     continue
 
-                if not geo.point_in_box(c_box, self._box_conveyor_belt):
-                    continue
+                # if not geo.point_in_box(c_box, self._box_conveyor_belt):
+                #     continue
 
                 # if self._camera == 'cam11' and cls == 'items':
                 #     continue

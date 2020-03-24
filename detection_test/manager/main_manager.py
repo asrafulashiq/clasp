@@ -163,7 +163,7 @@ class Manager:
             if frame_num in self._det_bin[cam]:
                 boxes, scores, classes, _ = self._det_bin[cam][frame_num]
 
-                # * Something wrong with frame 2757 to 2761 of exp1 cam 09
+                # NOTE: Something wrong with frame 2757 to 2761 of exp1 cam 09
                 if (self.file_num == 'exp1' and cam == 'cam09' and 
                     frame_num >= 2757 and frame_num <= 2762 
                 ):
