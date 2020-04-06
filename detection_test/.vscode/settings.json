@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/home/ash/anaconda/bin/python",
+    "python.pythonPath": "/media/extra_home/miniconda3/bin/python",
     "python.linting.flake8Enabled": false,
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": true,
@@ -19,5 +19,6 @@
         "statusBarItem.hoverBackground": "#359268",
         "statusBar.foreground": "#15202b"
     },
-    "peacock.color": "#42b883"
+    "peacock.color": "#42b883",
+    "editor.fontFamily": "Consolas, Monaco"
 }

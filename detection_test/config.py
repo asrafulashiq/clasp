@@ -45,7 +45,7 @@ def get_arg():
         help="info file to load",
     )
 
-    parser.add_argument("--skip-init", type=int, default=2694)
+    parser.add_argument("--skip-init", type=int, default=700)
     parser.add_argument("--skip-end", type=int, default=1)
     parser.add_argument("--end-file", type=int, default=None)
     parser.add_argument("--delta", type=int, default=2)

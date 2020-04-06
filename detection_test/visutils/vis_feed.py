@@ -165,15 +165,24 @@ class VisFeed():
         self.im_mod_4 = FeedModule(w_, h_)
 
     def draw(self, im1, im2, im3, frame_num, msglist, with_feed=True):
-        can1 = self.im_mod_1.draw(im1, text=str(to_sec(frame_num)).zfill(4)+' sec')
-        can2 = self.im_mod_2.draw(im2, text=str(to_sec(frame_num)).zfill(4)+' sec')
-        can3 = self.im_mod_3.draw(im3, text=str(to_sec(frame_num)).zfill(4)+' sec')
-        can4 = self.im_mod_4.drawText(msglist)
+        can1, can2, can3, can4 =[None] * 4
+        if im1 is not None:
+            can1 = self.im_mod_1.draw(im1, text=str(to_sec(frame_num)).zfill(4)+' sec')
+        if im2 is not None:
+            can2 = self.im_mod_2.draw(im2, text=str(to_sec(frame_num)).zfill(4)+' sec')
+        if im3 is not None:
+            can3 = self.im_mod_3.draw(im3, text=str(to_sec(frame_num)).zfill(4)+' sec')
+        if msglist is not None:
+            can4 = self.im_mod_4.drawText(msglist)
 
+        cats = []
+        for _c in (can1, can2, can3):
+            if _c is not None:
+                cats.append(_c)
         if with_feed:
-            canvas = np.concatenate((can1, can2, can3, can4), axis=1)
+            canvas = np.concatenate((*cats, can4), axis=1)
         else:
-            canvas = np.concatenate((can1, can2, can3), axis=1)
+            canvas = np.concatenate(cats, axis=1)
 
         return canvas
 
