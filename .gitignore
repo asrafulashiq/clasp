@@ -15,3 +15,5 @@ weights/
 */.vscode
 settings.json
 *.pth
+
+*.vscode
