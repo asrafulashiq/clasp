@@ -124,26 +124,6 @@ if __name__ == "__main__":
         imfile = os.path.join(args.im_folder, fname)
         h, w, _ = cv2.imread(imfile).shape
 
-        # for _ann in each_ann_file['passengers']:
-
-        #     rat_w, rat_h = args.size[0] / w, args.size[1] / h
-
-        #     tmp = {
-        #         "id": counter_id,
-        #         "image_id": dict_im[fname],
-        #         "category_id": dict_cat['passengers'],
-        #         # "area": _ann['size']['width'] * _ann['size']['height'],
-        #         "area": args.size[0] * args.size[1],
-        #         'segmentation': [],
-        #         "bbox": [
-        #             _ann['location']['x']*rat_w, _ann['location']['y']*rat_h,
-        #             _ann['size']['width']*rat_w, _ann['size']['height']*rat_h
-        #         ],
-        #         "iscrowd": 0,
-        #     }
-        #     data['annotations'].append(tmp)
-        #     counter_id += 1
-
         for _ann in each_ann_file['items']:
 
             rat_w, rat_h = args.size[0] / w, args.size[1] / h
@@ -164,8 +144,6 @@ if __name__ == "__main__":
             counter_id += 1
 
     for k in dict_im:
-        # imfile = os.path.join(args.im_folder, k)
-        # h, w, _ = cv2.imread(imfile).shape
         data['images'].append(
             {
                 'file_name': k,
