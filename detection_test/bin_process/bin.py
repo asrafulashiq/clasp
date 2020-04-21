@@ -42,7 +42,10 @@ class Bin:
     #     bb = tuple([box[0], box[1], box[2]-box[0]+1, box[3]-box[1]+1])
     #     self.tracker.init(frame, bb)
 
+    @torch.no_grad()
     def init_tracker(self, box, frame):
+        if hasattr(self, 'siammask'): 
+            del self.siammask
         self.load_siammask()
         self.device = torch.device("cuda:0")
         bb = tuple([box[0], box[1], box[2] - box[0] + 1, box[3] - box[1] + 1])
@@ -54,6 +57,7 @@ class Bin:
         )
         self.track_state = state
 
+    @torch.no_grad()
     def load_siammask(self):
         class Empty:
             pass
@@ -69,6 +73,39 @@ class Bin:
         net.eval().cuda()
         self.siammask = net
         self.cfg_siam = cfg
+
+    @torch.no_grad()
+    def update_tracker(self, frame):
+        
+        prev_pos = self.track_state["target_pos"]
+        state = siamese_track(
+            self.track_state, frame, mask_enable=False, refine_enable=True, device=self.device
+        )  # track
+        target_pos = state["target_pos"]
+        target_sz = state["target_sz"]
+
+        w, h = target_sz
+        x, y = target_pos - target_sz / 2
+
+        distance = np.linalg.norm(prev_pos - target_pos)
+
+        if distance > 30:
+            status = False
+        else:
+            status = True
+
+        if status:
+            x2, y2 = x + w, y + h
+            bbox = [int(x), int(y), int(x2), int(y2)]
+        else:
+            # tracker failed
+            bbox = None
+        self.track_state = state
+        return status, bbox
+
+    def clear_track(self):
+        if hasattr(self, 'siammask'): del self.siammask
+        if hasattr(self, 'track_state'): del self.track_state
 
     def increment_idle(self):
         self._idle_count += 1
@@ -171,34 +208,6 @@ class Bin:
         if self.pos == bin2.pos and self.label == bin2.label and self.state == bin2.state:
             return True
         return False
-
-    def update_tracker(self, frame):
-
-        state = siamese_track(
-            self.track_state, frame, mask_enable=True, refine_enable=True, device=self.device
-        )  # track
-        target_pos = state["target_pos"]
-        target_sz = state["target_sz"]
-
-        w, h = target_sz
-        x, y = target_pos - target_sz / 2
-
-        prev_pos = self.track_state["target_pos"]
-
-        distance = np.linalg.norm(prev_pos - target_pos)
-
-        if distance > 30:
-            status = False
-        else:
-            status = True
-
-        if status:
-            x2, y2 = x + w, y + h
-            bbox = [int(x), int(y), int(x2), int(y2)]
-        else:
-            # tracker failed
-            bbox = None
-        return status, bbox
 
     # def update_tracker(self, frame):
     #     status, bb = self.tracker.update(frame)

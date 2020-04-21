@@ -29,12 +29,12 @@ def remove_prefix(state_dict, prefix):
 
 def load_pretrain(model, pretrained_path):
     logger.info('load pretrained model from {}'.format(pretrained_path))
-    if not torch.cuda.is_available():
-        pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage)
-    else:
-        device = torch.cuda.current_device()
-        pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device))
-
+    # if not torch.cuda.is_available():
+    #     pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage)
+    # else:
+    #     device = torch.cuda.current_device()
+    #     pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device))
+    pretrained_dict = torch.load(pretrained_path)
     if "state_dict" in pretrained_dict.keys():
         pretrained_dict = remove_prefix(pretrained_dict['state_dict'], 'module.')
     else:

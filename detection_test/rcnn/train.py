@@ -43,10 +43,10 @@ if __name__ == "__main__":
                         default="model.pkl")
 
     parser.add_argument("--split", type=float, help="train-test split",
-                        default=0.8)
+                        default=0.9)
     parser.add_argument("--ckpt", type=str, default=None)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--batch-size", type=int, default=10)
+    parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
     args = parser.parse_args()
@@ -68,15 +68,16 @@ if __name__ == "__main__":
     dataset_test = coco_utils.get_coco(args.root, args.ann_file,
                                        transforms=get_transform(False, args.size))
 
-    print(dataset_train[0])
+    print(dataset_train[100][1])
 
     # split into train and test
     train_size = int(args.split * len(dataset_train))
     test_size = len(dataset_train) - train_size
     indices = torch.randperm(len(dataset_train)).tolist()
 
-    dataset_train = torch.utils.data.Subset(
-        dataset_train, indices[:train_size])
+    #! train is the full dataset
+    # dataset_train = torch.utils.data.Subset(
+    #     dataset_train, indices[:train_size])
     dataset_test = torch.utils.data.Subset(dataset_test, indices[train_size:])
     # define data loader
     data_loader_train = torch.utils.data.DataLoader(

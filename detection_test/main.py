@@ -9,16 +9,18 @@ from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
+import torch
 from colorama import init, Fore
 
+torch.backends.cudnn.benchmark = True
 
 init(autoreset=True)
 
 
 log = ClaspLogger()
 
-file_num = "exp1"
-cameras = ["cam09", "cam11"]
+file_num = "exp1_2"
+cameras = ["cam09"]
 
 manager = Manager(log=log, file_num=file_num, config=conf, bin_only=True, cameras=cameras)
 
@@ -63,14 +65,15 @@ for cam in cameras:
 # Process
 
 
-for out1, out2 in tqdm(zip(*imlist)):
-
+for counter, ret in enumerate(tqdm(zip(*imlist))):
+    # out1, out2 = ret
+    out1, = ret
     if conf.info is not None:
         im, imfile, frame_num = out1
         manager.load_info(conf.info, frame_num, im, camera=cameras[0])
 
-        im, imfile, frame_num = out2
-        manager.load_info(conf.info, frame_num, im, camera=cameras[1])
+        # im, imfile, frame_num = out2
+        # manager.load_info(conf.info, frame_num, im, camera=cameras[1])
 
         # im, imfile, frame_num = out3
         # manager.load_info(conf.info, frame_num, im, camera=cameras[2])
@@ -89,11 +92,11 @@ for out1, out2 in tqdm(zip(*imlist)):
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
     # Cam 11
-    im, imfile, frame_num = out2
-    new_im = manager.run_detector_image(
-        im, cam=cameras[1], frame_num=frame_num
-    )
-    skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
+    # im, imfile, frame_num = out2
+    # new_im = manager.run_detector_image(
+    #     im, cam=cameras[1], frame_num=frame_num
+    # )
+    # skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
     # # Cam 13
     # im, imfile, frame_num = out3

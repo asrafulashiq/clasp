@@ -39,14 +39,14 @@ def get_arg():
 
     parser.add_argument(
         "--info",
-        # default="/home/ash/Desktop/hdd/ALERT/clasp_data/output/run/info_b.csv",
+        # default="/data/home/islama6/dataset/ALERT/clasp_data/output/run/info.csv",
         default=None,
         type=str,
         help="info file to load",
     )
 
-    parser.add_argument("--skip-init", type=int, default=700)
-    parser.add_argument("--skip-end", type=int, default=1)
+    parser.add_argument("--skip-init", type=int, default=3390)
+    parser.add_argument("--skip-end", type=int, default=5000)
     parser.add_argument("--end-file", type=int, default=None)
     parser.add_argument("--delta", type=int, default=2)
     parser.add_argument("--plot", action="store_true")

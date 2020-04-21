@@ -36,7 +36,7 @@ def iou_bbox(bbox1, bbox2, ratio_type='comb'):
 
     # COMBINED AREA
     if ratio_type == 'min':
-        area_combined = area_a #min(area_a, area_b)
+        area_combined = min(area_a, area_b)
     elif ratio_type == 'max':
         area_combined = max(area_a, area_b)
     else:

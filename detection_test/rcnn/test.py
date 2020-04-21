@@ -14,6 +14,7 @@ import coco_utils
 
 import cv2
 import skimage
+import skimage.io
 from tqdm import tqdm
 
 
@@ -37,9 +38,9 @@ if __name__ == "__main__":
     parser.add_argument("--ckpt", type=str, help="model output directory",
                         default=HOME + "/dataset/clasp/trained_model_bin/model_bin.pkl")
     parser.add_argument("--folder", type=str, help="Image folder",
-                        default="/media/drive/ALERT/alert_frames/exp1/cam09/")
+                        default=HOME+"/dataset/ALERT/alert_frames_2/exp1/cam09/")
     parser.add_argument("--write-folder", type=str, help="Image folder",
-                        default="/media/drive/ALERT/out_rcnn/")
+                        default=HOME + "/dataset/ALERT/out_rcnn/")
     args = parser.parse_args()
     print(args)
 
@@ -65,7 +66,7 @@ if __name__ == "__main__":
     write_folder = Path(args.write_folder)
     write_folder.mkdir(exist_ok=True)
 
-    for i in tqdm(range(1200, 2000, 100)):
+    for i in tqdm(range(1200, 3000, 100)):
         filename = Path(args.folder) / f"{i:06d}.jpg"
         if filename.exists():
             im = skimage.io.imread(str(filename))
