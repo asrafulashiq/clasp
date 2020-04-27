@@ -1,0 +1,10074 @@
+[
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1099,
+          "y": 914
+        },
+        "size": {
+          "width": 223,
+          "height": 167
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02011",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1101,
+          "y": 910
+        },
+        "size": {
+          "width": 228,
+          "height": 170
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1097,
+          "y": 914
+        },
+        "size": {
+          "width": 227,
+          "height": 167
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1098,
+          "y": 913
+        },
+        "size": {
+          "width": 224,
+          "height": 167
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1579,
+          "y": 2
+        },
+        "size": {
+          "width": 49,
+          "height": 46
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1122,
+          "y": 897
+        },
+        "size": {
+          "width": 260,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1630,
+          "y": 1
+        },
+        "size": {
+          "width": 69,
+          "height": 25
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1119,
+          "y": 916
+        },
+        "size": {
+          "width": 200,
+          "height": 164
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1605,
+          "y": 2
+        },
+        "size": {
+          "width": 82,
+          "height": 22
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1119,
+          "y": 917
+        },
+        "size": {
+          "width": 188,
+          "height": 164
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1117,
+          "y": 922
+        },
+        "size": {
+          "width": 190,
+          "height": 159
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1119,
+          "y": 917
+        },
+        "size": {
+          "width": 188,
+          "height": 164
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1116,
+          "y": 917
+        },
+        "size": {
+          "width": 181,
+          "height": 161
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "02901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1130,
+          "y": 925
+        },
+        "size": {
+          "width": 177,
+          "height": 156
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1123,
+          "y": 925
+        },
+        "size": {
+          "width": 184,
+          "height": 156
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1127,
+          "y": 925
+        },
+        "size": {
+          "width": 181,
+          "height": 153
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1124,
+          "y": 921
+        },
+        "size": {
+          "width": 183,
+          "height": 160
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1127,
+          "y": 927
+        },
+        "size": {
+          "width": 161,
+          "height": 154
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1638,
+          "y": 1
+        },
+        "size": {
+          "width": 63,
+          "height": 26
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1170,
+          "y": 925
+        },
+        "size": {
+          "width": 292,
+          "height": 156
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1220,
+          "y": 895
+        },
+        "size": {
+          "width": 238,
+          "height": 186
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1614,
+          "y": 4
+        },
+        "size": {
+          "width": 57,
+          "height": 20
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1786,
+          "y": 266
+        },
+        "size": {
+          "width": 134,
+          "height": 292
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1199.2251437962202,
+          "y": 889
+        },
+        "size": {
+          "width": 228,
+          "height": 191
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1612.7748562037798,
+          "y": 2
+        },
+        "size": {
+          "width": 48,
+          "height": 19
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1423,
+          "y": 201
+        },
+        "size": {
+          "width": 194,
+          "height": 334
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1188,
+          "y": 890
+        },
+        "size": {
+          "width": 234,
+          "height": 191
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1000,
+          "y": 162
+        },
+        "size": {
+          "width": 262,
+          "height": 366
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1772,
+          "y": 277
+        },
+        "size": {
+          "width": 149,
+          "height": 279
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1122,
+          "y": 914
+        },
+        "size": {
+          "width": 262,
+          "height": 167
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1586,
+          "y": 1
+        },
+        "size": {
+          "width": 65,
+          "height": 34
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "03901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P1",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1229,
+          "y": 914
+        },
+        "size": {
+          "width": 295,
+          "height": 167
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1000,
+          "y": 158
+        },
+        "size": {
+          "width": 259,
+          "height": 374
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1400,
+          "y": 248
+        },
+        "size": {
+          "width": 227,
+          "height": 289
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 944,
+          "y": 832
+        },
+        "size": {
+          "width": 345,
+          "height": 249
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1583,
+          "y": 2
+        },
+        "size": {
+          "width": 67,
+          "height": 29
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 748,
+          "y": 147
+        },
+        "size": {
+          "width": 230,
+          "height": 374
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 999,
+          "y": 223
+        },
+        "size": {
+          "width": 293,
+          "height": 311
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1170,
+          "y": 890
+        },
+        "size": {
+          "width": 215,
+          "height": 191
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1592,
+          "y": 1
+        },
+        "size": {
+          "width": 54,
+          "height": 34
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 743,
+          "y": 146
+        },
+        "size": {
+          "width": 237,
+          "height": 375
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 999,
+          "y": 220
+        },
+        "size": {
+          "width": 292,
+          "height": 304
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1769,
+          "y": 307
+        },
+        "size": {
+          "width": 132,
+          "height": 240
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1182,
+          "y": 882
+        },
+        "size": {
+          "width": 249,
+          "height": 199
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1570,
+          "y": 1
+        },
+        "size": {
+          "width": 71,
+          "height": 39
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 746,
+          "y": 147
+        },
+        "size": {
+          "width": 236,
+          "height": 382
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 999,
+          "y": 222
+        },
+        "size": {
+          "width": 289,
+          "height": 302
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1835,
+          "y": 288
+        },
+        "size": {
+          "width": 86,
+          "height": 246
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1389,
+          "y": 252
+        },
+        "size": {
+          "width": 184,
+          "height": 287
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1668,
+          "y": 272
+        },
+        "size": {
+          "width": 162,
+          "height": 279
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1185,
+          "y": 886
+        },
+        "size": {
+          "width": 234,
+          "height": 195
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1573,
+          "y": 1
+        },
+        "size": {
+          "width": 65,
+          "height": 36
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P1",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 771
+        },
+        "size": {
+          "width": 145,
+          "height": 208
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1355,
+          "y": 925
+        },
+        "size": {
+          "width": 352,
+          "height": 156
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 410,
+          "y": 158
+        },
+        "size": {
+          "width": 220,
+          "height": 368
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 636,
+          "y": 210
+        },
+        "size": {
+          "width": 260,
+          "height": 319
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1572,
+          "y": 239
+        },
+        "size": {
+          "width": 175,
+          "height": 290
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 877,
+          "y": 223
+        },
+        "size": {
+          "width": 231,
+          "height": 294
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1756,
+          "y": 302
+        },
+        "size": {
+          "width": 139,
+          "height": 248
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1103,
+          "y": 187
+        },
+        "size": {
+          "width": 273,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1007,
+          "y": 834
+        },
+        "size": {
+          "width": 331,
+          "height": 247
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1564,
+          "y": 1
+        },
+        "size": {
+          "width": 74,
+          "height": 42
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P1",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 617.5160230073951
+        },
+        "size": {
+          "width": 300.54231717337717,
+          "height": 230.33689400164337
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 251.2226787181594,
+          "y": 802.1010682004929
+        },
+        "size": {
+          "width": 361.1166803615448,
+          "height": 278.89893179950707
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P1_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 200.57271980279376,
+          "y": 180.50698438783877
+        },
+        "size": {
+          "width": 176.69679539852095,
+          "height": 339.1947411668036
+        }
+      },
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 372.5365653245686,
+          "y": 224.681183237469
+        },
+        "size": {
+          "width": 239.8027937551356,
+          "height": 299.75349219391956
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1077.746096959737,
+          "y": 199.43878389482313
+        },
+        "size": {
+          "width": 227.18159408381257,
+          "height": 293.2752670501235
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 606.2218570254723,
+          "y": 216.79293344289226
+        },
+        "size": {
+          "width": 231,
+          "height": 297.05176663927705
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1327.0147904683647,
+          "y": 248.3599013968776
+        },
+        "size": {
+          "width": 205.09449465899775,
+          "height": 299.73952341824145
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1647,
+          "y": 277
+        },
+        "size": {
+          "width": 168,
+          "height": 254
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 841.0986031224322,
+          "y": 177.53410024650782
+        },
+        "size": {
+          "width": 230.33689400164326,
+          "height": 329.5464256368117
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1161.3615447822515,
+          "y": 885.7165160230073
+        },
+        "size": {
+          "width": 246.11339359079693,
+          "height": 195.28348397699267
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P1",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 570
+        },
+        "size": {
+          "width": 238,
+          "height": 174
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1.7830342577487763,
+          "y": 400.83686786296903
+        },
+        "size": {
+          "width": 659.3148450244697,
+          "height": 432.23491027732473
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 35,
+          "y": 247.36215334420876
+        },
+        "size": {
+          "width": 316.0163132137031,
+          "height": 316.63784665579124
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 753.4959216965742,
+          "y": 190.98368678629686
+        },
+        "size": {
+          "width": 228.6460032626427,
+          "height": 302.25122349102776
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 343.1859706362153,
+          "y": 228
+        },
+        "size": {
+          "width": 198.89070146818926,
+          "height": 280.8955954323002
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 988.4061990212069,
+          "y": 225.43719412724306
+        },
+        "size": {
+          "width": 220.81566068515508,
+          "height": 305.3833605220228
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1199.8254486133767,
+          "y": 227.00326264274054
+        },
+        "size": {
+          "width": 212.98531810766713,
+          "height": 286.5905383360523
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 529.1876019575855,
+          "y": 180.13213703099518
+        },
+        "size": {
+          "width": 229.00652528548142,
+          "height": 324.06525285481234
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1161,
+          "y": 881
+        },
+        "size": {
+          "width": 242,
+          "height": 200
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "04611",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP3_1",
+        "description": "XFR P2_A FROM P3 04611",
+        "location": {
+          "x": 1,
+          "y": 546
+        },
+        "size": {
+          "width": 90,
+          "height": 137
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 113,
+          "y": 257
+        },
+        "size": {
+          "width": 164,
+          "height": 266
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 663,
+          "y": 196
+        },
+        "size": {
+          "width": 252,
+          "height": 299
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 262,
+          "y": 235
+        },
+        "size": {
+          "width": 197,
+          "height": 282
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 952,
+          "y": 229
+        },
+        "size": {
+          "width": 234,
+          "height": 305
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1181,
+          "y": 221
+        },
+        "size": {
+          "width": 218,
+          "height": 291
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 436,
+          "y": 204
+        },
+        "size": {
+          "width": 231,
+          "height": 300
+        }
+      },
+      {
+        "id": "P5_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1677,
+          "y": 268
+        },
+        "size": {
+          "width": 149,
+          "height": 261
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1806,
+          "y": 287
+        },
+        "size": {
+          "width": 110,
+          "height": 233
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1164,
+          "y": 883
+        },
+        "size": {
+          "width": 246,
+          "height": 198
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1593,
+          "y": 3
+        },
+        "size": {
+          "width": 297,
+          "height": 294
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 548
+        },
+        "size": {
+          "width": 546,
+          "height": 353
+        }
+      },
+      {
+        "id": "P4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 752,
+          "y": 972
+        },
+        "size": {
+          "width": 193,
+          "height": 109
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 108,
+          "y": 255
+        },
+        "size": {
+          "width": 171,
+          "height": 266
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 650,
+          "y": 191
+        },
+        "size": {
+          "width": 274,
+          "height": 302
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 263,
+          "y": 236
+        },
+        "size": {
+          "width": 196,
+          "height": 285
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 943,
+          "y": 224
+        },
+        "size": {
+          "width": 235,
+          "height": 310
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1181,
+          "y": 224
+        },
+        "size": {
+          "width": 218,
+          "height": 290
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 440,
+          "y": 185
+        },
+        "size": {
+          "width": 229,
+          "height": 319
+        }
+      },
+      {
+        "id": "P5_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1574,
+          "y": 3
+        },
+        "size": {
+          "width": 224,
+          "height": 221
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1486,
+          "y": 227
+        },
+        "size": {
+          "width": 188,
+          "height": 290
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1148,
+          "y": 864
+        },
+        "size": {
+          "width": 288,
+          "height": 217
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1709,
+          "y": 9
+        },
+        "size": {
+          "width": 48,
+          "height": 58
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "04881",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP3_2",
+        "description": "XFR P2_A FROM P3 04881",
+        "location": {
+          "x": 166,
+          "y": 429
+        },
+        "size": {
+          "width": 106,
+          "height": 121
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 427
+        },
+        "size": {
+          "width": 450,
+          "height": 336
+        }
+      },
+      {
+        "id": "P4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 832,
+          "y": 434
+        },
+        "size": {
+          "width": 427,
+          "height": 349
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P2_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 78,
+          "y": 259
+        },
+        "size": {
+          "width": 160,
+          "height": 258
+        }
+      },
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 600,
+          "y": 195
+        },
+        "size": {
+          "width": 227,
+          "height": 297
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 221,
+          "y": 241
+        },
+        "size": {
+          "width": 184,
+          "height": 281
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 814,
+          "y": 246
+        },
+        "size": {
+          "width": 239,
+          "height": 316
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1043,
+          "y": 205
+        },
+        "size": {
+          "width": 224,
+          "height": 299
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 395,
+          "y": 186
+        },
+        "size": {
+          "width": 216,
+          "height": 321
+        }
+      },
+      {
+        "id": "P5_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1654,
+          "y": 2
+        },
+        "size": {
+          "width": 158,
+          "height": 231
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1251,
+          "y": 175
+        },
+        "size": {
+          "width": 206,
+          "height": 284
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1671,
+          "y": 251
+        },
+        "size": {
+          "width": 158,
+          "height": 269
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1163,
+          "y": 874
+        },
+        "size": {
+          "width": 234,
+          "height": 207
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1625,
+          "y": 2
+        },
+        "size": {
+          "width": 109,
+          "height": 22
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "04901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "04921",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP4_1",
+        "description": "XFR P4_B FROM P4 04921",
+        "location": {
+          "x": 995,
+          "y": 600
+        },
+        "size": {
+          "width": 124,
+          "height": 120
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 4,
+          "y": 463
+        },
+        "size": {
+          "width": 445,
+          "height": 376
+        }
+      },
+      {
+        "id": "P4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 698,
+          "y": 595
+        },
+        "size": {
+          "width": 344,
+          "height": 377
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 467,
+          "y": 196
+        },
+        "size": {
+          "width": 226,
+          "height": 298
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 121,
+          "y": 250
+        },
+        "size": {
+          "width": 175,
+          "height": 265
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 681,
+          "y": 245
+        },
+        "size": {
+          "width": 236,
+          "height": 308
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 902,
+          "y": 196
+        },
+        "size": {
+          "width": 231,
+          "height": 301
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 275,
+          "y": 191
+        },
+        "size": {
+          "width": 200,
+          "height": 316
+        }
+      },
+      {
+        "id": "P5_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1653,
+          "y": 0
+        },
+        "size": {
+          "width": 154,
+          "height": 235
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1118,
+          "y": 161
+        },
+        "size": {
+          "width": 221,
+          "height": 293
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1324,
+          "y": 213
+        },
+        "size": {
+          "width": 196,
+          "height": 287
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1158,
+          "y": 881
+        },
+        "size": {
+          "width": 245,
+          "height": 200
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P1",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 558
+        },
+        "size": {
+          "width": 71,
+          "height": 165
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 125,
+          "y": 463
+        },
+        "size": {
+          "width": 485,
+          "height": 365
+        }
+      },
+      {
+        "id": "P4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 742,
+          "y": 425
+        },
+        "size": {
+          "width": 377,
+          "height": 449
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 343,
+          "y": 205
+        },
+        "size": {
+          "width": 232,
+          "height": 286
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 64,
+          "y": 260
+        },
+        "size": {
+          "width": 154,
+          "height": 251
+        }
+      },
+      {
+        "id": "P4_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 544,
+          "y": 249
+        },
+        "size": {
+          "width": 237,
+          "height": 306
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 757,
+          "y": 205
+        },
+        "size": {
+          "width": 245,
+          "height": 302
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 194,
+          "y": 201
+        },
+        "size": {
+          "width": 189,
+          "height": 273
+        }
+      },
+      {
+        "id": "P5_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1660,
+          "y": 3
+        },
+        "size": {
+          "width": 145,
+          "height": 229
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 980,
+          "y": 241
+        },
+        "size": {
+          "width": 226,
+          "height": 295
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1193,
+          "y": 214
+        },
+        "size": {
+          "width": 209,
+          "height": 297
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1054,
+          "y": 889
+        },
+        "size": {
+          "width": 328,
+          "height": 192
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1568,
+          "y": 0
+        },
+        "size": {
+          "width": 46,
+          "height": 18
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "05161",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP3_3",
+        "description": "XFR P4_A FROM P3 05161",
+        "location": {
+          "x": 335,
+          "y": 428
+        },
+        "size": {
+          "width": 108,
+          "height": 120
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 569
+        },
+        "size": {
+          "width": 517,
+          "height": 240
+        }
+      },
+      {
+        "id": "P4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 568,
+          "y": 472
+        },
+        "size": {
+          "width": 324,
+          "height": 460
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 334,
+          "y": 208
+        },
+        "size": {
+          "width": 243,
+          "height": 279
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 39,
+          "y": 256
+        },
+        "size": {
+          "width": 157,
+          "height": 260
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 586,
+          "y": 201
+        },
+        "size": {
+          "width": 244,
+          "height": 313
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 170,
+          "y": 205
+        },
+        "size": {
+          "width": 182,
+          "height": 330
+        }
+      },
+      {
+        "id": "P5_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1396,
+          "y": 1
+        },
+        "size": {
+          "width": 172,
+          "height": 94
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 927,
+          "y": 234
+        },
+        "size": {
+          "width": 268,
+          "height": 324
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1178,
+          "y": 218
+        },
+        "size": {
+          "width": 216,
+          "height": 289
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1180,
+          "y": 914
+        },
+        "size": {
+          "width": 295,
+          "height": 167
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "05261",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP3_P4",
+        "description": "XFR P4_ A P3 P4 05261",
+        "location": {
+          "x": 197,
+          "y": 622
+        },
+        "size": {
+          "width": 108,
+          "height": 92
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 672,
+          "y": 646
+        },
+        "size": {
+          "width": 279,
+          "height": 425
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 50,
+          "y": 329
+        },
+        "size": {
+          "width": 518,
+          "height": 442
+        }
+      },
+      {
+        "id": "P4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 4,
+          "y": 841
+        },
+        "size": {
+          "width": 364,
+          "height": 238
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P3_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 337,
+          "y": 207
+        },
+        "size": {
+          "width": 205,
+          "height": 287
+        }
+      },
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 48,
+          "y": 262
+        },
+        "size": {
+          "width": 146,
+          "height": 260
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 553,
+          "y": 207
+        },
+        "size": {
+          "width": 217,
+          "height": 309
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 176,
+          "y": 205
+        },
+        "size": {
+          "width": 176,
+          "height": 330
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 922,
+          "y": 236
+        },
+        "size": {
+          "width": 274,
+          "height": 322
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1176,
+          "y": 216
+        },
+        "size": {
+          "width": 220,
+          "height": 289
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1196,
+          "y": 980
+        },
+        "size": {
+          "width": 160,
+          "height": 101
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 489
+        },
+        "size": {
+          "width": 366,
+          "height": 276
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 73,
+          "y": 780
+        },
+        "size": {
+          "width": 530,
+          "height": 301
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 44,
+          "y": 262
+        },
+        "size": {
+          "width": 152,
+          "height": 262
+        }
+      },
+      {
+        "id": "P4_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 570,
+          "y": 210
+        },
+        "size": {
+          "width": 227,
+          "height": 303
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 178,
+          "y": 208
+        },
+        "size": {
+          "width": 188,
+          "height": 327
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 923,
+          "y": 236
+        },
+        "size": {
+          "width": 273,
+          "height": 321
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1174,
+          "y": 216
+        },
+        "size": {
+          "width": 218,
+          "height": 291
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1130,
+          "y": 903
+        },
+        "size": {
+          "width": 217,
+          "height": 178
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "05411",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP2_1",
+        "description": "XFR P2_C FROM P2 05411",
+        "location": {
+          "x": 125,
+          "y": 593
+        },
+        "size": {
+          "width": 130,
+          "height": 93
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "05461",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP3_4",
+        "description": "XFR P4_B FROM P3 05461",
+        "location": {
+          "x": 542,
+          "y": 396
+        },
+        "size": {
+          "width": 140,
+          "height": 138
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 509
+        },
+        "size": {
+          "width": 324,
+          "height": 291
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 172,
+          "y": 452
+        },
+        "size": {
+          "width": 510,
+          "height": 621
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P2_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 46,
+          "y": 262
+        },
+        "size": {
+          "width": 148,
+          "height": 251
+        }
+      },
+      {
+        "id": "P2_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 189,
+          "y": 207
+        },
+        "size": {
+          "width": 180.50855745721276,
+          "height": 318
+        }
+      },
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 925,
+          "y": 234
+        },
+        "size": {
+          "width": 273,
+          "height": 319
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1178,
+          "y": 214
+        },
+        "size": {
+          "width": 216,
+          "height": 293
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1191,
+          "y": 983
+        },
+        "size": {
+          "width": 225,
+          "height": 98
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "05541",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP3_5",
+        "description": "XFR P2_B FROM P3 05541",
+        "location": {
+          "x": 113,
+          "y": 334
+        },
+        "size": {
+          "width": 149,
+          "height": 120
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 4,
+          "y": 467
+        },
+        "size": {
+          "width": 387,
+          "height": 222
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 90,
+          "y": 681
+        },
+        "size": {
+          "width": 509,
+          "height": 400
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 926,
+          "y": 237
+        },
+        "size": {
+          "width": 273,
+          "height": 324
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1178,
+          "y": 216
+        },
+        "size": {
+          "width": 218,
+          "height": 290
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1156,
+          "y": 906
+        },
+        "size": {
+          "width": 174,
+          "height": 175
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 89
+        },
+        "size": {
+          "width": 104,
+          "height": 160
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 603
+        },
+        "size": {
+          "width": 77,
+          "height": 132
+        }
+      },
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 44,
+          "y": 445
+        },
+        "size": {
+          "width": 535,
+          "height": 552
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 928,
+          "y": 234
+        },
+        "size": {
+          "width": 271,
+          "height": 324
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1180,
+          "y": 214
+        },
+        "size": {
+          "width": 216,
+          "height": 291
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1138,
+          "y": 897
+        },
+        "size": {
+          "width": 432,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 127
+        },
+        "size": {
+          "width": 103,
+          "height": 107
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 631
+        },
+        "size": {
+          "width": 94,
+          "height": 140
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 930,
+          "y": 235
+        },
+        "size": {
+          "width": 267,
+          "height": 323
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1181,
+          "y": 214
+        },
+        "size": {
+          "width": 216,
+          "height": 292
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1138,
+          "y": 905
+        },
+        "size": {
+          "width": 211,
+          "height": 174
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 190
+        },
+        "size": {
+          "width": 87,
+          "height": 42
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 930,
+          "y": 240
+        },
+        "size": {
+          "width": 270,
+          "height": 315
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1179,
+          "y": 215
+        },
+        "size": {
+          "width": 218,
+          "height": 289
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1015,
+          "y": 903
+        },
+        "size": {
+          "width": 350,
+          "height": 178
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 63
+        },
+        "size": {
+          "width": 139,
+          "height": 168
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "05901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 121,
+          "y": 801
+        },
+        "size": {
+          "width": 460,
+          "height": 279
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 928,
+          "y": 235
+        },
+        "size": {
+          "width": 272,
+          "height": 323
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1179,
+          "y": 217
+        },
+        "size": {
+          "width": 216,
+          "height": 290
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 981,
+          "y": 821
+        },
+        "size": {
+          "width": 505,
+          "height": 261
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 489,
+          "y": 482
+        },
+        "size": {
+          "width": 348,
+          "height": 501
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 681
+        },
+        "size": {
+          "width": 473,
+          "height": 351
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 528,
+          "y": 227
+        },
+        "size": {
+          "width": 271,
+          "height": 316
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1169,
+          "y": 210
+        },
+        "size": {
+          "width": 225,
+          "height": 292
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1166,
+          "y": 890
+        },
+        "size": {
+          "width": 210,
+          "height": 191
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 492
+        },
+        "size": {
+          "width": 438,
+          "height": 397
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 125,
+          "y": 893
+        },
+        "size": {
+          "width": 387,
+          "height": 188
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P5_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 277
+        },
+        "size": {
+          "width": 147,
+          "height": 265
+        }
+      },
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1166,
+          "y": 210
+        },
+        "size": {
+          "width": 231,
+          "height": 292
+        }
+      },
+      {
+        "id": "P8_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1777,
+          "y": 311
+        },
+        "size": {
+          "width": 143,
+          "height": 239
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1161,
+          "y": 889
+        },
+        "size": {
+          "width": 237,
+          "height": 192
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06271",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP5_1",
+        "description": "XFR P5_B FROM P5 06271",
+        "location": {
+          "x": 8,
+          "y": 597
+        },
+        "size": {
+          "width": 58,
+          "height": 111
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 629
+        },
+        "size": {
+          "width": 176,
+          "height": 197
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 117,
+          "y": 839
+        },
+        "size": {
+          "width": 375,
+          "height": 241
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1168,
+          "y": 211
+        },
+        "size": {
+          "width": 226,
+          "height": 287
+        }
+      },
+      {
+        "id": "P8_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1413,
+          "y": 255
+        },
+        "size": {
+          "width": 179,
+          "height": 287
+        }
+      },
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1677,
+          "y": 297
+        },
+        "size": {
+          "width": 147,
+          "height": 246
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1161,
+          "y": 890
+        },
+        "size": {
+          "width": 266,
+          "height": 191
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 578
+        },
+        "size": {
+          "width": 219,
+          "height": 230
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 31,
+          "y": 805
+        },
+        "size": {
+          "width": 478,
+          "height": 276
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 678,
+          "y": 198
+        },
+        "size": {
+          "width": 233,
+          "height": 295
+        }
+      },
+      {
+        "id": "P8_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 924,
+          "y": 230
+        },
+        "size": {
+          "width": 240,
+          "height": 298
+        }
+      },
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1171,
+          "y": 238
+        },
+        "size": {
+          "width": 227,
+          "height": 296
+        }
+      },
+      {
+        "id": "P9_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1827,
+          "y": 291
+        },
+        "size": {
+          "width": 94,
+          "height": 227
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1112,
+          "y": 832
+        },
+        "size": {
+          "width": 345,
+          "height": 249
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1671,
+          "y": 3
+        },
+        "size": {
+          "width": 52,
+          "height": 58
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06471",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP8_1",
+        "description": "XFR P8_A FROM P8 06471",
+        "location": {
+          "x": 693,
+          "y": 382
+        },
+        "size": {
+          "width": 149,
+          "height": 121
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 602
+        },
+        "size": {
+          "width": 191,
+          "height": 241
+        }
+      },
+      {
+        "id": "P6",
+        "partial_or_complete": "",
+        "location": {
+          "x": 634,
+          "y": 472
+        },
+        "size": {
+          "width": 279,
+          "height": 603
+        }
+      },
+      {
+        "id": "P7",
+        "partial_or_complete": "",
+        "location": {
+          "x": 98,
+          "y": 1049
+        },
+        "size": {
+          "width": 136,
+          "height": 32
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 111,
+          "y": 696
+        },
+        "size": {
+          "width": 583,
+          "height": 385
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 659,
+          "y": 200
+        },
+        "size": {
+          "width": 227,
+          "height": 294
+        }
+      },
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1171,
+          "y": 241
+        },
+        "size": {
+          "width": 227,
+          "height": 291
+        }
+      },
+      {
+        "id": "P9_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1572,
+          "y": 241
+        },
+        "size": {
+          "width": 266,
+          "height": 277
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1146,
+          "y": 879
+        },
+        "size": {
+          "width": 235,
+          "height": 202
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06571",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP5_2",
+        "description": "XFR P6_A FROM P5 06571",
+        "location": {
+          "x": 135,
+          "y": 423
+        },
+        "size": {
+          "width": 108,
+          "height": 108
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06581",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP5_P6",
+        "description": "XFR P6_A P5 P6 06581",
+        "location": {
+          "x": 121,
+          "y": 423
+        },
+        "size": {
+          "width": 272,
+          "height": 136
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 483
+        },
+        "size": {
+          "width": 263,
+          "height": 250
+        }
+      },
+      {
+        "id": "P6",
+        "partial_or_complete": "",
+        "location": {
+          "x": 205,
+          "y": 494
+        },
+        "size": {
+          "width": 393,
+          "height": 303
+        }
+      },
+      {
+        "id": "P7",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 798
+        },
+        "size": {
+          "width": 48,
+          "height": 104
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 144,
+          "y": 1015
+        },
+        "size": {
+          "width": 115,
+          "height": 65
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P6_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 185,
+          "y": 216
+        },
+        "size": {
+          "width": 176,
+          "height": 263
+        }
+      },
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 702,
+          "y": 218
+        },
+        "size": {
+          "width": 248,
+          "height": 308
+        }
+      },
+      {
+        "id": "P9_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1068,
+          "y": 205
+        },
+        "size": {
+          "width": 323,
+          "height": 296
+        }
+      },
+      {
+        "id": "P9_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1275,
+          "y": 207
+        },
+        "size": {
+          "width": 204,
+          "height": 281
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1141,
+          "y": 881
+        },
+        "size": {
+          "width": 395,
+          "height": 200
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1527,
+          "y": 3
+        },
+        "size": {
+          "width": 180,
+          "height": 41
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06691",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP6_1",
+        "description": "XFR P6_A FROM P6 06691",
+        "location": {
+          "x": 132,
+          "y": 460
+        },
+        "size": {
+          "width": 117,
+          "height": 99
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 589
+        },
+        "size": {
+          "width": 66,
+          "height": 180
+        }
+      },
+      {
+        "id": "P6",
+        "partial_or_complete": "",
+        "location": {
+          "x": 8,
+          "y": 526
+        },
+        "size": {
+          "width": 447,
+          "height": 284
+        }
+      },
+      {
+        "id": "P8",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 818
+        },
+        "size": {
+          "width": 57,
+          "height": 141
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 664,
+          "y": 216
+        },
+        "size": {
+          "width": 256,
+          "height": 305
+        }
+      },
+      {
+        "id": "P9_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1065,
+          "y": 202
+        },
+        "size": {
+          "width": 327,
+          "height": 297
+        }
+      },
+      {
+        "id": "P9_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1269,
+          "y": 199
+        },
+        "size": {
+          "width": 207,
+          "height": 284
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1672,
+          "y": 265
+        },
+        "size": {
+          "width": 177,
+          "height": 277
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1143,
+          "y": 877
+        },
+        "size": {
+          "width": 215,
+          "height": 204
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1617,
+          "y": 0
+        },
+        "size": {
+          "width": 117,
+          "height": 60
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P6",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 523
+        },
+        "size": {
+          "width": 246,
+          "height": 311
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 466,
+          "y": 226
+        },
+        "size": {
+          "width": 235,
+          "height": 294
+        }
+      },
+      {
+        "id": "P9_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 693,
+          "y": 198
+        },
+        "size": {
+          "width": 282,
+          "height": 295
+        }
+      },
+      {
+        "id": "P9_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 920,
+          "y": 177
+        },
+        "size": {
+          "width": 229,
+          "height": 299
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 196
+        },
+        "size": {
+          "width": 232,
+          "height": 335
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1015,
+          "y": 819
+        },
+        "size": {
+          "width": 415,
+          "height": 262
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1603,
+          "y": 1
+        },
+        "size": {
+          "width": 81,
+          "height": 36
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 404,
+          "y": 329
+        },
+        "size": {
+          "width": 481,
+          "height": 437
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 308,
+          "y": 237
+        },
+        "size": {
+          "width": 203,
+          "height": 286
+        }
+      },
+      {
+        "id": "P9_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 505,
+          "y": 198
+        },
+        "size": {
+          "width": 251,
+          "height": 295
+        }
+      },
+      {
+        "id": "P9_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 732,
+          "y": 174
+        },
+        "size": {
+          "width": 229,
+          "height": 300
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1038,
+          "y": 182
+        },
+        "size": {
+          "width": 254,
+          "height": 344
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1139,
+          "y": 895
+        },
+        "size": {
+          "width": 259,
+          "height": 186
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1627,
+          "y": 2
+        },
+        "size": {
+          "width": 75,
+          "height": 38
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "06901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06931",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP9_1",
+        "description": "XFR P9_B FROM P9 06931",
+        "location": {
+          "x": 604,
+          "y": 403
+        },
+        "size": {
+          "width": 157,
+          "height": 122
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "06981",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP9_2",
+        "description": "XFR P9_C FROM P9 06981",
+        "location": {
+          "x": 742,
+          "y": 345
+        },
+        "size": {
+          "width": 106,
+          "height": 114
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 382,
+          "y": 515
+        },
+        "size": {
+          "width": 497,
+          "height": 388
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 306,
+          "y": 239
+        },
+        "size": {
+          "width": 207,
+          "height": 284
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1038,
+          "y": 181
+        },
+        "size": {
+          "width": 257,
+          "height": 350
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 892
+        },
+        "size": {
+          "width": 249,
+          "height": 189
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1597,
+          "y": 1
+        },
+        "size": {
+          "width": 55,
+          "height": 19
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 358,
+          "y": 515
+        },
+        "size": {
+          "width": 455,
+          "height": 300
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 308,
+          "y": 237
+        },
+        "size": {
+          "width": 203,
+          "height": 289
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1037,
+          "y": 181
+        },
+        "size": {
+          "width": 257,
+          "height": 350
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1149,
+          "y": 892
+        },
+        "size": {
+          "width": 238,
+          "height": 189
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1639,
+          "y": 4
+        },
+        "size": {
+          "width": 73,
+          "height": 42
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 339.40591618734595,
+          "y": 517
+        },
+        "size": {
+          "width": 466.98438783894824,
+          "height": 375
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 295.0328677074774,
+          "y": 237
+        },
+        "size": {
+          "width": 215,
+          "height": 286
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1040.0328677074772,
+          "y": 185
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152.0328677074772,
+          "y": 897
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1641.0328677074772,
+          "y": 1
+        },
+        "size": {
+          "width": 65,
+          "height": 49
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 369,
+          "y": 517
+        },
+        "size": {
+          "width": 413.7255546425637,
+          "height": 375
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 295,
+          "y": 237
+        },
+        "size": {
+          "width": 215,
+          "height": 286
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1040,
+          "y": 185
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 897
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1641,
+          "y": 1
+        },
+        "size": {
+          "width": 65,
+          "height": 49
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 238.43631881676254,
+          "y": 519.7017255546424
+        },
+        "size": {
+          "width": 503.2703368940016,
+          "height": 482.7608874281019
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 295,
+          "y": 237
+        },
+        "size": {
+          "width": 215,
+          "height": 286
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1040,
+          "y": 185
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 897
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1603,
+          "y": 4
+        },
+        "size": {
+          "width": 38,
+          "height": 23
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 143.77732128184059,
+          "y": 371.4026294165981
+        },
+        "size": {
+          "width": 504.84798685291696,
+          "height": 487.49383730484806
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 295,
+          "y": 237
+        },
+        "size": {
+          "width": 215,
+          "height": 286
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1040,
+          "y": 185
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 897
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "07541",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP9_3",
+        "description": "XFR P9_A FROM P9 07541",
+        "location": {
+          "x": 387,
+          "y": 403
+        },
+        "size": {
+          "width": 90,
+          "height": 101
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P9",
+        "partial_or_complete": "",
+        "location": {
+          "x": 8.099424815119164,
+          "y": 576.4971240755956
+        },
+        "size": {
+          "width": 615.2834839769926,
+          "height": 378.6359901396878
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 295,
+          "y": 237
+        },
+        "size": {
+          "width": 215,
+          "height": 286
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1040,
+          "y": 185
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 897
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 295,
+          "y": 237
+        },
+        "size": {
+          "width": 215,
+          "height": 286
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1040,
+          "y": 185
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 897
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 496,
+          "y": 2
+        },
+        "size": {
+          "width": 309,
+          "height": 212
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P10",
+        "partial_or_complete": "",
+        "location": {
+          "x": 322,
+          "y": 939
+        },
+        "size": {
+          "width": 267,
+          "height": 142
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 312.58586688578475,
+          "y": 243.61298274445335
+        },
+        "size": {
+          "width": 198.99178307313065,
+          "height": 279.38701725554665
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1041.9917830731306,
+          "y": 185.38701725554665
+        },
+        "size": {
+          "width": 254,
+          "height": 341
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1153.9917830731306,
+          "y": 897.3870172555467
+        },
+        "size": {
+          "width": 232,
+          "height": 184
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 242.41248972884148,
+          "y": 1
+        },
+        "size": {
+          "width": 399.9022185702546,
+          "height": 253.656532456861
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P10",
+        "partial_or_complete": "",
+        "location": {
+          "x": 252.6351684470008,
+          "y": 473.94987674609683
+        },
+        "size": {
+          "width": 504.847986852917,
+          "height": 511.15858668857857
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 312.58586688578475,
+          "y": 243.61298274445335
+        },
+        "size": {
+          "width": 198,
+          "height": 279
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 685.4428923582577,
+          "y": 210.6294165981925
+        },
+        "size": {
+          "width": 229.80525883319672,
+          "height": 341
+        }
+      },
+      {
+        "id": "P11_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1780,
+          "y": 283
+        },
+        "size": {
+          "width": 128,
+          "height": 268
+        }
+      },
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1892,
+          "y": 300
+        },
+        "size": {
+          "width": 29,
+          "height": 215
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1158.2062448644208,
+          "y": 892.0271158586688
+        },
+        "size": {
+          "width": 295.0205423171733,
+          "height": 188.35990139687783
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 1
+        },
+        "size": {
+          "width": 481.9720624486441,
+          "height": 490.30402629416585
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "07901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P10",
+        "partial_or_complete": "",
+        "location": {
+          "x": 100,
+          "y": 543
+        },
+        "size": {
+          "width": 495,
+          "height": 377
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 158,
+          "y": 263
+        },
+        "size": {
+          "width": 164,
+          "height": 233
+        }
+      },
+      {
+        "id": "P10_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 306,
+          "y": 264
+        },
+        "size": {
+          "width": 199,
+          "height": 290
+        }
+      },
+      {
+        "id": "P11_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1425,
+          "y": 225
+        },
+        "size": {
+          "width": 194,
+          "height": 301
+        }
+      },
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1669,
+          "y": 269
+        },
+        "size": {
+          "width": 177,
+          "height": 263
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1075,
+          "y": 826
+        },
+        "size": {
+          "width": 385,
+          "height": 255
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 287,
+          "y": 4
+        },
+        "size": {
+          "width": 78,
+          "height": 80
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "08011",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP10_1",
+        "description": "XFR P10_A FROM P10 08011",
+        "location": {
+          "x": 232,
+          "y": 556
+        },
+        "size": {
+          "width": 122,
+          "height": 91
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P10",
+        "partial_or_complete": "",
+        "location": {
+          "x": 7,
+          "y": 558
+        },
+        "size": {
+          "width": 582,
+          "height": 503
+        }
+      },
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 699,
+          "y": 261
+        },
+        "size": {
+          "width": 338,
+          "height": 457
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 149,
+          "y": 263
+        },
+        "size": {
+          "width": 176,
+          "height": 269
+        }
+      },
+      {
+        "id": "P11_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 819,
+          "y": 207
+        },
+        "size": {
+          "width": 246,
+          "height": 305
+        }
+      },
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1065,
+          "y": 206
+        },
+        "size": {
+          "width": 251,
+          "height": 298
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1155,
+          "y": 887
+        },
+        "size": {
+          "width": 235,
+          "height": 194
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "08111",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP11_1",
+        "description": "XFR P11_A FROM P11 08111",
+        "location": {
+          "x": 789,
+          "y": 367
+        },
+        "size": {
+          "width": 111,
+          "height": 107
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P10",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 519.7017255546424
+        },
+        "size": {
+          "width": 518.2580115036976,
+          "height": 384.9465899753493
+        }
+      },
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 550.5891536565325,
+          "y": 467.63927691043534
+        },
+        "size": {
+          "width": 374.1248972884141,
+          "height": 613.3607230895647
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P9_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 143,
+          "y": 263
+        },
+        "size": {
+          "width": 176,
+          "height": 269
+        }
+      },
+      {
+        "id": "P11_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 729.3845521774857,
+          "y": 207
+        },
+        "size": {
+          "width": 246,
+          "height": 305
+        }
+      },
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1010.0928512736236,
+          "y": 204.42235004108466
+        },
+        "size": {
+          "width": 251,
+          "height": 298
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1149,
+          "y": 887
+        },
+        "size": {
+          "width": 235,
+          "height": 194
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "08271",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP11_2",
+        "description": "XFR P11_A FROM P11 08271",
+        "location": {
+          "x": 806,
+          "y": 404
+        },
+        "size": {
+          "width": 103,
+          "height": 108
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P10",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1.938373048479889,
+          "y": 440.3755135579295
+        },
+        "size": {
+          "width": 265.83401807723914,
+          "height": 372.3253903040263
+        }
+      },
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 443.53081347576006,
+          "y": 273.58833196384535
+        },
+        "size": {
+          "width": 451.20788824979456,
+          "height": 545.8668857847166
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P11_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 722.1355792933443,
+          "y": 206.55628594905534
+        },
+        "size": {
+          "width": 254,
+          "height": 305
+        }
+      },
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1011.0312243221035,
+          "y": 203.97863599014
+        },
+        "size": {
+          "width": 251,
+          "height": 298
+        }
+      },
+      {
+        "id": "P12_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1856,
+          "y": 313
+        },
+        "size": {
+          "width": 65,
+          "height": 230
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1157.566967953985,
+          "y": 886.5562859490553
+        },
+        "size": {
+          "width": 399.1454396055876,
+          "height": 194
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 509.79211175020544,
+          "y": 576.4971240755956
+        },
+        "size": {
+          "width": 329,
+          "height": 410
+        }
+      },
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1409,
+          "y": 939
+        },
+        "size": {
+          "width": 298,
+          "height": 142
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1011.0312243221035,
+          "y": 203.97863599014
+        },
+        "size": {
+          "width": 251,
+          "height": 298
+        }
+      },
+      {
+        "id": "P12_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1792,
+          "y": 293
+        },
+        "size": {
+          "width": 125,
+          "height": 233
+        }
+      },
+      {
+        "id": "P12_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1679.303204601479,
+          "y": 133.17748562037787
+        },
+        "size": {
+          "width": 149,
+          "height": 268
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1031.9942481511914,
+          "y": 798.9457682826622
+        },
+        "size": {
+          "width": 326,
+          "height": 281
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1527,
+          "y": 1
+        },
+        "size": {
+          "width": 273,
+          "height": 153
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 363.07066557107646,
+          "y": 470.79457682826614
+        },
+        "size": {
+          "width": 350.23829087921115,
+          "height": 418.0772391125719
+        }
+      },
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 645,
+          "y": 778
+        },
+        "size": {
+          "width": 332,
+          "height": 303
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1011.0312243221035,
+          "y": 203.97863599014
+        },
+        "size": {
+          "width": 251,
+          "height": 298
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1810,
+          "y": 334
+        },
+        "size": {
+          "width": 111,
+          "height": 167
+        }
+      },
+      {
+        "id": "P12_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1483.202136400986,
+          "y": 231.47165160230077
+        },
+        "size": {
+          "width": 189.31799506984385,
+          "height": 292.9630238290878
+        }
+      },
+      {
+        "id": "P12_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1658.321281840592,
+          "y": 1
+        },
+        "size": {
+          "width": 148.29909613804398,
+          "height": 241.035332785538
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1147.162695152013,
+          "y": 901.493015612161
+        },
+        "size": {
+          "width": 263.4675431388662,
+          "height": 179.506984387839
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 666
+        },
+        "size": {
+          "width": 484,
+          "height": 259
+        }
+      },
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 617,
+          "y": 785
+        },
+        "size": {
+          "width": 346,
+          "height": 296
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 781,
+          "y": 195
+        },
+        "size": {
+          "width": 288,
+          "height": 315
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1562,
+          "y": 291
+        },
+        "size": {
+          "width": 200,
+          "height": 205
+        }
+      },
+      {
+        "id": "P12_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1065,
+          "y": 188
+        },
+        "size": {
+          "width": 276,
+          "height": 318
+        }
+      },
+      {
+        "id": "P12_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1606,
+          "y": 2
+        },
+        "size": {
+          "width": 188,
+          "height": 208
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1873,
+          "y": 316
+        },
+        "size": {
+          "width": 48,
+          "height": 163
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1160,
+          "y": 906
+        },
+        "size": {
+          "width": 213,
+          "height": 175
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 646
+        },
+        "size": {
+          "width": 234,
+          "height": 255
+        }
+      },
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 743,
+          "y": 253
+        },
+        "size": {
+          "width": 339,
+          "height": 507
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 543,
+          "y": 203
+        },
+        "size": {
+          "width": 257,
+          "height": 310
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1002,
+          "y": 250
+        },
+        "size": {
+          "width": 298,
+          "height": 226
+        }
+      },
+      {
+        "id": "P12_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1463,
+          "y": 2
+        },
+        "size": {
+          "width": 225,
+          "height": 161
+        }
+      },
+      {
+        "id": "P12_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 765,
+          "y": 177
+        },
+        "size": {
+          "width": 245,
+          "height": 302
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1682,
+          "y": 275
+        },
+        "size": {
+          "width": 200,
+          "height": 221
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1157,
+          "y": 897
+        },
+        "size": {
+          "width": 217,
+          "height": 184
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "08711",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP12_1",
+        "description": "XFR P12_C FROM P12 08711",
+        "location": {
+          "x": 884,
+          "y": 348
+        },
+        "size": {
+          "width": 113,
+          "height": 128
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P11",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 643
+        },
+        "size": {
+          "width": 170,
+          "height": 115
+        }
+      },
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 379,
+          "y": 558
+        },
+        "size": {
+          "width": 374,
+          "height": 397
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 421,
+          "y": 209
+        },
+        "size": {
+          "width": 250,
+          "height": 301
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 855,
+          "y": 242
+        },
+        "size": {
+          "width": 316,
+          "height": 235
+        }
+      },
+      {
+        "id": "P12_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 903,
+          "y": 1
+        },
+        "size": {
+          "width": 279,
+          "height": 112
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1157,
+          "y": 217
+        },
+        "size": {
+          "width": 320,
+          "height": 254
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1166,
+          "y": 886
+        },
+        "size": {
+          "width": 319,
+          "height": 195
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 562
+        },
+        "size": {
+          "width": 498,
+          "height": 344
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 231,
+          "y": 223
+        },
+        "size": {
+          "width": 211,
+          "height": 301
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 617,
+          "y": 244
+        },
+        "size": {
+          "width": 300,
+          "height": 227
+        }
+      },
+      {
+        "id": "P12_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 103,
+          "y": 1
+        },
+        "size": {
+          "width": 200,
+          "height": 162
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 911,
+          "y": 210
+        },
+        "size": {
+          "width": 353,
+          "height": 250
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1147,
+          "y": 881
+        },
+        "size": {
+          "width": 251,
+          "height": 200
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 232,
+          "y": 5
+        },
+        "size": {
+          "width": 235,
+          "height": 105
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "08901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 597.0065735414954
+        },
+        "size": {
+          "width": 41.80772391125719,
+          "height": 53.6400986031224
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 231,
+          "y": 223
+        },
+        "size": {
+          "width": 211,
+          "height": 301
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 617,
+          "y": 244
+        },
+        "size": {
+          "width": 300,
+          "height": 227
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 911,
+          "y": 210
+        },
+        "size": {
+          "width": 353,
+          "height": 250
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1147,
+          "y": 881
+        },
+        "size": {
+          "width": 251,
+          "height": 200
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P12",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 597.0065735414954
+        },
+        "size": {
+          "width": 41,
+          "height": 53
+        }
+      },
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 979
+        },
+        "size": {
+          "width": 120,
+          "height": 102
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 593,
+          "y": 930
+        },
+        "size": {
+          "width": 251,
+          "height": 151
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 231,
+          "y": 223
+        },
+        "size": {
+          "width": 206.22021364009862,
+          "height": 288.81347576006556
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 617,
+          "y": 244
+        },
+        "size": {
+          "width": 300,
+          "height": 227
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 911,
+          "y": 210
+        },
+        "size": {
+          "width": 353,
+          "height": 250
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1147,
+          "y": 868.3623664749383
+        },
+        "size": {
+          "width": 320.4256368118324,
+          "height": 211.405094494659
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 5,
+          "y": 709
+        },
+        "size": {
+          "width": 117,
+          "height": 87
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 720.0632703368939
+        },
+        "size": {
+          "width": 275.2999178307313,
+          "height": 201.23171733771585
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 231,
+          "y": 222.6376335250617
+        },
+        "size": {
+          "width": 206,
+          "height": 288
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 617,
+          "y": 243.6376335250617
+        },
+        "size": {
+          "width": 300,
+          "height": 227
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 911,
+          "y": 209.6376335250617
+        },
+        "size": {
+          "width": 353,
+          "height": 250
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1780,
+          "y": 274
+        },
+        "size": {
+          "width": 141,
+          "height": 266
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1159.7838948233361,
+          "y": 1013.5061626951519
+        },
+        "size": {
+          "width": 194,
+          "height": 65
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 470.40673788003284,
+          "y": 541.7691043549712
+        },
+        "size": {
+          "width": 168,
+          "height": 171
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 623.3829087921117,
+          "y": 434.5086277732129
+        },
+        "size": {
+          "width": 285,
+          "height": 362
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 231,
+          "y": 222.6376335250617
+        },
+        "size": {
+          "width": 206,
+          "height": 288
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 602.873459326212,
+          "y": 328.83073130649143
+        },
+        "size": {
+          "width": 306,
+          "height": 227
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1698,
+          "y": 247
+        },
+        "size": {
+          "width": 150,
+          "height": 277
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 911,
+          "y": 209.6376335250617
+        },
+        "size": {
+          "width": 353,
+          "height": 250
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1413.985209531635,
+          "y": 220.3599013968776
+        },
+        "size": {
+          "width": 204,
+          "height": 307
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1137.6967953985209,
+          "y": 903.0706655710763
+        },
+        "size": {
+          "width": 209,
+          "height": 175
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 2
+        },
+        "size": {
+          "width": 194,
+          "height": 160
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "09351",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP13_1",
+        "description": "XFR P14_A FROM P13 09351",
+        "location": {
+          "x": 582,
+          "y": 550
+        },
+        "size": {
+          "width": 88,
+          "height": 70
+        }
+      },
+      {
+        "id": "XFRP14_1",
+        "description": "XFR P14_A FROM P14 09351",
+        "location": {
+          "x": 698,
+          "y": 320
+        },
+        "size": {
+          "width": 124,
+          "height": 97
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 421,
+          "y": 712
+        },
+        "size": {
+          "width": 223,
+          "height": 245
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 612,
+          "y": 565
+        },
+        "size": {
+          "width": 396,
+          "height": 281
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 152,
+          "y": 237
+        },
+        "size": {
+          "width": 221,
+          "height": 292
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 537,
+          "y": 329
+        },
+        "size": {
+          "width": 296,
+          "height": 227
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1351,
+          "y": 181
+        },
+        "size": {
+          "width": 211,
+          "height": 315
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 819,
+          "y": 212
+        },
+        "size": {
+          "width": 360,
+          "height": 234
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1155,
+          "y": 190
+        },
+        "size": {
+          "width": 230,
+          "height": 327
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1680,
+          "y": 291
+        },
+        "size": {
+          "width": 150,
+          "height": 251
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1144,
+          "y": 900
+        },
+        "size": {
+          "width": 262,
+          "height": 181
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 5
+        },
+        "size": {
+          "width": 284,
+          "height": 280
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 598.1405094494659,
+          "y": 658.5349219391946
+        },
+        "size": {
+          "width": 372.3253903040263,
+          "height": 356.54889071487264
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1404,
+          "y": 946
+        },
+        "size": {
+          "width": 220,
+          "height": 135
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 180.063270336894,
+          "y": 237
+        },
+        "size": {
+          "width": 192.936729663106,
+          "height": 292
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 537,
+          "y": 329
+        },
+        "size": {
+          "width": 296,
+          "height": 227
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1351,
+          "y": 181
+        },
+        "size": {
+          "width": 211,
+          "height": 315
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 819,
+          "y": 212
+        },
+        "size": {
+          "width": 360,
+          "height": 234
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1155,
+          "y": 190
+        },
+        "size": {
+          "width": 230,
+          "height": 327
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1545.8997534921937,
+          "y": 278.378800328677
+        },
+        "size": {
+          "width": 159.75102711585896,
+          "height": 258.6770747740344
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1073.013147082991,
+          "y": 822.6105176663926
+        },
+        "size": {
+          "width": 372.3253903040261,
+          "height": 258.38948233360736
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 1
+        },
+        "size": {
+          "width": 308.00821692686935,
+          "height": 188.97288414133095
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 464,
+          "y": 979
+        },
+        "size": {
+          "width": 112,
+          "height": 102
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 561.8545603944125,
+          "y": 737.4174198849629
+        },
+        "size": {
+          "width": 378,
+          "height": 343
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 913.2333607230894,
+          "y": 1019.8167625308134
+        },
+        "size": {
+          "width": 185,
+          "height": 61
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 179.94576828266224,
+          "y": 237.46507806080535
+        },
+        "size": {
+          "width": 192,
+          "height": 292
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 536.8824979457683,
+          "y": 329.46507806080535
+        },
+        "size": {
+          "width": 296,
+          "height": 227
+        }
+      },
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 548
+        },
+        "size": {
+          "width": 92,
+          "height": 136
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1350.8824979457681,
+          "y": 181.46507806080535
+        },
+        "size": {
+          "width": 211,
+          "height": 315
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 818.8824979457683,
+          "y": 212.46507806080535
+        },
+        "size": {
+          "width": 360,
+          "height": 234
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1154.8824979457681,
+          "y": 190.46507806080535
+        },
+        "size": {
+          "width": 230,
+          "height": 327
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1545.7822514379618,
+          "y": 278.84387838948237
+        },
+        "size": {
+          "width": 159,
+          "height": 258
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1072.8956450287592,
+          "y": 823.075595727198
+        },
+        "size": {
+          "width": 372,
+          "height": 258
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "09691",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP14_2",
+        "description": "XFR P14_A FROM P14 09691",
+        "location": {
+          "x": 540,
+          "y": 382
+        },
+        "size": {
+          "width": 106,
+          "height": 121
+        }
+      },
+      {
+        "id": "XFRP14_3",
+        "description": "XFR P14_A FROM P14 09691",
+        "location": {
+          "x": 359,
+          "y": 424
+        },
+        "size": {
+          "width": 100,
+          "height": 105
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 916
+        },
+        "size": {
+          "width": 228,
+          "height": 165
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 338,
+          "y": 430
+        },
+        "size": {
+          "width": 435,
+          "height": 298
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 909,
+          "y": 389
+        },
+        "size": {
+          "width": 439,
+          "height": 366
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 68,
+          "y": 252
+        },
+        "size": {
+          "width": 178,
+          "height": 265
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 380,
+          "y": 332
+        },
+        "size": {
+          "width": 281,
+          "height": 226
+        }
+      },
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 556
+        },
+        "size": {
+          "width": 56,
+          "height": 139
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1196,
+          "y": 160
+        },
+        "size": {
+          "width": 230,
+          "height": 317
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 641,
+          "y": 210
+        },
+        "size": {
+          "width": 353,
+          "height": 232
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 975,
+          "y": 166
+        },
+        "size": {
+          "width": 254,
+          "height": 340
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1411,
+          "y": 245
+        },
+        "size": {
+          "width": 200,
+          "height": 270
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1147,
+          "y": 900
+        },
+        "size": {
+          "width": 224,
+          "height": 181
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 4
+        },
+        "size": {
+          "width": 107,
+          "height": 181
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "09771",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP15_1",
+        "description": "XFR P15_B FROM P15 09771",
+        "location": {
+          "x": 1056,
+          "y": 404
+        },
+        "size": {
+          "width": 102,
+          "height": 103
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 999
+        },
+        "size": {
+          "width": 259,
+          "height": 82
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 133,
+          "y": 479
+        },
+        "size": {
+          "width": 497,
+          "height": 265
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 603,
+          "y": 600
+        },
+        "size": {
+          "width": 473,
+          "height": 273
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 270
+        },
+        "size": {
+          "width": 63,
+          "height": 259
+        }
+      },
+      {
+        "id": "P14_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 164,
+          "y": 340
+        },
+        "size": {
+          "width": 227,
+          "height": 227
+        }
+      },
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 559
+        },
+        "size": {
+          "width": 64,
+          "height": 153
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 899,
+          "y": 143
+        },
+        "size": {
+          "width": 258,
+          "height": 328
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 369,
+          "y": 209
+        },
+        "size": {
+          "width": 325,
+          "height": 238
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 682,
+          "y": 163
+        },
+        "size": {
+          "width": 243,
+          "height": 336
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1138,
+          "y": 214
+        },
+        "size": {
+          "width": 228,
+          "height": 292
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1150,
+          "y": 901
+        },
+        "size": {
+          "width": 213,
+          "height": 180
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 25,
+          "y": 2
+        },
+        "size": {
+          "width": 94,
+          "height": 43
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 616
+        },
+        "size": {
+          "width": 74,
+          "height": 104
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 251.05751848808546,
+          "y": 258.93590797041895
+        },
+        "size": {
+          "width": 405.45603944124895,
+          "height": 474.8726376335252
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 725.9301561216105,
+          "y": 380.4149548069022
+        },
+        "size": {
+          "width": 378.6359901396877,
+          "height": 466.98438783894824
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 269.54642563681193
+        },
+        "size": {
+          "width": 55.00657354149548,
+          "height": 256.0123253903039
+        }
+      },
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 556
+        },
+        "size": {
+          "width": 48,
+          "height": 139
+        }
+      },
+      {
+        "id": "P15_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 899,
+          "y": 142.54642563681193
+        },
+        "size": {
+          "width": 258,
+          "height": 328
+        }
+      },
+      {
+        "id": "P14_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 344.13886606409204,
+          "y": 202.14050944946587
+        },
+        "size": {
+          "width": 349.86113393590796,
+          "height": 244.40591618734607
+        }
+      },
+      {
+        "id": "P15_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 682,
+          "y": 162.54642563681193
+        },
+        "size": {
+          "width": 243,
+          "height": 336
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1138,
+          "y": 213.54642563681193
+        },
+        "size": {
+          "width": 228,
+          "height": 292
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1150,
+          "y": 900.5464256368119
+        },
+        "size": {
+          "width": 213,
+          "height": 180
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "09901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "09911",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP14_4",
+        "description": "XFR P14_B FROM P14 09911",
+        "location": {
+          "x": 305,
+          "y": 423
+        },
+        "size": {
+          "width": 110,
+          "height": 106
+        }
+      },
+      {
+        "id": "XFRP15_2",
+        "description": "XFR P15_B FROM P15 09911",
+        "location": {
+          "x": 825,
+          "y": 456
+        },
+        "size": {
+          "width": 133,
+          "height": 120
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "09991",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP14_5",
+        "description": "XFR P15_C FROM P14 09991",
+        "location": {
+          "x": 548,
+          "y": 340
+        },
+        "size": {
+          "width": 114,
+          "height": 105
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P13",
+        "partial_or_complete": "",
+        "location": {
+          "x": 5,
+          "y": 979
+        },
+        "size": {
+          "width": 234,
+          "height": 102
+        }
+      },
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 368,
+          "y": 518
+        },
+        "size": {
+          "width": 337,
+          "height": 463
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 815,
+          "y": 355
+        },
+        "size": {
+          "width": 478,
+          "height": 409
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 267
+        },
+        "size": {
+          "width": 57,
+          "height": 251
+        }
+      },
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 554
+        },
+        "size": {
+          "width": 42,
+          "height": 154
+        }
+      },
+      {
+        "id": "P15_D",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1115,
+          "y": 215
+        },
+        "size": {
+          "width": 220,
+          "height": 298
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1148,
+          "y": 900
+        },
+        "size": {
+          "width": 205,
+          "height": 181
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "10011",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP15_3",
+        "description": "XFR P15_D FROM P15 10011",
+        "location": {
+          "x": 1308,
+          "y": 435
+        },
+        "size": {
+          "width": 118,
+          "height": 141
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 661
+        },
+        "size": {
+          "width": 380,
+          "height": 301
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 761,
+          "y": 425
+        },
+        "size": {
+          "width": 453,
+          "height": 373
+        }
+      },
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1445,
+          "y": 963
+        },
+        "size": {
+          "width": 261,
+          "height": 118
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 270
+        },
+        "size": {
+          "width": 56,
+          "height": 243
+        }
+      },
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1810,
+          "y": 303
+        },
+        "size": {
+          "width": 111,
+          "height": 236
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1088,
+          "y": 804
+        },
+        "size": {
+          "width": 455,
+          "height": 277
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1667,
+          "y": 1
+        },
+        "size": {
+          "width": 127,
+          "height": 75
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 7,
+          "y": 964
+        },
+        "size": {
+          "width": 191,
+          "height": 117
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 669,
+          "y": 367
+        },
+        "size": {
+          "width": 378,
+          "height": 455
+        }
+      },
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 706,
+          "y": 856
+        },
+        "size": {
+          "width": 379,
+          "height": 225
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 271
+        },
+        "size": {
+          "width": 59,
+          "height": 252
+        }
+      },
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 554
+        },
+        "size": {
+          "width": 39,
+          "height": 154
+        }
+      },
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1543,
+          "y": 257
+        },
+        "size": {
+          "width": 222,
+          "height": 283
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1172,
+          "y": 899
+        },
+        "size": {
+          "width": 267,
+          "height": 182
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1618,
+          "y": 2
+        },
+        "size": {
+          "width": 220,
+          "height": 73
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 945.4987775061126
+        },
+        "size": {
+          "width": 172.90953545232276,
+          "height": 135.0000000000001
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 424.4229828850855
+        },
+        "size": {
+          "width": 446.7481662591687,
+          "height": 419.5770171149145
+        }
+      },
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 623.0048899755502,
+          "y": 479.1907090464547
+        },
+        "size": {
+          "width": 384.93887530562336,
+          "height": 409.9755501222495
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 271
+        },
+        "size": {
+          "width": 53.98533007334964,
+          "height": 252
+        }
+      },
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 942.2224938875306,
+          "y": 213.17603911980427
+        },
+        "size": {
+          "width": 266,
+          "height": 312
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1172,
+          "y": 899
+        },
+        "size": {
+          "width": 226,
+          "height": 182
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1671.4156479217604,
+          "y": 2
+        },
+        "size": {
+          "width": 147.09046454767736,
+          "height": 67.21515892420518
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P14",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 945.4987775061126
+        },
+        "size": {
+          "width": 197,
+          "height": 135.50122249388744
+        }
+      },
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 365
+        },
+        "size": {
+          "width": 376,
+          "height": 479
+        }
+      },
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 574.1299387851955,
+          "y": 486.7090464547674
+        },
+        "size": {
+          "width": 477.6280074250735,
+          "height": 377.42053789731085
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P12_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 271
+        },
+        "size": {
+          "width": 22.68948655256724,
+          "height": 252
+        }
+      },
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 942.2224938875306,
+          "y": 213.17603911980427
+        },
+        "size": {
+          "width": 266.0146699266504,
+          "height": 312.958435207824
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1172,
+          "y": 899
+        },
+        "size": {
+          "width": 226.1498771498766,
+          "height": 182
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1618,
+          "y": 2
+        },
+        "size": {
+          "width": 220,
+          "height": 73
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10311",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P15",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 717
+        },
+        "size": {
+          "width": 120,
+          "height": 102
+        }
+      },
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 493,
+          "y": 315
+        },
+        "size": {
+          "width": 424,
+          "height": 538
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P15_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 553
+        },
+        "size": {
+          "width": 40,
+          "height": 156
+        }
+      },
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 540,
+          "y": 205
+        },
+        "size": {
+          "width": 285,
+          "height": 335
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1172,
+          "y": 902
+        },
+        "size": {
+          "width": 233,
+          "height": 179
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1673,
+          "y": 3
+        },
+        "size": {
+          "width": 208,
+          "height": 123
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "10431",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP16_1",
+        "description": "XFR P16_A FROM P16 10431",
+        "location": {
+          "x": 479,
+          "y": 417
+        },
+        "size": {
+          "width": 106,
+          "height": 125
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 358.5550122249389,
+          "y": 508.92176039119795
+        },
+        "size": {
+          "width": 433.44743276283623,
+          "height": 472.5672371638143
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 542,
+          "y": 206.91687041564774
+        },
+        "size": {
+          "width": 254.69682151589245,
+          "height": 333.08312958435226
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1174,
+          "y": 902
+        },
+        "size": {
+          "width": 207.92909535452327,
+          "height": 179
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1675,
+          "y": 3
+        },
+        "size": {
+          "width": 208,
+          "height": 123
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 515.0342298288508,
+          "y": 292.9804400977995
+        },
+        "size": {
+          "width": 352.07823960880194,
+          "height": 549.2420537897311
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 538.5061124694377,
+          "y": 222.56479217603896
+        },
+        "size": {
+          "width": 257.4596577017114,
+          "height": 316.9364303178485
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1765,
+          "y": 321
+        },
+        "size": {
+          "width": 156,
+          "height": 191
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1164.3887530562347,
+          "y": 901.5843520782397
+        },
+        "size": {
+          "width": 231.58924205378958,
+          "height": 179
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1674.965770171149,
+          "y": 2.5843520782397036
+        },
+        "size": {
+          "width": 123.19804400978023,
+          "height": 36.89975550122233
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "10641",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP16_2",
+        "description": "XFR P16_A FROM P16 10641",
+        "location": {
+          "x": 703,
+          "y": 449
+        },
+        "size": {
+          "width": 120,
+          "height": 148
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 384,
+          "y": 399
+        },
+        "size": {
+          "width": 392,
+          "height": 448
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P16_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 532,
+          "y": 229
+        },
+        "size": {
+          "width": 240,
+          "height": 310
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1446,
+          "y": 263
+        },
+        "size": {
+          "width": 288,
+          "height": 244
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1155,
+          "y": 900
+        },
+        "size": {
+          "width": 225,
+          "height": 181
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "10771",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP16_3",
+        "description": "XFR P16-A FROM P16 10771",
+        "location": {
+          "x": 554,
+          "y": 313
+        },
+        "size": {
+          "width": 168,
+          "height": 107
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 352,
+          "y": 465
+        },
+        "size": {
+          "width": 427,
+          "height": 423
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 772,
+          "y": 229
+        },
+        "size": {
+          "width": 385,
+          "height": 258
+        }
+      },
+      {
+        "id": "P17_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1673,
+          "y": 266
+        },
+        "size": {
+          "width": 150,
+          "height": 252
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1016,
+          "y": 855
+        },
+        "size": {
+          "width": 321,
+          "height": 226
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1673,
+          "y": 2
+        },
+        "size": {
+          "width": 124,
+          "height": 55
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 338,
+          "y": 465
+        },
+        "size": {
+          "width": 379,
+          "height": 391
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 681,
+          "y": 1027
+        },
+        "size": {
+          "width": 103,
+          "height": 54
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1069,
+          "y": 205
+        },
+        "size": {
+          "width": 246,
+          "height": 293
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 728,
+          "y": 236
+        },
+        "size": {
+          "width": 377,
+          "height": 251
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1811,
+          "y": 312
+        },
+        "size": {
+          "width": 110,
+          "height": 224
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 914,
+          "y": 833
+        },
+        "size": {
+          "width": 413,
+          "height": 248
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1665,
+          "y": 2
+        },
+        "size": {
+          "width": 71,
+          "height": 55
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "10901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 306,
+          "y": 459
+        },
+        "size": {
+          "width": 422,
+          "height": 436
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1027,
+          "y": 201
+        },
+        "size": {
+          "width": 247,
+          "height": 297
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 454,
+          "y": 243
+        },
+        "size": {
+          "width": 352,
+          "height": 242
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1517,
+          "y": 252
+        },
+        "size": {
+          "width": 184,
+          "height": 276
+        }
+      },
+      {
+        "id": "P18_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1790,
+          "y": 305
+        },
+        "size": {
+          "width": 131,
+          "height": 231
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1114,
+          "y": 902
+        },
+        "size": {
+          "width": 223,
+          "height": 179
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1676,
+          "y": 3
+        },
+        "size": {
+          "width": 172,
+          "height": 102
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 486.86797066014674,
+          "y": 532.3936430317848
+        },
+        "size": {
+          "width": 341.12469437652817,
+          "height": 394.3276283618583
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 792.281173594132,
+          "y": 199.43520782396092
+        },
+        "size": {
+          "width": 232.87530562347183,
+          "height": 290.70904645476764
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 454,
+          "y": 243
+        },
+        "size": {
+          "width": 352,
+          "height": 242
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1728,
+          "y": 276
+        },
+        "size": {
+          "width": 152,
+          "height": 245
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1017.8312958435215,
+          "y": 217.87041564792162
+        },
+        "size": {
+          "width": 263.9511002444981,
+          "height": 300.44009779951114
+        }
+      },
+      {
+        "id": "P18_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1461.3936430317847,
+          "y": 253.3618581907092
+        },
+        "size": {
+          "width": 197.5036674816629,
+          "height": 271.20782396088
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1114,
+          "y": 902
+        },
+        "size": {
+          "width": 223,
+          "height": 179
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1676,
+          "y": 3
+        },
+        "size": {
+          "width": 245,
+          "height": 153.84352078239593
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 161.3911980440098,
+          "y": 557.4303178484107
+        },
+        "size": {
+          "width": 469.4376528117359,
+          "height": 366.1613691931541
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 790.437652811736,
+          "y": 199.09290953545224
+        },
+        "size": {
+          "width": 233.843520782396,
+          "height": 298.87530562347195
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 454,
+          "y": 241.34229828850846
+        },
+        "size": {
+          "width": 342.69682151589245,
+          "height": 243.65770171149154
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1408.7823960880196,
+          "y": 225.92665036674816
+        },
+        "size": {
+          "width": 185.9584352078241,
+          "height": 287.68948655256713
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 988.100244498778,
+          "y": 219.4352078239608
+        },
+        "size": {
+          "width": 246.73838630806813,
+          "height": 306.69926650366745
+        }
+      },
+      {
+        "id": "P18_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1219.190709046455,
+          "y": 233.51833740831285
+        },
+        "size": {
+          "width": 198.72860635696816,
+          "height": 297.31051344743287
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1106.5256723716382,
+          "y": 854.7408312958436
+        },
+        "size": {
+          "width": 411.5403422982886,
+          "height": 226.25916870415642
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1676,
+          "y": 3
+        },
+        "size": {
+          "width": 206.66259168704164,
+          "height": 153
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 69.61858190708935,
+          "y": 520.9413202933973
+        },
+        "size": {
+          "width": 483.52078239608807,
+          "height": 359.90220048899766
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 220,
+          "y": 987
+        },
+        "size": {
+          "width": 102,
+          "height": 94
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 692,
+          "y": 681
+        },
+        "size": {
+          "width": 360,
+          "height": 398
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 790.8508557457202,
+          "y": 198.67726161369092
+        },
+        "size": {
+          "width": 233,
+          "height": 298
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 454.41320293398417,
+          "y": 240.92665036674714
+        },
+        "size": {
+          "width": 342,
+          "height": 243
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1409.195599022004,
+          "y": 225.51100244498684
+        },
+        "size": {
+          "width": 185,
+          "height": 287
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 988.5134474327622,
+          "y": 219.0195599021995
+        },
+        "size": {
+          "width": 246,
+          "height": 306
+        }
+      },
+      {
+        "id": "P18_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1219.6039119804393,
+          "y": 233.10268948655153
+        },
+        "size": {
+          "width": 198,
+          "height": 297
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1106.9388753056226,
+          "y": 854.3251833740823
+        },
+        "size": {
+          "width": 411,
+          "height": 226
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1691.757946210269,
+          "y": 3.083129584352264
+        },
+        "size": {
+          "width": 229.24205378973102,
+          "height": 202.2689486552564
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11341",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP18_1",
+        "description": "XFR P18_A FROM P18 11341",
+        "location": {
+          "x": 1045,
+          "y": 601
+        },
+        "size": {
+          "width": 96,
+          "height": 108
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 526.1344743276283
+        },
+        "size": {
+          "width": 543.7652811735942,
+          "height": 317.6528117359413
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 445,
+          "y": 399
+        },
+        "size": {
+          "width": 408,
+          "height": 509
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 853.0293398533008,
+          "y": 865.6943765281175
+        },
+        "size": {
+          "width": 261.32029339853307,
+          "height": 213.22249388753028
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 771.6601466992665,
+          "y": 198.59413202933865
+        },
+        "size": {
+          "width": 242.54278728606357,
+          "height": 298
+        }
+      },
+      {
+        "id": "P17_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 454.6552567237152,
+          "y": 240.84352078239488
+        },
+        "size": {
+          "width": 342,
+          "height": 243
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1409.437652811735,
+          "y": 225.42787286063458
+        },
+        "size": {
+          "width": 185,
+          "height": 287
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 988.7555012224932,
+          "y": 218.93643031784723
+        },
+        "size": {
+          "width": 246,
+          "height": 306
+        }
+      },
+      {
+        "id": "P18_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1219.8459657701703,
+          "y": 233.01955990219926
+        },
+        "size": {
+          "width": 198,
+          "height": 297
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1198.848410757946,
+          "y": 1004.1540342298297
+        },
+        "size": {
+          "width": 54.76772616136918,
+          "height": 76.84596577017021
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11441",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP17_1",
+        "description": "XFR P17_B FROM P17 11441",
+        "location": {
+          "x": 434,
+          "y": 426
+        },
+        "size": {
+          "width": 489,
+          "height": 127
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1.9095354523226433,
+          "y": 363.97799511002506
+        },
+        "size": {
+          "width": 557,
+          "height": 461
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 558.8484107579462,
+          "y": 418.16381418092897
+        },
+        "size": {
+          "width": 350,
+          "height": 506
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 926.5745721271394,
+          "y": 620.0220048899755
+        },
+        "size": {
+          "width": 311.3936430317849,
+          "height": 373.9853300733497
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 772.5696821515892,
+          "y": 197.65036674816577
+        },
+        "size": {
+          "width": 242,
+          "height": 298
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1410.3471882640583,
+          "y": 224.4841075794617
+        },
+        "size": {
+          "width": 185,
+          "height": 287
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 989.6650366748158,
+          "y": 217.99266503667434
+        },
+        "size": {
+          "width": 246,
+          "height": 306
+        }
+      },
+      {
+        "id": "P18_C",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1220.7555012224934,
+          "y": 232.07579462102638
+        },
+        "size": {
+          "width": 198,
+          "height": 297
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 235,
+          "y": 2
+        },
+        "size": {
+          "width": 347,
+          "height": 199
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11591",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP17_2",
+        "description": "XFR P17_A FROM P17 11591",
+        "location": {
+          "x": 618,
+          "y": 676
+        },
+        "size": {
+          "width": 125,
+          "height": 121
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 20.559902200489,
+          "y": 455.71882640586796
+        },
+        "size": {
+          "width": 538.2885085574572,
+          "height": 370.85574572127143
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 624.5696821515893,
+          "y": 396.2567237163813
+        },
+        "size": {
+          "width": 417.799511002445,
+          "height": 538.2885085574574
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1175.3765281173596,
+          "y": 438.50611246943765
+        },
+        "size": {
+          "width": 431.8826405867969,
+          "height": 328.6063569682152
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 772.5696821515892,
+          "y": 197.65036674816577
+        },
+        "size": {
+          "width": 242,
+          "height": 298
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1410.3471882640583,
+          "y": 224.4841075794617
+        },
+        "size": {
+          "width": 185,
+          "height": 287
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 989.6650366748158,
+          "y": 217.99266503667434
+        },
+        "size": {
+          "width": 246,
+          "height": 306
+        }
+      }
+    ],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11611",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP18_2",
+        "description": "XFR P18_C FROM P18 11611",
+        "location": {
+          "x": 1371,
+          "y": 418
+        },
+        "size": {
+          "width": 102,
+          "height": 99
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11621",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP17_3",
+        "description": "XFR P17_A FROM P17 11621",
+        "location": {
+          "x": 841,
+          "y": 460
+        },
+        "size": {
+          "width": 122,
+          "height": 133
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 23.68948655256719,
+          "y": 552.7359413202935
+        },
+        "size": {
+          "width": 439.70660146699277,
+          "height": 413.10513447432754
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 735.6699266503668,
+          "y": 396.2567237163813
+        },
+        "size": {
+          "width": 384.93887530562336,
+          "height": 538
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1227.0146699266504,
+          "y": 372.7848410757945
+        },
+        "size": {
+          "width": 463.1784841075796,
+          "height": 316.08801955990236
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 772.5696821515892,
+          "y": 197.65036674816577
+        },
+        "size": {
+          "width": 242,
+          "height": 298
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1410.3471882640583,
+          "y": 224.4841075794617
+        },
+        "size": {
+          "width": 185,
+          "height": 287
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 989.6650366748158,
+          "y": 217.99266503667434
+        },
+        "size": {
+          "width": 246,
+          "height": 306
+        }
+      }
+    ],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11771",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP18_4",
+        "description": "XFR P18_A FROM P18 11771",
+        "location": {
+          "x": 1535,
+          "y": 348
+        },
+        "size": {
+          "width": 96,
+          "height": 112
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 710.7799511002446
+        },
+        "size": {
+          "width": 404,
+          "height": 322
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 660.5599022004891,
+          "y": 607.5036674816627
+        },
+        "size": {
+          "width": 400,
+          "height": 361
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1104.9608801955992,
+          "y": 272.6381418092908
+        },
+        "size": {
+          "width": 350,
+          "height": 422
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 772.5696821515892,
+          "y": 197.65036674816577
+        },
+        "size": {
+          "width": 242,
+          "height": 298
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1411.9119804400973,
+          "y": 230.74327628361823
+        },
+        "size": {
+          "width": 175.00488997555067,
+          "height": 287
+        }
+      },
+      {
+        "id": "P18_B",
+        "partial_or_complete": "",
+        "location": {
+          "x": 989.6650366748158,
+          "y": 217.99266503667434
+        },
+        "size": {
+          "width": 246,
+          "height": 306
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1651,
+          "y": 3
+        },
+        "size": {
+          "width": 211,
+          "height": 205
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11881",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP18_5",
+        "description": "XFR P18_B FROM P18 11881",
+        "location": {
+          "x": 1371,
+          "y": 452
+        },
+        "size": {
+          "width": 111,
+          "height": 117
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 762.4180929095355
+        },
+        "size": {
+          "width": 404,
+          "height": 270.361858190709
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 615.1809290953546,
+          "y": 677.919315403423
+        },
+        "size": {
+          "width": 363.03178484107593,
+          "height": 403.08068459657704
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1134.6919315403425,
+          "y": 560.5599022004891
+        },
+        "size": {
+          "width": 491.3447432762837,
+          "height": 289.48655256723725
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 772.5696821515892,
+          "y": 197.65036674816577
+        },
+        "size": {
+          "width": 242,
+          "height": 298
+        }
+      },
+      {
+        "id": "P18_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1411.9119804400973,
+          "y": 230.74327628361823
+        },
+        "size": {
+          "width": 175,
+          "height": 287
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1651,
+          "y": 3
+        },
+        "size": {
+          "width": 270,
+          "height": 102.20537897310498
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "11901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "11931",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP18_6",
+        "description": "XFR P18_A FROM P18 11931",
+        "location": {
+          "x": 1440,
+          "y": 420
+        },
+        "size": {
+          "width": 116,
+          "height": 100
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P16",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 548
+        },
+        "size": {
+          "width": 166,
+          "height": 254
+        }
+      },
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 661,
+          "y": 295
+        },
+        "size": {
+          "width": 383,
+          "height": 538
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1236,
+          "y": 468
+        },
+        "size": {
+          "width": 462,
+          "height": 319
+        }
+      }
+    ],
+    "items": [
+      {
+        "id": "P17_A",
+        "partial_or_complete": "",
+        "location": {
+          "x": 767,
+          "y": 201
+        },
+        "size": {
+          "width": 250,
+          "height": 299
+        }
+      }
+    ],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 670,
+          "y": 977
+        },
+        "size": {
+          "width": 142,
+          "height": 104
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1656,
+          "y": 0
+        },
+        "size": {
+          "width": 208,
+          "height": 204
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [],
+    "author": "parikh",
+    "frame": "12041",
+    "camera": "cam11exp2",
+    "events": [
+      {
+        "id": "XFRP17_4",
+        "description": "XFR P17_A FROM P17 12041",
+        "location": {
+          "x": 656,
+          "y": 421
+        },
+        "size": {
+          "width": 134,
+          "height": 144
+        }
+      }
+    ]
+  },
+  {
+    "passengers": [
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 490,
+          "y": 759
+        },
+        "size": {
+          "width": 377,
+          "height": 296
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1152,
+          "y": 437
+        },
+        "size": {
+          "width": 443,
+          "height": 294
+        }
+      }
+    ],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 698,
+          "y": 1007
+        },
+        "size": {
+          "width": 160,
+          "height": 74
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1653,
+          "y": 2
+        },
+        "size": {
+          "width": 211,
+          "height": 217
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12101",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P17",
+        "partial_or_complete": "",
+        "location": {
+          "x": 38,
+          "y": 603
+        },
+        "size": {
+          "width": 582,
+          "height": 388
+        }
+      },
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 748,
+          "y": 498
+        },
+        "size": {
+          "width": 515,
+          "height": 432
+        }
+      }
+    ],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 711,
+          "y": 1043
+        },
+        "size": {
+          "width": 191,
+          "height": 38
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12201",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [
+      {
+        "id": "P18",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 886
+        },
+        "size": {
+          "width": 116,
+          "height": 102
+        }
+      }
+    ],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 978,
+          "y": 1005
+        },
+        "size": {
+          "width": 110,
+          "height": 76
+        }
+      },
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 305,
+          "y": 468
+        },
+        "size": {
+          "width": 462,
+          "height": 401
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 421,
+          "y": 3
+        },
+        "size": {
+          "width": 327,
+          "height": 234
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12301",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 980,
+          "y": 1002
+        },
+        "size": {
+          "width": 100,
+          "height": 79
+        }
+      },
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 595
+        },
+        "size": {
+          "width": 512,
+          "height": 329
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 506,
+          "y": 2
+        },
+        "size": {
+          "width": 272,
+          "height": 302
+        }
+      },
+      {
+        "id": "TSO5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 343,
+          "y": 1032
+        },
+        "size": {
+          "width": 150,
+          "height": 49
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12401",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 992.0488997555012,
+          "y": 1005
+        },
+        "size": {
+          "width": 94,
+          "height": 76
+        }
+      },
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1.0488997555012247,
+          "y": 409
+        },
+        "size": {
+          "width": 412,
+          "height": 407
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2.0488997555012247,
+          "y": 0
+        },
+        "size": {
+          "width": 384.72127139364306,
+          "height": 210.046454767726
+        }
+      },
+      {
+        "id": "TSO5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 501,
+          "y": 501
+        },
+        "size": {
+          "width": 400.5867970660147,
+          "height": 541.515892420538
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12501",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 318,
+          "y": 756
+        },
+        "size": {
+          "width": 369,
+          "height": 325
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 157,
+          "y": 2
+        },
+        "size": {
+          "width": 364,
+          "height": 257
+        }
+      },
+      {
+        "id": "TSO5",
+        "partial_or_complete": "",
+        "location": {
+          "x": 690,
+          "y": 503
+        },
+        "size": {
+          "width": 435,
+          "height": 422
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12601",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 989,
+          "y": 1008
+        },
+        "size": {
+          "width": 86,
+          "height": 73
+        }
+      },
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 728
+        },
+        "size": {
+          "width": 45,
+          "height": 113
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 136,
+          "y": 3
+        },
+        "size": {
+          "width": 409,
+          "height": 307
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12701",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 991,
+          "y": 1005
+        },
+        "size": {
+          "width": 92,
+          "height": 76
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 2,
+          "y": 74
+        },
+        "size": {
+          "width": 242,
+          "height": 189
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12801",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 989,
+          "y": 1007
+        },
+        "size": {
+          "width": 94,
+          "height": 74
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 3,
+          "y": 3
+        },
+        "size": {
+          "width": 348,
+          "height": 295
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "12901",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 986,
+          "y": 1008
+        },
+        "size": {
+          "width": 95,
+          "height": 73
+        }
+      },
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1399.1418092909537,
+          "y": 968.9706601466994
+        },
+        "size": {
+          "width": 306.8581907090463,
+          "height": 112.0293398533006
+        }
+      },
+      {
+        "id": "TSO4",
+        "partial_or_complete": "",
+        "location": {
+          "x": 5,
+          "y": 3
+        },
+        "size": {
+          "width": 350,
+          "height": 235.2127139364302
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "13001",
+    "camera": "cam11exp2",
+    "events": []
+  },
+  {
+    "passengers": [],
+    "items": [],
+    "TSOs": [
+      {
+        "id": "TSO2",
+        "partial_or_complete": "",
+        "location": {
+          "x": 992,
+          "y": 1005
+        },
+        "size": {
+          "width": 88,
+          "height": 76
+        }
+      },
+      {
+        "id": "TSO3",
+        "partial_or_complete": "",
+        "location": {
+          "x": 1,
+          "y": 603
+        },
+        "size": {
+          "width": 430,
+          "height": 317
+        }
+      }
+    ],
+    "author": "parikh",
+    "frame": "13091",
+    "camera": "cam11exp2",
+    "events": []
+  }
+]
