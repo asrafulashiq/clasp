@@ -18,5 +18,5 @@
         "titleBar.border": "#832561"
     },
     "peacock.remoteColor": "#832561",
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "autopep8"
 }

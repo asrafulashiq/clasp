@@ -1,29 +1,36 @@
-import logging
 import os
+import sys
 import datetime
-
+from loguru import logger
+import logging
 from colorama import Fore, Back
+
 
 class ClaspLogger():
     def __init__(self, name="__clasp__"):
-
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(logging.DEBUG)
-
-        ch = logging.StreamHandler()
-        ch.setLevel(logging.DEBUG)
-        self.logger.addHandler(ch)
+        now = datetime.datetime.now()
+        filename = os.path.join("./logs",
+                                "{}_{}_{}.txt".format(now.month, now.day, now.hour))
+        self.logger = logger
+        self.logger.configure(
+            handlers=[
+                dict(
+                    sink=sys.stdout,
+                    level='INFO',
+                    colorize=True,
+                    format="<green>{time: MM-DD at HH:mm}</green>  <level>{message}</level>"
+                )
+            ]
+        )
 
         now = datetime.datetime.now()
         filename = os.path.join("./logs",
                                 "{}_{}_{}.txt".format(now.month, now.day, now.hour))
-        fh = logging.FileHandler(filename)
-        fh.setLevel(logging.DEBUG)
-        formatter = logging.Formatter("%(message)s")
-        fh.setFormatter(formatter)
-        self.clasp_logger = logging.getLogger("clasp")
-        self.clasp_logger.setLevel(logging.DEBUG)
-        self.clasp_logger.addHandler(fh)
+        self.logger.add(
+            sink=filename,
+            level='DEBUG',
+            format="{message}"
+        )
 
         self.pre_msg = ""
 
@@ -37,5 +44,5 @@ class ClaspLogger():
         self.pre_msg = "{},{},{}".format(filenum, cam, frame)
 
     def clasp_log(self, msg):
-        self.clasp_logger.info("%s,%s", self.pre_msg, msg)
-        self.info(Fore.YELLOW + msg)
+        self.logger.debug("%s,%s", self.pre_msg, msg)
+        self.info(msg)

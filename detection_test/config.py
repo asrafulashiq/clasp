@@ -25,7 +25,7 @@ def get_arg():
     parser.add_argument(
         "--bin-ckpt",
         type=str,
-        default=_HOME + "/dataset/clasp/trained_model/model.pkl",
+        default=_HOME + "/dataset/ALET/clasp_data/trained_model_bin/model_cam9.pkl",
     )
 
     parser.add_argument("--write", action="store_false")
@@ -42,7 +42,7 @@ def get_arg():
         # default="/data/home/islama6/dataset/ALERT/clasp_data/output/run/info.csv",
         default=None,
         type=str,
-        help="info file to load",
+        help="info file to save/load",
     )
 
     parser.add_argument("--skip-init", type=int, default=3390)
