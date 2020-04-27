@@ -16,7 +16,7 @@ class ClaspLogger():
             handlers=[
                 dict(
                     sink=sys.stdout,
-                    level='INFO',
+                    level='DEBUG',
                     colorize=True,
                     format="<green>{time: MM-DD at HH:mm}</green>  <level>{message}</level>"
                 )
@@ -26,9 +26,10 @@ class ClaspLogger():
         now = datetime.datetime.now()
         filename = os.path.join("./logs",
                                 "{}_{}_{}.txt".format(now.month, now.day, now.hour))
+        self._level = logger.level("CUSTOM", no=45)
         self.logger.add(
             sink=filename,
-            level='DEBUG',
+            level='CUSTOM',
             format="{message}"
         )
 
@@ -44,5 +45,5 @@ class ClaspLogger():
         self.pre_msg = "{},{},{}".format(filenum, cam, frame)
 
     def clasp_log(self, msg):
-        self.logger.debug("%s,%s", self.pre_msg, msg)
+        self.logger.log("CUSTOM", "{},{}".format(self.pre_msg, msg))
         self.info(msg)
