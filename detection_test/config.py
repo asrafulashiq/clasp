@@ -25,7 +25,7 @@ def get_arg():
     parser.add_argument(
         "--bin-ckpt",
         type=str,
-        default=_HOME + "/dataset/ALET/clasp_data/trained_model_bin/model_cam9.pkl",
+        default=_HOME + "/dataset/ALERT/clasp_data/trained_model_bin/model_cam9.pkl",
     )
 
     parser.add_argument("--write", action="store_false")
@@ -35,6 +35,11 @@ def get_arg():
         type=str,
         default="640x360",
         help="image size(width x height)",
+    )
+
+    parser.add_argument(
+        '--run-detector', action='store_true',
+        help='whether to run detector or load pre-run results'
     )
 
     parser.add_argument(

@@ -15,11 +15,6 @@ from colorama import Fore, Back
 class BinManager:
     def __init__(self, bins=None, log=None, detector=None, camera="cam09", write=True):
         self.log = log
-        if log is None:
-            self.log = logging.getLogger("bin manager")
-            self.log.setLevel(logging.DEBUG)
-            self.log.clasp_log = self.log.info
-
         if bins is None:
             self._current_bins = []
         else:
