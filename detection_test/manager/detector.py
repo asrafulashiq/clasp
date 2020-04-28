@@ -71,7 +71,7 @@ def vis_bbox(img, bbox, class_str=None, thick=2):
 
 
 def vis_one_image_opencv(
-    im, boxes, scores, classes, thresh=0.5, dataset=None, show_class=True
+    im, boxes, scores, classes, thresh=0.5, dataset=None, show_class=True, vis=True
 ):
     """Constructs a numpy array with the detections visualized."""
 
@@ -94,14 +94,15 @@ def vis_one_image_opencv(
 
         # show class (off by default)
         class_str = get_class_string(classes[i], dataset)
-        if show_class:
+        if vis and show_class:
             im = vis_class(im, (bbox[0], bbox[1] - 2), class_str)
 
-        im = vis_bbox(
-            im,
-            (bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]),
-            class_str,
-        )
+        if vis:
+            im = vis_bbox(
+                im,
+                (bbox[0], bbox[1], bbox[2] - bbox[0], bbox[3] - bbox[1]),
+                class_str,
+            )
 
         _boxes.append(bbox)
         _score.append(score)
@@ -135,15 +136,16 @@ class DummyDetector:
         if ret is not None:
             boxes, scores, classes = ret
             nim = im
-            if show:
-                nim, boxes, scores, classes = vis_one_image_opencv(
-                    im,
-                    boxes,
-                    scores,
-                    classes,
-                    thresh=self.thres,
-                    dataset=self.dummy_coco_dataset
-                )
+            # if show:
+            nim, boxes, scores, classes = vis_one_image_opencv(
+                im,
+                boxes,
+                scores,
+                classes,
+                thresh=self.thres,
+                dataset=self.dummy_coco_dataset,
+                vis=show
+            )
             return nim, boxes, scores, classes
         else:
             return im, None, None, None
