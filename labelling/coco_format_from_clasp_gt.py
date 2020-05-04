@@ -22,17 +22,24 @@ def parse_file(fname):
 if __name__ == "__main__":
     HOME = os.environ['HOME']
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=str,
-                        default=HOME+'/dataset/ALERT/annotation')
-    parser.add_argument("--out", type=str, help="save path of json", default="annotations")
-                        # default=HOME+'/dataset/clasp/clasp_annotations')
+    parser.add_argument("--root",
+                        type=str,
+                        default=HOME + '/dataset/ALERT/annotation')
+    parser.add_argument("--out",
+                        type=str,
+                        help="save path of json",
+                        default="annotations")
+    # default=HOME+'/dataset/clasp/clasp_annotations')
     parser.add_argument("--out-name", type=str, default="anns")
-    parser.add_argument("--im-folder", type=str,
-                        default=HOME+'/dataset/ALERT/alert_frames_2')
+    parser.add_argument("--im-folder",
+                        type=str,
+                        default=HOME + '/dataset/ALERT/alert_frames_2')
     parser.add_argument("--test", action='store_true')
     parser.add_argument("--exp", default=None, type=str, nargs='*')
     parser.add_argument("--cam", default=None, type=str, nargs='*')
-    parser.add_argument('--size', type=str, default='640x360',
+    parser.add_argument('--size',
+                        type=str,
+                        default='640x360',
                         help='image size(width x height)')
 
     args = parser.parse_args()
@@ -41,9 +48,8 @@ if __name__ == "__main__":
     print(args)
 
     Path(args.out).mkdir(exist_ok=True)
-    out_name = args.out_name + '_' + ('all' if args.exp is None
-                                      else '_'.join(args.exp)
-                                      ) + '_'.join(args.cam) + '.json'
+    out_name = args.out_name + '_' + ('all' if args.exp is None else '_'.join(
+        args.exp)) + '_'.join(args.cam) + '.json'
     out_path = os.path.join(args.out, out_name)
 
     if args.test:
@@ -93,16 +99,23 @@ if __name__ == "__main__":
                 if file.stem in args.cam:
                     if str(file).endswith('json'):
                         fdata = json.load(file.open())
+                        if len(fdata) == 2:
+                            fdata = fdata[0]
                         anns.extend(fdata)
 
     print(anns[0])
 
     dict_cat = {'passengers': 1, 'items': 2}
     data = {}
-    data['categories'] = [
-        {"id": 1, "name": 'passengers', "supercategory": 'passengers'},
-        {"id": 2, "name": 'items', "supercategory": 'items'}
-    ]
+    data['categories'] = [{
+        "id": 1,
+        "name": 'passengers',
+        "supercategory": 'passengers'
+    }, {
+        "id": 2,
+        "name": 'items',
+        "supercategory": 'items'
+    }]
 
     data['annotations'] = []
     data['images'] = []
@@ -113,7 +126,12 @@ if __name__ == "__main__":
     counter_im = 1
 
     for each_ann_file in tqdm(anns):
-        fcam = parse_file(each_ann_file['camera'])
+        if 'camera' in each_ann_file:
+            fcam = parse_file(each_ann_file['camera'])
+        elif 'camera_filename' in each_ann_file:
+            fcam = parse_file(each_ann_file['camera_filename'])
+        else:
+            raise KeyError
         frame = f"{int(each_ann_file['frame']):06d}.jpg"
         fname = os.path.join(fcam, frame)
 
@@ -129,29 +147,35 @@ if __name__ == "__main__":
             rat_w, rat_h = args.size[0] / w, args.size[1] / h
 
             tmp = {
-                "id": counter_id,
-                "image_id": dict_im[fname],
-                "category_id": dict_cat['items'],
-                "area": args.size[0] * args.size[1],
+                "id":
+                counter_id,
+                "image_id":
+                dict_im[fname],
+                "category_id":
+                dict_cat['items'],
+                "area":
+                args.size[0] * args.size[1],
                 'segmentation': [],
                 "bbox": [
-                    _ann['location']['x']*rat_w, _ann['location']['y']*rat_h,
-                    _ann['size']['width']*rat_w, _ann['size']['height']*rat_h
+                    _ann['location']['x'] * rat_w,
+                    _ann['location']['y'] * rat_h,
+                    _ann['size']['width'] * rat_w,
+                    _ann['size']['height'] * rat_h
                 ],
-                "iscrowd": 0,
+                "iscrowd":
+                0,
             }
             data['annotations'].append(tmp)
             counter_id += 1
 
     for k in dict_im:
-        data['images'].append(
-            {
-                'file_name': k,
-                'id': dict_im[k],
-                # 'width': w, 'height': h
-                'width': args.size[0], 'height': args.size[1]
-            }
-        )
+        data['images'].append({
+            'file_name': k,
+            'id': dict_im[k],
+            # 'width': w, 'height': h
+            'width': args.size[0],
+            'height': args.size[1]
+        })
 
     with open(out_path, 'w') as ftarget:
-        json.dump(data, ftarget)
+        json.dump(data, ftarget, indent=4)

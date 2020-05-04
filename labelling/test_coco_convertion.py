@@ -8,9 +8,10 @@ import os
 import argparse
 import shutil
 
+
 def add_bbox_ann(I, anns):
     for ann in anns:
-        bb = ann['bbox']
+        bb = ann['bbox'].copy()
         bb[2] = bb[0] + bb[2] - 1
         bb[3] = bb[1] + bb[3] - 1
         bb = tuple([int(i) for i in bb])
@@ -18,9 +19,14 @@ def add_bbox_ann(I, anns):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--ann-file", type=str, default='annotations/anns_exp1_exp2_traincam9.json')
+parser.add_argument("--ann-file",
+                    type=str,
+                    default='annotations/anns_exp1_exp2_traincam9.json')
 parser.add_argument("--seed", type=int, default=0)
-parser.add_argument("--data-root", type=str, default=os.environ['HOME'] + '/dataset/ALERT/alert_frames_2')
+parser.add_argument("--data-root",
+                    type=str,
+                    default=os.environ['HOME'] +
+                    '/dataset/ALERT/alert_frames_2')
 parser.add_argument("--write-all", action="store_true")
 parser.add_argument("--output", type=str, default="./output_fig")
 args = parser.parse_args()
@@ -41,7 +47,6 @@ print('COCO categories: \n{}\n'.format(' '.join(nms)))
 nms = set([cat['supercategory'] for cat in cats])
 print('COCO supercategories: \n{}'.format(' '.join(nms)))
 
-
 catIds = coco.getCatIds(catNms=['binEMPTY'])
 imgIds = coco.getImgIds(catIds=catIds)
 #imgIds = coco.getImgIds(imgIds = [324158])
@@ -51,6 +56,7 @@ if not args.write_all:
     while True:
         plt.close('all')
         img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
+        # img = coco.loadImgs([80])[0]
 
         imfile = ROOT / img['file_name']
 
