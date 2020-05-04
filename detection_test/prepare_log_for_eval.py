@@ -42,7 +42,10 @@ df = pd.read_csv(
     bin_file,
     sep=",",
     header=None,
-    names=["file", "camera", "frame", "id", "class", "x1", "y1", "x2", "y2", "type", "msg"],
+    names=[
+        "file", "camera", "frame", "id", "class", "x1", "y1", "x2", "y2",
+        "type", "msg"
+    ],
     index_col=None,
 )
 
@@ -56,14 +59,25 @@ df_comb["x2"] = 3 * df_comb["x2"]
 df_comb["y2"] = 3 * df_comb["y2"]
 df_bin = df_comb
 
-
 # PAX
 pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "camera", "TU", "type"]
-df_pax_9 = pd.read_csv(str(pax_file_9), sep=",", header=None, names=pax_names, index_col=None)
+df_pax_9 = pd.read_csv(str(pax_file_9),
+                       sep=",",
+                       header=None,
+                       names=pax_names,
+                       index_col=None)
 
-df_pax_11 = pd.read_csv(str(pax_file_11), sep=",", header=None, names=pax_names, index_col=None)
+df_pax_11 = pd.read_csv(str(pax_file_11),
+                        sep=",",
+                        header=None,
+                        names=pax_names,
+                        index_col=None)
 
-df_pax_13 = pd.read_csv(str(pax_file_13), sep=",", header=None, names=pax_names, index_col=None)
+df_pax_13 = pd.read_csv(str(pax_file_13),
+                        sep=",",
+                        header=None,
+                        names=pax_names,
+                        index_col=None)
 
 df_pax = pd.concat((df_pax_9, df_pax_11, df_pax_13))
 
@@ -104,9 +118,9 @@ for _, row in tqdm(df_bin.iterrows()):
                 pax_id = asso_info[_id][_f]
     log_msg = (
         f"LOC: type: DVI camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
-        + f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} first-used: {first_used} "
-        + "partial-complete: NA"
-    )
+        +
+        f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} first-used: {first_used} "
+        + "partial-complete: NA")
     if cam == '09':
         full_logs_9.append(log_msg)
     elif cam == '11':
@@ -141,9 +155,9 @@ for _, row in tqdm(df_pax.iterrows()):
         pax_type = "PAX"
     log_msg = (
         f"LOC: type: {pax_type} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
-        + f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: NA first-used: {first_used} "
-        + "partial-complete: NA"
-    )
+        +
+        f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: NA first-used: {first_used} "
+        + "partial-complete: NA")
     if cam == '09':
         full_logs_9.append(log_msg)
     elif cam == '11':

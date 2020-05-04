@@ -17,7 +17,12 @@ import argparse
 
 
 class Bin:
-    def __init__(self, label=None, state=None, pos=None, default_state="items", maxlen=10):
+    def __init__(self,
+                 label=None,
+                 state=None,
+                 pos=None,
+                 default_state="items",
+                 maxlen=10):
 
         self.maxlen = maxlen
         self.init_conf()
@@ -44,7 +49,7 @@ class Bin:
 
     @torch.no_grad()
     def init_tracker(self, box, frame):
-        if hasattr(self, 'siammask'): 
+        if hasattr(self, 'siammask'):
             del self.siammask
         self.load_siammask()
         self.device = torch.device("cuda:0")
@@ -52,9 +57,12 @@ class Bin:
         x, y, w, h = bb
         target_pos = np.array([x + w / 2, y + h / 2])
         target_sz = np.array([w, h])
-        state = siamese_init(
-            frame, target_pos, target_sz, self.siammask, self.cfg_siam["hp"], device=self.device
-        )
+        state = siamese_init(frame,
+                             target_pos,
+                             target_sz,
+                             self.siammask,
+                             self.cfg_siam["hp"],
+                             device=self.device)
         self.track_state = state
 
     @torch.no_grad()
@@ -76,11 +84,13 @@ class Bin:
 
     @torch.no_grad()
     def update_tracker(self, frame):
-        
+
         prev_pos = self.track_state["target_pos"]
-        state = siamese_track(
-            self.track_state, frame, mask_enable=False, refine_enable=True, device=self.device
-        )  # track
+        state = siamese_track(self.track_state,
+                              frame,
+                              mask_enable=False,
+                              refine_enable=True,
+                              device=self.device)  # track
         target_pos = state["target_pos"]
         target_sz = state["target_sz"]
 

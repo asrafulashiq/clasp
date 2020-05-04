@@ -16,18 +16,20 @@ torch.backends.cudnn.benchmark = True
 
 init(autoreset=True)
 
-
 log = ClaspLogger()
 
 file_num = "exp1_2"
 cameras = ["cam09"]
 
-manager = Manager(log=log, file_num=file_num, config=conf, bin_only=True, cameras=cameras)
+manager = Manager(log=log,
+                  file_num=file_num,
+                  config=conf,
+                  bin_only=True,
+                  cameras=cameras)
 
 imlist = []
 src_folder = {}
 out_folder = {}
-
 
 #! NOTE: camera 13 is 50 frames behind
 
@@ -44,26 +46,24 @@ for cam in cameras:
     else:
         skip_init = conf.skip_init
 
-    imfiles = utils.get_fp_from_dir(
-        src_folder[cam], out_folder=out_folder[cam],
-        skip_init=skip_init,
-        skip_end=conf.skip_end, delta=conf.delta,
-        end_file=conf.end_file
-    )
+    imfiles = utils.get_fp_from_dir(src_folder[cam],
+                                    out_folder=out_folder[cam],
+                                    skip_init=skip_init,
+                                    skip_end=conf.skip_end,
+                                    delta=conf.delta,
+                                    end_file=conf.end_file)
     for fp in imfiles[1:]:
         if os.path.exists(fp):
             os.remove(str(fp))
 
     imlist.append(
-        utils.get_images_from_dir(
-            src_folder[cam], skip_init=skip_init,
-            skip_end=conf.skip_end, delta=conf.delta,
-            end_file=conf.end_file
-        )
-    )
+        utils.get_images_from_dir(src_folder[cam],
+                                  skip_init=skip_init,
+                                  skip_end=conf.skip_end,
+                                  delta=conf.delta,
+                                  end_file=conf.end_file))
 
 # Process
-
 
 for counter, ret in enumerate(tqdm(zip(*imlist))):
     # out1, out2 = ret
@@ -86,9 +86,9 @@ for counter, ret in enumerate(tqdm(zip(*imlist))):
     # Cam 09
     im, imfile, frame_num = out1
     log.info(f"processing : {Fore.CYAN}{frame_num}")
-    new_im = manager.run_detector_image(
-        im, cam=cameras[0], frame_num=frame_num
-    )
+    new_im = manager.run_detector_image(im,
+                                        cam=cameras[0],
+                                        frame_num=frame_num)
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
     # Cam 11
@@ -104,7 +104,6 @@ for counter, ret in enumerate(tqdm(zip(*imlist))):
     #     im, cam=cameras[2], frame_num=frame_num
     # )
     # skimage.io.imsave(str(out_folder[cameras[2]] / imfile.name), new_im)
-
 
     if conf.write:
         manager.write_info()
