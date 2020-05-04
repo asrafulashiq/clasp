@@ -33,7 +33,7 @@ if __name__ == "__main__":
     parser.add_argument("--out-name", type=str, default="anns")
     parser.add_argument("--im-folder",
                         type=str,
-                        default=HOME + '/dataset/ALERT/alert_frames_2')
+                        default=HOME + '/dataset/ALERT/alert_frames')
     parser.add_argument("--test", action='store_true')
     parser.add_argument("--exp", default=None, type=str, nargs='*')
     parser.add_argument("--cam", default=None, type=str, nargs='*')

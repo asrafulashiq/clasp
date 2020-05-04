@@ -2,7 +2,6 @@ import argparse
 import os
 import sys
 
-
 _HOME = os.environ["HOME"]
 
 
@@ -12,7 +11,7 @@ def get_arg():
     parser.add_argument(
         "--root",
         type=str,
-        default=_HOME + "/dataset/ALERT/alert_frames_2",
+        default=_HOME + "/dataset/ALERT/alert_frames",
         help="root direcotory of all frames",
     )
     parser.add_argument(
@@ -25,7 +24,7 @@ def get_arg():
     parser.add_argument(
         "--bin-ckpt",
         type=str,
-        default=_HOME + "/dataset/ALERT/clasp_data/trained_model_bin/model_cam9.pkl",
+        default=_HOME + "/dataset/ALERT/trained_model/model_cam9.pkl",
     )
 
     parser.add_argument("--write", action="store_false")
@@ -37,10 +36,9 @@ def get_arg():
         help="image size(width x height)",
     )
 
-    parser.add_argument(
-        '--run-detector', action='store_true',
-        help='whether to run detector or load pre-run results'
-    )
+    parser.add_argument('--run-detector',
+                        action='store_true',
+                        help='whether to run detector or load pre-run results')
 
     parser.add_argument(
         "--info",
@@ -61,4 +59,3 @@ def get_arg():
 
 conf = get_arg()
 conf.size = [int(x) for x in conf.size.split("x")]
-

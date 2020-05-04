@@ -3,6 +3,7 @@ import torch.nn as nn
 import torchvision
 import argparse
 import os
+from os.path import expanduser
 import utils
 from torchvision.transforms import functional as F
 
@@ -35,13 +36,24 @@ if __name__ == "__main__":
 
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--thres", type=float, default=0.5)
-    parser.add_argument("--ckpt", type=str, help="model output directory",
-                        default=HOME + "/dataset/clasp/trained_model_bin/model_bin.pkl")
-    parser.add_argument("--folder", type=str, help="Image folder",
-                        default=HOME+"/dataset/ALERT/alert_frames_2/exp1/cam09/")
-    parser.add_argument("--write-folder", type=str, help="Image folder",
+    parser.add_argument("--ckpt",
+                        type=str,
+                        help="model output directory",
+                        default=HOME +
+                        "/dataset/clasp/trained_model_bin/model_bin.pkl")
+    parser.add_argument("--folder",
+                        type=str,
+                        help="Image folder",
+                        default=HOME +
+                        "/dataset/ALERT/alert_frames/exp1/cam09/")
+    parser.add_argument("--write-folder",
+                        type=str,
+                        help="Image folder",
                         default=HOME + "/dataset/ALERT/out_rcnn/")
     args = parser.parse_args()
+    args.ckpt = expanduser(args.ckpt)
+    args.folder = expanduser(args.folder)
+    args.write_folder = expanduser(args.write_folder)
     print(args)
 
     np.random.seed(args.seed)
@@ -66,7 +78,7 @@ if __name__ == "__main__":
     write_folder = Path(args.write_folder)
     write_folder.mkdir(exist_ok=True)
 
-    for i in tqdm(range(1200, 3000, 100)):
+    for i in tqdm(range(3000, 6800, 100)):
         filename = Path(args.folder) / f"{i:06d}.jpg"
         if filename.exists():
             im = skimage.io.imread(str(filename))
@@ -74,15 +86,15 @@ if __name__ == "__main__":
             imt = F.to_tensor(im)
             with torch.no_grad():
                 output = model([imt.to(device)])
-            output = {k: v.to(cpu_device).data.numpy()
-                      for k, v in output[0].items()}
+            output = {
+                k: v.to(cpu_device).data.numpy()
+                for k, v in output[0].items()
+            }
             index = (((output["labels"] == 2) | (output["labels"] == 3)) &
                      (output["scores"] > args.thres))
             if index.size > 0:
                 boxes = output["boxes"][index]
                 draw_rect(im, boxes)
                 write_filename = write_folder / f"{i:06d}.jpg"
-                skimage.io.imsave(str(write_filename), im)
-
-            
-
+                skimage.io.imsave(str(write_filename),
+                                  skimage.img_as_ubyte(im))

@@ -29,20 +29,30 @@ def get_transform(train=True, size=(640, 360)):
 if __name__ == "__main__":
     HOME = os.environ["HOME"]
     parser = argparse.ArgumentParser(prog="Detection parser")
-    parser.add_argument("--root", type=str,
-                        default=HOME + "/dataset/ALERT/alert_frames_2",
-                        help="root directory where the images are downloaded to")
+    parser.add_argument(
+        "--root",
+        type=str,
+        default=HOME + "/dataset/ALERT/alert_frames",
+        help="root directory where the images are downloaded to")
 
-    parser.add_argument("--ann-file", type=str,
-                        default=HOME + "/dataset/clasp/clasp_annotations/ann.json",
+    parser.add_argument("--ann-file",
+                        type=str,
+                        default=HOME +
+                        "/dataset/clasp/clasp_annotations/ann.json",
                         help="annotation file")
-    parser.add_argument("--out-dir", type=str, help="model output directory",
-                        default=HOME + "/dataset/clasp/trained_model")
+    parser.add_argument("--out-dir",
+                        type=str,
+                        help="model output directory",
+                        default=HOME + "/dataset/ALERT/trained_model")
 
-    parser.add_argument("--out-name", type=str, help="output model name",
+    parser.add_argument("--out-name",
+                        type=str,
+                        help="output model name",
                         default="model.pkl")
 
-    parser.add_argument("--split", type=float, help="train-test split",
+    parser.add_argument("--split",
+                        type=float,
+                        help="train-test split",
                         default=0.9)
     parser.add_argument("--ckpt", type=str, default=None)
     parser.add_argument("--seed", type=int, default=0)
@@ -63,10 +73,14 @@ if __name__ == "__main__":
     out_dir.mkdir(exist_ok=True, parents=True)
     out_file = out_dir / file_write_name
 
-    dataset_train = coco_utils.get_coco(args.root, args.ann_file,
-                                        transforms=get_transform(True, args.size))
-    dataset_test = coco_utils.get_coco(args.root, args.ann_file,
-                                       transforms=get_transform(False, args.size))
+    dataset_train = coco_utils.get_coco(args.root,
+                                        args.ann_file,
+                                        transforms=get_transform(
+                                            True, args.size))
+    dataset_test = coco_utils.get_coco(args.root,
+                                       args.ann_file,
+                                       transforms=get_transform(
+                                           False, args.size))
 
     print(dataset_train[100][1])
 
@@ -81,14 +95,17 @@ if __name__ == "__main__":
     dataset_test = torch.utils.data.Subset(dataset_test, indices[train_size:])
     # define data loader
     data_loader_train = torch.utils.data.DataLoader(
-        dataset_train, batch_size=args.batch_size, shuffle=True,
-        num_workers=4, collate_fn=utils.collate_fn
-    )
+        dataset_train,
+        batch_size=args.batch_size,
+        shuffle=True,
+        num_workers=4,
+        collate_fn=utils.collate_fn)
 
-    data_loader_test = torch.utils.data.DataLoader(
-        dataset_test, batch_size=1, shuffle=False,
-        num_workers=4, collate_fn=utils.collate_fn
-    )
+    data_loader_test = torch.utils.data.DataLoader(dataset_test,
+                                                   batch_size=1,
+                                                   shuffle=False,
+                                                   num_workers=4,
+                                                   collate_fn=utils.collate_fn)
 
     # dataset[0]
 
@@ -103,8 +120,10 @@ if __name__ == "__main__":
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
-    optimizer = torch.optim.SGD(params, lr=args.lr,
-                                momentum=0.9, weight_decay=0.0005)
+    optimizer = torch.optim.SGD(params,
+                                lr=args.lr,
+                                momentum=0.9,
+                                weight_decay=0.0005)
 
     # and a learning rate scheduler which decreases the learning rate by
     # 10x every 3 epochs
@@ -113,7 +132,11 @@ if __name__ == "__main__":
                                                    gamma=0.5)
     # start training
     for epoch in range(args.epoch):
-        train_one_epoch(model, optimizer, data_loader_train, device, epoch,
+        train_one_epoch(model,
+                        optimizer,
+                        data_loader_train,
+                        device,
+                        epoch,
                         print_freq=10)
         print("Finished epoch {}".format(epoch))
         lr_scheduler.step()

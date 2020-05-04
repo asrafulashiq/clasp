@@ -2,7 +2,6 @@ import argparse
 import os
 import sys
 
-
 _HOME = os.environ["HOME"]
 
 
@@ -12,7 +11,7 @@ def get_arg():
     parser.add_argument(
         "--root",
         type=str,
-        default=_HOME + "/dataset/ALERT/alert_frames_2",
+        default=_HOME + "/dataset/ALERT/alert_frames",
         help="root direcotory of all frames",
     )
     parser.add_argument(
@@ -62,4 +61,3 @@ def get_arg():
 
 conf = get_arg()
 conf.size = [int(x) for x in conf.size.split("x")]
-

@@ -25,8 +25,7 @@ parser.add_argument("--ann-file",
 parser.add_argument("--seed", type=int, default=0)
 parser.add_argument("--data-root",
                     type=str,
-                    default=os.environ['HOME'] +
-                    '/dataset/ALERT/alert_frames_2')
+                    default=os.environ['HOME'] + '/dataset/ALERT/alert_frames')
 parser.add_argument("--write-all", action="store_true")
 parser.add_argument("--output", type=str, default="./output_fig")
 args = parser.parse_args()

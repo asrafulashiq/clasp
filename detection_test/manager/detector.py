@@ -10,13 +10,11 @@ import numpy as np
 
 from rcnn import rcnn_utils
 
-
 _GRAY = (218, 227, 218)
 _GREEN = (18, 127, 15)
 _WHITE = (255, 255, 255)
 _RED = (255, 10, 10)
 _BLUE = (10, 10, 255)
-
 
 class_to_color = {"passengers": _BLUE, "items": _GREEN, "other": _RED}
 
@@ -29,11 +27,8 @@ def get_clasp_dataset():
 
 
 def get_class_string(class_index, dataset):
-    class_text = (
-        dataset[class_index]
-        if dataset is not None
-        else "id{:d}".format(class_index)
-    )
+    class_text = (dataset[class_index]
+                  if dataset is not None else "id{:d}".format(class_index))
     return class_text
 
 
@@ -53,9 +48,13 @@ def vis_class(img, pos, class_str, font_scale=0.5):
     cv2.rectangle(img, back_tl, back_br, color, -1)
     # Show text.
     txt_tl = x0, y0 - int(0.3 * txt_h)
-    cv2.putText(
-        img, txt, txt_tl, font, font_scale, _GRAY, lineType=cv2.LINE_AA
-    )
+    cv2.putText(img,
+                txt,
+                txt_tl,
+                font,
+                font_scale,
+                _GRAY,
+                lineType=cv2.LINE_AA)
     return img
 
 
@@ -70,9 +69,14 @@ def vis_bbox(img, bbox, class_str=None, thick=2):
     return img
 
 
-def vis_one_image_opencv(
-    im, boxes, scores, classes, thresh=0.5, dataset=None, show_class=True, vis=True
-):
+def vis_one_image_opencv(im,
+                         boxes,
+                         scores,
+                         classes,
+                         thresh=0.5,
+                         dataset=None,
+                         show_class=True,
+                         vis=True):
     """Constructs a numpy array with the detections visualized."""
 
     if boxes is None or boxes.shape[0] == 0 or max(scores) < thresh:
@@ -126,9 +130,10 @@ class DummyDetector:
 
     def create_model(self):
         self.model = rcnn_utils.RCNN_Detector(
-            ckpt=self.ckpt, labels_to_keep=self.labels_to_keep, thres=self.thres
-        )
-        #TODO: lables to keep is important, 1 means pax, 2 is bins
+            ckpt=self.ckpt,
+            labels_to_keep=self.labels_to_keep,
+            thres=self.thres)
+        #* lables to keep is important, 1 means pax, 2 is bins
         self.dummy_coco_dataset = get_clasp_dataset()
 
     def predict_box(self, im, show=False):
@@ -144,8 +149,7 @@ class DummyDetector:
                 classes,
                 thresh=self.thres,
                 dataset=self.dummy_coco_dataset,
-                vis=show
-            )
+                vis=show)
             return nim, boxes, scores, classes
         else:
             return im, None, None, None
@@ -159,9 +163,9 @@ class BinDetector:
         self.create_model()
 
     def create_model(self):
-        self.model = rcnn_utils.RCNN_Detector(
-            ckpt=self.ckpt, labels_to_keep=(2, 3), thres=self.thres
-        )
+        self.model = rcnn_utils.RCNN_Detector(ckpt=self.ckpt,
+                                              labels_to_keep=(2, 3),
+                                              thres=self.thres)
         self.dummy_coco_dataset = get_clasp_dataset()
 
     def predict_box(self, im, show=False):
@@ -197,9 +201,9 @@ class PAXDetector:
         self.create_model()
 
     def create_model(self):
-        self.model = rcnn_utils.RCNN_Detector(
-            ckpt=self.ckpt, labels_to_keep=(1,), thres=self.thres
-        )
+        self.model = rcnn_utils.RCNN_Detector(ckpt=self.ckpt,
+                                              labels_to_keep=(1, ),
+                                              thres=self.thres)
         self.dummy_coco_dataset = get_clasp_dataset()
 
     def predict_box(self, im, show=False):
