@@ -88,7 +88,7 @@ class BinManager:
 
         self._default_bin_state = "items"
         self.maxlen = 5 * self._mul
-        self._rat_track_det = 0.8
+        self._rat_track_det = 0.8  # FIXME : should it be less
 
         self._min_area = 40 * 70
         self._min_dim = 40
