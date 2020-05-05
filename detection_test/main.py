@@ -18,7 +18,7 @@ init(autoreset=True)
 
 log = ClaspLogger()
 
-file_num = "exp2_test"
+file_num = "exp2_train"
 cameras = ["cam09"]
 
 manager = Manager(log=log,

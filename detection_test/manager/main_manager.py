@@ -131,22 +131,22 @@ class Manager:
             # boxes, scores, classes, _ = self._det_bin[cam][frame_num]
             boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
 
-            if boxes is not None:
-                # NOTE: Something wrong with frame 2757 to 2761 of exp1 cam 09
-                if (self.file_num == "exp1" and cam == "cam09"
-                        and frame_num >= 2757 and frame_num <= 2762):
-                    boxes, scores, classes, _ = self._det_bin[cam][2756]
-                    boxes[[0, 2]] -= 7
-                    for bin in self._bin_managers[cam]._current_bins:
-                        pos = bin.pos
-                        pos[0] -= 7
-                        pos[2] -= 7
-                        bin.pos = pos
-                        if frame_num > 2761:
-                            bin.init_tracker(pos, im)
-                else:
-                    self._bin_managers[cam].update_state(
-                        im, boxes, scores, classes, frame_num)
+            # NOTE: Something wrong with frame 2757 to 2761 of exp1 cam 09
+            if (boxes is not None and self.file_num == "exp1"
+                    and cam == "cam09" and frame_num >= 2757
+                    and frame_num <= 2762):
+                boxes, scores, classes, _ = self._det_bin[cam][2756]
+                boxes[[0, 2]] -= 7
+                for bin in self._bin_managers[cam]._current_bins:
+                    pos = bin.pos
+                    pos[0] -= 7
+                    pos[2] -= 7
+                    bin.pos = pos
+                    if frame_num > 2761:
+                        bin.init_tracker(pos, im)
+            else:
+                self._bin_managers[cam].update_state(im, boxes, scores,
+                                                     classes, frame_num)
 
         if return_im:
             return self.draw(im, cam=cam)

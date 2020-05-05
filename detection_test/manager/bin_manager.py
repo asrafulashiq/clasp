@@ -250,12 +250,15 @@ class BinManager:
         if im is None:
             return
 
-        if classes is None:
+        if classes is None:  # FIXME: ??
             for bin in self._current_bins:
                 bin.increment_idle()
-            return
 
-        ind = [i for i in range(len(classes)) if classes[i] in ("items", )]
+        # --------------------------------- refine bb -------------------------------- #
+        if classes is not None:
+            ind = [i for i in range(len(classes)) if classes[i] in ("items", )]
+        else:
+            ind = []
 
         if len(ind) > 0:
             _boxes, _scores, _classes = boxes[ind], scores[ind], classes[ind]

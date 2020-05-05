@@ -43,14 +43,14 @@ def get_arg():
 
     parser.add_argument(
         "--info",
-        default=
-        "/data/home/islama6/dataset/ALERT/clasp_data/output/run/info.csv",
-        # default=None,
+        # default=
+        # "/data/home/islama6/dataset/ALERT/clasp_data/output/run/info.csv",
+        default=None,
         type=str,
         help="info file to save/load",
     )
 
-    parser.add_argument("--start-frame", type=int, default=2060)
+    parser.add_argument("--start-frame", type=int, default=1700)
     parser.add_argument("--skip-end", type=int, default=None)
     parser.add_argument("--end-frame", type=int, default=8000)
     parser.add_argument("--delta", type=int, default=2)

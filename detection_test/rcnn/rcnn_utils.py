@@ -27,7 +27,7 @@ class RCNN_Detector():
             self.model.load_state_dict(torch.load(str(ckpt)))
         else:
             raise ValueError(f"{ckpt} does not exist")
-    
+
         self.labels_to_keep = labels_to_keep
         self.thres = thres
 
@@ -36,10 +36,8 @@ class RCNN_Detector():
         im = skimage.img_as_float32(im)
         imt = F.to_tensor(im)
         self.model.eval()
-        with torch.no_grad():
-            output = self.model([imt.to(self.device)])
-        output = {k: v.cpu().data.numpy()
-                  for k, v in output[0].items()}
+        output = self.model([imt.to(self.device)])
+        output = {k: v.cpu().data.numpy() for k, v in output[0].items()}
         index = (np.isin(output["labels"], self.labels_to_keep) &
                  (output["scores"] > self.thres))
         if index.size > 0:
