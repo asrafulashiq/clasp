@@ -18,7 +18,7 @@ init(autoreset=True)
 
 log = ClaspLogger()
 
-file_num = "exp1_2"
+file_num = "exp2_test"
 cameras = ["cam09"]
 
 manager = Manager(log=log,
@@ -66,8 +66,8 @@ for cam in cameras:
 # Process
 
 for counter, ret in enumerate(tqdm(zip(*imlist))):
-    # out1, out2 = ret
     out1, = ret
+    # out1, out2, out3 = ret
     if conf.info is not None:
         im, imfile, frame_num = out1
         manager.load_info(conf.info, frame_num, im, camera=cameras[0])
@@ -91,18 +91,18 @@ for counter, ret in enumerate(tqdm(zip(*imlist))):
                                         frame_num=frame_num)
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
-    # Cam 11
+    # # Cam 11
     # im, imfile, frame_num = out2
-    # new_im = manager.run_detector_image(
-    #     im, cam=cameras[1], frame_num=frame_num
-    # )
+    # new_im = manager.run_detector_image(im,
+    #                                     cam=cameras[1],
+    #                                     frame_num=frame_num)
     # skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
-    # # Cam 13
+    # # # Cam 13
     # im, imfile, frame_num = out3
-    # new_im = manager.run_detector_image(
-    #     im, cam=cameras[2], frame_num=frame_num
-    # )
+    # new_im = manager.run_detector_image(im,
+    #                                     cam=cameras[2],
+    #                                     frame_num=frame_num)
     # skimage.io.imsave(str(out_folder[cameras[2]] / imfile.name), new_im)
 
     if conf.write:

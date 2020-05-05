@@ -13,8 +13,8 @@ import matplotlib.pyplot as plt
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
-file_num = "exp1_2"
-cameras = ["cam09"]
+file_num = "exp2_test"
+cameras = ["cam09", "cam11", "cam13"]
 
 detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.3, labels_to_keep=(2, ))
 
@@ -35,8 +35,8 @@ for camera in cameras:
     for im, imfile, frame_num in tqdm(
             utils.get_images_from_dir(src_folder,
                                       size=conf.size,
-                                      skip_init=800,
-                                      skip_end=10000,
+                                      skip_init=1,
+                                      skip_end=1,
                                       delta=1)):
         logging.info(f"processing : {imfile}")
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)

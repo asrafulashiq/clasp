@@ -1,5 +1,5 @@
 from manager.bin_manager import BinManager
-from manager.pax_manager import PAXManager
+# from manager.pax_manager import PAXManager
 from manager.detector import DummyDetector
 
 import pickle
