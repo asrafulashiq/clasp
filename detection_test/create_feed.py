@@ -11,10 +11,8 @@ import pandas as pd
 import skimage
 import shutil
 
-
 file_num = "exp2"
 cameras = ["cam09", "cam11"]
-
 
 out_folder = {}
 imlist = []
@@ -28,10 +26,9 @@ feed_folder.mkdir(exist_ok=True)
 # get latest log file
 list_of_files = glob.iglob("./logs/*.txt")
 logfile = max(list_of_files, key=os.path.getctime)
-log_data = pd.read_csv(
-    logfile, header=None, names=["filenum", "cam", "frame", "msg"]
-)
-
+log_data = pd.read_csv(logfile,
+                       header=None,
+                       names=["filenum", "cam", "frame", "msg"])
 
 vis_feed = VisFeed()
 
@@ -46,12 +43,10 @@ for cam in cameras:
     imlist.append(
         utils.get_images_from_dir(
             src_folder[cam],
-            skip_init=conf.skip_init,
+            start_frame=conf.start_frame,
             skip_end=conf.skip_end,
             delta=conf.delta,
-        )
-    )
-
+        ))
 
 for out1, out2 in tqdm(zip(*imlist)):
     im1, imfile1, _ = out1
@@ -72,4 +67,3 @@ for out1, out2 in tqdm(zip(*imlist)):
     skimage.io.imsave(str(f_write), im_feed)
 
 cv2.destroyAllWindows()
-

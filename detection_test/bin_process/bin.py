@@ -84,7 +84,6 @@ class Bin:
 
     @torch.no_grad()
     def update_tracker(self, frame):
-
         prev_pos = self.track_state["target_pos"]
         state = siamese_track(self.track_state,
                               frame,
@@ -107,10 +106,11 @@ class Bin:
         if status:
             x2, y2 = x + w, y + h
             bbox = [int(x), int(y), int(x2), int(y2)]
+            self.track_state = state
         else:
             # tracker failed
             bbox = None
-        self.track_state = state
+
         return status, bbox
 
     def clear_track(self):
@@ -218,15 +218,3 @@ class Bin:
         if self.pos == bin2.pos and self.label == bin2.label and self.state == bin2.state:
             return True
         return False
-
-    # def update_tracker(self, frame):
-    #     status, bb = self.tracker.update(frame)
-
-    #     if status:
-    #         x, y, w, h = bb
-    #         x2, y2 = x + w, y + h
-    #         bbox = [x, y, x2, y2]
-    #     else:
-    #         # tracker failed
-    #         bbox = None
-    #     return status, bbox

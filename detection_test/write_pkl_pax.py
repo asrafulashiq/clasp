@@ -10,7 +10,6 @@ from manager.detector_pax import PAXDetector
 import pickle
 import skimage
 
-
 log = logging.getLogger(__name__)
 log.setLevel(logging.DEBUG)
 
@@ -25,7 +24,8 @@ for camera in cameras:
     src_folder = Path(conf.root) / file_num / camera
     assert src_folder.exists()
 
-    out_folder = Path(conf.out_dir) / 'out_detection' / file_num / camera / 'pax'
+    out_folder = Path(
+        conf.out_dir) / 'out_detection' / file_num / camera / 'pax'
     out_folder.mkdir(parents=True, exist_ok=True)
 
     pickle_file = Path(conf.out_dir) / 'out_pkl' / \
@@ -34,8 +34,11 @@ for camera in cameras:
 
     _dict = {}
 
-    for im, imfile, frame_num in tqdm(utils.get_images_from_dir(src_folder, skip_init=200,
-                                                    skip_end=400, delta=5)):
+    for im, imfile, frame_num in tqdm(
+            utils.get_images_from_dir(src_folder,
+                                      start_frame=200,
+                                      skip_end=400,
+                                      delta=5)):
         logging.info(f'processing : {imfile}')
 
         new_im, boxes, scores, _class = detector.predict_box(im, show=True)

@@ -121,7 +121,7 @@ if __name__ == "__main__":
                 skip_init=conf.skip_init,
                 skip_end=conf.skip_end,
                 delta=conf.delta,
-                end_file=conf.end_file
+                end_frame=conf.end_frame
             )
         )
 

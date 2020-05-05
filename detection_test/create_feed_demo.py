@@ -2,7 +2,6 @@
 Main script for full demo
 """
 
-
 from pathlib import Path
 import cv2
 from tqdm import tqdm
@@ -18,7 +17,6 @@ import visutils.vis as vis
 from parse import parse
 from collections import defaultdict
 
-
 # PAX and Bin detection files
 bin_file = "./info/info_offset.csv"
 
@@ -32,6 +30,7 @@ nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
 
 def to_sec(frame, fps=30):
     return str(int(frame) // fps) + "s"
+
 
 class InfoClass:
     def __init__(self):
@@ -49,27 +48,37 @@ class InfoClass:
             "type",
             "msg",
         ]
-        self.df_bin = pd.read_csv(
-            str(bin_file), sep=",", header=None, names=bin_names, index_col=None
-        )
+        self.df_bin = pd.read_csv(str(bin_file),
+                                  sep=",",
+                                  header=None,
+                                  names=bin_names,
+                                  index_col=None)
 
         #!  CHECK OUT
         self.df_bin['frame'] = self.df_bin['frame']
         # self.df_bin[self.df_bin['camera'] == 'cam13']['frame'] -= 50
 
-        pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
+        pax_names = [
+            "frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"
+        ]
 
-        df_pax_9 = pd.read_csv(
-            str(pax_file_9), sep=",", header=None, names=pax_names, index_col=None
-        )
+        df_pax_9 = pd.read_csv(str(pax_file_9),
+                               sep=",",
+                               header=None,
+                               names=pax_names,
+                               index_col=None)
 
-        df_pax_11 = pd.read_csv(
-            str(pax_file_11), sep=",", header=None, names=pax_names, index_col=None
-        )
+        df_pax_11 = pd.read_csv(str(pax_file_11),
+                                sep=",",
+                                header=None,
+                                names=pax_names,
+                                index_col=None)
 
-        df_pax_13 = pd.read_csv(
-            str(pax_file_13), sep=",", header=None, names=pax_names, index_col=None
-        )
+        df_pax_13 = pd.read_csv(str(pax_file_13),
+                                sep=",",
+                                header=None,
+                                names=pax_names,
+                                index_col=None)
 
         # df_pax_13['frame'] = df_pax_13['frame']
 
@@ -117,8 +126,9 @@ class InfoClass:
                         self.dict_association[frame][bin_id] = pax_id
                         self.asso_info[bin_id][frame] = pax_id
 
-        
-        df_tmp = pd.read_csv(nu_file_cam11, header=None, names=["frame", "des"])
+        df_tmp = pd.read_csv(nu_file_cam11,
+                             header=None,
+                             names=["frame", "des"])
 
         for _, row in df_tmp.iterrows():
             frame = row["frame"]
@@ -146,9 +156,10 @@ class InfoClass:
         list_event_pax = []
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                list_info_pax.append(
-                    [row["id"], "pax", row["x1"], row["y1"], row["x2"], row["y2"]]
-                )
+                list_info_pax.append([
+                    row["id"], "pax", row["x1"], row["y1"], row["x2"],
+                    row["y2"]
+                ])
 
         # get bin info
         # Generally, bins are extracted for each odd frame
@@ -175,17 +186,15 @@ class InfoClass:
                             self.bin_pax[_id] = self.asso_info[_id][_f]
                 else:
                     pass
-                list_info_bin.append(
-                    [
-                        _id,
-                        "item",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                        self.bin_pax.get(_id, ""),
-                    ]
-                )
+                list_info_bin.append([
+                    _id,
+                    "item",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                    self.bin_pax.get(_id, ""),
+                ])
             else:  # event type
                 if row["frame"] != frame:
                     continue
@@ -194,14 +203,17 @@ class InfoClass:
                 if row["type"] not in ("enter", "exit"):
                     continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append([row["camera"][-2:], to_sec(row["frame"]), row["msg"]])
+                msglist.append(
+                    [row["camera"][-2:],
+                     to_sec(row["frame"]), row["msg"]])
             if frame in self.asso_msg:
                 rr = self.asso_msg[frame]
                 if rr[2] not in self.tmp:
                     msglist.append([rr[0], to_sec(rr[1]), rr[2]])
                     self.tmp.append(rr[2])
 
-        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax, msglist)
+        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
+                msglist)
 
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
@@ -259,17 +271,16 @@ if __name__ == "__main__":
         assert src_folder[cam].exists()
 
         if cam == "cam13":
-            conf.skip_init -= 50  # cam 13 lags by 50 frames
+            conf.start_frame -= 50  # cam 13 lags by 50 frames
 
         imlist.append(
             utils.get_images_from_dir(
                 src_folder[cam],
-                skip_init=conf.skip_init,
+                start_frame=conf.start_frame,
                 skip_end=conf.skip_end,
                 delta=conf.delta,
-                end_file=conf.end_file,
-            )
-        )
+                end_frame=conf.end_frame,
+            ))
 
     for out1, out2, out3 in tqdm(zip(*imlist)):
         im1, imfile1, _ = out1
@@ -280,19 +291,16 @@ if __name__ == "__main__":
 
         # draw image
         info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_from_frame(
-            frame_num, "cam09"
-        )
+            frame_num, "cam09")
         im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_from_frame(
-            frame_num, "cam11"
-        )
+            frame_num, "cam11")
         im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_from_frame(
-            frame_num3, "cam13"
-        )
+            frame_num3, "cam13")
         im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
 
         # get message

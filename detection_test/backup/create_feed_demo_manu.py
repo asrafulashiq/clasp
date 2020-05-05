@@ -17,7 +17,7 @@ from collections import defaultdict
 
 
 def to_sec(frame, fps=30):
-    return str(int(frame) // fps)+'s'
+    return str(int(frame) // fps) + 's'
 
 
 class InfoClass:
@@ -47,7 +47,9 @@ class InfoClass:
             index_col=None,
         )
 
-        pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
+        pax_names = [
+            "frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"
+        ]
 
         df_pax_9 = pd.read_csv(
             str(pax_file_9),
@@ -85,7 +87,10 @@ class InfoClass:
     def get_association_info(self):
         self.dict_association = defaultdict(dict)
         nu_file = "./info/cam_09_exp2_associated_events_manu.csv"
-        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"], index_col=None)
+        df_tmp = pd.read_csv(nu_file,
+                             header=None,
+                             names=["frame", "des"],
+                             index_col=None)
 
         for _, row in df_tmp.iterrows():
             frame = row["frame"]
@@ -111,16 +116,14 @@ class InfoClass:
 
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                list_info_pax.append(
-                    [
-                        row["id"],
-                        "pax",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                    ]
-                )
+                list_info_pax.append([
+                    row["id"],
+                    "pax",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                ])
 
         # get bin info
         if frame % 2 == 0:
@@ -134,24 +137,20 @@ class InfoClass:
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 _id = "B" + str(row["id"])
-                if (
-                    frame in self.dict_association
-                    and _id in self.dict_association[frame]
-                ):
+                if (frame in self.dict_association
+                        and _id in self.dict_association[frame]):
                     self.bin_pax[_id] = self.dict_association[frame][_id]
                 else:
                     pass
-                list_info_bin.append(
-                    [
-                        _id,
-                        "item",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                        self.bin_pax.get(_id, ""),
-                    ]
-                )
+                list_info_bin.append([
+                    _id,
+                    "item",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                    self.bin_pax.get(_id, ""),
+                ])
 
             else:  # event type
                 if row["frame"] != frame:
@@ -162,18 +161,14 @@ class InfoClass:
                 bin_inc = ('B9', 'B10', 'B11', 'B12', 'B13', 'B15', 'B16')
                 for each_ii in bin_inc:
                     if each_ii in row['msg']:
-                        msglist.append(
-                            [row["camera"][-2:], to_sec(row["frame"]), row["msg"]]
-                        )
+                        msglist.append([
+                            row["camera"][-2:],
+                            to_sec(row["frame"]), row["msg"]
+                        ])
                         break
 
-        return (
-            list_info_bin,
-            list_info_pax,
-            list_event_bin,
-            list_event_pax,
-            msglist
-        )
+        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
+                msglist)
 
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5, cam='cam09'):
         for each_i in info_bin:
@@ -181,20 +176,18 @@ class InfoClass:
             _inc = ('B9', 'B10', 'B11', 'B12', 'B13', 'B15', 'B16')
 
             if each_i[0] in _inc:
-                im = vis.vis_bbox_with_str(
-                    im,
-                    bbox,
-                    each_i[0],
-                    each_i[-1],
-                    color=(33, 217, 14),
-                    thick=2,
-                    font_scale=font_scale,
-                    color_txt=(252, 3, 69)
-                )
+                im = vis.vis_bbox_with_str(im,
+                                           bbox,
+                                           each_i[0],
+                                           each_i[-1],
+                                           color=(33, 217, 14),
+                                           thick=2,
+                                           font_scale=font_scale,
+                                           color_txt=(252, 3, 69))
 
-        conv_pax = {'P9':'P12', 'P13':'P13', 'P15':'P14'}
+        conv_pax = {'P9': 'P12', 'P13': 'P13', 'P15': 'P14'}
         for each_i in info_pax:
-            if cam=='cam09':
+            if cam == 'cam09':
                 _inc = ('P12', 'P13', 'P14')
             else:
                 _inc = ('P9', 'P13', 'P15')
@@ -202,16 +195,14 @@ class InfoClass:
                 if cam == 'cam11':
                     each_i[0] = conv_pax[each_i[0]]
                 bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
-                im = vis.vis_bbox_with_str(
-                    im,
-                    bbox,
-                    each_i[0],
-                    None,
-                    color=(23, 23, 246),
-                    thick=2,
-                    font_scale=font_scale,
-                    color_txt=(252, 211, 3)
-                )
+                im = vis.vis_bbox_with_str(im,
+                                           bbox,
+                                           each_i[0],
+                                           None,
+                                           color=(23, 23, 246),
+                                           thick=2,
+                                           font_scale=font_scale,
+                                           color_txt=(252, 211, 3))
         return im
 
 
@@ -222,8 +213,8 @@ if __name__ == "__main__":
     out_folder = {}
     imlist = []
 
-    conf.skip_init = 1580
-    conf.end_file = 3600
+    conf.start_frame = 1580
+    conf.end_frame = 3600
 
     feed_folder = Path(conf.out_dir) / "demo" / "feed_manu"
     if feed_folder.exists():
@@ -249,12 +240,11 @@ if __name__ == "__main__":
         imlist.append(
             utils.get_images_from_dir(
                 src_folder[cam],
-                skip_init=conf.skip_init,
+                start_frame=conf.start_frame,
                 skip_end=conf.skip_end,
                 delta=conf.delta,
-                end_file=conf.end_file,
-            )
-        )
+                end_frame=conf.end_frame,
+            ))
 
     for out1, out2 in tqdm(zip(*imlist)):
         im1, imfile1, _ = out1
@@ -264,16 +254,20 @@ if __name__ == "__main__":
 
         # draw image
         info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_fram_frame(
-            frame_num, "cam09"
-        )
-        im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75, cam='cam09')
-
+            frame_num, "cam09")
+        im1 = Info.draw_im(im1,
+                           info_bin,
+                           info_pax,
+                           font_scale=0.75,
+                           cam='cam09')
 
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_fram_frame(
-            frame_num, "cam11"
-        )
-        im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7, cam='cam11')
-
+            frame_num, "cam11")
+        im2 = Info.draw_im(im2,
+                           info_bin,
+                           info_pax,
+                           font_scale=0.7,
+                           cam='cam11')
 
         # get message
         msglist.extend(mlist)
@@ -281,5 +275,3 @@ if __name__ == "__main__":
 
         f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
         skimage.io.imsave(str(f_write), im_feed)
-
-

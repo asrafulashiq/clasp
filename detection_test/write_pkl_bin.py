@@ -35,7 +35,7 @@ for camera in cameras:
 
     for im, imfile, frame_num in tqdm(utils.get_images_from_dir(src_folder,
                                                                 size=conf.size,
-                                                                skip_init=400,
+                                                                start_frame=400,
                                                                 skip_end=5000, delta=5)):
         logging.info(f'processing : {imfile}')
 

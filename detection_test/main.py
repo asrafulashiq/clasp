@@ -42,33 +42,33 @@ for cam in cameras:
     out_folder[cam].mkdir(parents=True, exist_ok=True)
 
     if cam == "cam13":
-        skip_init = conf.skip_init - 50
+        start_frame = conf.start_frame - 50
     else:
-        skip_init = conf.skip_init
+        start_frame = conf.start_frame
 
     imfiles = utils.get_fp_from_dir(src_folder[cam],
                                     out_folder=out_folder[cam],
-                                    skip_init=skip_init,
+                                    start_frame=start_frame,
                                     skip_end=conf.skip_end,
-                                    delta=conf.delta,
-                                    end_file=conf.end_file)
+                                    delta=1,
+                                    end_frame=conf.end_frame)
     for fp in imfiles[1:]:
         if os.path.exists(fp):
             os.remove(str(fp))
 
     imlist.append(
         utils.get_images_from_dir(src_folder[cam],
-                                  skip_init=skip_init,
+                                  start_frame=start_frame,
                                   skip_end=conf.skip_end,
                                   delta=conf.delta,
-                                  end_file=conf.end_file))
+                                  end_frame=conf.end_frame))
 
 # Process
 
 for counter, ret in enumerate(tqdm(zip(*imlist))):
     out1, = ret
     # out1, out2, out3 = ret
-    if conf.info is not None:
+    if conf.info is not None and os.path.exists(conf.info):
         im, imfile, frame_num = out1
         manager.load_info(conf.info, frame_num, im, camera=cameras[0])
 

@@ -52,22 +52,29 @@ def load_dataset(dataset):
             gt_path = join(video_path, 'groundtruth.txt')
             gt = np.loadtxt(gt_path, delimiter=',').astype(np.float64)
             if gt.shape[1] == 4:
-                gt = np.column_stack((gt[:, 0], gt[:, 1], gt[:, 0], gt[:, 1] + gt[:, 3]-1,
-                                      gt[:, 0] + gt[:, 2]-1, gt[:, 1] + gt[:, 3]-1, gt[:, 0] + gt[:, 2]-1, gt[:, 1]))
+                gt = np.column_stack(
+                    (gt[:, 0], gt[:, 1], gt[:, 0], gt[:, 1] + gt[:, 3] - 1,
+                     gt[:, 0] + gt[:, 2] - 1, gt[:, 1] + gt[:, 3] - 1,
+                     gt[:, 0] + gt[:, 2] - 1, gt[:, 1]))
             info[video] = {'image_files': image_files, 'gt': gt, 'name': video}
     elif 'DAVIS' in dataset and 'TEST' not in dataset:
         base_path = join(realpath(dirname(__file__)), '../data', 'DAVIS')
-        list_path = join(realpath(dirname(__file__)), '../data', 'DAVIS', 'ImageSets', dataset[-4:], 'val.txt')
+        list_path = join(realpath(dirname(__file__)), '../data', 'DAVIS',
+                         'ImageSets', dataset[-4:], 'val.txt')
         with open(list_path) as f:
             videos = [v.strip() for v in f.readlines()]
         for video in videos:
             info[video] = {}
-            info[video]['anno_files'] = sorted(glob.glob(join(base_path, 'Annotations/480p', video, '*.png')))
-            info[video]['image_files'] = sorted(glob.glob(join(base_path, 'JPEGImages/480p', video, '*.jpg')))
+            info[video]['anno_files'] = sorted(
+                glob.glob(join(base_path, 'Annotations/480p', video, '*.png')))
+            info[video]['image_files'] = sorted(
+                glob.glob(join(base_path, 'JPEGImages/480p', video, '*.jpg')))
             info[video]['name'] = video
     elif 'ytb_vos' in dataset:
-        base_path = join(realpath(dirname(__file__)), '../data', 'ytb_vos', 'valid')
-        json_path = join(realpath(dirname(__file__)), '../data', 'ytb_vos', 'valid', 'meta.json')
+        base_path = join(realpath(dirname(__file__)), '../data', 'ytb_vos',
+                         'valid')
+        json_path = join(realpath(dirname(__file__)), '../data', 'ytb_vos',
+                         'valid', 'meta.json')
         meta = json.load(open(json_path, 'r'))
         meta = meta['videos']
         info = dict()
@@ -80,27 +87,40 @@ def load_dataset(dataset):
                 frames += objects[obj]['frames']
                 anno_frames += [objects[obj]['frames'][0]]
             frames = sorted(np.unique(frames))
-            info[v]['anno_files'] = [join(base_path, 'Annotations', v, im_f+'.png') for im_f in frames]
-            info[v]['anno_init_files'] = [join(base_path, 'Annotations', v, im_f + '.png') for im_f in anno_frames]
-            info[v]['image_files'] = [join(base_path, 'JPEGImages', v, im_f+'.jpg') for im_f in frames]
+            info[v]['anno_files'] = [
+                join(base_path, 'Annotations', v, im_f + '.png')
+                for im_f in frames
+            ]
+            info[v]['anno_init_files'] = [
+                join(base_path, 'Annotations', v, im_f + '.png')
+                for im_f in anno_frames
+            ]
+            info[v]['image_files'] = [
+                join(base_path, 'JPEGImages', v, im_f + '.jpg')
+                for im_f in frames
+            ]
             info[v]['name'] = v
 
             info[v]['start_frame'] = dict()
             info[v]['end_frame'] = dict()
             for obj in objects:
                 start_file = objects[obj]['frames'][0]
-                end_file = objects[obj]['frames'][-1]
+                end_frame = objects[obj]['frames'][-1]
                 info[v]['start_frame'][obj] = frames.index(start_file)
-                info[v]['end_frame'][obj] = frames.index(end_file)
+                info[v]['end_frame'][obj] = frames.index(end_frame)
     elif 'TEST' in dataset:
-        base_path = join(realpath(dirname(__file__)), '../data', 'DAVIS2017TEST')
-        list_path = join(realpath(dirname(__file__)), '../data', 'DAVIS2017TEST', 'ImageSets', '2017', 'test-dev.txt')
+        base_path = join(realpath(dirname(__file__)), '../data',
+                         'DAVIS2017TEST')
+        list_path = join(realpath(dirname(__file__)), '../data',
+                         'DAVIS2017TEST', 'ImageSets', '2017', 'test-dev.txt')
         with open(list_path) as f:
             videos = [v.strip() for v in f.readlines()]
         for video in videos:
             info[video] = {}
-            info[video]['anno_files'] = sorted(glob.glob(join(base_path, 'Annotations/480p', video, '*.png')))
-            info[video]['image_files'] = sorted(glob.glob(join(base_path, 'JPEGImages/480p', video, '*.jpg')))
+            info[video]['anno_files'] = sorted(
+                glob.glob(join(base_path, 'Annotations/480p', video, '*.png')))
+            info[video]['image_files'] = sorted(
+                glob.glob(join(base_path, 'JPEGImages/480p', video, '*.jpg')))
             info[video]['name'] = video
     else:
         logging.error('Not support')

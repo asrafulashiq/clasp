@@ -12,12 +12,9 @@ import pandas as pd
 import visutils.vis as vis
 from parse import parse
 from collections import defaultdict
-
-
-# Experiment 
+# Experiment
 file_num = "exp2_train"
 cameras = ["cam09", "cam11", "cam13"]
-
 
 # PAX and Bin detection files
 bin_file = "./info/info_offset.csv"
@@ -31,27 +28,35 @@ nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
 nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
 
 
-
 def to_sec(frame, fps=30):
     return str(int(frame) // fps) + "s"
+
 
 class IntegratorClass:
     def __init__(self):
 
         # load bin
-        self.df_bin = self.load_bin()        
+        self.df_bin = self.load_bin()
 
         # load pax info
-        pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
-        df_pax_9 = pd.read_csv(
-            str(pax_file_9), sep=",", header=None, names=pax_names, index_col=None
-        )
-        df_pax_11 = pd.read_csv(
-            str(pax_file_11), sep=",", header=None, names=pax_names, index_col=None
-        )
-        df_pax_13 = pd.read_csv(
-            str(pax_file_13), sep=",", header=None, names=pax_names, index_col=None
-        )
+        pax_names = [
+            "frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"
+        ]
+        df_pax_9 = pd.read_csv(str(pax_file_9),
+                               sep=",",
+                               header=None,
+                               names=pax_names,
+                               index_col=None)
+        df_pax_11 = pd.read_csv(str(pax_file_11),
+                                sep=",",
+                                header=None,
+                                names=pax_names,
+                                index_col=None)
+        df_pax_13 = pd.read_csv(str(pax_file_13),
+                                sep=",",
+                                header=None,
+                                names=pax_names,
+                                index_col=None)
         self.tmp_msg = []
 
         self.df_pax = pd.concat((df_pax_9, df_pax_11, df_pax_13))
@@ -60,14 +65,11 @@ class IntegratorClass:
         # get association info
         self.asso_info = {}
         self.asso_info["cam09"], self.asso_msg = self.get_association_info(
-            nu_file_cam9, "09"
-        )
+            nu_file_cam9, "09")
         self.asso_info["cam11"], asso_msg_11 = self.get_association_info(
-            nu_file_cam11, "11"
-        )
+            nu_file_cam11, "11")
         self.asso_info["cam13"], asso_msg_13 = self.get_association_info(
-            nu_file_cam13, "13"
-        )
+            nu_file_cam13, "13")
         self.asso_msg.update(asso_msg_11)
         self.asso_msg.update(asso_msg_13)
 
@@ -93,9 +95,11 @@ class IntegratorClass:
             "type",
             "msg",
         ]
-        df = pd.read_csv(
-            str(bin_file), sep=",", header=None, names=bin_names, index_col=None
-        )
+        df = pd.read_csv(str(bin_file),
+                         sep=",",
+                         header=None,
+                         names=bin_names,
+                         index_col=None)
 
         # load location type
         df_new = df[df["type"] == "loc"].copy()
@@ -108,7 +112,6 @@ class IntegratorClass:
         # change detection offset
         df_comb = df_comb.sort_values("frame")
         return df_comb
-
 
     def refine_pax_df(self):
         df = self.df_pax
@@ -144,7 +147,6 @@ class IntegratorClass:
                         asso_info[bin_id][frame] = pax_id
         return asso_info, asso_msg
 
-
     def get_info_from_frame(self, frame, cam="cam09"):
 
         logs = []
@@ -157,9 +159,10 @@ class IntegratorClass:
         list_event_pax = []
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                list_info_pax.append(
-                    [row["id"], "pax", row["x1"], row["y1"], row["x2"], row["y2"]]
-                )
+                list_info_pax.append([
+                    row["id"], "pax", row["x1"], row["y1"], row["x2"],
+                    row["y2"]
+                ])
                 first_used = False
                 if row["id"] in self.item_first_used:
                     first_used = True
@@ -170,10 +173,10 @@ class IntegratorClass:
                     pax_type = "PAX"
                 log = (
                     f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
-                    + f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
-                    + f"ID: {row['id']} PAX-ID: NA first-used: {first_used} "
-                    + "partial-complete: NA"
-                )
+                    +
+                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                    + f"ID: {row['id']} PAX-ID: NA first-used: {first_used} " +
+                    "partial-complete: NA")
                 logs.append(log)
 
         # get bin info
@@ -200,23 +203,22 @@ class IntegratorClass:
                 if _id in self.item_first_used:
                     first_used = True
                     self.item_first_used.append(_id)
-                list_info_bin.append(
-                    [
-                        _id,
-                        "item",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                        self.bin_pax.get(_id, ""),
-                    ]
-                )
+                list_info_bin.append([
+                    _id,
+                    "item",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                    self.bin_pax.get(_id, ""),
+                ])
                 log = (
                     f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
-                    + f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
-                    + f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} first-used: {first_used} "
-                    + "partial-complete: NA"
-                )
+                    +
+                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                    +
+                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} first-used: {first_used} "
+                    + "partial-complete: NA")
                 logs.append(log)
             else:  # event type
                 if (row["type"] == "enter" and cam == "cam09") or \
@@ -226,8 +228,10 @@ class IntegratorClass:
                     _type = "TO" if cam == "cam09" else "FROM"
                     log = (
                         f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
-                        + f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
-                        + f"owner-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: False"
+                        +
+                        f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                        +
+                        f"owner-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: False"
                     )
                     logs.append(log)
                     continue
@@ -235,7 +239,9 @@ class IntegratorClass:
                 if row["type"] not in ("enter", "exit"):
                     continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append([row["camera"][-2:], to_sec(row["frame"]), row["msg"]])
+                msglist.append(
+                    [row["camera"][-2:],
+                     to_sec(row["frame"]), row["msg"]])
 
             if frame in self.asso_msg:
                 rr = self.asso_msg[frame]
@@ -243,9 +249,9 @@ class IntegratorClass:
                     msglist.append([rr[0], to_sec(rr[1]), rr[2]])
                     self.tmp.append(rr[2])
 
-        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax, msglist,
-                    logs)
-    
+        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
+                msglist, logs)
+
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
@@ -300,20 +306,17 @@ if __name__ == "__main__":
         assert src_folder[cam].exists()
 
         if cam == "cam13":
-            skip_init = conf.skip_init - 50  # cam 13 lags by 50 frames from cam 09 and 11
+            start_frame = conf.start_frame - 50  # cam 13 lags by 50 frames from cam 09 and 11
         else:
-            skip_init = conf.skip_init
+            start_frame = conf.start_frame
 
         imlist.append(
-            utils.get_images_from_dir(
-                src_folder[cam],
-                skip_init=skip_init,
-                skip_end=conf.skip_end,
-                delta=conf.delta,
-                end_file=conf.end_file,
-                file_only=(not conf.plot)
-            )
-        )
+            utils.get_images_from_dir(src_folder[cam],
+                                      start_frame=start_frame,
+                                      skip_end=conf.skip_end,
+                                      delta=conf.delta,
+                                      end_frame=conf.end_frame,
+                                      file_only=(not conf.plot)))
 
     full_log_cam09 = []
     full_log_cam11 = []
@@ -328,16 +331,14 @@ if __name__ == "__main__":
 
         # Cam 09
         info_bin, info_pax, event_bin, event_pax, msglist, logs = Info.get_info_from_frame(
-            frame_num, "cam09"
-        )
+            frame_num, "cam09")
         full_log_cam09.extend(logs)
         if conf.plot:
             im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
-            frame_num, "cam11"
-        )
+            frame_num, "cam11")
         full_log_cam11.extend(logs)
         if conf.plot:
             im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
@@ -345,8 +346,7 @@ if __name__ == "__main__":
         # Cam 13
         frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
-            frame_num3, "cam13"
-        )
+            frame_num3, "cam13")
         full_log_cam13.extend(logs)
         if conf.plot:
             im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
@@ -369,5 +369,3 @@ if __name__ == "__main__":
 
     with open("ata_cam13.txt", "w") as fp:
         fp.write("\n".join(full_log_cam13))
-
-

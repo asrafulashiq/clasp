@@ -1,6 +1,7 @@
 import argparse
 import os
 import sys
+from os.path import expanduser
 
 _HOME = os.environ["HOME"]
 
@@ -24,7 +25,7 @@ def get_arg():
     parser.add_argument(
         "--bin-ckpt",
         type=str,
-        default=_HOME + "/dataset/ALERT/trained_model/model_cam9.pkl",
+        default=_HOME + "/dataset/ALERT/trained_model/model.pkl",
     )
 
     parser.add_argument("--write", action="store_false")
@@ -42,15 +43,16 @@ def get_arg():
 
     parser.add_argument(
         "--info",
-        # default="/data/home/islama6/dataset/ALERT/clasp_data/output/run/info.csv",
-        default=None,
+        default=
+        "/data/home/islama6/dataset/ALERT/clasp_data/output/run/info.csv",
+        # default=None,
         type=str,
         help="info file to save/load",
     )
 
-    parser.add_argument("--skip-init", type=int, default=3390)
-    parser.add_argument("--skip-end", type=int, default=5000)
-    parser.add_argument("--end-file", type=int, default=None)
+    parser.add_argument("--start-frame", type=int, default=2060)
+    parser.add_argument("--skip-end", type=int, default=None)
+    parser.add_argument("--end-frame", type=int, default=8000)
     parser.add_argument("--delta", type=int, default=2)
     parser.add_argument("--plot", action="store_true")
 
@@ -59,3 +61,7 @@ def get_arg():
 
 conf = get_arg()
 conf.size = [int(x) for x in conf.size.split("x")]
+conf.root = expanduser(conf.root)
+conf.out_dir = expanduser(conf.out_dir)
+conf.bin_ckpt = expanduser(conf.bin_ckpt)
+conf.info = expanduser(conf.info) if conf.info is not None else None

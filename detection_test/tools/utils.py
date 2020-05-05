@@ -7,7 +7,6 @@ import skimage
 import skimage.io
 
 
-
 def plot_cv(image, axes=None, show=True, fig_number=None):
     """ plot cv2 images  """
     if axes is None:
@@ -24,21 +23,23 @@ def plot_cv(image, axes=None, show=True, fig_number=None):
     return axes
 
 
-def get_images_from_dir(
-    src_dir, size=(640, 360), skip_init=0, skip_end=0, end_file=None, delta=1,
-    fmt="{:06d}.jpg", file_only=False
-):
+def get_images_from_dir(src_dir,
+                        size=(640, 360),
+                        start_frame=0,
+                        skip_end=0,
+                        end_frame=None,
+                        delta=1,
+                        fmt="{:06d}.jpg",
+                        file_only=False):
     """ get images as numpy array from a folder"""
-
-    files_in_dir = sorted(list(src_dir.iterdir()))
-    if end_file is None:
-        frame_list = range(skip_init + 1, len(files_in_dir) - skip_end, delta)
+    if end_frame is None:
+        files_in_dir = sorted(list(src_dir.iterdir()))
+        frame_list = range(start_frame, len(files_in_dir) - skip_end, delta)
     else:
-        frame_list = range(skip_init + 1, end_file, delta)
-
+        frame_list = range(start_frame, end_frame + 1, delta)
 
     for frame_num in frame_list:
-        imfile = pathlib.Path(files_in_dir[0].parent) / fmt.format(frame_num)
+        imfile = pathlib.Path(src_dir) / fmt.format(frame_num)
         if not imfile.exists():
             print(imfile, "does not exist")
             continue
@@ -46,25 +47,30 @@ def get_images_from_dir(
             image = None
         else:
             image = skimage.io.imread(str(imfile))
-            image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
+            image = cv2.resize(image,
+                               tuple(size),
+                               interpolation=cv2.INTER_LINEAR)
         yield image, imfile, frame_num
 
 
-def get_fp_from_dir(
-    src_dir, out_folder, skip_init=0, skip_end=0, end_file=None, delta=1,
-    fmt="{:06d}.jpg"
-):
+def get_fp_from_dir(src_dir,
+                    out_folder,
+                    start_frame=1,
+                    skip_end=0,
+                    end_frame=None,
+                    delta=1,
+                    fmt="{:06d}.jpg"):
     """ get images as numpy array from a folder"""
 
-    files_in_dir = sorted(list(src_dir.iterdir()))
-    if end_file is None:
-        frame_list = range(skip_init + 1, len(files_in_dir) - skip_end, delta)
+    if end_frame is None:
+        files_in_dir = sorted(list(src_dir.iterdir()))
+        frame_list = range(start_frame, len(files_in_dir) - skip_end, delta)
     else:
-        frame_list = range(skip_init + 1, end_file, delta)
+        frame_list = range(start_frame, end_frame + 1, delta)
 
     files = []
     for frame_num in frame_list:
-        imfile = pathlib.Path(files_in_dir[0].parent) / fmt.format(frame_num)
+        imfile = pathlib.Path(src_dir) / fmt.format(frame_num)
         if not imfile.exists():
             print(imfile, "does not exist")
             continue
