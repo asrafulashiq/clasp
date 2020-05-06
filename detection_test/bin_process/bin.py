@@ -138,6 +138,10 @@ class Bin:
     def label(self):
         return self._label
 
+    @label.setter
+    def label(self, _l):
+        self._label = _l
+
     @property
     def state(self):
         return "items"

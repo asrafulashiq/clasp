@@ -33,7 +33,7 @@ def load_siammask():
     return siammask, cfg_siam
 
 
-file_num = "exp2_test"
+file_num = "exp2_train"
 cameras = ["cam09"]
 
 imlist = []
@@ -70,7 +70,7 @@ for f, ret in enumerate(tqdm(zip(*imlist))):
 
     # Cam 09
     im, imfile, frame_num = out1
-    im = im[::-1]
+    im = im[..., ::-1]
 
     if f == 0:  # init
         init_rect = cv2.selectROI('SiamMask', im, False, False)
@@ -96,6 +96,6 @@ for f, ret in enumerate(tqdm(zip(*imlist))):
         cv2.polylines(cv2.UMat(im), [np.int0(location).reshape((-1, 1, 2))],
                       True, (0, 255, 0), 3)
         cv2.imshow('SiamMask', im)
-        key = cv2.waitKey(1)
+        key = cv2.waitKey(10)
         if key > 0:
             break
