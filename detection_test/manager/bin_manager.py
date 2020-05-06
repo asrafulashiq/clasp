@@ -41,6 +41,7 @@ class BinManager:
         self.current_frame = -1
 
         self._empty_bins = []
+        self._dummy_bin_count = collections.defaultdict(int)
 
     @property
     def detector(self):
@@ -163,6 +164,7 @@ class BinManager:
         return iter(self._current_bins)
 
     def add_bin(self, box, cls, im):
+
         self._bin_count += 1
         label = self._bin_count
         state = cls
@@ -208,6 +210,12 @@ class BinManager:
             except IndexError:
                 state = "items"
                 return
+
+        self._dummy_bin_count[label] += 1
+
+        if self._dummy_bin_count[label] < 5:
+            self._bin_count -= 1
+            return
 
         new_bin = Bin(
             label=label,

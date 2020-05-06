@@ -98,7 +98,7 @@ class Bin:
 
         distance = np.linalg.norm(prev_pos - target_pos)
 
-        if distance > 90:  # NOTE: is this too large?
+        if distance > 60:  # NOTE: is this too large?
             status = False
         else:
             status = True
