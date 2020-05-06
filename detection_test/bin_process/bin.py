@@ -87,7 +87,7 @@ class Bin:
         prev_pos = self.track_state["target_pos"]
         state = siamese_track(self.track_state,
                               frame,
-                              mask_enable=False,
+                              mask_enable=True,
                               refine_enable=True,
                               device=self.device)  # track
         target_pos = state["target_pos"]
@@ -98,7 +98,7 @@ class Bin:
 
         distance = np.linalg.norm(prev_pos - target_pos)
 
-        if distance > 90:
+        if distance > 90:  # NOTE: is this too large?
             status = False
         else:
             status = True

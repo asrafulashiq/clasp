@@ -7,14 +7,17 @@ _WHITE = (255, 255, 255)
 _RED = (255, 10, 10)
 _BLUE = (10, 10, 255)
 
-
 class_to_color = {"passengers": _BLUE, "items": _GREEN, "other": _RED}
 
 
-def vis_class_label(
-    img, pos, class_str, label, color=_RED, font_scale=0.5, thickness=1,
-    color_str=_RED
-):
+def vis_class_label(img,
+                    pos,
+                    class_str,
+                    label,
+                    color=_RED,
+                    font_scale=0.5,
+                    thickness=1,
+                    color_str=_RED):
     """Visualizes the class."""
     img = img.astype(np.uint8)
     x0, y0 = int(pos[0]), int(pos[1])
@@ -44,9 +47,8 @@ def vis_class_label(
 
     # put label
     if label:
-        ((lbl_w, lbl_h), _) = cv2.getTextSize(
-            str(label), font, 1.2 * font_scale, thickness
-        )
+        ((lbl_w, lbl_h), _) = cv2.getTextSize(str(label), font,
+                                              1.2 * font_scale, thickness)
         lbl_tl = (
             int((x0 + x1) / 2) - int(0.3 * lbl_w),
             int((y0 + y1) / 2) - int(0 * lbl_h),
@@ -74,9 +76,8 @@ def vis_txt(img, pos, txt, color=_RED, font_scale=0.5, thickness=1, y_pad=0):
     font = cv2.FONT_HERSHEY_SIMPLEX
 
     # put label
-    ((lbl_w, lbl_h), _) = cv2.getTextSize(
-        str(txt), font, font_scale, thickness
-    )
+    ((lbl_w, lbl_h), _) = cv2.getTextSize(str(txt), font, font_scale,
+                                          thickness)
     lbl_tl = (
         int((x0 + x1) / 2) - int(0.3 * lbl_w),
         int((y0 + y1) / 2) + int(y_pad * lbl_h),
@@ -88,7 +89,7 @@ def vis_txt(img, pos, txt, color=_RED, font_scale=0.5, thickness=1, y_pad=0):
         font,
         font_scale,
         color,
-        thickness=thickness//2,
+        thickness=thickness // 2,
         lineType=cv2.LINE_AA,
     )
 
@@ -112,8 +113,14 @@ def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
 
 
 def vis_bbox_with_str(
-    img, bbox, label, belongs_to=None, color=_RED, thick=2, font_scale=0.5,
-    color_txt = None,
+        img,
+        bbox,
+        label,
+        belongs_to=None,
+        color=_RED,
+        thick=2,
+        font_scale=0.5,
+        color_txt=None,
 ):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
@@ -124,8 +131,8 @@ def vis_bbox_with_str(
         img,
         bbox,
         str(label),
-        color= color_txt,
-        thickness=thick*2,
+        color=color_txt,
+        thickness=thick * 2,
         font_scale=font_scale,
     )
 
@@ -134,11 +141,10 @@ def vis_bbox_with_str(
             img,
             bbox,
             str(belongs_to),
-            color= color_txt, #(0, 255, 150),
-            thickness=thick*2,
-            font_scale=font_scale*0.7,
-            y_pad=1.5
-        )   
+            color=color_txt,  #(0, 255, 150),
+            thickness=thick * 2,
+            font_scale=font_scale * 0.7,
+            y_pad=1.5)
 
     return img
 
@@ -152,15 +158,25 @@ def vis_bins(img, bins):
 
         if hasattr(bin, 'track_state'):
             if bin.track_state is not None and 'mask' in bin.track_state:
-                mask = bin.track_state['mask'] 
+                mask = bin.track_state['mask']
                 if len(mask) > 0:
                     mask = mask > 0.3
                     im_mask = np.zeros_like(img)
                     im_mask[mask] = (255, 255, 110)
-                    cv2.addWeighted(im_mask, 0.3, img, 1, 0, img)                
+                    cv2.addWeighted(im_mask, 0.3, img, 1, 0, img)
 
-        img = vis_class_label(img, bbox, cls, label, color_str=(255,0,0), font_scale=0.7,
-            thickness=2)
+                    location = bin.track_state['ploygon'].flatten()
+                    img = cv2.polylines(
+                        img, [np.int0(location).reshape(
+                            (-1, 1, 2))], True, (0, 255, 0), 3)
+
+        img = vis_class_label(img,
+                              bbox,
+                              cls,
+                              label,
+                              color_str=(255, 0, 0),
+                              font_scale=0.7,
+                              thickness=2)
 
     return img
 

@@ -336,7 +336,8 @@ class BinManager:
             M_iou = np.array(M_iou)
             M_iou[M_iou < self._min_iou] = 0
 
-            box_ind_min = utils_box.get_min_ind_row(M_iou, thres=0.5)
+            box_ind_min = utils_box.get_min_ind_row(
+                M_iou, thres=0.5)  # NOTE: Is this too small thres
             counter_box_ind_min = collections.Counter(box_ind_min)
             for bcount, bin in enumerate(self._current_bins):
                 status, _bb_track = bin.update_tracker(im)
