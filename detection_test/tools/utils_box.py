@@ -4,6 +4,7 @@ Module for utility functions of bounding box processing
 
 import math
 
+
 def iou_bbox(bbox1, bbox2, ratio_type='comb'):
     """Intersection of two bounding boxes
 
@@ -43,16 +44,17 @@ def iou_bbox(bbox1, bbox2, ratio_type='comb'):
         area_combined = area_a + area_b - area_overlap
 
     # RATIO OF AREA OF OVERLAP OVER COMBINED AREA
-    iou = area_overlap / (area_combined+1e-5)
+    iou = area_overlap / (area_combined + 1e-5)
     return iou
 
 
 def dist(x1, y1, x2, y2):
     """ distance between two points  """
-    return math.sqrt((x1-x2)**2 + (y1-y2)**2)
+    return math.sqrt((x1 - x2)**2 + (y1 - y2)**2)
 
 
 import numpy as np
+
 
 def get_min_ind(M):
     r, c = M.shape
@@ -71,4 +73,27 @@ def get_min_ind(M):
             out[cr] = cc
             Mc[cr, :] = 0
             Mc[:, cc] = 0
-    return out
+    return out.astype(int)
+
+
+def get_min_ind_row(M, thres=0.6):
+    r, c = M.shape
+    Mc = M.copy()
+    M_f = M.flatten()
+    ind_sort = np.argsort(-M_f)
+    row_processed = []
+
+    out = np.ones(r) * (-1)
+
+    for i in range(ind_sort.shape[0]):
+        ind = ind_sort[i]
+        cr, cc = np.unravel_index(ind, (r, c))
+        if Mc[cr, cc] > 0:
+            row_processed.append(cr)
+            out[cr] = cc
+            Mc[cr, :] = 0
+
+            _tmp_ind = Mc[:, cc] < thres
+            Mc[_tmp_ind, cc] = 0
+
+    return out.astype(int)

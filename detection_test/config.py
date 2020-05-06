@@ -50,10 +50,10 @@ def get_arg():
         help="info file to save/load",
     )
 
-    parser.add_argument("--start-frame", type=int, default=7918)
+    parser.add_argument("--start-frame", type=int, default=10420)
     parser.add_argument("--skip-end", type=int, default=0)
-    parser.add_argument("--end-frame", type=int, default=None)
-    parser.add_argument("--delta", type=int, default=2)
+    parser.add_argument("--end-frame", type=int, default=12000)
+    parser.add_argument("--delta", type=int, default=1)
     parser.add_argument("--plot", action="store_true")
 
     return parser.parse_args()

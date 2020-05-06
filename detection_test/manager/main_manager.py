@@ -209,6 +209,8 @@ class Manager:
             index_col=None,
         )
 
+        df = df.drop(df[df['frame'] == 'None'].index)
+        df['frame'] = df['frame'].astype(int)
         list_info = self.get_info_from_frame(df, frame_num, camera)
         self._bin_managers[camera].add_info(list_info, image)
         self.write_info_upto_frame(df, frame_num, camera)

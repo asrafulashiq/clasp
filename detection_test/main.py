@@ -108,5 +108,5 @@ for counter, ret in enumerate(tqdm(zip(*imlist))):
     if conf.write:
         manager.write_info()
 
-if conf.write:
-    manager.final_write()
+# if conf.write:
+#     manager.final_write()

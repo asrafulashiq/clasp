@@ -98,7 +98,7 @@ class Bin:
 
         distance = np.linalg.norm(prev_pos - target_pos)
 
-        if distance > 30:
+        if distance > 90:
             status = False
         else:
             status = True

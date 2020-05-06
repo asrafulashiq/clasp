@@ -3,7 +3,7 @@
 import logging
 import os
 import numpy as np
-
+import collections
 from bin_process.bin import Bin
 from visutils.vis import vis_bins
 import tools.utils_geo as geo
@@ -29,7 +29,7 @@ class BinManager:
         self._camera = camera
 
         # initialize configuration
-        self._mul = 2
+        self._mul = 3
         if camera == "cam09":
             self.init_cam_9()
         elif camera == "cam11":
@@ -83,7 +83,7 @@ class BinManager:
             (474, 110),  # (467, 302),
         ]  # conveyor belt co-ords (x,y) from bottom left
 
-        self._max_det_fail = 5 * self._mul
+        self._max_det_fail = 8 * self._mul
         self._max_track_fail = 10 * self._mul
 
         self._default_bin_state = "items"
@@ -336,8 +336,8 @@ class BinManager:
             M_iou = np.array(M_iou)
             M_iou[M_iou < self._min_iou] = 0
 
-            box_ind_min = utils_box.get_min_ind(M_iou)
-
+            box_ind_min = utils_box.get_min_ind_row(M_iou, thres=0.5)
+            counter_box_ind_min = collections.Counter(box_ind_min)
             for bcount, bin in enumerate(self._current_bins):
                 status, _bb_track = bin.update_tracker(im)
                 if not status:
@@ -354,44 +354,56 @@ class BinManager:
 
                 # closest_index = np.argmax(iou_to_boxes)
                 closest_index = int(box_ind_min[bcount])
-                if closest_index < 0 or closest_index in explored_indices:
-                    bin.increment_det_fail()
-                    #!
+
+                # NOTE: If there are more than two bins having similar detection bb,
+                # rely on tracker then
+                rely_tracker_only = False
+                if counter_box_ind_min[
+                        closest_index] > 1 and bin._pos_count > 30 * self._mul:
                     if status:
                         bin.pos = _bb_track
-                    continue
-
-                iou_to_boxes = M_iou[bcount, :]
-                # NOTE: '_min_iou' threshold to regain tracking
-                # we are prioritizing tracker here
-                if iou_to_boxes[closest_index] > self._min_iou:
-                    bin.reset_det_fail()
-                    new_box = boxes[closest_index]
-                    if status:
-                        _track_iou = bin.iou_bbox(_bb_track)
-                        if (self._camera == "cam09"
-                                and _track_iou > iou_to_boxes[closest_index] *
-                                self._rat_track_det) or (
-                                    (self._camera == "cam11"
-                                     or self._camera == "cam13")
-                                    and utils_box.iou_bbox(
-                                        _bb_track, new_box, "min") > 0.85):
-                            new_box = _bb_track
-                            bin.reset_track_fail()
-                        else:
-                            bin.init_tracker(new_box, im)
-
-                    #! DEBUG
-                    bin.pos = new_box
-                    explored_indices.append(closest_index)
-
-                    if bin._pos_count < 30 * self._mul and not status:
-                        bin.init_tracker(new_box, im)
-
-                else:
                     bin.increment_det_fail()
-                    # bin.pos = _bb_track
-                    # bin.increment_idle()
+                    rely_tracker_only = True
+
+                if not rely_tracker_only:
+                    # both detection and tracker have to agree with each other
+                    if closest_index < 0 or closest_index in explored_indices:
+                        bin.increment_det_fail()
+                        #!
+                        if status:
+                            bin.pos = _bb_track
+                        continue
+
+                    iou_to_boxes = M_iou[bcount, :]
+                    # '_min_iou' threshold to regain tracking
+                    # we are prioritizing tracker here
+                    if iou_to_boxes[closest_index] > self._min_iou:
+                        bin.reset_det_fail()
+                        new_box = boxes[closest_index]
+                        if status:
+                            _track_iou = bin.iou_bbox(_bb_track)
+                            if (self._camera == "cam09" and
+                                    _track_iou > iou_to_boxes[closest_index] *
+                                    self._rat_track_det) or (
+                                        (self._camera == "cam11"
+                                         or self._camera == "cam13")
+                                        and utils_box.iou_bbox(
+                                            _bb_track, new_box, "min") > 0.85):
+                                new_box = _bb_track
+                                bin.reset_track_fail()
+                            else:
+                                bin.init_tracker(new_box, im)
+
+                        #! DEBUG
+                        bin.pos = new_box
+                        explored_indices.append(closest_index)
+
+                        if bin._pos_count < 30 * self._mul and not status:
+                            bin.init_tracker(new_box, im)
+                    else:
+                        bin.increment_det_fail()
+                        # bin.pos = _bb_track
+                        # bin.increment_idle()
         else:
             for bin in self._current_bins:
                 bin.increment_det_fail()

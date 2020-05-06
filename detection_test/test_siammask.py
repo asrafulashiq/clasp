@@ -92,9 +92,16 @@ for f, ret in enumerate(tqdm(zip(*imlist))):
         location = state['ploygon'].flatten()
         mask = state['mask'] > state['p'].seg_thr
 
+        target_pos = state["target_pos"]
+        target_sz = state["target_sz"]
+
+        w, h = target_sz
+        x, y = target_pos - target_sz / 2
+
         im[:, :, 2] = (mask > 0) * 255 + (mask == 0) * im[:, :, 2]
-        cv2.polylines(cv2.UMat(im), [np.int0(location).reshape((-1, 1, 2))],
-                      True, (0, 255, 0), 3)
+        im = cv2.polylines(cv2.UMat(im),
+                           [np.int0(location).reshape(
+                               (-1, 1, 2))], True, (0, 255, 0), 3)
         cv2.imshow('SiamMask', im)
         key = cv2.waitKey(10)
         if key > 0:
