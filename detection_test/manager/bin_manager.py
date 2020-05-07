@@ -211,8 +211,8 @@ class BinManager:
                 state = "items"
                 return
 
+        # NOTE: for a new bin, wait at least 5 iteration to assign
         self._dummy_bin_count[label] += 1
-
         if self._dummy_bin_count[label] < 5:
             self._bin_count -= 1
             return

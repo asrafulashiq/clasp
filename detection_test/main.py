@@ -19,7 +19,7 @@ init(autoreset=True)
 log = ClaspLogger()
 
 file_num = "exp2_train"
-cameras = ["cam09"]
+cameras = ["cam09", "cam11"]
 
 manager = Manager(log=log,
                   file_num=file_num,
@@ -66,14 +66,14 @@ for cam in cameras:
 # Process
 
 for counter, ret in enumerate(tqdm(zip(*imlist))):
-    out1, = ret
+    out1, out2 = ret
     # out1, out2, out3 = ret
     if conf.info is not None and os.path.exists(conf.info):
         im, imfile, frame_num = out1
         manager.load_info(conf.info, frame_num, im, camera=cameras[0])
 
-        # im, imfile, frame_num = out2
-        # manager.load_info(conf.info, frame_num, im, camera=cameras[1])
+        im, imfile, frame_num = out2
+        manager.load_info(conf.info, frame_num, im, camera=cameras[1])
 
         # im, imfile, frame_num = out3
         # manager.load_info(conf.info, frame_num, im, camera=cameras[2])
@@ -91,12 +91,12 @@ for counter, ret in enumerate(tqdm(zip(*imlist))):
                                         frame_num=frame_num)
     skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
 
-    # # Cam 11
-    # im, imfile, frame_num = out2
-    # new_im = manager.run_detector_image(im,
-    #                                     cam=cameras[1],
-    #                                     frame_num=frame_num)
-    # skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
+    # Cam 11
+    im, imfile, frame_num = out2
+    new_im = manager.run_detector_image(im,
+                                        cam=cameras[1],
+                                        frame_num=frame_num)
+    skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
     # # # Cam 13
     # im, imfile, frame_num = out3
@@ -108,5 +108,5 @@ for counter, ret in enumerate(tqdm(zip(*imlist))):
     if conf.write:
         manager.write_info()
 
-# if conf.write:
-#     manager.final_write()
+if conf.write:
+    manager.final_write()
