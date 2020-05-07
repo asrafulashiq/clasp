@@ -37,7 +37,7 @@ def load_siammask():
 
 
 file_num = "exp2_train"
-cameras = ["cam09"]
+cameras = ["cam11"]
 
 imlist = []
 src_folder = {}

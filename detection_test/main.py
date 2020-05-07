@@ -19,7 +19,14 @@ init(autoreset=True)
 log = ClaspLogger()
 
 file_num = "exp2_train"
-cameras = ["cam09", "cam11"]
+cameras = ["cam11"]
+
+dict_prev_cam = {
+    "cam09": None,
+    "cam11": "cam09",
+    "cam13": "cam11",
+    "cam14": "cam13"
+}
 
 manager = Manager(log=log,
                   file_num=file_num,
@@ -66,37 +73,58 @@ for cam in cameras:
 # Process
 
 for counter, ret in enumerate(tqdm(zip(*imlist))):
-    out1, out2 = ret
+    # out1, out2 = ret
     # out1, out2, out3 = ret
     if conf.info is not None and os.path.exists(conf.info):
-        im, imfile, frame_num = out1
-        manager.load_info(conf.info, frame_num, im, camera=cameras[0])
+        # im, imfile, frame_num = out1
+        # manager.load_info(conf.info, frame_num, im, camera=cameras[0])
 
-        im, imfile, frame_num = out2
-        manager.load_info(conf.info, frame_num, im, camera=cameras[1])
+        # im, imfile, frame_num = out2
+        # manager.load_info(conf.info, frame_num, im, camera=cameras[1])
 
-        # im, imfile, frame_num = out3
-        # manager.load_info(conf.info, frame_num, im, camera=cameras[2])
+        # # im, imfile, frame_num = out3
+        # # manager.load_info(conf.info, frame_num, im, camera=cameras[2])
+
+        for i_cnt in range(len(ret)):
+            im, imfile, frame_num = ret[i_cnt]
+            manager.load_info(conf.info, frame_num, im, camera=cameras[i_cnt])
+
+            if conf.load_prev_exit_info:
+                # load exit info of previous camera
+                manager.load_prev_exit_info(
+                    conf.info_prev,
+                    current_cam=cameras[i_cnt],
+                    prev_cam=dict_prev_cam[cameras[i_cnt]])
 
         conf.info = None
         if conf.write:
             manager.write_info()
         continue
 
-    # Cam 09
-    im, imfile, frame_num = out1
-    log.info(f"processing : {Fore.CYAN}{frame_num}")
-    new_im = manager.run_detector_image(im,
-                                        cam=cameras[0],
-                                        frame_num=frame_num)
-    skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
+    for i_cnt in range(len(ret)):
+        im, imfile, frame_num = ret[i_cnt]
+        new_im = manager.run_detector_image(im,
+                                            cam=cameras[i_cnt],
+                                            frame_num=frame_num)
+        skimage.io.imsave(str(out_folder[cameras[i_cnt]] / imfile.name),
+                          new_im)
 
-    # Cam 11
-    im, imfile, frame_num = out2
-    new_im = manager.run_detector_image(im,
-                                        cam=cameras[1],
-                                        frame_num=frame_num)
-    skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
+    log.info(f"process : {Fore.CYAN}{frame_num}")
+
+    # Cam 09
+    # im, imfile, frame_num = out1
+    # log.info(f"processing : {Fore.CYAN}{frame_num}")
+    # new_im = manager.run_detector_image(im,
+    #                                     cam=cameras[0],
+    #                                     frame_num=frame_num)
+    # skimage.io.imsave(str(out_folder[cameras[0]] / imfile.name), new_im)
+
+    # # Cam 11
+    # im, imfile, frame_num = out2
+    # new_im = manager.run_detector_image(im,
+    #                                     cam=cameras[1],
+    #                                     frame_num=frame_num)
+    # skimage.io.imsave(str(out_folder[cameras[1]] / imfile.name), new_im)
 
     # # # Cam 13
     # im, imfile, frame_num = out3

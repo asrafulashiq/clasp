@@ -87,11 +87,17 @@ class Manager:
             self._bin_managers[camera] = BinManager(camera=camera,
                                                     log=self.log)
             if camera == "cam11":
-                self._bin_managers[camera].set_cam9_manager(
-                    self._bin_managers["cam09"])
-            if camera == "cam13":
-                self._bin_managers[camera].set_cam9_manager(
-                    self._bin_managers["cam11"])
+                self._bin_managers[camera].set_prev_cam_manager(
+                    self._bin_managers.get(
+                        "cam09", BinManager(camera="cam09", log=self.log)))
+            elif camera == "cam13":
+                self._bin_managers[camera].set_prev_cam_manager(
+                    self._bin_managers.get(
+                        "cam11", BinManager(camera="cam11", log=self.log)))
+            elif camera == "cam14":
+                self._bin_managers[camera].set_prev_cam_manager(
+                    self._bin_managers.get(
+                        "cam13", BinManager(camera="cam13", log=self.log)))
 
     def get_item_bb(self, camera, frame_num, image):
         boxes, scores, classes = None, None, None
@@ -151,13 +157,9 @@ class Manager:
         if return_im:
             return self.draw(im, cam=cam)
 
-    def draw(self, im, cam="9"):
+    def draw(self, im, cam="cam09"):
         if cam in self._bin_managers:
             im = self._bin_managers[cam].visualize(im)
-
-        if not self.bin_only:
-            if cam in self._pax_managers:
-                im = self._pax_managers[cam].visualize(im)
         return im
 
     def write_info_upto_frame(self, df, frame, cam="cam09"):
@@ -178,15 +180,41 @@ class Manager:
             list_info = []
             for _, row in info.iterrows():
                 list_info.append([
-                    row["id"],
-                    row["class"],
-                    row["x1"],
-                    row["y1"],
-                    row["x2"],
-                    row["y2"],
-                    row["type"],
+                    row["id"], row["class"], row["x1"], row["y1"], row["x2"],
+                    row["y2"], row["type"], row["frame"]
                 ])
             self._bin_managers[cam].add_exit_info(list_info)
+
+    def load_prev_exit_info(self,
+                            info_file,
+                            current_cam="cam11",
+                            prev_cam="cam09"):
+        names = [
+            "file", "camera", "frame", "id", "class", "x1", "y1", "x2", "y2",
+            "type", "msg"
+        ]
+
+        df = pd.read_csv(
+            str(info_file),
+            sep=",",
+            header=None,
+            names=[
+                "file", "camera", "frame", "id", "class", "x1", "y1", "x2",
+                "y2", "type", "msg"
+            ],
+            index_col=None,
+        )
+
+        info = df[(df["type"] == "exit") & (df["camera"] == prev_cam)]
+        if not info.empty:
+            list_info = []
+            for _, row in info.iterrows():
+                list_info.append([
+                    row["id"], row["class"], row["x1"], row["y1"], row["x2"],
+                    row["y2"], row["type"], row["frame"]
+                ])
+            self._bin_managers[current_cam]._manager_prev_cam.add_exit_info(
+                list_info)
 
     def load_info(self, info_file, frame_num, image, camera="cam09"):
         df = pd.read_csv(
@@ -194,17 +222,8 @@ class Manager:
             sep=",",
             header=None,
             names=[
-                "file",
-                "camera",
-                "frame",
-                "id",
-                "class",
-                "x1",
-                "y1",
-                "x2",
-                "y2",
-                "type",
-                "msg",
+                "file", "camera", "frame", "id", "class", "x1", "y1", "x2",
+                "y2", "type", "msg"
             ],
             index_col=None,
         )

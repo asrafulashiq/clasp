@@ -50,12 +50,21 @@ def get_arg():
         help="info file to save/load",
     )
 
-    parser.add_argument("--start-frame", type=int, default=7400)
+    parser.add_argument("--start-frame", type=int, default=11800)
     parser.add_argument("--skip-end", type=int, default=0)
     parser.add_argument("--end-frame", type=int, default=12000)
     parser.add_argument("--delta", type=int, default=1)
     parser.add_argument("--plot", action="store_true")
-
+    parser.add_argument("--load-prev-exit-info", action="store_false", 
+            help="whether to load exit info from previous cameras")
+    parser.add_argument(
+        "--info-prev",
+        default=
+        "/data/home/islama6/dataset/ALERT/clasp_data/output/run/info_cam09.csv",
+        # default=None,
+        type=str,
+        help="info file to save/load",
+    )
     return parser.parse_args()
 
 
