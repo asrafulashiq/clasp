@@ -18,7 +18,7 @@ class Features(nn.Module):
         raise NotImplementedError
 
     def param_groups(self, start_lr, feature_mult=1):
-        params = filter(lambda x:x.requires_grad, self.parameters())
+        params = filter(lambda x: x.requires_grad, self.parameters())
         params = [{'params': params, 'lr': start_lr * feature_mult}]
         return params
 
@@ -27,7 +27,10 @@ class Features(nn.Module):
             pretrained_dict = torch.load(f)
             model_dict = self.state_dict()
             print(pretrained_dict.keys())
-            pretrained_dict = {k: v for k, v in pretrained_dict.items() if k in model_dict}
+            pretrained_dict = {
+                k: v
+                for k, v in pretrained_dict.items() if k in model_dict
+            }
             print(pretrained_dict.keys())
             model_dict.update(pretrained_dict)
             self.load_state_dict(model_dict)
@@ -63,7 +66,7 @@ class MultiStageFeature(Features):
         for p in self.parameters():
             p.requires_grad = False
 
-        logger.info('Current training {} layers:\n\t'.format(self.train_num, self.train_layers()))
+        # logger.info('Current training {} layers:\n\t'.format(self.train_num, self.train_layers()))
         for m in self.train_layers():
             for p in m.parameters():
                 p.requires_grad = True
@@ -71,7 +74,7 @@ class MultiStageFeature(Features):
     def train(self, mode):
         self.training = mode
         if mode == False:
-            super(MultiStageFeature,self).train(False)
+            super(MultiStageFeature, self).train(False)
         else:
             for m in self.train_layers():
                 m.train(True)

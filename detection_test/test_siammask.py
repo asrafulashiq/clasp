@@ -36,24 +36,24 @@ def load_siammask():
     return siammask, cfg_siam
 
 
-file_num = "exp2_train"
-cameras = ["cam11"]
+file_num = conf.file_num
+cameras = conf.cameras
 
 imlist = []
 src_folder = {}
 out_folder = {}
 
+# format filename
+fmt_filename_src = conf.root + "/{file_num}/{cam}"
+
 #! NOTE: camera 13 is 50 frames behind
 
 # Store image names
 for cam in cameras:
-    src_folder[cam] = Path(conf.root) / file_num / cam
+    src_folder[cam] = Path(fmt_filename_src.format(file_num=file_num, cam=cam))
     assert src_folder[cam].exists()
 
-    if cam == "cam13":
-        start_frame = conf.start_frame - 50
-    else:
-        start_frame = conf.start_frame
+    start_frame = conf.start_frame
 
     imlist.append(
         utils.get_images_from_dir(src_folder[cam],
@@ -69,7 +69,7 @@ siammask, cfg = load_siammask()
 siammask.to(device).eval()
 
 for f, ret in enumerate(tqdm(zip(*imlist))):
-    out1, = ret
+    out1 = ret[0]
 
     # Cam 09
     im, imfile, frame_num = out1

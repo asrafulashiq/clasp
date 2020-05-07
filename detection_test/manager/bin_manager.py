@@ -37,6 +37,9 @@ class BinManager:
         elif camera == "cam13":
             self.init_cam_13()
 
+        # number of iteration to wait for new bin detection
+        self._wait_new_bin = 10
+
         self.detector = detector
         self.current_frame = -1
 
@@ -242,9 +245,9 @@ class BinManager:
         #         state = "items"
         #         return
 
-        # NOTE: for a new bin, wait at least 5 iteration to assign
+        # NOTE: wait for new bin, wait at least 5 iteration to assign
         self._dummy_bin_count[label] += 1
-        if self._dummy_bin_count[label] < 5:
+        if self._dummy_bin_count[label] < self._wait_new_bin:
             self._bin_count -= 1
             return
 
@@ -580,7 +583,6 @@ class BinManager:
                         # NOTE: bin content changed
                         # divestment or revestment
                         self.log.info(
-                            Back.CYAN +
                             f"{self._camera} : Bin {bin.label} - New divestment/revestment"
                         )
                         _ind.append(i)
