@@ -225,3 +225,9 @@ class Bin:
         if self.pos == bin2.pos and self.label == bin2.label and self.state == bin2.state:
             return True
         return False
+
+    def __repr__(self):
+        return str(self)
+
+    def __str__(self):
+        return f"Bin :: label :{self.label} \n BB: {self.pos}"

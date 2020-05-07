@@ -172,11 +172,28 @@ class BinManager:
         label = self._bin_count
         state = cls
 
-        if self._camera == "cam11":
+        if self._camera in ("cam11", "cam13"):
             # set label based on camera 9
             try:
-                while len(self._manager_prev_cam._left_bins) > 0:
-                    mbin = self._manager_prev_cam._left_bins[0]["bin"]
+                for i_man in range(len(self._manager_prev_cam._left_bins)):
+                    # while len(self._manager_prev_cam._left_bins) > 0:
+                    mbin = self._manager_prev_cam._left_bins[i_man]["bin"]
+                    mbin_frame = self._manager_prev_cam._left_bins[i_man][
+                        "frame_num"]
+
+                    # NOTE: offline mode
+                    time_offset = 50 if self._camera == "cam13" else 0
+
+                    # left bin must precede current frame
+                    if mbin_frame - time_offset > self.current_frame:
+                        continue
+
+                    # for camera 13, left frame and current frame should be close
+                    if self._camera == "cam13" and np.abs(
+                            mbin_frame - time_offset -
+                            self.current_frame) > 100:
+                        continue
+
                     label = mbin.label
                     state = mbin.state
 
@@ -189,40 +206,41 @@ class BinManager:
                         if hasattr(bin, 'siammask'): bin.clear_track()
                         tmp_labs.append(bin.label)
                     if label in tmp_labs:
-                        self._manager_prev_cam._left_bins.pop(0)
+                        self._manager_prev_cam._left_bins.pop(i_man)
                         continue
                     break
                 else:
                     return
             except IndexError:
                 state = "items"
-        elif self._camera == "cam13":
-            # set label based on camera 9
-            try:
-                while len(self._manager_prev_cam._left_bins) > 0:
-                    mbin = self._manager_prev_cam._left_bins.pop(0)["bin"]
-                    mbin_frame = self._manager_prev_cam._left_bins.pop(
-                        0)["frame_num"]
+        # elif self._camera == "cam13":
+        #     # set label based on camera 9
+        #     try:
+        #         while len(self._manager_prev_cam._left_bins) > 0:
+        #             mbin = self._manager_prev_cam._left_bins.pop(0)["bin"]
+        #             mbin_frame = self._manager_prev_cam._left_bins.pop(
+        #                 0)["frame_num"]
 
-                    if mbin_frame < self.current_frame:
-                        continue
+        #             if mbin_frame - 50 <= self.current_frame:
+        #                 self._manager_prev_cam._left_bins.pop(0)
+        #                 continue
 
-                    label = mbin.label
-                    state = mbin.state
-                    tmp_labs = []
-                    for bin in self._current_bins:
-                        tmp_labs.append(bin.label)
-                    for bin_with_frame in self._left_bins:
-                        bin = bin_with_frame["bin"]
-                        tmp_labs.append(bin.label)
-                    if label in tmp_labs:
-                        continue
-                    break
-                else:  # else is only executed when there is not break inside while
-                    return
-            except IndexError:
-                state = "items"
-                return
+        #             label = mbin.label
+        #             state = mbin.state
+        #             tmp_labs = []
+        #             for bin in self._current_bins:
+        #                 tmp_labs.append(bin.label)
+        #             for bin_with_frame in self._left_bins:
+        #                 bin = bin_with_frame["bin"]
+        #                 tmp_labs.append(bin.label)
+        #             if label in tmp_labs:
+        #                 continue
+        #             break
+        #         else:  # else is only executed when there is not break inside while
+        #             return
+        #     except IndexError:
+        #         state = "items"
+        #         return
 
         # NOTE: for a new bin, wait at least 5 iteration to assign
         self._dummy_bin_count[label] += 1
@@ -243,7 +261,7 @@ class BinManager:
         #     return
 
         if self._camera != "cam09":
-            self._manager_prev_cam._left_bins.pop(0)
+            self._manager_prev_cam._left_bins.pop(i_man)
 
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
@@ -610,11 +628,10 @@ class BinManager:
                 )
                 if hasattr(new_bin, 'siammask'): new_bin.clear_track()
                 if _type == "exit":
-                    if self._camera == "cam09":
-                        self._left_bins.append({
-                            "bin": new_bin,
-                            "frame_num": frame_num
-                        })
+                    self._left_bins.append({
+                        "bin": new_bin,
+                        "frame_num": frame_num
+                    })
                 elif _type == "empty":
                     self._empty_bins.append(new_bin)
                 self._bin_count = max(self._bin_count, _id)

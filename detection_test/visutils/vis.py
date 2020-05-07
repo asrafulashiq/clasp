@@ -160,10 +160,10 @@ def vis_bins(img, bins):
             if bin.track_state is not None and 'mask' in bin.track_state:
                 mask = bin.track_state['mask']
                 if len(mask) > 0:
-                    mask = mask > 0.3
-                    im_mask = np.zeros_like(img)
-                    im_mask[mask] = (255, 255, 110)
-                    cv2.addWeighted(im_mask, 0.3, img, 1, 0, img)
+                    # mask = mask > 0.3
+                    # im_mask = np.zeros_like(img)
+                    # im_mask[mask] = (255, 255, 110)
+                    # cv2.addWeighted(im_mask, 0.3, img, 1, 0, img)
 
                     location = bin.track_state['ploygon'].flatten()
                     img = cv2.polylines(
