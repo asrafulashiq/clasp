@@ -186,7 +186,6 @@ class Manager:
             "file", "camera", "frame", "id", "class", "x1", "y1", "x2", "y2",
             "type", "msg"
         ]
-
         df = pd.read_csv(
             str(info_file),
             sep=",",
@@ -194,7 +193,6 @@ class Manager:
             names=names,
             index_col=None,
         )
-
         info = df[(df["type"] == "exit") & (df["camera"] == prev_cam)]
         if not info.empty:
             list_info = []
@@ -205,6 +203,7 @@ class Manager:
                 ])
             self._bin_managers[current_cam]._manager_prev_cam.add_exit_info(
                 list_info)
+        self.log.info("Loaded previous exit info")
 
     def load_info(self, info_file, frame_num, image, camera="cam09"):
         df = pd.read_csv(

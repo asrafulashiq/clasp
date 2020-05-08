@@ -125,6 +125,7 @@ class BinManager:
 
         self._min_dim = 40
         self._max_area = 140 * 140
+        self._min_area = 40 * 70
 
     def init_cam_13(self):
         self._left_bins = []
@@ -150,6 +151,7 @@ class BinManager:
 
         self._min_dim = 40
         self._max_area = 150 * 150
+        self._min_area = 40 * 70
 
     # NOTE: ONLY FOR CAMERA 11 or 13
     def set_prev_cam_manager(self, _manager):
