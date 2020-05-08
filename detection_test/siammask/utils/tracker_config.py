@@ -20,10 +20,13 @@ class TrackerConfig(object):
     total_stride = 8
     out_size = 63  # for mask
     base_size = 8
-    score_size = (instance_size-exemplar_size)//total_stride+1+base_size
-    context_amount = 0.5  # context amount for the exemplar
+    score_size = (instance_size -
+                  exemplar_size) // total_stride + 1 + base_size
+    context_amount = 0.50  # context amount for the exemplar
     ratios = [0.33, 0.5, 1, 2, 3]
-    scales = [8, ]
+    scales = [
+        8,
+    ]
     anchor_num = len(ratios) * len(scales)
     round_dight = 0
     anchor = []
@@ -43,9 +46,6 @@ class TrackerConfig(object):
         self.renew()
 
     def renew(self):
-        self.score_size = (self.instance_size - self.exemplar_size) // self.total_stride + 1 + self.base_size
+        self.score_size = (self.instance_size - self.exemplar_size
+                           ) // self.total_stride + 1 + self.base_size
         self.anchor_num = len(self.ratios) * len(self.scales)
-
-
-
-

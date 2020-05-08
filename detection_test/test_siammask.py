@@ -75,6 +75,8 @@ for f, ret in enumerate(tqdm(zip(*imlist))):
     im, imfile, frame_num = out1
     im = im[..., ::-1]
 
+    # im = cv2.resize(im, (854, 480))
+
     if f == 0:  # init
         init_rect = cv2.selectROI('SiamMask', im, False, False)
         x, y, w, h = init_rect

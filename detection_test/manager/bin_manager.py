@@ -38,7 +38,7 @@ class BinManager:
             self.init_cam_13()
 
         # number of iteration to wait for new bin detection
-        self._wait_new_bin = 10
+        self._wait_new_bin = 15
 
         self.detector = detector
         self.current_frame = -1
@@ -97,7 +97,7 @@ class BinManager:
         self.maxlen = 5 * self._mul
         self._rat_track_det = 0.8  # FIXME : should it be less
 
-        self._min_area = 40 * 70
+        self._min_area = 40 * 40
         self._min_dim = 50  # REVIEW: Is it okay, for camera 9?
         self._max_area = 120 * 120
 
