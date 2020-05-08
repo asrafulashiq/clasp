@@ -56,9 +56,9 @@ def get_arg():
 
     # NOTE: exp name and cameras to use
     parser.add_argument("--file-num", type=str, default="exp1_test")
-    parser.add_argument("--cameras", type=str, nargs="*", default=["cam09"])
+    parser.add_argument("--cameras", type=str, nargs="*", default=["cam11"])
 
-    parser.add_argument("--start-frame", type=int, default=8000)
+    parser.add_argument("--start-frame", type=int, default=10770)
     parser.add_argument("--skip-end", type=int, default=0)
     parser.add_argument("--end-frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)

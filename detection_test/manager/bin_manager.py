@@ -391,6 +391,7 @@ class BinManager:
                 else:
                     bin.reset_track_fail()
 
+                # for later use: new bin
                 for _counter in range(boxes.shape[0]):
                     tmp_iou[_counter] = max(
                         tmp_iou.get(_counter, 0),
@@ -404,18 +405,21 @@ class BinManager:
                 # NOTE: If there are more than two bins having similar detection bb,
                 # rely on tracker then
                 rely_tracker_only = False
-                if counter_box_ind_min[
-                        closest_index] > 1 and bin._pos_count > 30 * self._mul:
+                if (counter_box_ind_min[closest_index] > 1
+                        and bin._pos_count > 30 * self._mul):
                     if status:
-                        bin.pos = _bb_track
+                        _w, _h = (_bb_track[2] - _bb_track[0],
+                                  _bb_track[3] - _bb_track[1])
+                        if _w * _h < self._max_area and _w * _h > self._min_area:
+                            bin.pos = _bb_track
+                            rely_tracker_only = True
                     bin.increment_det_fail()
-                    rely_tracker_only = True
 
                 if not rely_tracker_only:
                     # both detection and tracker have to agree with each other
                     if closest_index < 0 or closest_index in explored_indices:
+                        # REVIEW It
                         bin.increment_det_fail()
-                        #!
                         if status:
                             bin.pos = _bb_track
                         continue
@@ -529,7 +533,7 @@ class BinManager:
                         self.log.clasp_log(
                             f"{self._camera} : Bin {bin.label} divested")
 
-                        if self._camera == "cam11":
+                        if self._camera != "cam09":
                             msg = f"B{bin.label} empty"
                             self._current_events.append([
                                 self.current_frame,
@@ -540,42 +544,42 @@ class BinManager:
                                 msg,
                             ])
 
-                        # FIXME: what does this do? Fix It!
-                        # check if bin has overlap with other bins
-                        flag = True
-                        for other_bin in self._current_bins:
-                            if other_bin.label != bin.label:
-                                _iou = utils_box.iou_bbox(
-                                    bin.pos, other_bin.pos, "combined")
+                        else:
+                            # REVIEW: check if bin has overlap with other bins, cam09 only
+                            flag = True
+                            for other_bin in self._current_bins:
+                                if other_bin.label != bin.label:
+                                    _iou = utils_box.iou_bbox(
+                                        bin.pos, other_bin.pos, "combined")
 
-                                if _iou > 0.5:
-                                    # NOTE: In this case, we say that other bin has been
-                                    # divested to current bin,
-                                    # we left the id of other bin, and retain current bin
+                                    if _iou > 0.5:
+                                        # NOTE: In this case, we say that other bin has been
+                                        # divested to current bin,
+                                        # we left the id of other bin, and retain current bin
 
-                                    if hasattr(bin, 'siammask'):
-                                        bin.clear_track()
-                                    self._empty_bins.append(bin)
-                                    other_bin.label = bin.label  # label swapped
-                                    flag = False
+                                        if hasattr(bin, 'siammask'):
+                                            bin.clear_track()
+                                        self._empty_bins.append(bin)
+                                        other_bin.label = bin.label  # label swapped
+                                        flag = False
 
-                                    # log
-                                    self._current_events.append([
-                                        self.current_frame,
-                                        other_bin.label,
-                                        other_bin.cls,
-                                        *other_bin.pos,
-                                        "chng",
-                                        f"Item {other_bin.label} divested/revested",
-                                    ])
+                                        # log
+                                        self._current_events.append([
+                                            self.current_frame,
+                                            other_bin.label,
+                                            other_bin.cls,
+                                            *other_bin.pos,
+                                            "chng",
+                                            f"Item {other_bin.label} divested/revested",
+                                        ])
 
-                                    self.log.info(
-                                        f"Item {other_bin.label} divested/revested"
-                                    )
-                                    break
-                        if flag:
-                            if hasattr(bin, 'siammask'): bin.clear_track()
-                            self._empty_bins.append(bin)
+                                        self.log.info(
+                                            f"Item {other_bin.label} divested/revested"
+                                        )
+                                        break
+                            if flag:
+                                if hasattr(bin, 'siammask'): bin.clear_track()
+                                self._empty_bins.append(bin)
 
                     else:
                         # NOTE: bin content changed

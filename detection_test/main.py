@@ -112,5 +112,5 @@ if __name__ == "__main__":
         if conf.write:
             manager.write_info()
 
-    if conf.write:
-        manager.final_write()
+    # if conf.write:
+    #     manager.final_write()
