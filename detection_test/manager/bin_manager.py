@@ -78,8 +78,8 @@ class BinManager:
         self._thres_out_bin_bound = [
             (60, 122),  # (111, 225),
             (65, 243),  # (131, 113),
-            (100, 236),  # (73, 91),
-            (100, 119),  # (48, 213),
+            (90, 236),  # (73, 91),
+            (90, 119),  # (48, 213),
         ]
         # self._thres_incoming_bin_init_x = 1420 / 3
         self._thres_max_idle_count = 5
@@ -98,7 +98,7 @@ class BinManager:
         self._rat_track_det = 0.8  # FIXME : should it be less
 
         self._min_area = 40 * 70
-        self._min_dim = 40
+        self._min_dim = 50  # REVIEW: Is it okay, for camera 9?
         self._max_area = 120 * 120
 
     def init_cam_11(self):
@@ -500,7 +500,6 @@ class BinManager:
         _ind = []
         for i in range(len(self)):
             bin = self._current_bins[i]
-            # if self._camera == '9':
             if geo.point_in_box(bin.centroid, self._thres_out_bin_bound):
                 # bin exit
                 self.log.clasp_log(f"{self._camera} : Bin {bin.label} exits")
@@ -541,7 +540,7 @@ class BinManager:
                                 msg,
                             ])
 
-                        # FIXME: what does this do? Fix It
+                        # FIXME: what does this do? Fix It!
                         # check if bin has overlap with other bins
                         flag = True
                         for other_bin in self._current_bins:
@@ -573,7 +572,6 @@ class BinManager:
                                     self.log.info(
                                         f"Item {other_bin.label} divested/revested"
                                     )
-
                                     break
                         if flag:
                             if hasattr(bin, 'siammask'): bin.clear_track()

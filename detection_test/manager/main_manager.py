@@ -262,3 +262,5 @@ class Manager:
 
             with write_file.open("w") as fp:
                 fp.write("\n".join(self.write_list))
+
+            self.log.info(f"Output info to : {write_file}")

@@ -20,11 +20,11 @@ def load_siammask():
         pass
 
     args = Empty()
-    args.resume = "siammask/siammask_sharp/SiamMask_DAVIS.pth"
-    args.config = "siammask/siammask_sharp/config_davis.json"
+    # args.resume = "siammask/siammask_sharp/SiamMask_DAVIS.pth"
+    # args.config = "siammask/siammask_sharp/config_davis.json"
 
-    # args.resume = "siammask/siammask_sharp/SiamMask_VOT.pth"
-    # args.config = "siammask/siammask_sharp/config_vot.json"
+    args.resume = "siammask/siammask_sharp/SiamMask_VOT.pth"
+    args.config = "siammask/siammask_sharp/config_vot.json"
 
     cfg = load_config(args)
 
