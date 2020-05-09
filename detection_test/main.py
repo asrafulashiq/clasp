@@ -12,8 +12,6 @@ import os
 import torch
 from colorama import init, Fore
 
-torch.backends.cudnn.benchmark = True
-
 init(autoreset=True)
 
 if __name__ == "__main__":
@@ -36,17 +34,17 @@ if __name__ == "__main__":
     out_folder = {}
 
     # format filename
-    fmt_filename_src = conf.root + "/{file_num}/{cam}"
-    fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
+    # fmt_filename_src = conf.root + "/{file_num}/{cam}"
+    # fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
 
     # store image names
     for cam in cameras:
         src_folder[cam] = Path(
-            fmt_filename_src.format(file_num=file_num, cam=cam))
+            conf.fmt_filename_src.format(file_num=file_num, cam=cam))
         assert src_folder[cam].exists()
 
         out_folder[cam] = Path(
-            fmt_filename_out.format(file_num=file_num, cam=cam))
+            conf.fmt_filename_out.format(file_num=file_num, cam=cam))
         out_folder[cam].mkdir(parents=True, exist_ok=True)
 
         if cam == "cam13":
@@ -60,6 +58,7 @@ if __name__ == "__main__":
                                         start_frame=start_frame,
                                         skip_end=conf.skip_end,
                                         delta=1,
+                                        fmt=conf.fmt,
                                         end_frame=conf.end_frame)
 
         # remove future frames
@@ -72,7 +71,8 @@ if __name__ == "__main__":
                                       start_frame=start_frame,
                                       skip_end=conf.skip_end,
                                       delta=conf.delta,
-                                      end_frame=conf.end_frame))
+                                      end_frame=conf.end_frame,
+                                      fmt=conf.fmt))
 
     # Process loop
     pbar = tqdm(zip(*imlist))
