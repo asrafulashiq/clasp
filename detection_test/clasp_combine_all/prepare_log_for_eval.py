@@ -18,7 +18,7 @@ nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
 
 ################   DATA PROCSSING #############
 # Bin
-df_bin = read_rpi(bin_file)
+df_bin = read_rpi(bin_file, scale=3)
 
 # PAX
 df_pax = read_mu([pax_file_9, pax_file_11, pax_file_13])

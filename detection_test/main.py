@@ -77,7 +77,6 @@ if __name__ == "__main__":
     # Process loop
     pbar = tqdm(zip(*imlist))
     for counter, ret in enumerate(pbar):
-
         # load already computed info
         if conf.info is not None and os.path.exists(conf.info):
             for i_cnt in range(len(ret)):
@@ -91,8 +90,8 @@ if __name__ == "__main__":
                 manager.write_info()
             continue
 
+        # load exit info of previous camera
         if conf.load_prev_exit_info:
-            # load exit info of previous camera
             for i_cnt in range(len(ret)):
                 manager.load_prev_exit_info(
                     conf.info_prev,

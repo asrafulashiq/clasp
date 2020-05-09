@@ -6,7 +6,7 @@ from collections import defaultdict
 from parse import parse
 
 
-def read_rpi(filename, scale=3):
+def read_rpi(filename, scale=None):
     """ Read dataframe from rpi logfile """
     df = pd.read_csv(
         str(filename),
@@ -18,18 +18,18 @@ def read_rpi(filename, scale=3):
         ],
         index_col=None,
     )
-    df = df.sort_values("frame")
     df['class'] = 'dvi'
 
     # resize to original image size
-    df["x1"] = 3 * df["x1"]
-    df["y1"] = 3 * df["y1"]
-    df["x2"] = 3 * df["x2"]
-    df["y2"] = 3 * df["y2"]
+    if scale is not None:
+        df["x1"] = scale * df["x1"]
+        df["y1"] = scale * df["y1"]
+        df["x2"] = scale * df["x2"]
+        df["y2"] = scale * df["y2"]
     return df
 
 
-def read_mu(filename):
+def read_mu(filename, scale=None):
     """Convert MU log files to same format 
     
     Example
@@ -41,7 +41,7 @@ def read_mu(filename):
         return pd.DataFrame()
 
     if isinstance(filename, list):
-        list_df = [read_mu(single_file) for single_file in filename]
+        list_df = [read_mu(single_file, scale) for single_file in filename]
         df = pd.concat(list_df, ignore_index=True)
         return df
     else:
@@ -58,6 +58,13 @@ def read_mu(filename):
         df["camera"] = df["camera"].apply(lambda x: x[:5])
         df["type"] = df["type"].str.lower()
         df['class'] = 'pax'
+
+        if scale is not None:
+            df["x1"] = df["x1"] * scale
+            df["y1"] = df["y1"] * scale
+            df["x2"] = df["x2"] * scale
+            df["y2"] = df["y2"] * scale
+
         return df
 
 
