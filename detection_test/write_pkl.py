@@ -15,21 +15,18 @@ cameras = conf.cameras
 
 detector = DummyDetector(ckpt=conf.bin_ckpt, thres=0.3, labels_to_keep=(2, ))
 
-# format filename
-fmt_filename_src = conf.root + "/{file_num}/{cam}"
-fmt_filename_out = conf.out_dir + "/out_detection/{file_num}/{cam}/bin"
-fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
-
 for camera in tqdm(cameras, desc="Camera", position=0):
 
-    src_folder = Path(fmt_filename_src.format(file_num=file_num, cam=camera))
+    src_folder = Path(
+        conf.fmt_filename_src.format(file_num=file_num, cam=camera))
     assert src_folder.exists()
 
-    out_folder = Path(fmt_filename_out.format(file_num=file_num, cam=camera))
+    out_folder = Path(
+        conf.fmt_filename_out.format(file_num=file_num, cam=camera))
     out_folder.mkdir(parents=True, exist_ok=True)
 
     pickle_file = Path(
-        fmt_filename_out_pkl.format(file_num=file_num, cam=camera))
+        conf.fmt_filename_out_pkl.format(file_num=file_num, cam=camera))
     pickle_file.parent.mkdir(exist_ok=True)
 
     _dict = {}  # data
@@ -38,7 +35,8 @@ for camera in tqdm(cameras, desc="Camera", position=0):
                                           size=conf.size,
                                           start_frame=1,
                                           skip_end=0,
-                                          delta=1),
+                                          delta=1,
+                                          fmt=conf.fmt),
                 position=2)
 
     for im, imfile, frame_num in pbar:
