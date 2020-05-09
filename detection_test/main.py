@@ -86,18 +86,19 @@ if __name__ == "__main__":
                                   frame_num,
                                   im,
                                   camera=cameras[i_cnt])
-
-                if conf.load_prev_exit_info:
-                    # load exit info of previous camera
-                    manager.load_prev_exit_info(
-                        conf.info_prev,
-                        current_cam=cameras[i_cnt],
-                        prev_cam=dict_prev_cam[cameras[i_cnt]])
-
             conf.info = None
             if conf.write:
                 manager.write_info()
             continue
+
+        if conf.load_prev_exit_info:
+            # load exit info of previous camera
+            for i_cnt in range(len(ret)):
+                manager.load_prev_exit_info(
+                    conf.info_prev,
+                    current_cam=cameras[i_cnt],
+                    prev_cam=dict_prev_cam[cameras[i_cnt]])
+            conf.load_prev_exit_info = False
 
         for i_cnt in range(len(ret)):
             im, imfile, frame_num = ret[i_cnt]
