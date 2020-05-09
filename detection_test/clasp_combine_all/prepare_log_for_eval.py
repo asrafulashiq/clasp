@@ -86,7 +86,7 @@ for _, row in tqdm(df_comb.iterrows(),
                 log_msg = (
                     f"XFR: type: {xfr_type} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
                     +
-                    "BB: {x1}, {y1}, {x2}, {y2} owner-ID: {pax_id} DVI-ID: {_id} theft: {_theft}"
+                    f"BB: {x1}, {y1}, {x2}, {y2} owner-ID: {pax_id} DVI-ID: {_id} theft: {_theft}"
                 )  # REVIEW: 'theft'??
 
     elif _class == 'pax':

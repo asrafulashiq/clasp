@@ -27,7 +27,7 @@ def get_arg():
     parser.add_argument(
         "--bin-ckpt",
         type=str,
-        default=_HOME + "/dataset/ALERT/trained_model/model.pkl",
+        default=_HOME + "/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
     )
 
     parser.add_argument("--write",
