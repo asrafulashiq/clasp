@@ -20,4 +20,6 @@ settings.json
 detection_test/.vscode
 
 **/*.swp
+!**/info/*
+!**/ata_output/*
 
