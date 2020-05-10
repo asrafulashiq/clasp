@@ -24,6 +24,8 @@ nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
 ################   DATA PROCSSING #############
 # Bin
 df_bin = read_rpi(bin_file, scale=3)
+df_bin["frame"] = df_bin[
+    "frame"] + 50  # FIXME: For some reason, there is a 50 frame lag
 
 # PAX
 df_pax = read_mu([pax_file_9, pax_file_11, pax_file_13])
