@@ -11,13 +11,14 @@ from tools import read_nu_association, read_mu, read_rpi
 from rich import print as rprint
 
 # PAX and Bin detection files
-bin_file = "./info/info.csv"
-pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
-pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
-pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
+bin_file = "./info/info_exp2_cam09cam11cam13.csv"
+pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
+pax_file_11 = "./info/cam11exp2_logs_full_may14.txt.txt"
+pax_file_13 = "./info/cam13exp2_logs_full_may14.txt.txt"
 
-nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
-nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
+nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
+nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
+nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
 
 ################   DATA PROCSSING #############
 # Bin

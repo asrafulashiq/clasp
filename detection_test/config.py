@@ -41,6 +41,7 @@ def get_arg():
         help="image size(width x height)",
     )
 
+    # whether to also run rcnn detector to detect item
     parser.add_argument('--run-detector',
                         action='store_true',
                         help='whether to run detector or load pre-run results')
@@ -91,6 +92,8 @@ def add_server_specific_arg(parent_parser):
         help="root direcotory of all frames",
     )
 
+    parser.add_argument("--mode", type=str, default="training")
+
     # NOTE: change output directory to save frames and logs
     parser.add_argument(
         "--out_dir",
@@ -120,7 +123,7 @@ conf.fmt = "{:06d}.jpg"  # frame name format
 
 if os.uname()[1] == 'lambda-server':  # code is in clasp server
     conf.fmt = "frame{:05d}.jpg"
-    conf.fmt_filename_src = conf.root + "/20191024-training-{cam}{file_num}"
+    conf.fmt_filename_src = conf.root + "/20191024-" + conf.mode + "-{cam}{file_num}"
     conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
     conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}/{cam}"
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
