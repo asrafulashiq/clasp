@@ -17,24 +17,20 @@ from parse import parse
 from collections import defaultdict
 from tools import read_nu_association, read_mu, read_rpi
 
-# Experiment
-file_num = "exp2_train"
-cameras = ["cam09", "cam11", "cam13"]
-
 # PAX and Bin detection files
-bin_file = "./info/info.csv"
+bin_file = "./info/info_exp2_cam09cam11cam13.csv"
 
-pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
-pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
-pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
+pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
+pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
+pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
 
-nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
-nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
-nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
+nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
+nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
+nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
 
 # Life of a bin and pax
-BIN = "B23"
-PAX = "P11"
+BIN = "B27"
+PAX = "P12"
 conf.start_frame = 8460
 conf.end_frame = 13080
 conf.skip_end = None
@@ -91,16 +87,23 @@ class IntegratorClass:
         loc_cng = df["type"] == "chng"
         df.loc[loc_cng, "frame"] = df[loc_cng]["frame"] - 50
 
+        df["frame"] = df[
+            "frame"] + 50  # FIXME: For some reason, there is a 50 frame lag
+
         # sort by frame number
         df = df.sort_values("frame")
         return df
 
     def get_association_info(self, nu_file, cam="09"):
-        asso_info = defaultdict(dict)
-        asso_msg = {}
-        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
+        if nu_file is None:
+            return {}, {}
 
-        for _, row in df_tmp.iterrows():
+        asso_info = defaultdict(dict)
+        asso_msg = {}  # association message, like 'stealing'
+
+        df = pd.read_csv(str(nu_file), header=None, names=["frame", "des"])
+
+        for _, row in df.iterrows():
             frame = row["frame"]
             des = row["des"]
             des = parse("[{}]", des)
@@ -109,17 +112,21 @@ class IntegratorClass:
             des = des[0]
             for each_split in des.split(","):
                 each_split = each_split.strip()
-                pp = parse("'P{}-B{}'", each_split)
+                pp = parse("'|P{pax_id:d}|{event_str}|Bin {bin_id:d}|'",
+                           each_split)
                 if pp is not None:
-                    pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]))
-                    if ("stealing" in pax_id) or ("stoling" in pax_id):
-                        pax_id = pax_id.replace("stoling", "stealing")
-                        each_split = each_split.replace("stoling", "stealing")
-                        if each_split not in self.tmp_msg:
-                            asso_msg[frame] = [cam, frame, each_split]
-                            self.tmp_msg.append(each_split)
-                    else:
+                    bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
+                        pp['pax_id'])
+                    if "owner of" in pp['event_str']:
+                        # association
                         asso_info[bin_id][frame] = pax_id
+                    elif "hand in" in pp['event_str']:
+                        pass
+                    elif "suspicious" in pp['event_str']:
+                        asso_msg[frame] = [
+                            cam, frame,
+                            each_split.replace("|", "").replace("'", "")
+                        ]
         return asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
@@ -160,7 +167,7 @@ class IntegratorClass:
         asso_info = self.asso_info["cam09"]
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                _id = "B" + str(row["id"])
+                _id = str(row["id"])
                 if _id != BIN:
                     continue
                 if _id in asso_info:
@@ -235,27 +242,27 @@ class IntegratorClass:
 
 if __name__ == "__main__":
 
+    conf.plot = True
     out_folder = {}
     imlist = []
 
-    conf.plot = True
-
     vis_feed = VisFeed()  # Visualization class
 
-    feed_folder = Path(conf.fmt_filename_out_feed.format(file_num=file_num))
+    feed_folder = Path((conf.fmt_filename_out_feed +
+                        "_left_behind").format(file_num=conf.file_num))
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
-    feed_folder.mkdir(exist_ok=True)
+    feed_folder.mkdir(exist_ok=True, parents=True)
 
-    Info = IntegratorClass()  # integrate info from 3 groups
+    Info = IntegratorClass()  # integrator class info from 3 groups
 
     imlist = []
     src_folder = {}
     out_folder = {}
 
-    for cam in cameras:
+    for cam in conf.cameras:
         src_folder[cam] = Path(
-            conf.fmt_filename_src.format(file_num=file_num, cam=cam))
+            conf.fmt_filename_src.format(file_num=conf.file_num, cam=cam))
         assert src_folder[cam].exists()
 
         if cam == "cam13":
@@ -269,18 +276,17 @@ if __name__ == "__main__":
                                       skip_end=conf.skip_end,
                                       delta=conf.delta,
                                       end_frame=conf.end_frame,
-                                      file_only=(not conf.plot)))
+                                      fmt=conf.fmt,
+                                      file_only=False))
 
     for out1, out2, out3 in tqdm(zip(*imlist)):
-        im1, imfile1, _ = out1
-        im2, imfile2, _ = out2
-        im3, imfile3, _ = out3
-
-        frame_num = int(Path(imfile1).stem) - 1
+        im1, imfile1, frame_num1 = out1
+        im2, imfile2, frame_num2 = out2
+        im3, imfile3, frame_num3 = out3
 
         # Cam 09
         info_bin, info_pax, event_bin, event_pax, msglist, lpt = Info.get_info_from_frame(
-            frame_num, "cam09")
+            frame_num1, "cam09")
         if conf.plot:
             im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
             if lpt[0] is not None and lpt[1] is not None:
@@ -290,7 +296,7 @@ if __name__ == "__main__":
 
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist, lpt = Info.get_info_from_frame(
-            frame_num, "cam11")
+            frame_num2, "cam11")
         if conf.plot:
             im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
             if lpt[0] is not None and lpt[1] is not None:
@@ -299,7 +305,6 @@ if __name__ == "__main__":
                 cv2.circle(im2, lpt[1], 3, (255, 0, 0), -1)
 
         # Cam 13
-        frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist, lpt = Info.get_info_from_frame(
             frame_num3, "cam13")
         if conf.plot:
@@ -324,22 +329,22 @@ if __name__ == "__main__":
             # get message
             msglist.extend(mlist)
 
-            if frame_num > 9440:
-                sec_pass = (frame_num - 9440) / 30
+            if frame_num1 > 9440:
+                sec_pass = (frame_num1 - 9440) / 30
                 msglist = [["", "", ""],
                            [
                                "11",
-                               to_sec(frame_num),
+                               to_sec(frame_num1),
                                f"{PAX} out of view for {sec_pass:.2f} sec"
                            ], ["11",
-                               to_sec(frame_num), f"{BIN} left behind"]]
+                               to_sec(frame_num1), f"{BIN} left behind"]]
 
             im_feed = vis_feed.draw(im1,
                                     im2,
                                     im3,
-                                    frame_num,
+                                    frame_num1,
                                     msglist,
                                     with_feed=True)
 
-            f_write = feed_folder / (str(frame_num).zfill(6) + ".jpg")
+            f_write = feed_folder / (str(frame_num1).zfill(6) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
