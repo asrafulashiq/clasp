@@ -121,7 +121,10 @@ class IntegratorClass:
                     elif "hand in" in pp['event_str']:
                         pass
                     elif "suspicious" in pp['event_str']:
-                        asso_msg[frame] = [cam, frame, each_split]
+                        asso_msg[frame] = [
+                            cam, frame,
+                            each_split.replace("|", "").replace("'", "")
+                        ]
         return asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
@@ -149,7 +152,7 @@ class IntegratorClass:
         asso_info = self.asso_info["cam09"]  # association from camera 09
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                _id = "B" + str(row["id"])  # convert id name to B[id]
+                _id = str(row["id"])  # convert id name to B[id]
 
                 # get associated pax
                 if _id in asso_info:

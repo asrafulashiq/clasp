@@ -132,5 +132,5 @@ if os.uname()[1] == 'lambda-server':  # code is in clasp server
 else:
     conf.fmt_filename_src = conf.root + "/{file_num}/{cam}"
     conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
-    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}/{cam}"
+    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}"
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
