@@ -120,10 +120,12 @@ conf.fmt = "{:06d}.jpg"  # frame name format
 
 if os.uname()[1] == 'lambda-server':  # code is in clasp server
     conf.fmt = "frame{:05d}.jpg"
-    conf.fmt_filename_src = conf.root + "/20191024-test-{cam}{file_num}"
+    conf.fmt_filename_src = conf.root + "/20191024-training-{cam}{file_num}"
     conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
+    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}/{cam}"
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
 else:
     conf.fmt_filename_src = conf.root + "/{file_num}/{cam}"
     conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
+    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}/{cam}"
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"

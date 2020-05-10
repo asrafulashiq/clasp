@@ -244,11 +244,7 @@ if __name__ == "__main__":
 
     vis_feed = VisFeed()  # Visualization class
 
-    # NOTE: Output folder path of the feed
-    fmt_filename_out = conf.out_dir + "/run/{file_num}/feed"
-    fmt_filename_src = conf.root + "/{file_num}/{cam}"
-
-    feed_folder = Path(fmt_filename_out.format(file_num=file_num))
+    feed_folder = Path(conf.fmt_filename_out_feed.format(file_num=file_num))
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
     feed_folder.mkdir(exist_ok=True)
@@ -261,7 +257,7 @@ if __name__ == "__main__":
 
     for cam in cameras:
         src_folder[cam] = Path(
-            fmt_filename_src.format(file_num=file_num, cam=cam))
+            conf.fmt_filename_src.format(file_num=file_num, cam=cam))
         assert src_folder[cam].exists()
 
         if cam == "cam13":

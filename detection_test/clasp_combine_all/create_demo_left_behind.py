@@ -1,3 +1,5 @@
+import sys
+sys.path.append("../")
 
 from pathlib import Path
 import cv2
@@ -13,12 +15,11 @@ import pandas as pd
 import visutils.vis as vis
 from parse import parse
 from collections import defaultdict
+from tools import read_nu_association, read_mu, read_rpi
 
-
-# Experiment 
+# Experiment
 file_num = "exp2_train"
 cameras = ["cam09", "cam11", "cam13"]
-
 
 # PAX and Bin detection files
 bin_file = "./info/info.csv"
@@ -31,7 +32,6 @@ nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
 nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
 nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
 
-
 # Life of a bin and pax
 BIN = "B23"
 PAX = "P11"
@@ -40,13 +40,11 @@ conf.end_frame = 13080
 conf.skip_end = None
 conf.delta = 2
 
-
 _BIN_COLOR = (33, 217, 14)
 _BIN_COLOR_RED = (217, 17, 14)
 
 current_color_bin = _BIN_COLOR
 bin_start_frame = -1
-
 
 PERSON_LEFT_BEHIND = 9440
 
@@ -54,39 +52,27 @@ PERSON_LEFT_BEHIND = 9440
 def to_sec(frame, fps=30):
     return str(int(frame) // fps) + "s"
 
+
 class IntegratorClass:
     def __init__(self):
 
         # load bin
-        self.df_bin = self.load_bin()        
+        self.df_bin = self.load_bin()
 
         # load pax info
-        pax_names = ["frame", "id", "x1", "y1", "x2", "y2", "cam", "TU", "type"]
-        df_pax_9 = pd.read_csv(
-            str(pax_file_9), sep=",", header=None, names=pax_names, index_col=None
-        )
-        df_pax_11 = pd.read_csv(
-            str(pax_file_11), sep=",", header=None, names=pax_names, index_col=None
-        )
-        df_pax_13 = pd.read_csv(
-            str(pax_file_13), sep=",", header=None, names=pax_names, index_col=None
-        )
-        self.tmp_msg = []
+        self.df_pax = read_mu([pax_file_9, pax_file_11, pax_file_13],
+                              scale=1. / 3)
 
-        self.df_pax = pd.concat((df_pax_9, df_pax_11, df_pax_13))
-        self.df_pax = self.refine_pax_df()
+        self.tmp_msg = []
 
         # get association info
         self.asso_info = {}
         self.asso_info["cam09"], self.asso_msg = self.get_association_info(
-            nu_file_cam9, "09"
-        )
+            nu_file_cam9, "09")
         self.asso_info["cam11"], asso_msg_11 = self.get_association_info(
-            nu_file_cam11, "11"
-        )
+            nu_file_cam11, "11")
         self.asso_info["cam13"], asso_msg_13 = self.get_association_info(
-            nu_file_cam13, "13"
-        )
+            nu_file_cam13, "13")
         self.asso_msg.update(asso_msg_11)
         self.asso_msg.update(asso_msg_13)
 
@@ -99,44 +85,14 @@ class IntegratorClass:
 
     def load_bin(self):
         # load bin info
-        bin_names = [
-            "file",
-            "camera",
-            "frame",
-            "id",
-            "class",
-            "x1",
-            "y1",
-            "x2",
-            "y2",
-            "type",
-            "msg",
-        ]
-        df = pd.read_csv(
-            str(bin_file), sep=",", header=None, names=bin_names, index_col=None
-        )
-
-        # load location type
-        df_new = df[df["type"] == "loc"].copy()
-        df_new["frame"] = df["frame"] + 1
-        df_comb = pd.concat((df, df_new))
+        df = read_rpi(bin_file, scale=None)
 
         # load change type
         loc_cng = df["type"] == "chng"
-        df_comb.loc[loc_cng, "frame"] = df[loc_cng]["frame"] - 50
-        # change detection offset
-        df_comb = df_comb.sort_values("frame")
-        return df_comb
+        df.loc[loc_cng, "frame"] = df[loc_cng]["frame"] - 50
 
-
-    def refine_pax_df(self):
-        df = self.df_pax
-        df["x1"] = df["x1"] / 3
-        df["y1"] = df["y1"] / 3
-        df["x2"] = df["x2"] / 3
-        df["y2"] = df["y2"] / 3
-        df["camera"] = df["cam"].apply(lambda x: x[:5])
-        df["type"] = df["type"].str.lower()
+        # sort by frame number
+        df = df.sort_values("frame")
         return df
 
     def get_association_info(self, nu_file, cam="09"):
@@ -166,7 +122,6 @@ class IntegratorClass:
                         asso_info[bin_id][frame] = pax_id
         return asso_info, asso_msg
 
-
     def get_info_from_frame(self, frame, cam="cam09"):
 
         # get pax info
@@ -181,17 +136,18 @@ class IntegratorClass:
             if row["type"] == "loc":
                 if row["id"] != PAX:
                     continue
-                list_info_pax.append(
-                    [row["id"], "pax", row["x1"], row["y1"], row["x2"], row["y2"]]
-                )
+                list_info_pax.append([
+                    row["id"], "pax", row["x1"], row["y1"], row["x2"],
+                    row["y2"]
+                ])
 
                 global bin_start_frame
                 if bin_start_frame == -1 and cam == "cam13":
                     bin_start_frame = frame
 
                 #! SPECIFIC to LIFE_OF_A_BIN
-                cx = int((float(row['x1']) + float(row['x2']))/2)
-                cy = int((float(row['y1']) + float(row['y2']))/2)
+                cx = int((float(row['x1']) + float(row['x2'])) / 2)
+                cy = int((float(row['y1']) + float(row['y2'])) / 2)
                 line_pt[0] = (cx, cy)
         # get bin info
         # Generally, bins are extracted for each odd frame
@@ -216,28 +172,28 @@ class IntegratorClass:
                     pass
                 if _id in self.item_first_used:
                     self.item_first_used.append(_id)
-                list_info_bin.append(
-                    [
-                        _id,
-                        "item",
-                        row["x1"],
-                        row["y1"],
-                        row["x2"],
-                        row["y2"],
-                        self.bin_pax.get(_id, ""),
-                    ]
-                )
+                list_info_bin.append([
+                    _id,
+                    "item",
+                    row["x1"],
+                    row["y1"],
+                    row["x2"],
+                    row["y2"],
+                    self.bin_pax.get(_id, ""),
+                ])
 
                 #! SPECIFIC to LIFE_OF_A_BIN
-                cx = int((float(row['x1']) + float(row['x2']))/2)
-                cy = int((float(row['y1']) + float(row['y2']))/2)
+                cx = int((float(row['x1']) + float(row['x2'])) / 2)
+                cy = int((float(row['y1']) + float(row['y2'])) / 2)
                 line_pt[1] = (cx, cy)
 
             else:  # event type
                 if row["type"] not in ("enter", "exit"):
                     continue
                 list_event_bin.append([row["type"], row["msg"]])
-                msglist.append([row["camera"][-2:], to_sec(row["frame"]), row["msg"]])
+                msglist.append(
+                    [row["camera"][-2:],
+                     to_sec(row["frame"]), row["msg"]])
 
             if frame in self.asso_msg:
                 rr = self.asso_msg[frame]
@@ -245,9 +201,9 @@ class IntegratorClass:
                     msglist.append([rr[0], to_sec(rr[1]), rr[2]])
                     self.tmp.append(rr[2])
 
-        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax, msglist,
-                    line_pt)
-    
+        return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
+                msglist, line_pt)
+
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
@@ -284,14 +240,12 @@ if __name__ == "__main__":
 
     conf.plot = True
 
-    if conf.plot:
-        vis_feed = VisFeed(max_msg=3)  # Visualization class
+    vis_feed = VisFeed()  # Visualization class
 
-        # Output folder path of the feed
-        feed_folder = Path(conf.out_dir) / "demo" / "left_behind_1"
-        if feed_folder.exists():
-            shutil.rmtree(str(feed_folder))
-        feed_folder.mkdir(exist_ok=True)
+    feed_folder = Path(conf.fmt_filename_out_feed.format(file_num=file_num))
+    if feed_folder.exists():
+        shutil.rmtree(str(feed_folder))
+    feed_folder.mkdir(exist_ok=True)
 
     Info = IntegratorClass()  # integrate info from 3 groups
 
@@ -300,7 +254,8 @@ if __name__ == "__main__":
     out_folder = {}
 
     for cam in cameras:
-        src_folder[cam] = Path(conf.root) / file_num / cam
+        src_folder[cam] = Path(
+            conf.fmt_filename_src.format(file_num=file_num, cam=cam))
         assert src_folder[cam].exists()
 
         if cam == "cam13":
@@ -309,15 +264,12 @@ if __name__ == "__main__":
             start_frame = conf.start_frame
 
         imlist.append(
-            utils.get_images_from_dir(
-                src_folder[cam],
-                start_frame=start_frame,
-                skip_end=conf.skip_end,
-                delta=conf.delta,
-                end_frame=conf.end_frame,
-                file_only=(not conf.plot)
-            )
-        )
+            utils.get_images_from_dir(src_folder[cam],
+                                      start_frame=start_frame,
+                                      skip_end=conf.skip_end,
+                                      delta=conf.delta,
+                                      end_frame=conf.end_frame,
+                                      file_only=(not conf.plot)))
 
     for out1, out2, out3 in tqdm(zip(*imlist)):
         im1, imfile1, _ = out1
@@ -328,8 +280,7 @@ if __name__ == "__main__":
 
         # Cam 09
         info_bin, info_pax, event_bin, event_pax, msglist, lpt = Info.get_info_from_frame(
-            frame_num, "cam09"
-        )
+            frame_num, "cam09")
         if conf.plot:
             im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
             if lpt[0] is not None and lpt[1] is not None:
@@ -339,8 +290,7 @@ if __name__ == "__main__":
 
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist, lpt = Info.get_info_from_frame(
-            frame_num, "cam11"
-        )
+            frame_num, "cam11")
         if conf.plot:
             im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
             if lpt[0] is not None and lpt[1] is not None:
@@ -351,8 +301,7 @@ if __name__ == "__main__":
         # Cam 13
         frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist, lpt = Info.get_info_from_frame(
-            frame_num3, "cam13"
-        )
+            frame_num3, "cam13")
         if conf.plot:
             if bin_start_frame != -1 and (frame_num3 - bin_start_frame) > 900:
                 if frame_num3 % 30 == 0:
@@ -370,7 +319,6 @@ if __name__ == "__main__":
 
             # plot red boundary to denote timer
 
-
         # News feed info
         if conf.plot:
             # get message
@@ -378,13 +326,20 @@ if __name__ == "__main__":
 
             if frame_num > 9440:
                 sec_pass = (frame_num - 9440) / 30
-                msglist = [
-                    ["", "", ""],
-                    ["11", to_sec(frame_num) ,f"{PAX} out of view for {sec_pass:.2f} sec"], 
-                    ["11", to_sec(frame_num), f"{BIN} left behind"]
-                ]
+                msglist = [["", "", ""],
+                           [
+                               "11",
+                               to_sec(frame_num),
+                               f"{PAX} out of view for {sec_pass:.2f} sec"
+                           ], ["11",
+                               to_sec(frame_num), f"{BIN} left behind"]]
 
-            im_feed = vis_feed.draw(im1, im2, im3, frame_num, msglist, with_feed=True)
+            im_feed = vis_feed.draw(im1,
+                                    im2,
+                                    im3,
+                                    frame_num,
+                                    msglist,
+                                    with_feed=True)
 
             f_write = feed_folder / (str(frame_num).zfill(6) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
