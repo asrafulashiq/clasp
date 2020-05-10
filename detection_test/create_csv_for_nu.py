@@ -37,9 +37,6 @@ for file_path in args.file_paths:
 
     print(df.head())
 
-    # df_new = df.copy()
-    # df_new['frame'] = df['frame'] + 1
-    # df_comb = pd.concat((df, df_new))
     df_comb = df
 
     df_comb = df_comb.sort_values('frame')
