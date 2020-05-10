@@ -12,9 +12,10 @@ from rich import print as rprint
 
 # PAX and Bin detection files
 bin_file = "./info/info_exp2_cam09cam11cam13.csv"
+
 pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
-pax_file_11 = "./info/cam11exp2_logs_full_may14.txt.txt"
-pax_file_13 = "./info/cam13exp2_logs_full_may14.txt.txt"
+pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
+pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
 
 nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
 nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
@@ -28,7 +29,10 @@ df_bin = read_rpi(bin_file, scale=3)
 df_pax = read_mu([pax_file_9, pax_file_11, pax_file_13])
 
 # NU
-asso_info, theft_info = read_nu_association(nu_file_cam9)
+asso_info, theft_info = {}, {}
+asso_info["cam09"], theft_info["cam09"] = read_nu_association(nu_file_cam9)
+asso_info["cam11"], theft_info["cam11"] = read_nu_association(nu_file_cam11)
+asso_info["cam13"], theft_info["cam13"] = read_nu_association(nu_file_cam13)
 
 # -------------------------------- Create Log -------------------------------- #
 full_log = defaultdict(list)
@@ -38,10 +42,10 @@ df_comb = pd.concat((df_bin, df_pax), ignore_index=True).sort_values('frame')
 for _, row in tqdm(df_comb.iterrows(),
                    total=df_comb.shape[0],
                    desc="Processing : "):
-    cam, frame, _id, x1, y1, x2, y2, _type, _class = row[[
+    camera, frame, _id, x1, y1, x2, y2, _type, _class = row[[
         'camera', 'frame', 'id', 'x1', 'y1', 'x2', 'y2', 'type', 'class'
     ]]
-    cam = cam[3:5]  # 'cam09' --> '09'
+    cam = camera[3:5]  # 'cam09' --> '09'
 
     if _type not in ("loc", "chng"):
         continue
@@ -49,7 +53,7 @@ for _, row in tqdm(df_comb.iterrows(),
     if _class == 'dvi':
         type_log = 'DVI'
     else:
-        if "TSO" in _id:
+        if _class == 'tso':
             type_log = "TSO"
         else:
             type_log = "PAX"
@@ -57,10 +61,10 @@ for _, row in tqdm(df_comb.iterrows(),
     if _class == 'dvi':
         pax_id = "NA"
         if _id in asso_info:
-            ffs = list(asso_info[_id])
+            ffs = list(asso_info[camera][_id])
             for _f in ffs:
                 if frame >= _f:
-                    pax_id = asso_info[_id][_f]
+                    pax_id = asso_info[camera][_id][_f]
         if _type == "loc":
             # LOC: type: DVI camera-num: 11 frame: 3699 time-offset: 123.3 BB: 1785, 258, 1914, 549
             # ID: B2 PAX-ID: P1 left-behind: false
@@ -77,10 +81,10 @@ for _, row in tqdm(df_comb.iterrows(),
 
             # check potential theft
             _theft = "FALSE"
-            if _id in theft_info:
-                ffs = theft_info[_id]
+            if _id in theft_info[camera]:
+                ffs = theft_info[camera][_id]
                 for _f in ffs:
-                    if np.abs(frame - _f) < 50:
+                    if np.abs(frame - _f) < 100:
                         _theft = "TRUE"
                         pax_id = ffs[_f]
                         xfr_type = 'FROM'
@@ -93,7 +97,7 @@ for _, row in tqdm(df_comb.iterrows(),
                     f"BB: {x1}, {y1}, {x2}, {y2} owner-ID: {pax_id} DVI-ID: {_id} theft: {_theft}"
                 )  # REVIEW: 'theft'??
 
-    elif _class == 'pax':
+    elif _class in ('pax', 'tso'):
         # LOC: type: PAX camera-num: 13 frame: 4358 time-offset: 145.27 BB: 914, 833, 1190, 1079 ID: P1
         log_msg = (
             f"LOC: type: {type_log} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "

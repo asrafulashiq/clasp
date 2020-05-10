@@ -19,7 +19,6 @@ def get_arg():
     # NOTE: change output directory to save frames and logs
     parser.add_argument(
         "--out_dir",
-        "--out",
         default="~/dataset/ALERT/clasp_data/output",
         help="output directory",
     )
@@ -56,10 +55,13 @@ def get_arg():
     )
 
     # NOTE: exp name and cameras to use
-    parser.add_argument("--file-num", type=str, default="exp1_test")
-    parser.add_argument("--cameras", type=str, nargs="*", default=["cam09"])
+    parser.add_argument("--file-num", type=str, default="exp2_train")
+    parser.add_argument("--cameras",
+                        type=str,
+                        nargs="*",
+                        default=["cam09", "cam11", "cam13"])
 
-    parser.add_argument("--start-frame", type=int, default=8600)
+    parser.add_argument("--start-frame", type=int, default=1000)
     parser.add_argument("--skip-end", type=int, default=0)
     parser.add_argument("--end-frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)
@@ -93,11 +95,11 @@ def add_server_specific_arg(parent_parser):
     )
 
     parser.add_argument("--mode", type=str, default="training")
+    parser.add_argument("--file-num", type=str, default="exp2")
 
     # NOTE: change output directory to save frames and logs
     parser.add_argument(
         "--out_dir",
-        "--out",
         default=_HOME + "/dataset/ALERT/clasp_data/output",
         help="output directory",
     )
@@ -125,7 +127,7 @@ if os.uname()[1] == 'lambda-server':  # code is in clasp server
     conf.fmt = "frame{:05d}.jpg"
     conf.fmt_filename_src = conf.root + "/20191024-" + conf.mode + "-{cam}{file_num}"
     conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
-    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}/{cam}"
+    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}"
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
 else:
     conf.fmt_filename_src = conf.root + "/{file_num}/{cam}"

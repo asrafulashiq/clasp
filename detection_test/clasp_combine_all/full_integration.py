@@ -20,20 +20,17 @@ from tools import read_nu_association, read_mu, read_rpi
 
 init(autoreset=True)
 
-############### Experiment name and cameras ###############
-file_num = "exp2_train"
-cameras = ["cam09", "cam11", "cam13"]
-
 ########### PAX and Bin detection files  ###########
-bin_file = "./info/info.csv"
+# PAX and Bin detection files
+bin_file = "./info/info_exp2_cam09cam11cam13.csv"
 
-pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
-pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
-pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
+pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
+pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
+pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
 
-nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
-nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
-nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
+nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
+nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
+nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
 
 # # NOTE: Travel Unit info for exp2_train. Make it empty if we don't know TU info.
 TU_info = {}
@@ -96,11 +93,15 @@ class IntegratorClass:
         return df
 
     def get_association_info(self, nu_file, cam="09"):
-        asso_info = defaultdict(dict)  # store association info
-        asso_msg = {}  # association message, like 'stealing'
-        df_tmp = pd.read_csv(nu_file, header=None, names=["frame", "des"])
+        if nu_file is None:
+            return {}, {}
 
-        for _, row in df_tmp.iterrows():
+        asso_info = defaultdict(dict)
+        asso_msg = {}  # association message, like 'stealing'
+
+        df = pd.read_csv(str(nu_file), header=None, names=["frame", "des"])
+
+        for _, row in df.iterrows():
             frame = row["frame"]
             des = row["des"]
             des = parse("[{}]", des)
@@ -109,19 +110,18 @@ class IntegratorClass:
             des = des[0]
             for each_split in des.split(","):
                 each_split = each_split.strip()
-                pp = parse("'P{}-B{}'", each_split)
+                pp = parse("'|P{pax_id:d}|{event_str}|Bin {bin_id:d}|'",
+                           each_split)
                 if pp is not None:
-                    pax_id, bin_id = "P" + str(pp[0]), "B" + str(int(pp[1]))
-
-                    #### potential theft info from NU ####
-                    if ("stealing" in pax_id) or ("stoling" in pax_id):
-                        pax_id = pax_id.replace("stoling", "stealing")
-                        each_split = each_split.replace("stoling", "stealing")
-                        if each_split not in self.tmp_msg:
-                            asso_msg[frame] = [cam, frame, each_split]
-                            self.tmp_msg.append(each_split)
-                    else:
+                    bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
+                        pp['pax_id'])
+                    if "owner of" in pp['event_str']:
+                        # association
                         asso_info[bin_id][frame] = pax_id
+                    elif "hand in" in pp['event_str']:
+                        pass
+                    elif "suspicious" in pp['event_str']:
+                        asso_msg[frame] = [cam, frame, each_split]
         return asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
@@ -244,10 +244,11 @@ if __name__ == "__main__":
 
     vis_feed = VisFeed()  # Visualization class
 
-    feed_folder = Path(conf.fmt_filename_out_feed.format(file_num=file_num))
+    feed_folder = Path(
+        conf.fmt_filename_out_feed.format(file_num=conf.file_num))
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
-    feed_folder.mkdir(exist_ok=True)
+    feed_folder.mkdir(exist_ok=True, parents=True)
 
     Info = IntegratorClass()  # integrator class info from 3 groups
 
@@ -255,9 +256,9 @@ if __name__ == "__main__":
     src_folder = {}
     out_folder = {}
 
-    for cam in cameras:
+    for cam in conf.cameras:
         src_folder[cam] = Path(
-            conf.fmt_filename_src.format(file_num=file_num, cam=cam))
+            conf.fmt_filename_src.format(file_num=conf.file_num, cam=cam))
         assert src_folder[cam].exists()
 
         if cam == "cam13":
@@ -271,31 +272,31 @@ if __name__ == "__main__":
                                       skip_end=conf.skip_end,
                                       delta=conf.delta,
                                       end_frame=conf.end_frame,
+                                      fmt=conf.fmt,
                                       file_only=False))
 
     pbar = tqdm(zip(*imlist))
     for out1, out2, out3 in pbar:
-        im1, imfile1, _ = out1
-        im2, imfile2, _ = out2
-        im3, imfile3, _ = out3
+        im1, imfile1, frame_num1 = out1
+        im2, imfile2, frame_num2 = out2
+        im3, imfile3, frame_num3 = out3
 
-        frame_num = int(Path(imfile1).stem) - 1
+        # frame_num = int(Path(imfile1).stem) - 1
 
-        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num}")
+        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num1}")
 
         # Cam 09
         info_bin, info_pax, event_bin, event_pax, msglist = Info.get_info_from_frame(
-            frame_num, "cam09")
+            frame_num1, "cam09")
         im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_from_frame(
-            frame_num, "cam11")
+            frame_num2, "cam11")
         msglist.extend(mlist)
         im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         # Cam 13
-        frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist = Info.get_info_from_frame(
             frame_num3, "cam13")
         msglist.extend(mlist)
@@ -304,7 +305,7 @@ if __name__ == "__main__":
 
         # News feed info
         # news-feed message
-        im_feed = vis_feed.draw(im1, im2, im3, frame_num, msglist)
+        im_feed = vis_feed.draw(im1, im2, im3, frame_num1, msglist)
 
-        f_write = feed_folder / (str(frame_num).zfill(6) + ".jpg")
+        f_write = feed_folder / (str(frame_num1).zfill(6) + ".jpg")
         skimage.io.imsave(str(f_write), im_feed)
