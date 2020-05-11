@@ -156,16 +156,12 @@ class Manager:
         return im
 
     def write_info_upto_frame(self, df, frame, cam="cam09"):
-        if frame not in df["frame"].values:
-            frame += 1
         info = df[(df["frame"] <= frame) & (df["camera"] == cam)]
         for _, row in info.iterrows():
             line = ",".join([str(_s) for _s in row.values])
             self.write_list.append(line)
 
     def write_exit_info_upto_frame(self, df, frame, cam="cam09"):
-        if frame not in df["frame"].values:
-            frame += 1
         info = df[(df["frame"] <= frame)
                   & ((df["type"] == "exit") | (df["type"] == "empty"))
                   & (df["camera"] == cam)]
@@ -231,35 +227,35 @@ class Manager:
             for each_bin in bin_manager._current_bins:
                 bbox = ",".join(str(int(i)) for i in each_bin.pos)
                 line = (
-                    f"{self.file_num},{cam},{self.current_frame},{each_bin.label},{each_bin.cls},{bbox},"
+                    f"{self.file_num},{cam},{bin_manager.current_frame},{each_bin.label},{each_bin.cls},{bbox},"
                     + f"loc, -1")
                 self.write_list.append(line)
 
     def final_write(self):
-        if self.write:
-            for cam, bin_manager in self._bin_managers.items():
-                for event in bin_manager._current_events:
-                    frame, _id, cls, x1, y1, x2, y2, _type, msg = event
-                    line = "{},{},{},{},{},{},{},{},{},{},{}".format(
-                        self.file_num,
-                        cam,
-                        frame,
-                        _id,
-                        cls,
-                        int(x1),
-                        int(y1),
-                        int(x2),
-                        int(y2),
-                        _type,
-                        msg,
-                    )
-                    self.write_list.append(line)
+        for cam, bin_manager in self._bin_managers.items():
+            # write all event to the bottom
+            for event in bin_manager._current_events:
+                frame, _id, cls, x1, y1, x2, y2, _type, msg = event
+                line = "{},{},{},{},{},{},{},{},{},{},{}".format(
+                    self.file_num,
+                    cam,
+                    frame,
+                    _id,
+                    cls,
+                    int(x1),
+                    int(y1),
+                    int(x2),
+                    int(y2),
+                    _type,
+                    msg,
+                )
+                self.write_list.append(line)
 
-            _name = f"info_{self.config.file_num}_{''.join(self.config.cameras)}.csv"
-            write_file = Path(self.config.out_dir) / "run" / _name
-            write_file.parent.mkdir(exist_ok=True, parents=True)
+        _name = f"info_{self.config.file_num}_{''.join(self.config.cameras)}.csv"
+        write_file = Path(self.config.out_dir) / "run" / _name
+        write_file.parent.mkdir(exist_ok=True, parents=True)
 
-            with write_file.open("w") as fp:
-                fp.write("\n".join(self.write_list))
+        with write_file.open("w") as fp:
+            fp.write("\n".join(self.write_list))
 
-            self.log.info(f"Output info to : {write_file}")
+        self.log.info(f"Output info to : {write_file}")

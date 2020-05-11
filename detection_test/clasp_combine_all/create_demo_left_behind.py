@@ -87,8 +87,8 @@ class IntegratorClass:
         loc_cng = df["type"] == "chng"
         df.loc[loc_cng, "frame"] = df[loc_cng]["frame"] - 50
 
-        df["frame"] = df[
-            "frame"] + 50  # FIXME: For some reason, there is a 50 frame lag
+        # df["frame"] = df[
+        #     "frame"] + 50  # FIXME: For some reason, there is a 50 frame lag
 
         # sort by frame number
         df = df.sort_values("frame")

@@ -33,10 +33,6 @@ if __name__ == "__main__":
     src_folder = {}
     out_folder = {}
 
-    # format filename
-    # fmt_filename_src = conf.root + "/{file_num}/{cam}"
-    # fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
-
     # store image names
     for cam in cameras:
         src_folder[cam] = Path(
@@ -106,11 +102,12 @@ if __name__ == "__main__":
                                                 frame_num=frame_num)
             skimage.io.imsave(str(out_folder[cameras[i_cnt]] / imfile.name),
                               new_im)
-
-        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num}")
-
         if conf.write:
             manager.write_info()
+
+        if cameras[i_cnt] == "cam13":
+            frame_num += 50
+        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num}")
 
     if conf.write:
         manager.final_write()
