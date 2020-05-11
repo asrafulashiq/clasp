@@ -4542,70 +4542,70 @@
 4542,[]
 4543,[]
 4544,[]
-4545,[]
-4546,['|P3| left hand in |Bin 10|']
-4547,['|P3| left hand in |Bin 10|']
-4548,['|P3| left hand in |Bin 10|']
-4549,['|P3| left hand in |Bin 10|']
-4550,['|P3| left hand in |Bin 10|']
-4551,['|P3| left hand in |Bin 10|']
-4552,['|P3| left hand in |Bin 10|']
+4545,['|P3| left hand in |Bin 3|']
+4546,['|P3| left hand in |Bin 3|']
+4547,['|P3| left hand in |Bin 3|']
+4548,['|P3| left hand in |Bin 3|']
+4549,['|P3| left hand in |Bin 3|']
+4550,['|P3| left hand in |Bin 3|']
+4551,['|P3| left hand in |Bin 3|']
+4552,['|P3| left hand in |Bin 3|']
 4553,[]
-4554,['|P3| left hand in |Bin 10|']
-4555,['|P3| left hand in |Bin 10|']
-4556,['|P3| left hand in |Bin 10|']
+4554,['|P3| left hand in |Bin 3|']
+4555,['|P3| left hand in |Bin 3|']
+4556,['|P3| left hand in |Bin 3|']
 4557,[]
-4558,['|P3| left hand in |Bin 10|']
-4559,['|P3| left hand in |Bin 10|']
-4560,['|P3| left hand in |Bin 10|']
-4561,['|P3| left hand in |Bin 10|']
-4562,['|P3| left hand in |Bin 10|']
-4563,['|P3| left hand in |Bin 10|']
-4564,[]
-4565,[]
-4566,[]
-4567,[]
-4568,"['|P3| right hand in |Bin 11|', '|P1| right hand in |Bin 11|', '|P1| is suspicious with |Bin 11|']"
-4569,"['|P3| right hand in |Bin 11|', '|P1| right hand in |Bin 11|', '|P1| is suspicious with |Bin 11|']"
-4570,"['|P3| right hand in |Bin 11|', '|P1| right hand in |Bin 11|', '|P1| is suspicious with |Bin 11|']"
-4571,[]
-4572,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4573,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4574,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4575,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4576,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4577,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4578,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4579,[]
-4580,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|', '|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|']"
-4581,"['|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4582,['|P3| right hand in |Bin 14|']
-4583,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|', '|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4584,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|', '|P3| right hand in |Bin 14|', '|P1| right hand in |Bin 14|', '|P1| is suspicious with |Bin 14|']"
-4585,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
-4586,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
-4587,['|P3| right hand in |Bin 10|']
-4588,['|P3| right hand in |Bin 10|']
-4589,['|P3| right hand in |Bin 10|']
-4590,['|P3| right hand in |Bin 10|']
-4591,['|P3| right hand in |Bin 10|']
-4592,['|P3| right hand in |Bin 10|']
+4558,['|P3| left hand in |Bin 3|']
+4559,['|P3| left hand in |Bin 3|']
+4560,['|P3| left hand in |Bin 3|']
+4561,['|P3| left hand in |Bin 3|']
+4562,['|P3| left hand in |Bin 3|']
+4563,['|P3| left hand in |Bin 3|']
+4564,['|P3| left hand in |Bin 3|']
+4565,['|P3| left hand in |Bin 3|']
+4566,"['|P3| left hand in |Bin 3|', '|P3| right hand in |Bin 10|']"
+4567,"['|P3| left hand in |Bin 3|', '|P3| right hand in |Bin 10|']"
+4568,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4569,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4570,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4571,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4572,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4573,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4574,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4575,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4576,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4577,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4578,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|', '|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4579,"['|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|']"
+4580,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|', '|P3| left hand in |Bin 3|', '|P1| left hand in |Bin 3|', '|P1| is suspicious with |Bin 3|']"
+4581,"['|P3| right hand in |Bin 10|', '|P1| right hand in |Bin 10|', '|P1| is suspicious with |Bin 10|']"
+4582,['|P3| right hand in |Bin 10|']
+4583,[]
+4584,[]
+4585,[]
+4586,[]
+4587,[]
+4588,[]
+4589,[]
+4590,[]
+4591,[]
+4592,[]
 4593,[]
-4594,['|P3| right hand in |Bin 10|']
-4595,['|P3| right hand in |Bin 10|']
-4596,['|P3| right hand in |Bin 10|']
-4597,['|P3| right hand in |Bin 10|']
-4598,['|P3| right hand in |Bin 10|']
-4599,['|P3| right hand in |Bin 10|']
+4594,[]
+4595,[]
+4596,[]
+4597,[]
+4598,[]
+4599,[]
 4600,[]
-4601,['|P3| right hand in |Bin 10|']
-4602,['|P3| right hand in |Bin 10|']
-4603,['|P3| right hand in |Bin 10|']
-4604,['|P3| right hand in |Bin 10|']
-4605,['|P3| right hand in |Bin 10|']
-4606,['|P3| right hand in |Bin 10|']
-4607,['|P3| right hand in |Bin 10|']
-4608,['|P3| right hand in |Bin 10|']
+4601,[]
+4602,[]
+4603,[]
+4604,[]
+4605,[]
+4606,[]
+4607,[]
+4608,[]
 4609,[]
 4610,[]
 4611,[]
@@ -4837,40 +4837,40 @@
 4837,[]
 4838,['|P4| left hand in |Bin 13|']
 4839,['|P4| left hand in |Bin 13|']
-4840,['|P4| left hand in |Bin 13|']
-4841,['|P4| left hand in |Bin 13|']
+4840,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|', '|P4| is the owner of |Bin 12|']"
+4841,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
 4842,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
 4843,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
-4844,"['|P3| right hand in |Bin 10|', '|P4| right hand in |Bin 12|']"
-4845,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4846,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4847,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4848,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4849,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4850,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4851,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4852,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4853,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4854,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4855,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4856,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4857,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4858,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4859,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4860,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 18|']"
-4861,['|P4| right hand in |Bin 18|']
-4862,['|P4| right hand in |Bin 18|']
-4863,['|P4| right hand in |Bin 18|']
-4864,['|P4| right hand in |Bin 18|']
-4865,['|P4| right hand in |Bin 18|']
-4866,['|P4| right hand in |Bin 18|']
-4867,['|P4| left hand in |Bin 18|']
-4868,['|P4| left hand in |Bin 18|']
-4869,[]
-4870,['|P4| left hand in |Bin 13|']
-4871,[]
-4872,[]
-4873,[]
+4844,['|P4| right hand in |Bin 12|']
+4845,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4846,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4847,['|P4| right hand in |Bin 12|']
+4848,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4849,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4850,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4851,['|P4| right hand in |Bin 12|']
+4852,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4853,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4854,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4855,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4856,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4857,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4858,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4859,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4860,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4861,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4862,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4863,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4864,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4865,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4866,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4867,['|P4| left hand in |Bin 12|']
+4868,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 12|']"
+4869,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4870,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|']"
+4871,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4872,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
+4873,"['|P3| right hand in |Bin 10|', '|P4| left hand in |Bin 13|']"
 4874,[]
 4875,[]
 4876,['|P4| left hand in |Bin 13|']
@@ -4884,21 +4884,21 @@
 4884,['|P4| left hand in |Bin 13|']
 4885,['|P4| left hand in |Bin 13|']
 4886,['|P4| left hand in |Bin 13|']
-4887,['|P4| left hand in |Bin 13|']
+4887,"['|P4| left hand in |Bin 13|', '|P4| right hand in |Bin 12|']"
 4888,['|P4| left hand in |Bin 13|']
 4889,['|P4| left hand in |Bin 13|']
 4890,[]
 4891,['|P4| left hand in |Bin 13|']
-4892,['|P4| left hand in |Bin 13|']
-4893,[]
-4894,['|P4| left hand in |Bin 13|']
-4895,[]
-4896,[]
+4892,[]
+4893,['|P4| right hand in |Bin 12|']
+4894,[]
+4895,['|P4| right hand in |Bin 12|']
+4896,['|P4| right hand in |Bin 12|']
 4897,['|P4| right hand in |Bin 13|']
-4898,[]
-4899,[]
-4900,[]
-4901,[]
+4898,['|P4| right hand in |Bin 12|']
+4899,['|P4| right hand in |Bin 12|']
+4900,['|P4| right hand in |Bin 12|']
+4901,['|P4| right hand in |Bin 12|']
 4902,[]
 4903,[]
 4904,['|P4| right hand in |Bin 12|']
@@ -5030,43 +5030,43 @@
 5030,[]
 5031,[]
 5032,[]
-5033,['|P3| left hand in |Bin 14|']
-5034,['|P3| left hand in |Bin 14|']
-5035,['|P3| left hand in |Bin 14|']
-5036,['|P3| left hand in |Bin 14|']
-5037,['|P3| left hand in |Bin 14|']
-5038,['|P3| left hand in |Bin 14|']
-5039,['|P3| left hand in |Bin 14|']
-5040,"['|P3| left hand in |Bin 14|', '|P4| left hand in |Bin 18|']"
-5041,"['|P3| left hand in |Bin 14|', '|P4| left hand in |Bin 18|']"
-5042,['|P3| left hand in |Bin 14|']
+5033,[]
+5034,[]
+5035,[]
+5036,[]
+5037,[]
+5038,[]
+5039,[]
+5040,[]
+5041,['|P4| left hand in |Bin 12|']
+5042,[]
 5043,['|P3| left hand in |Bin 14|']
-5044,"['|P3| left hand in |Bin 14|', '|P4| left hand in |Bin 18|']"
+5044,"['|P3| left hand in |Bin 14|', '|P4| left hand in |Bin 12|']"
 5045,['|P3| left hand in |Bin 14|']
-5046,['|P4| right hand in |Bin 18|']
-5047,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5046,['|P4| right hand in |Bin 12|']
+5047,['|P3| left hand in |Bin 14|']
 5048,['|P3| left hand in |Bin 14|']
-5049,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
-5050,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|', '|P4| is the owner of |Bin 18|']"
-5051,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
-5052,['|P4| right hand in |Bin 18|']
-5053,['|P4| right hand in |Bin 18|']
-5054,['|P4| right hand in |Bin 18|']
-5055,['|P4| right hand in |Bin 18|']
+5049,[]
+5050,[]
+5051,[]
+5052,['|P4| right hand in |Bin 12|']
+5053,[]
+5054,[]
+5055,[]
 5056,[]
-5057,['|P4| right hand in |Bin 18|']
-5058,"['|P3| right hand in |Bin 11|', '|P4| left hand in |Bin 18|']"
-5059,['|P4| left hand in |Bin 18|']
+5057,[]
+5058,[]
+5059,[]
 5060,[]
-5061,['|P3| right hand in |Bin 13|']
+5061,[]
 5062,[]
-5063,['|P3| right hand in |Bin 13|']
-5064,['|P3| right hand in |Bin 13|']
-5065,['|P3| right hand in |Bin 13|']
-5066,['|P3| right hand in |Bin 13|']
-5067,['|P3| right hand in |Bin 13|']
-5068,['|P3| right hand in |Bin 13|']
-5069,['|P3| right hand in |Bin 13|']
+5063,['|P3| right hand in |Bin 11|']
+5064,[]
+5065,[]
+5066,[]
+5067,[]
+5068,[]
+5069,[]
 5070,['|P3| right hand in |Bin 13|']
 5071,['|P3| right hand in |Bin 13|']
 5072,['|P3| right hand in |Bin 13|']
@@ -5074,31 +5074,31 @@
 5074,['|P3| right hand in |Bin 13|']
 5075,['|P3| right hand in |Bin 13|']
 5076,[]
-5077,['|P3| right hand in |Bin 13|']
-5078,['|P3| right hand in |Bin 13|']
-5079,['|P3| right hand in |Bin 13|']
+5077,"['|P3| right hand in |Bin 11|', '|P3| right hand in |Bin 13|']"
+5078,"['|P3| right hand in |Bin 11|', '|P3| right hand in |Bin 13|']"
+5079,"['|P3| right hand in |Bin 11|', '|P3| right hand in |Bin 13|']"
 5080,['|P3| right hand in |Bin 13|']
-5081,['|P3| right hand in |Bin 13|']
+5081,"['|P3| right hand in |Bin 11|', '|P3| right hand in |Bin 13|']"
 5082,['|P3| right hand in |Bin 13|']
-5083,[]
-5084,[]
-5085,[]
-5086,[]
-5087,[]
-5088,[]
-5089,[]
-5090,['|P4| right hand in |Bin 18|']
-5091,['|P4| right hand in |Bin 18|']
-5092,['|P4| right hand in |Bin 18|']
-5093,['|P4| right hand in |Bin 18|']
-5094,[]
-5095,['|P4| right hand in |Bin 18|']
-5096,['|P4| right hand in |Bin 18|']
-5097,['|P4| right hand in |Bin 18|']
-5098,[]
-5099,['|P4| right hand in |Bin 18|']
-5100,['|P4| right hand in |Bin 18|']
-5101,['|P4| right hand in |Bin 18|']
+5083,['|P3| right hand in |Bin 13|']
+5084,['|P3| right hand in |Bin 13|']
+5085,['|P3| right hand in |Bin 13|']
+5086,['|P3| right hand in |Bin 13|']
+5087,"['|P3| left hand in |Bin 14|', '|P3| right hand in |Bin 13|']"
+5088,['|P3| right hand in |Bin 13|']
+5089,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5090,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5091,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5092,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5093,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5094,['|P3| left hand in |Bin 14|']
+5095,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 12|', '|P4| right hand in |Bin 18|']"
+5096,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 12|']"
+5097,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 12|']"
+5098,['|P4| right hand in |Bin 12|']
+5099,"['|P4| right hand in |Bin 12|', '|P4| right hand in |Bin 18|']"
+5100,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
+5101,"['|P3| left hand in |Bin 14|', '|P4| right hand in |Bin 18|']"
 5102,"['|P4| right hand in |Bin 18|', '|P3| left hand in |Bin 14|']"
 5103,['|P4| right hand in |Bin 18|']
 5104,[]
@@ -5113,62 +5113,62 @@
 5113,[]
 5114,[]
 5115,[]
-5116,['|P3| right hand in |Bin 11|']
-5117,['|P3| right hand in |Bin 11|']
-5118,['|P3| right hand in |Bin 11|']
-5119,['|P3| right hand in |Bin 11|']
-5120,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|']"
-5121,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|']"
+5116,[]
+5117,[]
+5118,['|P3| right hand in |Bin 13|']
+5119,['|P3| right hand in |Bin 13|']
+5120,['|P3| right hand in |Bin 13|']
+5121,['|P3| right hand in |Bin 13|']
 5122,[]
 5123,[]
 5124,[]
 5125,[]
-5126,[]
-5127,[]
-5128,[]
+5126,['|P4| right hand in |Bin 12|']
+5127,['|P4| right hand in |Bin 12|']
+5128,['|P4| right hand in |Bin 12|']
 5129,['|P4| right hand in |Bin 12|']
-5130,[]
+5130,['|P4| right hand in |Bin 12|']
 5131,['|P4| right hand in |Bin 12|']
-5132,[]
-5133,[]
-5134,[]
+5132,['|P4| right hand in |Bin 12|']
+5133,['|P4| right hand in |Bin 12|']
+5134,['|P4| right hand in |Bin 12|']
 5135,['|P4| right hand in |Bin 12|']
-5136,['|P4| right hand in |Bin 12|']
-5137,['|P4| right hand in |Bin 12|']
+5136,[]
+5137,[]
 5138,['|P4| right hand in |Bin 12|']
 5139,['|P4| right hand in |Bin 12|']
-5140,['|P4| right hand in |Bin 12|']
-5141,['|P4| right hand in |Bin 12|']
-5142,['|P4| right hand in |Bin 12|']
-5143,['|P4| right hand in |Bin 12|']
-5144,['|P4| right hand in |Bin 12|']
-5145,['|P4| right hand in |Bin 12|']
-5146,['|P4| right hand in |Bin 12|']
-5147,['|P4| right hand in |Bin 12|']
-5148,['|P4| right hand in |Bin 12|']
-5149,['|P4| right hand in |Bin 12|']
-5150,[]
-5151,['|P4| right hand in |Bin 12|']
-5152,['|P4| right hand in |Bin 12|']
-5153,['|P4| right hand in |Bin 12|']
-5154,['|P4| right hand in |Bin 12|']
-5155,['|P4| right hand in |Bin 12|']
-5156,['|P4| right hand in |Bin 12|']
+5140,['|P3| right hand in |Bin 11|']
+5141,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5142,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5143,['|P3| right hand in |Bin 11|']
+5144,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5145,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5146,['|P3| right hand in |Bin 11|']
+5147,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5148,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5149,['|P3| right hand in |Bin 11|']
+5150,['|P3| right hand in |Bin 11|']
+5151,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5152,['|P3| right hand in |Bin 11|']
+5153,['|P3| right hand in |Bin 11|']
+5154,['|P3| right hand in |Bin 11|']
+5155,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5156,"['|P3| right hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
 5157,['|P4| right hand in |Bin 12|']
-5158,[]
-5159,[]
-5160,[]
-5161,[]
-5162,[]
+5158,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|', '|P4| right hand in |Bin 12|']"
+5159,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|']"
+5160,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|']"
+5161,['|P3| right hand in |Bin 11|']
+5162,['|P3| right hand in |Bin 11|']
 5163,[]
-5164,[]
-5165,[]
-5166,[]
-5167,[]
-5168,[]
-5169,[]
-5170,[]
-5171,[]
+5164,['|P3| right hand in |Bin 11|']
+5165,['|P3| right hand in |Bin 11|']
+5166,['|P3| right hand in |Bin 11|']
+5167,['|P3| right hand in |Bin 11|']
+5168,['|P3| right hand in |Bin 11|']
+5169,['|P3| right hand in |Bin 11|']
+5170,"['|P3| right hand in |Bin 11|', '|P3| left hand in |Bin 11|']"
+5171,['|P3| right hand in |Bin 11|']
 5172,[]
 5173,[]
 5174,[]
@@ -5431,35 +5431,35 @@
 5431,[]
 5432,[]
 5433,[]
-5434,[]
-5435,[]
-5436,[]
-5437,[]
+5434,['|P3| right hand in |Bin 12|']
+5435,['|P3| right hand in |Bin 12|']
+5436,['|P3| right hand in |Bin 12|']
+5437,['|P3| right hand in |Bin 12|']
 5438,[]
-5439,[]
-5440,[]
-5441,[]
-5442,[]
-5443,[]
+5439,['|P3| right hand in |Bin 12|']
+5440,['|P3| right hand in |Bin 12|']
+5441,['|P3| right hand in |Bin 12|']
+5442,['|P3| right hand in |Bin 12|']
+5443,['|P3| right hand in |Bin 12|']
 5444,[]
 5445,[]
 5446,[]
-5447,[]
-5448,[]
-5449,[]
-5450,[]
-5451,[]
-5452,[]
-5453,[]
-5454,[]
-5455,[]
-5456,[]
-5457,[]
+5447,['|P3| right hand in |Bin 12|']
+5448,['|P3| right hand in |Bin 12|']
+5449,['|P3| right hand in |Bin 12|']
+5450,['|P3| right hand in |Bin 12|']
+5451,['|P3| right hand in |Bin 12|']
+5452,['|P3| right hand in |Bin 12|']
+5453,['|P3| right hand in |Bin 12|']
+5454,['|P3| right hand in |Bin 12|']
+5455,['|P3| right hand in |Bin 12|']
+5456,['|P3| right hand in |Bin 12|']
+5457,['|P3| right hand in |Bin 12|']
 5458,[]
 5459,[]
-5460,[]
-5461,[]
-5462,[]
+5460,['|P3| right hand in |Bin 12|']
+5461,['|P3| right hand in |Bin 12|']
+5462,['|P3| right hand in |Bin 12|']
 5463,[]
 5464,[]
 5465,[]
@@ -6078,25 +6078,25 @@
 6078,[]
 6079,[]
 6080,[]
-6081,[]
+6081,['|P34| right hand in |Bin 18|']
 6082,[]
 6083,[]
 6084,[]
 6085,[]
 6086,[]
-6087,[]
+6087,['|P34| right hand in |Bin 18|']
 6088,[]
 6089,[]
 6090,[]
 6091,[]
 6092,[]
 6093,[]
-6094,[]
+6094,['|P34| right hand in |Bin 18|']
 6095,[]
 6096,[]
-6097,[]
-6098,[]
-6099,[]
+6097,['|P34| right hand in |Bin 18|']
+6098,['|P34| right hand in |Bin 18|']
+6099,['|P34| right hand in |Bin 18|']
 6100,[]
 6101,[]
 6102,[]
@@ -6107,43 +6107,43 @@
 6107,[]
 6108,[]
 6109,[]
-6110,[]
-6111,[]
+6110,['|P34| right hand in |Bin 18|']
+6111,['|P34| right hand in |Bin 18|']
 6112,[]
-6113,[]
+6113,['|P34| right hand in |Bin 18|']
 6114,[]
-6115,[]
-6116,[]
-6117,[]
-6118,[]
-6119,[]
+6115,['|P34| right hand in |Bin 18|']
+6116,['|P34| right hand in |Bin 18|']
+6117,['|P34| right hand in |Bin 18|']
+6118,['|P34| right hand in |Bin 18|']
+6119,['|P34| right hand in |Bin 18|']
 6120,[]
 6121,[]
-6122,[]
-6123,[]
-6124,[]
+6122,"['|P34| left hand in |Bin 18|', '|P8| left hand in |Bin 18|']"
+6123,['|P34| left hand in |Bin 18|']
+6124,['|P34| right hand in |Bin 18|']
 6125,[]
-6126,[]
-6127,[]
+6126,['|P34| right hand in |Bin 18|']
+6127,['|P34| right hand in |Bin 18|']
 6128,[]
 6129,[]
 6130,[]
 6131,[]
-6132,[]
-6133,[]
-6134,[]
+6132,['|P34| right hand in |Bin 18|']
+6133,['|P34| right hand in |Bin 18|']
+6134,['|P34| right hand in |Bin 18|']
 6135,[]
-6136,[]
-6137,[]
-6138,[]
-6139,[]
-6140,[]
-6141,[]
-6142,[]
-6143,[]
-6144,[]
-6145,[]
-6146,"['|P34| right hand in |Bin 18|', '|P34| is suspicious with |Bin 18|']"
+6136,['|P34| right hand in |Bin 18|']
+6137,['|P34| right hand in |Bin 18|']
+6138,['|P34| right hand in |Bin 18|']
+6139,['|P34| left hand in |Bin 18|']
+6140,['|P34| left hand in |Bin 18|']
+6141,['|P34| right hand in |Bin 18|']
+6142,['|P34| left hand in |Bin 18|']
+6143,['|P34| left hand in |Bin 18|']
+6144,"['|P34| right hand in |Bin 18|', '|P34| is the owner of |Bin 18|']"
+6145,['|P34| left hand in |Bin 18|']
+6146,['|P34| right hand in |Bin 18|']
 6147,[]
 6148,[]
 6149,[]
@@ -6440,28 +6440,28 @@
 6440,[]
 6441,[]
 6442,[]
-6443,[]
-6444,[]
-6445,[]
-6446,[]
-6447,[]
-6448,[]
-6449,[]
-6450,[]
-6451,[]
-6452,[]
-6453,[]
-6454,[]
-6455,[]
-6456,[]
-6457,[]
-6458,[]
+6443,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6444,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6445,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6446,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6447,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6448,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6449,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6450,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6451,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6452,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6453,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6454,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6455,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6456,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6457,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6458,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
 6459,[]
 6460,[]
-6461,[]
-6462,[]
-6463,[]
-6464,[]
+6461,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6462,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6463,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
+6464,"['|P8| right hand in |Bin 20|', '|P8| is suspicious with |Bin 20|']"
 6465,[]
 6466,[]
 6467,[]
@@ -6544,12 +6544,12 @@
 6544,[]
 6545,[]
 6546,[]
-6547,[]
-6548,[]
-6549,[]
-6550,[]
-6551,[]
-6552,[]
+6547,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
+6548,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
+6549,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
+6550,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
+6551,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
+6552,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
 6553,"['|P5| right hand in |Bin 17|', '|P5| is suspicious with |Bin 17|']"
 6554,[]
 6555,[]
@@ -6879,9 +6879,9 @@
 6879,[]
 6880,[]
 6881,[]
-6882,['|P9| left hand in |Bin 22|']
-6883,['|P9| left hand in |Bin 22|']
-6884,['|P9| left hand in |Bin 22|']
+6882,[]
+6883,[]
+6884,[]
 6885,[]
 6886,[]
 6887,[]
@@ -6893,10 +6893,10 @@
 6893,"['|P9| left hand in |Bin 19|', '|P9| right hand in |Bin 23|']"
 6894,"['|P9| left hand in |Bin 19|', '|P9| right hand in |Bin 23|']"
 6895,"['|P9| left hand in |Bin 19|', '|P9| right hand in |Bin 23|']"
-6896,"['|P9| left hand in |Bin 22|', '|P9| is the owner of |Bin 22|', '|P9| right hand in |Bin 23|']"
-6897,"['|P9| left hand in |Bin 22|', '|P9| right hand in |Bin 23|']"
+6896,['|P9| right hand in |Bin 23|']
+6897,['|P9| right hand in |Bin 23|']
 6898,['|P9| right hand in |Bin 23|']
-6899,['|P9| left hand in |Bin 22|']
+6899,[]
 6900,['|P9| right hand in |Bin 23|']
 6901,['|P9| right hand in |Bin 23|']
 6902,[]
@@ -6904,49 +6904,49 @@
 6904,['|P9| right hand in |Bin 23|']
 6905,['|P9| right hand in |Bin 23|']
 6906,['|P9| right hand in |Bin 23|']
-6907,['|P9| right hand in |Bin 23|']
-6908,['|P9| right hand in |Bin 23|']
-6909,['|P9| right hand in |Bin 23|']
-6910,[]
-6911,[]
-6912,[]
-6913,[]
-6914,[]
-6915,[]
-6916,[]
-6917,[]
-6918,[]
-6919,[]
-6920,[]
-6921,[]
-6922,[]
-6923,[]
-6924,[]
-6925,[]
-6926,[]
-6927,[]
-6928,[]
+6907,"['|P9| left hand in |Bin 22|', '|P9| right hand in |Bin 23|']"
+6908,"['|P9| left hand in |Bin 22|', '|P9| right hand in |Bin 23|']"
+6909,"['|P9| left hand in |Bin 22|', '|P9| is the owner of |Bin 22|', '|P9| right hand in |Bin 23|']"
+6910,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|', '|P9| right hand in |Bin 23|']"
+6911,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6912,['|P9| right hand in |Bin 22|']
+6913,['|P9| right hand in |Bin 22|']
+6914,['|P9| right hand in |Bin 22|']
+6915,['|P9| right hand in |Bin 22|']
+6916,['|P9| right hand in |Bin 22|']
+6917,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6918,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6919,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6920,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6921,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6922,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6923,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6924,"['|P9| right hand in |Bin 22|', '|P9| left hand in |Bin 22|']"
+6925,['|P9| right hand in |Bin 22|']
+6926,['|P9| left hand in |Bin 22|']
+6927,['|P9| left hand in |Bin 22|']
+6928,['|P9| left hand in |Bin 22|']
 6929,[]
-6930,[]
+6930,['|P9| left hand in |Bin 22|']
 6931,[]
-6932,[]
-6933,[]
+6932,['|P9| left hand in |Bin 22|']
+6933,['|P9| left hand in |Bin 22|']
 6934,[]
 6935,[]
-6936,[]
-6937,[]
-6938,[]
+6936,['|P9| left hand in |Bin 22|']
+6937,['|P9| left hand in |Bin 22|']
+6938,['|P9| left hand in |Bin 22|']
 6939,[]
-6940,[]
-6941,[]
-6942,[]
-6943,['|P9| left hand in |Bin 23|']
-6944,[]
-6945,[]
+6940,['|P9| left hand in |Bin 22|']
+6941,['|P9| left hand in |Bin 22|']
+6942,['|P9| left hand in |Bin 22|']
+6943,['|P9| left hand in |Bin 22|']
+6944,['|P9| left hand in |Bin 22|']
+6945,['|P9| left hand in |Bin 22|']
 6946,[]
 6947,[]
-6948,['|P9| right hand in |Bin 23|']
-6949,[]
+6948,[]
+6949,['|P9| left hand in |Bin 22|']
 6950,['|P9| left hand in |Bin 22|']
 6951,[]
 6952,[]
@@ -6960,44 +6960,44 @@
 6960,[]
 6961,[]
 6962,[]
-6963,[]
+6963,['|P9| left hand in |Bin 23|']
 6964,[]
-6965,[]
-6966,[]
-6967,[]
-6968,[]
-6969,[]
-6970,[]
-6971,[]
-6972,[]
-6973,[]
-6974,[]
-6975,[]
-6976,[]
-6977,[]
-6978,[]
-6979,[]
-6980,[]
-6981,[]
-6982,[]
-6983,[]
-6984,[]
+6965,['|P9| left hand in |Bin 23|']
+6966,['|P9| left hand in |Bin 23|']
+6967,['|P9| left hand in |Bin 23|']
+6968,['|P9| left hand in |Bin 23|']
+6969,['|P9| left hand in |Bin 23|']
+6970,['|P9| left hand in |Bin 23|']
+6971,['|P9| left hand in |Bin 23|']
+6972,['|P9| left hand in |Bin 23|']
+6973,['|P9| left hand in |Bin 23|']
+6974,['|P9| left hand in |Bin 23|']
+6975,['|P9| left hand in |Bin 23|']
+6976,['|P9| left hand in |Bin 23|']
+6977,['|P9| left hand in |Bin 23|']
+6978,['|P9| left hand in |Bin 23|']
+6979,['|P9| left hand in |Bin 23|']
+6980,['|P9| left hand in |Bin 23|']
+6981,['|P9| left hand in |Bin 23|']
+6982,['|P9| left hand in |Bin 23|']
+6983,['|P9| left hand in |Bin 23|']
+6984,['|P9| left hand in |Bin 23|']
 6985,[]
 6986,[]
 6987,[]
 6988,[]
-6989,[]
+6989,['|P9| left hand in |Bin 23|']
 6990,[]
 6991,[]
 6992,[]
 6993,[]
 6994,[]
 6995,[]
-6996,[]
-6997,[]
-6998,[]
-6999,[]
-7000,[]
+6996,['|P9| left hand in |Bin 23|']
+6997,['|P9| left hand in |Bin 23|']
+6998,['|P9| left hand in |Bin 23|']
+6999,['|P9| left hand in |Bin 23|']
+7000,['|P9| left hand in |Bin 23|']
 7001,[]
 7002,[]
 7003,[]
@@ -7492,62 +7492,62 @@
 7492,[]
 7493,[]
 7494,[]
-7495,['|P9| right hand in |Bin 19|']
-7496,['|P9| right hand in |Bin 19|']
+7495,[]
+7496,[]
 7497,['|P9| right hand in |Bin 19|']
 7498,['|P9| right hand in |Bin 19|']
 7499,['|P9| right hand in |Bin 19|']
 7500,['|P9| right hand in |Bin 19|']
-7501,[]
-7502,[]
-7503,[]
-7504,[]
-7505,[]
-7506,[]
-7507,[]
-7508,[]
-7509,[]
-7510,[]
-7511,[]
-7512,[]
-7513,[]
-7514,[]
-7515,[]
-7516,[]
-7517,[]
-7518,[]
-7519,[]
-7520,[]
-7521,[]
-7522,[]
-7523,[]
-7524,[]
-7525,[]
-7526,[]
-7527,[]
-7528,[]
+7501,['|P9| right hand in |Bin 19|']
+7502,['|P9| right hand in |Bin 19|']
+7503,['|P9| right hand in |Bin 19|']
+7504,['|P9| right hand in |Bin 19|']
+7505,['|P9| right hand in |Bin 19|']
+7506,['|P9| right hand in |Bin 19|']
+7507,['|P9| right hand in |Bin 19|']
+7508,['|P9| right hand in |Bin 19|']
+7509,['|P9| right hand in |Bin 19|']
+7510,['|P9| right hand in |Bin 19|']
+7511,['|P9| right hand in |Bin 19|']
+7512,['|P9| right hand in |Bin 19|']
+7513,['|P9| right hand in |Bin 19|']
+7514,['|P9| right hand in |Bin 19|']
+7515,['|P9| right hand in |Bin 19|']
+7516,['|P9| right hand in |Bin 19|']
+7517,['|P9| right hand in |Bin 19|']
+7518,['|P9| right hand in |Bin 19|']
+7519,['|P9| right hand in |Bin 19|']
+7520,['|P9| right hand in |Bin 19|']
+7521,['|P9| right hand in |Bin 19|']
+7522,['|P9| right hand in |Bin 19|']
+7523,"['|P9| right hand in |Bin 19|', '|P9| is the owner of |Bin 19|']"
+7524,['|P9| right hand in |Bin 19|']
+7525,['|P9| right hand in |Bin 19|']
+7526,['|P9| right hand in |Bin 19|']
+7527,['|P9| right hand in |Bin 19|']
+7528,['|P9| right hand in |Bin 19|']
 7529,[]
-7530,[]
-7531,[]
-7532,[]
-7533,[]
+7530,['|P9| right hand in |Bin 19|']
+7531,['|P9| right hand in |Bin 19|']
+7532,['|P9| right hand in |Bin 19|']
+7533,['|P9| right hand in |Bin 19|']
 7534,[]
-7535,[]
-7536,[]
+7535,['|P9| right hand in |Bin 19|']
+7536,['|P9| right hand in |Bin 19|']
 7537,[]
-7538,[]
-7539,[]
-7540,[]
-7541,[]
-7542,[]
-7543,[]
-7544,[]
-7545,[]
-7546,[]
-7547,[]
-7548,[]
-7549,[]
-7550,[]
+7538,['|P9| right hand in |Bin 19|']
+7539,['|P9| right hand in |Bin 19|']
+7540,['|P9| right hand in |Bin 19|']
+7541,"['|P9| right hand in |Bin 19|', '|P9| left hand in |Bin 19|']"
+7542,['|P9| right hand in |Bin 19|']
+7543,['|P9| right hand in |Bin 19|']
+7544,['|P9| right hand in |Bin 19|']
+7545,['|P9| right hand in |Bin 19|']
+7546,['|P9| right hand in |Bin 19|']
+7547,"['|P9| right hand in |Bin 19|', '|P9| left hand in |Bin 19|']"
+7548,['|P9| right hand in |Bin 19|']
+7549,['|P9| right hand in |Bin 19|']
+7550,['|P9| right hand in |Bin 19|']
 7551,['|P9| right hand in |Bin 19|']
 7552,[]
 7553,[]
@@ -7856,17 +7856,17 @@
 7856,[]
 7857,[]
 7858,[]
-7859,[]
-7860,[]
-7861,[]
-7862,[]
-7863,[]
-7864,[]
-7865,[]
-7866,[]
-7867,[]
-7868,[]
-7869,[]
+7859,['|P10| right hand in |Bin 24|']
+7860,['|P10| right hand in |Bin 24|']
+7861,['|P10| right hand in |Bin 24|']
+7862,['|P10| right hand in |Bin 24|']
+7863,['|P10| right hand in |Bin 24|']
+7864,['|P10| right hand in |Bin 24|']
+7865,['|P10| right hand in |Bin 24|']
+7866,['|P10| right hand in |Bin 24|']
+7867,['|P10| right hand in |Bin 24|']
+7868,['|P10| right hand in |Bin 24|']
+7869,['|P10| right hand in |Bin 24|']
 7870,[]
 7871,[]
 7872,[]
@@ -7876,38 +7876,38 @@
 7876,[]
 7877,[]
 7878,[]
-7879,[]
-7880,[]
-7881,[]
-7882,[]
-7883,[]
-7884,[]
-7885,[]
-7886,[]
-7887,[]
-7888,[]
-7889,[]
-7890,[]
-7891,[]
-7892,[]
-7893,[]
-7894,[]
-7895,[]
-7896,[]
+7879,['|P10| right hand in |Bin 24|']
+7880,['|P10| right hand in |Bin 24|']
+7881,['|P10| right hand in |Bin 24|']
+7882,['|P10| right hand in |Bin 24|']
+7883,['|P10| right hand in |Bin 24|']
+7884,['|P10| right hand in |Bin 24|']
+7885,['|P10| right hand in |Bin 24|']
+7886,['|P10| right hand in |Bin 24|']
+7887,['|P10| right hand in |Bin 24|']
+7888,['|P10| right hand in |Bin 24|']
+7889,['|P10| right hand in |Bin 24|']
+7890,['|P10| right hand in |Bin 24|']
+7891,['|P10| right hand in |Bin 24|']
+7892,['|P10| right hand in |Bin 24|']
+7893,['|P10| right hand in |Bin 24|']
+7894,['|P10| right hand in |Bin 24|']
+7895,['|P10| right hand in |Bin 24|']
+7896,['|P10| right hand in |Bin 24|']
 7897,[]
 7898,[]
-7899,[]
+7899,['|P10| right hand in |Bin 24|']
 7900,[]
-7901,[]
+7901,['|P10| right hand in |Bin 24|']
 7902,[]
-7903,[]
-7904,[]
-7905,[]
-7906,[]
+7903,['|P10| right hand in |Bin 24|']
+7904,['|P10| right hand in |Bin 24|']
+7905,['|P10| right hand in |Bin 24|']
+7906,['|P10| right hand in |Bin 24|']
 7907,[]
 7908,[]
-7909,[]
-7910,[]
+7909,['|P10| right hand in |Bin 24|']
+7910,['|P10| right hand in |Bin 24|']
 7911,[]
 7912,[]
 7913,[]
@@ -7916,57 +7916,57 @@
 7916,[]
 7917,[]
 7918,[]
-7919,['|P10| right hand in |Bin 24|']
-7920,['|P10| right hand in |Bin 24|']
-7921,['|P10| right hand in |Bin 24|']
-7922,['|P10| right hand in |Bin 24|']
-7923,['|P10| right hand in |Bin 24|']
-7924,['|P10| right hand in |Bin 24|']
-7925,['|P10| right hand in |Bin 24|']
-7926,['|P10| right hand in |Bin 24|']
-7927,['|P10| right hand in |Bin 24|']
-7928,['|P10| right hand in |Bin 24|']
-7929,['|P10| right hand in |Bin 24|']
-7930,['|P10| right hand in |Bin 24|']
-7931,['|P10| right hand in |Bin 24|']
-7932,['|P10| right hand in |Bin 24|']
-7933,['|P10| right hand in |Bin 24|']
-7934,['|P10| right hand in |Bin 24|']
-7935,['|P10| right hand in |Bin 24|']
-7936,['|P10| right hand in |Bin 24|']
-7937,['|P10| right hand in |Bin 24|']
-7938,['|P10| right hand in |Bin 24|']
-7939,['|P10| right hand in |Bin 24|']
-7940,['|P10| right hand in |Bin 24|']
-7941,['|P10| right hand in |Bin 24|']
-7942,['|P10| right hand in |Bin 24|']
-7943,['|P10| right hand in |Bin 24|']
-7944,['|P10| right hand in |Bin 24|']
-7945,['|P10| right hand in |Bin 24|']
-7946,['|P10| right hand in |Bin 24|']
-7947,['|P10| right hand in |Bin 24|']
-7948,['|P10| right hand in |Bin 24|']
-7949,['|P10| right hand in |Bin 24|']
-7950,['|P10| right hand in |Bin 24|']
-7951,['|P10| right hand in |Bin 24|']
-7952,['|P10| right hand in |Bin 24|']
-7953,['|P10| right hand in |Bin 24|']
-7954,['|P10| right hand in |Bin 24|']
-7955,['|P10| right hand in |Bin 24|']
-7956,[]
+7919,[]
+7920,[]
+7921,[]
+7922,[]
+7923,[]
+7924,[]
+7925,[]
+7926,[]
+7927,[]
+7928,[]
+7929,[]
+7930,[]
+7931,[]
+7932,[]
+7933,[]
+7934,[]
+7935,[]
+7936,[]
+7937,[]
+7938,[]
+7939,[]
+7940,[]
+7941,[]
+7942,[]
+7943,[]
+7944,[]
+7945,[]
+7946,[]
+7947,[]
+7948,[]
+7949,[]
+7950,[]
+7951,[]
+7952,[]
+7953,[]
+7954,[]
+7955,[]
+7956,['|P10| right hand in |Bin 24|']
 7957,[]
 7958,[]
 7959,[]
 7960,[]
-7961,[]
-7962,[]
-7963,[]
+7961,['|P10| right hand in |Bin 24|']
+7962,['|P10| right hand in |Bin 24|']
+7963,['|P10| right hand in |Bin 24|']
 7964,['|P10| right hand in |Bin 24|']
 7965,['|P10| right hand in |Bin 24|']
 7966,['|P10| right hand in |Bin 24|']
-7967,[]
-7968,[]
-7969,[]
+7967,['|P10| right hand in |Bin 24|']
+7968,['|P10| right hand in |Bin 24|']
+7969,['|P10| right hand in |Bin 24|']
 7970,['|P10| right hand in |Bin 24|']
 7971,['|P10| right hand in |Bin 24|']
 7972,['|P10| right hand in |Bin 24|']
@@ -7991,7 +7991,7 @@
 7991,['|P10| right hand in |Bin 24|']
 7992,['|P10| right hand in |Bin 24|']
 7993,['|P10| right hand in |Bin 24|']
-7994,[]
+7994,['|P10| right hand in |Bin 24|']
 7995,[]
 7996,[]
 7997,[]
@@ -7999,10 +7999,10 @@
 7999,[]
 8000,[]
 8001,[]
-8002,[]
-8003,[]
+8002,['|P10| right hand in |Bin 24|']
+8003,['|P10| right hand in |Bin 24|']
 8004,[]
-8005,[]
+8005,['|P10| right hand in |Bin 24|']
 8006,[]
 8007,[]
 8008,[]
@@ -8031,40 +8031,40 @@
 8031,[]
 8032,[]
 8033,[]
-8034,[]
-8035,[]
-8036,[]
-8037,[]
-8038,[]
-8039,[]
-8040,[]
-8041,[]
-8042,[]
-8043,[]
-8044,[]
-8045,[]
-8046,[]
-8047,[]
-8048,[]
-8049,[]
-8050,[]
-8051,[]
-8052,[]
-8053,[]
+8034,['|P10| right hand in |Bin 24|']
+8035,['|P10| right hand in |Bin 24|']
+8036,['|P10| right hand in |Bin 24|']
+8037,['|P10| right hand in |Bin 24|']
+8038,['|P10| right hand in |Bin 24|']
+8039,['|P10| left hand in |Bin 24|']
+8040,['|P10| right hand in |Bin 24|']
+8041,['|P10| right hand in |Bin 24|']
+8042,['|P10| right hand in |Bin 24|']
+8043,['|P10| right hand in |Bin 24|']
+8044,['|P10| right hand in |Bin 24|']
+8045,['|P10| right hand in |Bin 24|']
+8046,['|P10| right hand in |Bin 24|']
+8047,['|P10| right hand in |Bin 24|']
+8048,['|P10| right hand in |Bin 24|']
+8049,['|P10| right hand in |Bin 24|']
+8050,['|P10| right hand in |Bin 24|']
+8051,['|P10| right hand in |Bin 24|']
+8052,['|P10| right hand in |Bin 24|']
+8053,['|P10| right hand in |Bin 24|']
 8054,[]
-8055,[]
-8056,[]
-8057,[]
-8058,[]
-8059,[]
-8060,[]
-8061,[]
-8062,[]
-8063,[]
-8064,[]
-8065,[]
-8066,[]
-8067,[]
+8055,['|P10| right hand in |Bin 24|']
+8056,['|P10| right hand in |Bin 24|']
+8057,['|P10| right hand in |Bin 24|']
+8058,['|P10| right hand in |Bin 24|']
+8059,['|P10| right hand in |Bin 24|']
+8060,['|P10| right hand in |Bin 24|']
+8061,['|P10| right hand in |Bin 24|']
+8062,['|P10| right hand in |Bin 24|']
+8063,['|P10| right hand in |Bin 24|']
+8064,['|P10| right hand in |Bin 24|']
+8065,['|P10| right hand in |Bin 24|']
+8066,['|P10| right hand in |Bin 24|']
+8067,['|P10| right hand in |Bin 24|']
 8068,[]
 8069,[]
 8070,[]
@@ -8076,43 +8076,43 @@
 8076,[]
 8077,[]
 8078,[]
-8079,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8080,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8081,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8082,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8083,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8084,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8085,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8086,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8087,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8088,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8089,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8090,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8091,[]
-8092,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8093,[]
-8094,[]
-8095,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8096,[]
-8097,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8098,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8099,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8100,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8101,"['|P11| right hand in |Bin 27|', '|P11| is suspicious with |Bin 27|']"
-8102,[]
-8103,[]
-8104,['|P11| left hand in |Bin 26|']
-8105,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
-8106,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
-8107,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
-8108,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
+8079,['|P11| right hand in |Bin 26|']
+8080,['|P11| right hand in |Bin 26|']
+8081,['|P11| right hand in |Bin 26|']
+8082,['|P11| right hand in |Bin 26|']
+8083,['|P11| right hand in |Bin 26|']
+8084,['|P11| right hand in |Bin 26|']
+8085,['|P11| right hand in |Bin 26|']
+8086,['|P11| right hand in |Bin 26|']
+8087,['|P11| right hand in |Bin 26|']
+8088,['|P11| right hand in |Bin 26|']
+8089,['|P11| right hand in |Bin 26|']
+8090,['|P11| right hand in |Bin 26|']
+8091,['|P11| right hand in |Bin 26|']
+8092,['|P11| right hand in |Bin 26|']
+8093,['|P11| right hand in |Bin 26|']
+8094,['|P11| right hand in |Bin 26|']
+8095,['|P11| right hand in |Bin 26|']
+8096,['|P11| right hand in |Bin 26|']
+8097,['|P11| right hand in |Bin 26|']
+8098,['|P11| right hand in |Bin 26|']
+8099,['|P11| right hand in |Bin 26|']
+8100,['|P11| right hand in |Bin 26|']
+8101,['|P11| right hand in |Bin 26|']
+8102,['|P11| right hand in |Bin 26|']
+8103,['|P11| right hand in |Bin 26|']
+8104,['|P11| right hand in |Bin 26|']
+8105,['|P11| right hand in |Bin 26|']
+8106,['|P11| right hand in |Bin 26|']
+8107,['|P11| right hand in |Bin 26|']
+8108,['|P11| right hand in |Bin 26|']
 8109,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
 8110,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
-8111,"['|P11| right hand in |Bin 26|', '|P11| left hand in |Bin 26|']"
+8111,['|P11| right hand in |Bin 26|']
 8112,['|P11| right hand in |Bin 26|']
 8113,['|P11| right hand in |Bin 26|']
 8114,['|P11| right hand in |Bin 26|']
-8115,[]
+8115,['|P11| right hand in |Bin 26|']
 8116,[]
 8117,[]
 8118,[]
@@ -8240,7 +8240,7 @@
 8240,[]
 8241,[]
 8242,[]
-8243,['|P11| right hand in |Bin 26|']
+8243,[]
 8244,['|P11| right hand in |Bin 26|']
 8245,['|P11| right hand in |Bin 26|']
 8246,['|P11| right hand in |Bin 26|']
@@ -8300,29 +8300,29 @@
 8300,[]
 8301,[]
 8302,[]
-8303,[]
-8304,[]
-8305,[]
-8306,[]
-8307,[]
-8308,[]
+8303,['|P11| left hand in |Bin 26|']
+8304,['|P11| left hand in |Bin 26|']
+8305,['|P11| left hand in |Bin 26|']
+8306,['|P11| left hand in |Bin 26|']
+8307,['|P11| left hand in |Bin 26|']
+8308,['|P11| left hand in |Bin 26|']
 8309,[]
-8310,[]
-8311,[]
-8312,[]
-8313,[]
-8314,[]
+8310,['|P11| left hand in |Bin 26|']
+8311,['|P11| right hand in |Bin 26|']
+8312,['|P11| right hand in |Bin 26|']
+8313,['|P11| right hand in |Bin 26|']
+8314,['|P11| right hand in |Bin 26|']
 8315,[]
 8316,[]
-8317,[]
-8318,[]
-8319,[]
+8317,['|P11| left hand in |Bin 26|']
+8318,['|P11| left hand in |Bin 26|']
+8319,['|P11| left hand in |Bin 26|']
 8320,[]
 8321,[]
-8322,[]
-8323,[]
-8324,[]
-8325,[]
+8322,['|P11| left hand in |Bin 26|']
+8323,['|P11| left hand in |Bin 26|']
+8324,['|P11| left hand in |Bin 26|']
+8325,['|P11| left hand in |Bin 26|']
 8326,[]
 8327,[]
 8328,[]
@@ -8656,71 +8656,71 @@
 8656,[]
 8657,[]
 8658,[]
-8659,[]
-8660,[]
-8661,['|P12| right hand in |Bin 31|']
-8662,['|P12| right hand in |Bin 31|']
-8663,['|P12| right hand in |Bin 31|']
-8664,['|P12| right hand in |Bin 31|']
-8665,['|P12| right hand in |Bin 31|']
-8666,['|P12| right hand in |Bin 31|']
-8667,['|P12| right hand in |Bin 31|']
-8668,['|P12| right hand in |Bin 31|']
-8669,['|P12| right hand in |Bin 31|']
-8670,['|P12| right hand in |Bin 31|']
-8671,['|P12| right hand in |Bin 31|']
-8672,['|P12| right hand in |Bin 31|']
-8673,['|P12| right hand in |Bin 31|']
-8674,[]
-8675,[]
-8676,[]
-8677,[]
-8678,['|P12| right hand in |Bin 31|']
-8679,[]
-8680,[]
-8681,['|P12| right hand in |Bin 31|']
-8682,['|P12| right hand in |Bin 31|']
-8683,['|P12| right hand in |Bin 31|']
-8684,['|P12| right hand in |Bin 31|']
-8685,[]
-8686,['|P12| right hand in |Bin 31|']
-8687,[]
-8688,[]
-8689,[]
-8690,[]
+8659,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8660,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8661,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8662,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8663,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8664,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| right hand in |Bin 31|', '|P12| is suspicious with |Bin 31|']"
+8665,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| right hand in |Bin 31|', '|P12| is suspicious with |Bin 31|']"
+8666,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| right hand in |Bin 31|', '|P12| is suspicious with |Bin 31|']"
+8667,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8668,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8669,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8670,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8671,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8672,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8673,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| right hand in |Bin 31|', '|P12| is suspicious with |Bin 31|']"
+8674,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8675,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8676,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8677,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8678,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8679,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8680,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8681,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8682,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8683,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| right hand in |Bin 31|', '|P12| is suspicious with |Bin 31|']"
+8684,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8685,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8686,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8687,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8688,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8689,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8690,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8691,[]
-8692,[]
-8693,['|P12| right hand in |Bin 31|']
-8694,[]
-8695,[]
-8696,[]
-8697,[]
-8698,[]
-8699,[]
-8700,[]
+8692,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8693,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| right hand in |Bin 31|', '|P12| is suspicious with |Bin 31|']"
+8694,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8695,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|', '|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8696,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8697,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8698,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8699,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8700,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8701,[]
-8702,['|P12| left hand in |Bin 27|']
-8703,[]
-8704,[]
-8705,[]
-8706,[]
+8702,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8703,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8704,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8705,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8706,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8707,[]
 8708,[]
 8709,[]
-8710,[]
+8710,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8711,[]
 8712,[]
 8713,[]
 8714,[]
 8715,[]
 8716,[]
-8717,[]
-8718,[]
-8719,[]
-8720,[]
+8717,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8718,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8719,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8720,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8721,[]
-8722,[]
-8723,[]
+8722,"['|P12| left hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
+8723,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8724,"['|P12| right hand in |Bin 29|', '|P12| is suspicious with |Bin 29|']"
 8725,[]
 8726,[]
@@ -9272,91 +9272,91 @@
 9272,[]
 9273,[]
 9274,[]
-9275,['|P13| right hand in |Bin 31|']
-9276,['|P13| right hand in |Bin 31|']
-9277,['|P13| right hand in |Bin 31|']
-9278,['|P13| right hand in |Bin 31|']
-9279,"['|P13| right hand in |Bin 31|', '|P13| is the owner of |Bin 31|']"
-9280,['|P13| right hand in |Bin 31|']
-9281,['|P13| right hand in |Bin 31|']
-9282,['|P13| right hand in |Bin 31|']
-9283,['|P13| right hand in |Bin 31|']
-9284,['|P13| right hand in |Bin 31|']
-9285,['|P13| right hand in |Bin 31|']
-9286,['|P13| right hand in |Bin 31|']
-9287,['|P13| right hand in |Bin 31|']
-9288,['|P13| right hand in |Bin 31|']
-9289,['|P13| right hand in |Bin 31|']
-9290,['|P13| right hand in |Bin 31|']
-9291,['|P13| right hand in |Bin 31|']
-9292,['|P13| right hand in |Bin 31|']
-9293,['|P13| right hand in |Bin 31|']
+9275,[]
+9276,[]
+9277,[]
+9278,[]
+9279,[]
+9280,[]
+9281,[]
+9282,[]
+9283,[]
+9284,[]
+9285,[]
+9286,[]
+9287,[]
+9288,[]
+9289,[]
+9290,[]
+9291,[]
+9292,[]
+9293,[]
 9294,['|P13| right hand in |Bin 31|']
 9295,['|P13| right hand in |Bin 31|']
 9296,['|P13| right hand in |Bin 31|']
 9297,['|P13| right hand in |Bin 31|']
 9298,['|P13| right hand in |Bin 31|']
 9299,['|P13| right hand in |Bin 31|']
-9300,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9300,['|P13| right hand in |Bin 31|']
 9301,['|P13| right hand in |Bin 31|']
 9302,['|P13| right hand in |Bin 31|']
 9303,['|P13| right hand in |Bin 31|']
 9304,['|P13| right hand in |Bin 31|']
 9305,['|P13| right hand in |Bin 31|']
-9306,['|P13| right hand in |Bin 31|']
-9307,['|P13| right hand in |Bin 31|']
-9308,['|P13| right hand in |Bin 31|']
-9309,['|P13| right hand in |Bin 31|']
-9310,['|P13| right hand in |Bin 31|']
+9306,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9307,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9308,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9309,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9310,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9311,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9312,"['|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
-9313,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|']"
-9314,['|P13| right hand in |Bin 31|']
-9315,['|P13| right hand in |Bin 31|']
-9316,['|P13| right hand in |Bin 31|']
+9313,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
+9314,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9315,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9316,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9317,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9318,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9319,['|P13| right hand in |Bin 31|']
 9320,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
-9321,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9322,"['|P13| right hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9323,"['|P13| right hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9324,"['|P13| right hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9325,"['|P13| right hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9326,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9327,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9328,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9329,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9330,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9331,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|']"
-9332,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
+9321,['|P13| right hand in |Bin 31|']
+9322,['|P13| right hand in |Bin 31|']
+9323,['|P13| right hand in |Bin 31|']
+9324,['|P13| right hand in |Bin 31|']
+9325,['|P13| right hand in |Bin 31|']
+9326,['|P13| right hand in |Bin 31|']
+9327,['|P13| right hand in |Bin 31|']
+9328,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|']"
+9329,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
+9330,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9331,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9332,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9333,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9334,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
-9335,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
+9335,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9336,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9337,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9338,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9339,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9340,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9341,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
-9342,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
+9342,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9343,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
 9344,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
 9345,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
 9346,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
 9347,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
 9348,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
-9349,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|']"
-9350,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
-9351,"['|P13| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
+9349,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P14| right hand in |Bin 36|']"
+9350,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
+9351,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9352,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|']"
-9353,['|P13| right hand in |Bin 31|']
-9354,['|P13| right hand in |Bin 31|']
-9355,['|P13| right hand in |Bin 31|']
-9356,['|P13| right hand in |Bin 31|']
-9357,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|']"
+9353,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9354,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9355,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9356,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9357,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P14| right hand in |Bin 31|', '|P14| left hand in |Bin 31|']"
 9358,['|P13| right hand in |Bin 31|']
-9359,['|P13| right hand in |Bin 31|']
+9359,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
 9360,['|P13| right hand in |Bin 31|']
 9361,['|P13| right hand in |Bin 31|']
 9362,['|P13| right hand in |Bin 31|']
@@ -9369,10 +9369,10 @@
 9369,['|P13| right hand in |Bin 31|']
 9370,['|P13| right hand in |Bin 31|']
 9371,['|P13| right hand in |Bin 31|']
-9372,[]
-9373,[]
-9374,[]
-9375,[]
+9372,"['|P13| right hand in |Bin 31|', '|P14| right hand in |Bin 31|']"
+9373,['|P13| right hand in |Bin 31|']
+9374,['|P13| right hand in |Bin 31|']
+9375,['|P13| right hand in |Bin 31|']
 9376,[]
 9377,[]
 9378,[]
@@ -9627,148 +9627,148 @@
 9627,[]
 9628,[]
 9629,[]
-9630,[]
-9631,[]
-9632,[]
-9633,[]
-9634,[]
-9635,[]
-9636,[]
-9637,[]
-9638,[]
-9639,['|P13| left hand in |Bin 31|']
-9640,['|P13| left hand in |Bin 31|']
-9641,['|P13| left hand in |Bin 31|']
-9642,['|P13| left hand in |Bin 31|']
-9643,['|P13| left hand in |Bin 31|']
-9644,['|P13| left hand in |Bin 31|']
-9645,['|P13| left hand in |Bin 31|']
-9646,['|P13| left hand in |Bin 31|']
-9647,['|P13| left hand in |Bin 31|']
-9648,['|P13| left hand in |Bin 31|']
-9649,['|P13| left hand in |Bin 31|']
-9650,['|P13| left hand in |Bin 31|']
-9651,['|P13| left hand in |Bin 31|']
-9652,['|P13| left hand in |Bin 31|']
-9653,"['|P13| left hand in |Bin 31|', '|P13| left hand in |Bin 36|']"
-9654,"['|P13| left hand in |Bin 31|', '|P13| left hand in |Bin 36|']"
-9655,"['|P13| left hand in |Bin 31|', '|P13| left hand in |Bin 36|']"
-9656,['|P13| left hand in |Bin 31|']
-9657,"['|P13| left hand in |Bin 31|', '|P13| left hand in |Bin 36|']"
-9658,['|P13| left hand in |Bin 31|']
-9659,['|P13| left hand in |Bin 31|']
-9660,['|P13| left hand in |Bin 31|']
-9661,['|P13| left hand in |Bin 31|']
-9662,['|P13| left hand in |Bin 31|']
-9663,['|P13| left hand in |Bin 31|']
-9664,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 40|']"
-9665,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 40|']"
-9666,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 40|']"
-9667,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 40|']"
-9668,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 40|']"
-9669,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 40|']"
-9670,['|P15| right hand in |Bin 40|']
-9671,['|P15| right hand in |Bin 40|']
-9672,['|P15| left hand in |Bin 40|']
-9673,"['|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
-9674,['|P15| left hand in |Bin 38|']
-9675,"['|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9676,['|P15| left hand in |Bin 38|']
-9677,['|P15| left hand in |Bin 38|']
-9678,['|P15| left hand in |Bin 38|']
-9679,"['|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
-9680,['|P15| left hand in |Bin 38|']
-9681,['|P15| left hand in |Bin 38|']
-9682,['|P15| left hand in |Bin 38|']
-9683,"['|P15| left hand in |Bin 38|', '|P15| left hand in |Bin 40|']"
-9684,"['|P15| left hand in |Bin 38|', '|P15| left hand in |Bin 40|']"
-9685,"['|P15| left hand in |Bin 38|', '|P15| left hand in |Bin 40|']"
-9686,"['|P15| left hand in |Bin 38|', '|P15| left hand in |Bin 40|']"
-9687,['|P15| left hand in |Bin 40|']
-9688,['|P15| left hand in |Bin 38|']
-9689,[]
-9690,[]
-9691,[]
-9692,[]
-9693,[]
-9694,[]
-9695,['|P13| right hand in |Bin 36|']
-9696,[]
-9697,"['|P15| right hand in |Bin 40|', '|P15| is the owner of |Bin 40|']"
-9698,['|P15| right hand in |Bin 40|']
-9699,['|P15| right hand in |Bin 40|']
-9700,['|P15| left hand in |Bin 40|']
-9701,['|P15| left hand in |Bin 40|']
-9702,['|P15| left hand in |Bin 40|']
-9703,['|P15| right hand in |Bin 40|']
-9704,['|P15| right hand in |Bin 40|']
-9705,['|P15| left hand in |Bin 40|']
-9706,['|P15| right hand in |Bin 40|']
-9707,['|P15| right hand in |Bin 40|']
-9708,['|P15| right hand in |Bin 40|']
-9709,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9710,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9711,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9712,['|P13| right hand in |Bin 36|']
-9713,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9714,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9715,"['|P13| right hand in |Bin 36|', '|P15| left hand in |Bin 40|']"
-9716,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9717,"['|P13| right hand in |Bin 36|', '|P13| is the owner of |Bin 36|', '|P15| left hand in |Bin 40|']"
-9718,"['|P13| right hand in |Bin 36|', '|P15| left hand in |Bin 40|']"
-9719,"['|P13| right hand in |Bin 36|', '|P15| left hand in |Bin 40|']"
-9720,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9721,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9722,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|']"
-9723,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9724,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9725,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9726,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9727,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9728,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9729,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9730,['|P15| right hand in |Bin 38|']
-9731,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9732,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9733,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9734,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9735,['|P15| right hand in |Bin 40|']
-9736,['|P15| right hand in |Bin 40|']
-9737,['|P15| right hand in |Bin 40|']
-9738,['|P15| right hand in |Bin 40|']
-9739,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9740,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9741,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9742,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9743,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9744,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9745,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9746,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9747,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9748,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9749,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9750,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9751,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9752,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9753,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9754,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9755,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9756,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9757,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9758,['|P15| right hand in |Bin 40|']
-9759,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9760,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9761,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9762,['|P15| right hand in |Bin 40|']
-9763,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9764,['|P15| right hand in |Bin 40|']
-9765,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|']"
-9766,['|P15| right hand in |Bin 40|']
-9767,['|P15| right hand in |Bin 40|']
-9768,['|P15| right hand in |Bin 40|']
+9630,['|P13| right hand in |Bin 31|']
+9631,['|P13| right hand in |Bin 31|']
+9632,['|P13| right hand in |Bin 31|']
+9633,['|P13| right hand in |Bin 31|']
+9634,['|P13| right hand in |Bin 31|']
+9635,['|P13| right hand in |Bin 31|']
+9636,['|P13| right hand in |Bin 31|']
+9637,['|P13| right hand in |Bin 31|']
+9638,['|P13| right hand in |Bin 31|']
+9639,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9640,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9641,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9642,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9643,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9644,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9645,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9646,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9647,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9648,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9649,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9650,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9651,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9652,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9653,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9654,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9655,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9656,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9657,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9658,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9659,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9660,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9661,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9662,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9663,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9664,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9665,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9666,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9667,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9668,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9669,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9670,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9671,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9672,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9673,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9674,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 36|']"
+9675,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9676,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 36|', '|P15| right hand in |Bin 37|', '|P15| right hand in |Bin 38|']"
+9677,"['|P13| right hand in |Bin 31|', '|P15| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9678,"['|P13| right hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9679,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 36|']"
+9680,"['|P13| right hand in |Bin 31|', '|P15| left hand in |Bin 36|']"
+9681,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9682,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9683,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9684,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9685,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9686,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9687,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9688,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9689,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9690,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9691,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9692,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9693,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9694,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9695,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9696,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9697,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9698,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9699,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9700,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9701,"['|P13| right hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9702,"['|P13| right hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9703,"['|P13| right hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9704,"['|P13| right hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9705,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9706,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9707,"['|P13| right hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9708,"['|P13| right hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9709,"['|P13| right hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9710,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9711,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9712,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|']"
+9713,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9714,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9715,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9716,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9717,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9718,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9719,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| left hand in |Bin 38|']"
+9720,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9721,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9722,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9723,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9724,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9725,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9726,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9727,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9728,"['|P13| right hand in |Bin 31|', '|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9729,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9730,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9731,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9732,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9733,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|']"
+9734,"['|P13| left hand in |Bin 31|', '|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9735,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9736,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9737,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9738,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9739,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9740,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9741,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9742,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9743,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9744,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9745,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9746,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9747,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9748,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9749,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9750,"['|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9751,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9752,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9753,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9754,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9755,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9756,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9757,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9758,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9759,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9760,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9761,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9762,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9763,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9764,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9765,"['|P15| right hand in |Bin 38|', '|P15| left hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9766,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9767,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9768,"['|P15| right hand in |Bin 38|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
 9769,[]
 9770,[]
-9771,['|P15| right hand in |Bin 40|']
+9771,[]
 9772,[]
 9773,[]
 9774,[]
@@ -9818,92 +9818,92 @@
 9818,[]
 9819,[]
 9820,[]
-9821,['|P13| left hand in |Bin 36|']
-9822,['|P13| left hand in |Bin 36|']
-9823,['|P13| left hand in |Bin 36|']
-9824,['|P13| left hand in |Bin 36|']
-9825,['|P13| left hand in |Bin 36|']
-9826,['|P13| left hand in |Bin 36|']
-9827,['|P13| left hand in |Bin 36|']
-9828,['|P13| left hand in |Bin 36|']
+9821,[]
+9822,[]
+9823,[]
+9824,[]
+9825,[]
+9826,[]
+9827,[]
+9828,[]
 9829,[]
-9830,['|P13| left hand in |Bin 36|']
-9831,['|P13| left hand in |Bin 36|']
-9832,['|P13| left hand in |Bin 36|']
-9833,['|P13| left hand in |Bin 36|']
-9834,['|P13| left hand in |Bin 36|']
-9835,['|P13| left hand in |Bin 36|']
+9830,[]
+9831,[]
+9832,[]
+9833,[]
+9834,[]
+9835,[]
 9836,['|P13| left hand in |Bin 36|']
 9837,['|P13| left hand in |Bin 36|']
 9838,['|P13| left hand in |Bin 36|']
 9839,['|P13| left hand in |Bin 36|']
-9840,['|P13| left hand in |Bin 36|']
+9840,"['|P13| left hand in |Bin 36|', '|P13| is the owner of |Bin 36|']"
 9841,['|P13| left hand in |Bin 36|']
 9842,['|P13| left hand in |Bin 36|']
 9843,['|P13| left hand in |Bin 36|']
 9844,['|P13| left hand in |Bin 36|']
-9845,[]
+9845,['|P13| left hand in |Bin 36|']
 9846,['|P13| left hand in |Bin 36|']
-9847,[]
-9848,[]
-9849,[]
+9847,['|P13| left hand in |Bin 36|']
+9848,['|P13| left hand in |Bin 36|']
+9849,['|P13| left hand in |Bin 36|']
 9850,['|P13| left hand in |Bin 36|']
 9851,['|P13| left hand in |Bin 36|']
-9852,[]
-9853,[]
-9854,[]
-9855,[]
-9856,[]
-9857,[]
-9858,[]
-9859,[]
-9860,[]
-9861,['|P15| right hand in |Bin 38|']
-9862,['|P15| right hand in |Bin 38|']
-9863,['|P15| right hand in |Bin 38|']
-9864,['|P15| right hand in |Bin 38|']
-9865,['|P15| right hand in |Bin 38|']
-9866,['|P15| right hand in |Bin 38|']
-9867,['|P15| right hand in |Bin 38|']
-9868,['|P15| right hand in |Bin 38|']
-9869,['|P15| right hand in |Bin 38|']
-9870,['|P15| right hand in |Bin 38|']
-9871,['|P15| right hand in |Bin 38|']
-9872,['|P15| right hand in |Bin 38|']
-9873,['|P15| right hand in |Bin 38|']
-9874,[]
-9875,[]
-9876,[]
-9877,[]
-9878,[]
-9879,[]
-9880,[]
-9881,[]
-9882,[]
-9883,[]
-9884,[]
-9885,[]
-9886,[]
-9887,[]
-9888,[]
-9889,[]
-9890,[]
-9891,[]
-9892,[]
-9893,[]
-9894,[]
-9895,[]
-9896,[]
-9897,[]
+9852,['|P13| left hand in |Bin 36|']
+9853,['|P13| left hand in |Bin 36|']
+9854,['|P13| left hand in |Bin 36|']
+9855,['|P13| left hand in |Bin 36|']
+9856,['|P13| left hand in |Bin 36|']
+9857,['|P13| left hand in |Bin 36|']
+9858,['|P13| left hand in |Bin 36|']
+9859,['|P13| left hand in |Bin 36|']
+9860,['|P13| left hand in |Bin 36|']
+9861,['|P13| left hand in |Bin 36|']
+9862,['|P13| left hand in |Bin 36|']
+9863,['|P13| left hand in |Bin 36|']
+9864,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9865,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9866,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9867,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9868,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9869,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9870,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9871,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9872,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9873,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9874,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9875,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9876,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9877,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9878,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9879,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9880,['|P13| left hand in |Bin 36|']
+9881,['|P13| left hand in |Bin 36|']
+9882,"['|P13| left hand in |Bin 36|', '|P15| left hand in |Bin 38|']"
+9883,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9884,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9885,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9886,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9887,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9888,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9889,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9890,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9891,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9892,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9893,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9894,"['|P13| left hand in |Bin 36|', '|P15| right hand in |Bin 38|']"
+9895,['|P13| left hand in |Bin 36|']
+9896,['|P13| left hand in |Bin 36|']
+9897,['|P13| left hand in |Bin 36|']
 9898,[]
-9899,[]
+9899,['|P15| right hand in |Bin 38|']
 9900,[]
-9901,[]
-9902,[]
+9901,['|P15| right hand in |Bin 38|']
+9902,['|P15| right hand in |Bin 38|']
 9903,[]
-9904,[]
-9905,[]
-9906,[]
+9904,['|P15| right hand in |Bin 38|']
+9905,['|P15| right hand in |Bin 38|']
+9906,['|P15| right hand in |Bin 38|']
 9907,[]
 9908,[]
 9909,[]
@@ -9917,93 +9917,93 @@
 9917,[]
 9918,[]
 9919,[]
-9920,[]
-9921,[]
-9922,[]
-9923,[]
-9924,[]
-9925,[]
-9926,[]
-9927,[]
-9928,[]
-9929,[]
-9930,[]
-9931,[]
-9932,[]
-9933,[]
-9934,[]
-9935,[]
-9936,[]
-9937,[]
-9938,[]
-9939,[]
-9940,[]
-9941,[]
-9942,[]
-9943,[]
-9944,[]
-9945,[]
-9946,[]
-9947,['|P13| left hand in |Bin 37|']
-9948,['|P13| left hand in |Bin 37|']
-9949,['|P13| left hand in |Bin 37|']
-9950,['|P13| left hand in |Bin 37|']
-9951,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|']"
+9920,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9921,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9922,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9923,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9924,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9925,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9926,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9927,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9928,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9929,"['|P15| right hand in |Bin 36|', '|P15| left hand in |Bin 36|', '|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9930,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9931,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9932,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9933,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9934,"['|P15| right hand in |Bin 36|', '|P15| left hand in |Bin 36|', '|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9935,"['|P15| right hand in |Bin 36|', '|P15| left hand in |Bin 36|', '|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9936,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9937,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9938,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9939,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9940,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9941,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9942,"['|P13| right hand in |Bin 36|', '|P13| left hand in |Bin 36|']"
+9943,['|P13| right hand in |Bin 36|']
+9944,['|P13| right hand in |Bin 36|']
+9945,['|P13| right hand in |Bin 36|']
+9946,['|P13| right hand in |Bin 36|']
+9947,['|P13| right hand in |Bin 36|']
+9948,['|P13| right hand in |Bin 36|']
+9949,['|P13| right hand in |Bin 36|']
+9950,['|P13| right hand in |Bin 36|']
+9951,"['|P13| right hand in |Bin 36|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
 9952,['|P13| right hand in |Bin 36|']
-9953,['|P15| right hand in |Bin 40|']
-9954,['|P15| left hand in |Bin 40|']
-9955,[]
-9956,['|P15| left hand in |Bin 40|']
-9957,['|P15| right hand in |Bin 40|']
-9958,['|P15| left hand in |Bin 40|']
-9959,['|P15| left hand in |Bin 40|']
-9960,['|P15| right hand in |Bin 40|']
-9961,['|P15| right hand in |Bin 40|']
-9962,['|P15| right hand in |Bin 40|']
-9963,['|P15| right hand in |Bin 40|']
-9964,['|P15| right hand in |Bin 40|']
-9965,[]
-9966,[]
-9967,[]
-9968,[]
-9969,[]
-9970,[]
-9971,[]
-9972,[]
-9973,[]
-9974,[]
-9975,[]
-9976,[]
-9977,[]
-9978,[]
-9979,[]
-9980,[]
-9981,[]
-9982,[]
-9983,[]
-9984,[]
-9985,[]
-9986,[]
-9987,[]
-9988,[]
-9989,[]
-9990,[]
-9991,[]
-9992,[]
-9993,[]
-9994,[]
-9995,[]
-9996,[]
-9997,[]
-9998,[]
-9999,[]
-10000,[]
-10001,[]
-10002,[]
-10003,[]
-10004,['|P13| left hand in |Bin 37|']
-10005,[]
-10006,[]
+9953,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9954,"['|P13| left hand in |Bin 37|', '|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9955,['|P13| left hand in |Bin 37|']
+9956,"['|P13| left hand in |Bin 37|', '|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9957,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9958,"['|P13| left hand in |Bin 37|', '|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9959,"['|P13| left hand in |Bin 37|', '|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9960,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9961,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9962,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9963,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9964,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9965,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9966,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9967,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9968,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9969,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9970,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9971,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9972,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9973,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9974,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9975,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9976,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9977,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9978,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9979,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9980,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9981,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9982,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9983,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9984,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9985,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9986,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9987,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9988,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9989,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9990,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9991,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9992,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9993,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9994,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9995,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9996,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9997,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9998,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+9999,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10000,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10001,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10002,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10003,"['|P13| left hand in |Bin 37|', '|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10004,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|', '|P13| left hand in |Bin 37|']"
+10005,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10006,"['|P15| right hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
 10007,[]
 10008,[]
 10009,[]
@@ -10011,9 +10011,9 @@
 10011,[]
 10012,[]
 10013,[]
-10014,[]
-10015,[]
-10016,['|P15| left hand in |Bin 40|']
+10014,"['|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10015,"['|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
+10016,"['|P15| left hand in |Bin 40|', '|P15| is suspicious with |Bin 40|']"
 10017,[]
 10018,[]
 10019,[]
@@ -10346,64 +10346,64 @@
 10346,[]
 10347,[]
 10348,[]
-10349,['|P16| right hand in |Bin 41|']
-10350,['|P16| right hand in |Bin 41|']
+10349,[]
+10350,[]
 10351,[]
 10352,[]
 10353,[]
 10354,[]
-10355,['|P16| right hand in |Bin 41|']
-10356,['|P16| right hand in |Bin 41|']
+10355,[]
+10356,[]
 10357,[]
 10358,[]
 10359,[]
-10360,['|P16| right hand in |Bin 41|']
-10361,['|P16| right hand in |Bin 41|']
-10362,['|P16| right hand in |Bin 41|']
-10363,['|P16| right hand in |Bin 41|']
-10364,['|P16| right hand in |Bin 41|']
-10365,['|P16| right hand in |Bin 41|']
-10366,['|P16| right hand in |Bin 41|']
-10367,['|P16| right hand in |Bin 41|']
-10368,['|P16| right hand in |Bin 41|']
-10369,['|P16| right hand in |Bin 41|']
-10370,['|P16| right hand in |Bin 41|']
-10371,['|P16| right hand in |Bin 41|']
-10372,['|P16| right hand in |Bin 41|']
-10373,['|P16| right hand in |Bin 41|']
-10374,['|P16| right hand in |Bin 41|']
-10375,['|P16| right hand in |Bin 41|']
-10376,['|P16| right hand in |Bin 41|']
-10377,['|P16| right hand in |Bin 41|']
-10378,['|P16| right hand in |Bin 41|']
-10379,['|P16| right hand in |Bin 41|']
+10360,[]
+10361,[]
+10362,[]
+10363,[]
+10364,[]
+10365,[]
+10366,[]
+10367,[]
+10368,[]
+10369,[]
+10370,[]
+10371,[]
+10372,[]
+10373,[]
+10374,[]
+10375,[]
+10376,[]
+10377,[]
+10378,[]
+10379,[]
 10380,[]
 10381,[]
 10382,[]
-10383,[]
-10384,[]
+10383,['|P16| right hand in |Bin 41|']
+10384,['|P16| right hand in |Bin 41|']
 10385,[]
-10386,[]
-10387,[]
-10388,[]
-10389,[]
-10390,[]
+10386,['|P16| right hand in |Bin 41|']
+10387,['|P16| right hand in |Bin 41|']
+10388,['|P16| right hand in |Bin 41|']
+10389,['|P16| right hand in |Bin 41|']
+10390,['|P16| right hand in |Bin 41|']
 10391,[]
 10392,[]
 10393,[]
-10394,[]
+10394,['|P16| right hand in |Bin 41|']
 10395,[]
-10396,[]
-10397,[]
+10396,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10397,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10398,[]
-10399,[]
-10400,[]
-10401,[]
-10402,[]
-10403,['|P16| left hand in |Bin 41|']
-10404,['|P16| left hand in |Bin 41|']
-10405,['|P16| left hand in |Bin 41|']
-10406,['|P16| left hand in |Bin 41|']
+10399,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10400,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10401,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10402,['|P16| right hand in |Bin 41|']
+10403,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10404,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10405,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10406,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10407,['|P16| left hand in |Bin 41|']
 10408,['|P16| left hand in |Bin 41|']
 10409,['|P16| left hand in |Bin 41|']
@@ -10420,11 +10420,11 @@
 10420,['|P16| left hand in |Bin 41|']
 10421,['|P16| left hand in |Bin 41|']
 10422,['|P16| left hand in |Bin 41|']
-10423,[]
-10424,[]
-10425,[]
-10426,[]
-10427,[]
+10423,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10424,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10425,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10426,['|P16| right hand in |Bin 41|']
+10427,['|P16| left hand in |Bin 41|']
 10428,[]
 10429,[]
 10430,[]
@@ -10553,7 +10553,7 @@
 10553,[]
 10554,[]
 10555,[]
-10556,['|P16| right hand in |Bin 41|']
+10556,[]
 10557,[]
 10558,['|P16| right hand in |Bin 41|']
 10559,['|P16| right hand in |Bin 41|']
@@ -10562,19 +10562,19 @@
 10562,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10563,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10564,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
-10565,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10565,['|P16| right hand in |Bin 41|']
 10566,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10567,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10568,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10569,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10570,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10571,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
-10572,['|P16| left hand in |Bin 41|']
-10573,['|P16| left hand in |Bin 41|']
-10574,['|P16| left hand in |Bin 41|']
-10575,['|P16| left hand in |Bin 41|']
-10576,['|P16| left hand in |Bin 41|']
-10577,['|P16| left hand in |Bin 41|']
+10572,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10573,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10574,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10575,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10576,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10577,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10578,['|P16| left hand in |Bin 41|']
 10579,['|P16| left hand in |Bin 41|']
 10580,['|P16| left hand in |Bin 41|']
@@ -10589,13 +10589,13 @@
 10589,['|P16| left hand in |Bin 41|']
 10590,['|P16| left hand in |Bin 41|']
 10591,['|P16| left hand in |Bin 41|']
-10592,[]
-10593,[]
+10592,['|P16| left hand in |Bin 41|']
+10593,['|P16| left hand in |Bin 41|']
 10594,['|P16| left hand in |Bin 41|']
 10595,['|P16| left hand in |Bin 41|']
 10596,['|P16| left hand in |Bin 41|']
 10597,['|P16| left hand in |Bin 41|']
-10598,['|P16| left hand in |Bin 41|']
+10598,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10599,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10600,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10601,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
@@ -10609,16 +10609,16 @@
 10609,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10610,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10611,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
-10612,['|P16| right hand in |Bin 41|']
-10613,['|P16| right hand in |Bin 41|']
-10614,['|P16| right hand in |Bin 41|']
-10615,['|P16| right hand in |Bin 41|']
-10616,['|P16| right hand in |Bin 41|']
-10617,['|P16| right hand in |Bin 41|']
+10612,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10613,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10614,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10615,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10616,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10617,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10618,['|P16| right hand in |Bin 41|']
 10619,['|P16| right hand in |Bin 41|']
 10620,['|P16| right hand in |Bin 41|']
-10621,['|P16| right hand in |Bin 41|']
+10621,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10622,['|P16| right hand in |Bin 41|']
 10623,['|P16| right hand in |Bin 41|']
 10624,['|P16| right hand in |Bin 41|']
@@ -10672,7 +10672,7 @@
 10672,[]
 10673,[]
 10674,[]
-10675,['|P16| right hand in |Bin 41|']
+10675,[]
 10676,[]
 10677,[]
 10678,[]
@@ -10718,84 +10718,84 @@
 10718,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10719,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10720,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
-10721,[]
-10722,['|P16| left hand in |Bin 41|']
-10723,['|P16| left hand in |Bin 41|']
-10724,['|P16| left hand in |Bin 41|']
-10725,['|P16| left hand in |Bin 41|']
-10726,['|P16| left hand in |Bin 41|']
-10727,['|P16| left hand in |Bin 41|']
-10728,['|P16| left hand in |Bin 41|']
-10729,['|P16| left hand in |Bin 41|']
-10730,['|P16| left hand in |Bin 41|']
+10721,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10722,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10723,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10724,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10725,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10726,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10727,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10728,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10729,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10730,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10731,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10732,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
-10733,['|P16| left hand in |Bin 41|']
+10733,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10734,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
-10735,['|P16| left hand in |Bin 41|']
-10736,['|P16| left hand in |Bin 41|']
-10737,['|P16| left hand in |Bin 41|']
-10738,['|P16| left hand in |Bin 41|']
-10739,['|P16| left hand in |Bin 41|']
-10740,['|P16| left hand in |Bin 41|']
-10741,['|P16| left hand in |Bin 41|']
-10742,['|P16| left hand in |Bin 41|']
-10743,['|P16| left hand in |Bin 41|']
-10744,[]
-10745,[]
-10746,[]
-10747,['|P16| right hand in |Bin 41|']
-10748,['|P16| right hand in |Bin 41|']
-10749,[]
-10750,[]
-10751,[]
-10752,[]
-10753,[]
-10754,[]
-10755,[]
-10756,[]
-10757,[]
-10758,[]
-10759,[]
-10760,[]
-10761,[]
-10762,[]
-10763,[]
-10764,[]
-10765,[]
-10766,[]
-10767,[]
-10768,[]
-10769,[]
-10770,[]
-10771,['|P16| right hand in |Bin 44|']
-10772,['|P16| right hand in |Bin 44|']
-10773,['|P16| right hand in |Bin 44|']
-10774,['|P16| right hand in |Bin 44|']
-10775,['|P16| right hand in |Bin 44|']
-10776,['|P16| right hand in |Bin 44|']
-10777,['|P16| right hand in |Bin 44|']
-10778,['|P16| right hand in |Bin 44|']
-10779,['|P16| right hand in |Bin 44|']
-10780,['|P16| right hand in |Bin 44|']
-10781,['|P16| right hand in |Bin 44|']
-10782,['|P16| right hand in |Bin 44|']
-10783,[]
-10784,[]
+10735,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10736,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10737,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10738,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10739,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10740,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10741,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10742,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10743,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10744,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10745,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10746,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10747,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10748,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10749,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10750,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10751,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10752,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10753,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10754,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10755,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10756,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10757,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10758,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10759,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10760,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10761,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10762,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10763,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10764,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10765,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10766,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10767,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10768,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10769,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10770,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10771,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10772,['|P16| left hand in |Bin 41|']
+10773,['|P16| left hand in |Bin 41|']
+10774,['|P16| left hand in |Bin 41|']
+10775,['|P16| left hand in |Bin 41|']
+10776,['|P16| left hand in |Bin 41|']
+10777,['|P16| left hand in |Bin 41|']
+10778,['|P16| left hand in |Bin 41|']
+10779,[]
+10780,[]
+10781,['|P16| right hand in |Bin 41|']
+10782,['|P16| right hand in |Bin 41|']
+10783,['|P16| right hand in |Bin 41|']
+10784,['|P16| right hand in |Bin 41|']
 10785,[]
-10786,[]
-10787,[]
-10788,[]
+10786,['|P16| right hand in |Bin 41|']
+10787,['|P16| right hand in |Bin 41|']
+10788,['|P16| right hand in |Bin 41|']
 10789,[]
 10790,[]
 10791,[]
 10792,[]
-10793,[]
-10794,[]
-10795,[]
-10796,[]
-10797,[]
-10798,[]
+10793,['|P16| left hand in |Bin 41|']
+10794,['|P16| left hand in |Bin 41|']
+10795,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10796,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10797,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
+10798,"['|P16| right hand in |Bin 41|', '|P16| left hand in |Bin 41|']"
 10799,['|P16| left hand in |Bin 41|']
 10800,[]
 10801,[]
@@ -11398,29 +11398,29 @@
 11398,[]
 11399,[]
 11400,[]
-11401,['|P17| right hand in |Bin 44|']
-11402,"['|P17| right hand in |Bin 44|', '|P17| is the owner of |Bin 44|']"
-11403,['|P17| right hand in |Bin 44|']
+11401,[]
+11402,[]
+11403,[]
 11404,[]
-11405,[]
-11406,[]
-11407,['|P17| right hand in |Bin 43|']
-11408,['|P17| right hand in |Bin 43|']
+11405,['|P17| left hand in |Bin 44|']
+11406,['|P17| left hand in |Bin 44|']
+11407,[]
+11408,['|P17| left hand in |Bin 44|']
 11409,['|P17| right hand in |Bin 43|']
-11410,['|P17| right hand in |Bin 43|']
+11410,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
 11411,['|P17| right hand in |Bin 43|']
-11412,['|P17| right hand in |Bin 43|']
-11413,['|P17| right hand in |Bin 43|']
-11414,['|P17| right hand in |Bin 43|']
-11415,['|P17| right hand in |Bin 43|']
-11416,['|P17| right hand in |Bin 43|']
-11417,['|P17| right hand in |Bin 43|']
-11418,[]
-11419,['|P17| right hand in |Bin 43|']
-11420,['|P17| right hand in |Bin 43|']
-11421,['|P17| right hand in |Bin 43|']
-11422,[]
-11423,[]
+11412,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11413,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11414,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11415,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11416,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11417,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11418,['|P17| left hand in |Bin 44|']
+11419,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11420,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11421,"['|P17| left hand in |Bin 44|', '|P17| right hand in |Bin 43|']"
+11422,['|P17| left hand in |Bin 44|']
+11423,['|P17| left hand in |Bin 44|']
 11424,['|P17| right hand in |Bin 43|']
 11425,['|P17| right hand in |Bin 43|']
 11426,['|P17| right hand in |Bin 43|']
@@ -11457,22 +11457,22 @@
 11457,[]
 11458,[]
 11459,[]
-11460,[]
-11461,[]
-11462,[]
-11463,[]
-11464,[]
-11465,[]
-11466,[]
-11467,[]
-11468,[]
+11460,['|P17| left hand in |Bin 44|']
+11461,['|P17| left hand in |Bin 44|']
+11462,['|P17| left hand in |Bin 44|']
+11463,"['|P17| left hand in |Bin 44|', '|P17| is the owner of |Bin 44|']"
+11464,['|P17| left hand in |Bin 44|']
+11465,['|P17| right hand in |Bin 44|']
+11466,['|P17| right hand in |Bin 44|']
+11467,['|P17| right hand in |Bin 44|']
+11468,['|P17| right hand in |Bin 44|']
 11469,[]
-11470,[]
-11471,[]
-11472,[]
-11473,[]
-11474,[]
-11475,[]
+11470,['|P17| right hand in |Bin 44|']
+11471,['|P17| right hand in |Bin 44|']
+11472,['|P17| right hand in |Bin 44|']
+11473,"['|P17| right hand in |Bin 44|', '|P17| left hand in |Bin 44|']"
+11474,['|P17| right hand in |Bin 44|']
+11475,"['|P17| right hand in |Bin 44|', '|P17| left hand in |Bin 44|']"
 11476,"['|P17| right hand in |Bin 44|', '|P17| left hand in |Bin 44|']"
 11477,[]
 11478,[]
@@ -11499,7 +11499,7 @@
 11499,[]
 11500,[]
 11501,[]
-11502,['|P17| right hand in |Bin 43|']
+11502,[]
 11503,['|P17| right hand in |Bin 43|']
 11504,['|P17| right hand in |Bin 43|']
 11505,['|P17| right hand in |Bin 43|']
@@ -11528,75 +11528,75 @@
 11528,['|P17| right hand in |Bin 43|']
 11529,['|P17| right hand in |Bin 43|']
 11530,['|P17| right hand in |Bin 43|']
-11531,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11532,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11533,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11534,"['|P17| right hand in |Bin 43|', '|P18| right hand in |Bin 49|']"
-11535,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11536,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11537,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11538,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11539,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11540,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11541,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
-11542,['|P18| left hand in |Bin 49|']
-11543,['|P18| left hand in |Bin 49|']
-11544,['|P18| left hand in |Bin 49|']
-11545,['|P18| left hand in |Bin 49|']
-11546,['|P18| left hand in |Bin 49|']
-11547,['|P18| left hand in |Bin 49|']
-11548,['|P18| left hand in |Bin 49|']
-11549,[]
-11550,[]
-11551,[]
-11552,[]
-11553,[]
-11554,[]
-11555,[]
-11556,[]
-11557,[]
-11558,[]
-11559,[]
-11560,['|P17| left hand in |Bin 43|']
-11561,['|P17| left hand in |Bin 43|']
-11562,['|P17| left hand in |Bin 43|']
-11563,['|P17| left hand in |Bin 43|']
-11564,['|P17| left hand in |Bin 43|']
-11565,['|P17| left hand in |Bin 43|']
-11566,['|P17| left hand in |Bin 43|']
-11567,['|P17| left hand in |Bin 43|']
-11568,['|P17| left hand in |Bin 43|']
-11569,['|P17| left hand in |Bin 43|']
-11570,['|P17| left hand in |Bin 43|']
-11571,['|P17| left hand in |Bin 43|']
-11572,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11573,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11574,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11575,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11576,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11577,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11578,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|']"
-11579,['|P17| right hand in |Bin 43|']
-11580,['|P17| right hand in |Bin 43|']
-11581,['|P17| right hand in |Bin 43|']
-11582,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11583,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11584,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11585,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11586,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11587,[]
-11588,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11589,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11590,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|']"
-11591,[]
-11592,[]
+11531,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11532,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11533,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11534,"['|P17| right hand in |Bin 43|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11535,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11536,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11537,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11538,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11539,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11540,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11541,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11542,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11543,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11544,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11545,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11546,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11547,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11548,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11549,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11550,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11551,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11552,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11553,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11554,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11555,"['|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11556,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11557,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11558,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11559,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11560,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11561,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11562,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11563,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11564,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11565,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11566,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11567,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11568,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11569,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11570,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11571,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11572,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11573,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11574,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11575,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11576,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11577,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11578,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11579,"['|P17| right hand in |Bin 43|', '|P17| left hand in |Bin 43|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11580,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11581,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11582,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11583,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11584,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11585,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11586,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11587,"['|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11588,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11589,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11590,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11591,"['|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11592,"['|P18| right hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
 11593,['|P17| right hand in |Bin 43|']
-11594,['|P17| right hand in |Bin 43|']
-11595,['|P17| right hand in |Bin 43|']
-11596,['|P17| right hand in |Bin 43|']
-11597,[]
-11598,[]
-11599,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|']"
+11594,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11595,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11596,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11597,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11598,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
+11599,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 49|', '|P18| is suspicious with |Bin 49|']"
 11600,['|P17| right hand in |Bin 43|']
 11601,['|P17| right hand in |Bin 43|']
 11602,['|P17| right hand in |Bin 43|']
@@ -11608,179 +11608,179 @@
 11608,[]
 11609,[]
 11610,[]
-11611,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11612,['|P18| left hand in |Bin 50|']
-11613,['|P18| left hand in |Bin 50|']
-11614,['|P18| left hand in |Bin 50|']
-11615,['|P18| left hand in |Bin 50|']
-11616,['|P18| left hand in |Bin 50|']
-11617,['|P18| left hand in |Bin 50|']
-11618,['|P18| left hand in |Bin 50|']
-11619,['|P18| left hand in |Bin 50|']
-11620,['|P18| left hand in |Bin 50|']
-11621,['|P18| left hand in |Bin 50|']
-11622,['|P18| left hand in |Bin 50|']
-11623,['|P18| left hand in |Bin 50|']
-11624,['|P18| left hand in |Bin 50|']
-11625,['|P18| left hand in |Bin 50|']
-11626,['|P18| left hand in |Bin 50|']
-11627,['|P18| left hand in |Bin 50|']
-11628,['|P18| left hand in |Bin 50|']
-11629,['|P18| left hand in |Bin 50|']
-11630,['|P18| left hand in |Bin 50|']
-11631,['|P18| left hand in |Bin 50|']
-11632,['|P18| left hand in |Bin 50|']
-11633,['|P18| left hand in |Bin 50|']
-11634,['|P18| left hand in |Bin 50|']
-11635,['|P18| left hand in |Bin 50|']
-11636,['|P18| left hand in |Bin 50|']
-11637,['|P18| left hand in |Bin 50|']
-11638,['|P18| left hand in |Bin 50|']
-11639,['|P18| left hand in |Bin 50|']
-11640,['|P18| left hand in |Bin 50|']
-11641,"['|P18| left hand in |Bin 50|', '|P18| is the owner of |Bin 50|']"
-11642,['|P18| left hand in |Bin 50|']
-11643,['|P18| left hand in |Bin 50|']
-11644,['|P18| left hand in |Bin 50|']
-11645,['|P18| left hand in |Bin 50|']
-11646,['|P18| left hand in |Bin 50|']
-11647,['|P18| left hand in |Bin 50|']
-11648,['|P18| left hand in |Bin 50|']
-11649,['|P18| left hand in |Bin 50|']
-11650,['|P18| left hand in |Bin 50|']
-11651,['|P18| left hand in |Bin 50|']
-11652,['|P18| left hand in |Bin 50|']
-11653,['|P18| left hand in |Bin 50|']
-11654,['|P18| left hand in |Bin 50|']
-11655,['|P18| left hand in |Bin 50|']
-11656,['|P18| left hand in |Bin 50|']
-11657,['|P18| left hand in |Bin 50|']
-11658,['|P18| left hand in |Bin 50|']
-11659,['|P18| left hand in |Bin 50|']
-11660,['|P18| left hand in |Bin 50|']
-11661,['|P18| left hand in |Bin 50|']
-11662,['|P18| left hand in |Bin 50|']
-11663,['|P18| left hand in |Bin 50|']
-11664,['|P18| left hand in |Bin 50|']
-11665,['|P18| left hand in |Bin 50|']
-11666,['|P18| left hand in |Bin 50|']
-11667,['|P18| left hand in |Bin 50|']
-11668,['|P18| left hand in |Bin 50|']
-11669,['|P18| left hand in |Bin 50|']
-11670,['|P18| left hand in |Bin 50|']
-11671,['|P18| left hand in |Bin 50|']
-11672,['|P18| left hand in |Bin 50|']
-11673,['|P18| left hand in |Bin 50|']
-11674,['|P18| left hand in |Bin 50|']
-11675,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11676,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11677,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11678,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11679,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11680,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11681,"['|P17| right hand in |Bin 43|', '|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11682,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11683,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11684,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11685,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11686,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11687,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11688,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11689,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11690,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11691,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11692,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11693,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11694,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11695,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11696,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11697,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11698,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11699,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|']"
-11700,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11701,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11702,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|']"
-11703,['|P18| left hand in |Bin 50|']
-11704,['|P18| left hand in |Bin 50|']
-11705,['|P18| left hand in |Bin 50|']
-11706,['|P18| left hand in |Bin 50|']
-11707,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11708,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11709,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11710,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11711,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11712,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11713,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11714,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11715,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11716,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11717,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11718,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11719,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11720,['|P18| left hand in |Bin 50|']
-11721,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11722,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11723,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11724,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11725,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11726,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11727,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11728,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11729,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11730,['|P18| left hand in |Bin 50|']
-11731,['|P18| left hand in |Bin 50|']
-11732,['|P18| left hand in |Bin 50|']
-11733,['|P18| left hand in |Bin 50|']
-11734,['|P18| left hand in |Bin 50|']
-11735,['|P18| left hand in |Bin 50|']
-11736,['|P18| left hand in |Bin 50|']
-11737,['|P18| left hand in |Bin 50|']
-11738,['|P18| left hand in |Bin 50|']
-11739,['|P18| left hand in |Bin 50|']
-11740,['|P18| left hand in |Bin 50|']
-11741,['|P18| left hand in |Bin 50|']
-11742,['|P18| left hand in |Bin 50|']
-11743,['|P18| left hand in |Bin 50|']
-11744,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11745,['|P18| left hand in |Bin 50|']
-11746,['|P18| left hand in |Bin 50|']
-11747,['|P18| left hand in |Bin 50|']
-11748,['|P18| left hand in |Bin 50|']
-11749,['|P18| left hand in |Bin 50|']
-11750,['|P18| left hand in |Bin 50|']
-11751,['|P18| left hand in |Bin 50|']
-11752,['|P18| left hand in |Bin 50|']
-11753,['|P18| left hand in |Bin 50|']
-11754,['|P18| left hand in |Bin 50|']
-11755,['|P18| left hand in |Bin 50|']
-11756,['|P18| left hand in |Bin 50|']
-11757,['|P18| left hand in |Bin 50|']
-11758,['|P18| left hand in |Bin 50|']
-11759,['|P18| left hand in |Bin 50|']
-11760,['|P18| left hand in |Bin 50|']
-11761,['|P18| left hand in |Bin 50|']
-11762,['|P18| left hand in |Bin 50|']
-11763,['|P18| left hand in |Bin 50|']
-11764,['|P18| left hand in |Bin 50|']
-11765,['|P18| left hand in |Bin 50|']
-11766,['|P18| left hand in |Bin 50|']
-11767,['|P18| left hand in |Bin 50|']
-11768,"['|P18| right hand in |Bin 50|', '|P18| left hand in |Bin 50|']"
-11769,['|P18| right hand in |Bin 50|']
-11770,['|P18| right hand in |Bin 50|']
-11771,['|P18| right hand in |Bin 50|']
-11772,['|P18| right hand in |Bin 50|']
-11773,['|P18| right hand in |Bin 50|']
-11774,['|P18| left hand in |Bin 50|']
-11775,['|P18| left hand in |Bin 50|']
-11776,['|P18| left hand in |Bin 50|']
+11611,['|P17| right hand in |Bin 43|']
+11612,[]
+11613,[]
+11614,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11615,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11616,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11617,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11618,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11619,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11620,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11621,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11622,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11623,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11624,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11625,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11626,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11627,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11628,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11629,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11630,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11631,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11632,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11633,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11634,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11635,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11636,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11637,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11638,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11639,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11640,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11641,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11642,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11643,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11644,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11645,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11646,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11647,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11648,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11649,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11650,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11651,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11652,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11653,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11654,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11655,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11656,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11657,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11658,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11659,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11660,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11661,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11662,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11663,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11664,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11665,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11666,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11667,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11668,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11669,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11670,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11671,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11672,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11673,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11674,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11675,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11676,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11677,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11678,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11679,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11680,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11681,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11682,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11683,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11684,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11685,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11686,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11687,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11688,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11689,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11690,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11691,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11692,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11693,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11694,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11695,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11696,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11697,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11698,"['|P17| right hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11699,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11700,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11701,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11702,"['|P17| right hand in |Bin 48|', '|P17| is suspicious with |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11703,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11704,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11705,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11706,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11707,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11708,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11709,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11710,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11711,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11712,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11713,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11714,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11715,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11716,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11717,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11718,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11719,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11720,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11721,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11722,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11723,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11724,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11725,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11726,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11727,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11728,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11729,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11730,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11731,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11732,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11733,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11734,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11735,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11736,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11737,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11738,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11739,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11740,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11741,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11742,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11743,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11744,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11745,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11746,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11747,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11748,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11749,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11750,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11751,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11752,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11753,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11754,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11755,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11756,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11757,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11758,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11759,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11760,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11761,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11762,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11763,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11764,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11765,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11766,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11767,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11768,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11769,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11770,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11771,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11772,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11773,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11774,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11775,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11776,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
 11777,['|P18| left hand in |Bin 48|']
-11778,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
+11778,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
 11779,['|P18| left hand in |Bin 48|']
-11780,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11781,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11782,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11783,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
+11780,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11781,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11782,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11783,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
 11784,['|P18| left hand in |Bin 48|']
 11785,['|P18| left hand in |Bin 48|']
 11786,['|P18| left hand in |Bin 48|']
@@ -11826,60 +11826,60 @@
 11826,['|P18| left hand in |Bin 48|']
 11827,['|P18| left hand in |Bin 48|']
 11828,['|P18| left hand in |Bin 48|']
-11829,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 48|']"
-11830,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 48|']"
+11829,['|P18| left hand in |Bin 48|']
+11830,['|P18| left hand in |Bin 48|']
 11831,['|P18| left hand in |Bin 48|']
-11832,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 48|']"
-11833,['|P18| right hand in |Bin 48|']
-11834,['|P18| right hand in |Bin 48|']
-11835,['|P18| right hand in |Bin 48|']
-11836,['|P18| right hand in |Bin 48|']
-11837,['|P18| right hand in |Bin 48|']
-11838,['|P18| right hand in |Bin 48|']
-11839,['|P18| right hand in |Bin 48|']
-11840,['|P18| right hand in |Bin 48|']
-11841,['|P18| right hand in |Bin 48|']
-11842,['|P18| right hand in |Bin 48|']
-11843,['|P18| right hand in |Bin 48|']
-11844,['|P18| right hand in |Bin 48|']
-11845,['|P18| right hand in |Bin 48|']
-11846,['|P18| right hand in |Bin 48|']
-11847,['|P18| right hand in |Bin 48|']
-11848,['|P18| right hand in |Bin 48|']
-11849,['|P18| right hand in |Bin 48|']
-11850,['|P18| right hand in |Bin 48|']
-11851,['|P18| right hand in |Bin 48|']
-11852,['|P18| right hand in |Bin 48|']
-11853,['|P18| right hand in |Bin 48|']
-11854,['|P18| right hand in |Bin 48|']
-11855,['|P18| right hand in |Bin 48|']
-11856,['|P18| right hand in |Bin 48|']
-11857,['|P18| right hand in |Bin 48|']
-11858,['|P18| right hand in |Bin 48|']
-11859,['|P18| right hand in |Bin 48|']
-11860,['|P18| right hand in |Bin 48|']
-11861,['|P18| right hand in |Bin 48|']
-11862,['|P18| right hand in |Bin 48|']
-11863,['|P18| right hand in |Bin 48|']
-11864,['|P18| right hand in |Bin 48|']
-11865,['|P18| right hand in |Bin 48|']
-11866,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 48|']"
-11867,['|P18| right hand in |Bin 48|']
-11868,['|P18| right hand in |Bin 48|']
-11869,['|P18| right hand in |Bin 48|']
-11870,['|P18| right hand in |Bin 48|']
-11871,['|P18| left hand in |Bin 48|']
-11872,['|P18| left hand in |Bin 48|']
-11873,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11874,['|P18| left hand in |Bin 50|']
-11875,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11876,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11877,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11878,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11879,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|']"
-11880,['|P18| left hand in |Bin 48|']
-11881,['|P18| left hand in |Bin 50|']
-11882,[]
+11832,['|P18| left hand in |Bin 48|']
+11833,['|P18| left hand in |Bin 48|']
+11834,['|P18| left hand in |Bin 48|']
+11835,['|P18| left hand in |Bin 48|']
+11836,['|P18| left hand in |Bin 48|']
+11837,['|P18| left hand in |Bin 48|']
+11838,['|P18| left hand in |Bin 48|']
+11839,['|P18| left hand in |Bin 48|']
+11840,['|P18| left hand in |Bin 48|']
+11841,['|P18| left hand in |Bin 48|']
+11842,['|P18| left hand in |Bin 48|']
+11843,['|P18| left hand in |Bin 48|']
+11844,['|P18| left hand in |Bin 48|']
+11845,['|P18| left hand in |Bin 48|']
+11846,['|P18| left hand in |Bin 48|']
+11847,['|P18| left hand in |Bin 48|']
+11848,['|P18| left hand in |Bin 48|']
+11849,['|P18| left hand in |Bin 48|']
+11850,['|P18| left hand in |Bin 48|']
+11851,['|P18| left hand in |Bin 48|']
+11852,['|P18| left hand in |Bin 48|']
+11853,['|P18| left hand in |Bin 48|']
+11854,['|P18| left hand in |Bin 48|']
+11855,['|P18| left hand in |Bin 48|']
+11856,['|P18| left hand in |Bin 48|']
+11857,['|P18| left hand in |Bin 48|']
+11858,['|P18| left hand in |Bin 48|']
+11859,['|P18| left hand in |Bin 48|']
+11860,['|P18| left hand in |Bin 48|']
+11861,['|P18| left hand in |Bin 48|']
+11862,['|P18| left hand in |Bin 48|']
+11863,['|P18| left hand in |Bin 48|']
+11864,['|P18| left hand in |Bin 48|']
+11865,['|P18| left hand in |Bin 48|']
+11866,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 48|']"
+11867,['|P18| left hand in |Bin 48|']
+11868,['|P18| left hand in |Bin 48|']
+11869,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11870,['|P18| left hand in |Bin 48|']
+11871,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11872,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11873,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11874,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11875,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11876,"['|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11877,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11878,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11879,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11880,"['|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11881,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11882,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
 11883,[]
 11884,[]
 11885,[]
@@ -11911,100 +11911,100 @@
 11911,['|P18| left hand in |Bin 48|']
 11912,['|P18| left hand in |Bin 48|']
 11913,['|P18| left hand in |Bin 48|']
-11914,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11915,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11916,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11917,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11918,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11919,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11920,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11921,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11922,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11923,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11924,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11925,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11926,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11927,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11928,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11929,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11930,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|']"
-11931,[]
-11932,[]
-11933,[]
-11934,[]
-11935,[]
-11936,[]
-11937,[]
-11938,[]
-11939,[]
-11940,[]
-11941,[]
-11942,[]
-11943,[]
-11944,[]
-11945,[]
-11946,[]
-11947,[]
-11948,[]
-11949,[]
-11950,[]
-11951,[]
-11952,[]
-11953,[]
-11954,[]
-11955,[]
-11956,[]
-11957,[]
-11958,[]
-11959,[]
-11960,[]
-11961,[]
-11962,[]
-11963,[]
-11964,[]
-11965,[]
-11966,[]
-11967,[]
-11968,[]
-11969,[]
-11970,[]
-11971,[]
-11972,[]
-11973,[]
-11974,[]
-11975,[]
-11976,[]
-11977,[]
-11978,[]
-11979,[]
-11980,[]
-11981,['|P18| left hand in |Bin 50|']
-11982,[]
-11983,[]
-11984,[]
-11985,[]
-11986,[]
-11987,[]
-11988,[]
-11989,[]
-11990,[]
-11991,[]
-11992,[]
-11993,[]
-11994,[]
-11995,[]
-11996,[]
-11997,[]
-11998,[]
-11999,[]
-12000,[]
-12001,[]
-12002,[]
-12003,[]
-12004,[]
-12005,[]
-12006,[]
-12007,[]
+11914,['|P18| left hand in |Bin 48|']
+11915,['|P18| left hand in |Bin 48|']
+11916,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11917,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11918,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11919,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11920,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11921,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11922,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11923,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11924,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11925,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11926,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11927,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11928,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11929,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11930,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11931,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11932,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11933,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11934,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11935,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11936,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11937,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11938,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11939,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11940,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11941,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11942,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11943,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11944,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11945,"['|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11946,"['|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11947,['|P18| left hand in |Bin 48|']
+11948,['|P18| left hand in |Bin 48|']
+11949,['|P18| left hand in |Bin 48|']
+11950,"['|P18| right hand in |Bin 48|', '|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11951,['|P18| left hand in |Bin 48|']
+11952,['|P18| left hand in |Bin 48|']
+11953,['|P18| left hand in |Bin 48|']
+11954,['|P18| left hand in |Bin 48|']
+11955,['|P18| left hand in |Bin 48|']
+11956,['|P18| left hand in |Bin 48|']
+11957,['|P18| left hand in |Bin 48|']
+11958,['|P18| left hand in |Bin 48|']
+11959,['|P18| left hand in |Bin 48|']
+11960,['|P18| left hand in |Bin 48|']
+11961,['|P18| left hand in |Bin 48|']
+11962,['|P18| left hand in |Bin 48|']
+11963,['|P18| left hand in |Bin 48|']
+11964,['|P18| left hand in |Bin 48|']
+11965,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|']"
+11966,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|']"
+11967,['|P18| left hand in |Bin 48|']
+11968,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11969,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| right hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11970,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11971,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11972,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11973,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11974,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11975,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11976,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11977,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 48|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11978,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11979,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11980,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11981,"['|P17| left hand in |Bin 43|', '|P18| left hand in |Bin 50|', '|P18| is suspicious with |Bin 50|']"
+11982,['|P17| left hand in |Bin 43|']
+11983,['|P17| left hand in |Bin 43|']
+11984,['|P17| left hand in |Bin 43|']
+11985,['|P17| left hand in |Bin 43|']
+11986,['|P17| left hand in |Bin 43|']
+11987,['|P17| left hand in |Bin 43|']
+11988,['|P17| left hand in |Bin 43|']
+11989,['|P17| left hand in |Bin 43|']
+11990,['|P17| left hand in |Bin 43|']
+11991,['|P17| left hand in |Bin 43|']
+11992,['|P17| left hand in |Bin 43|']
+11993,['|P17| left hand in |Bin 43|']
+11994,['|P17| left hand in |Bin 43|']
+11995,['|P17| left hand in |Bin 43|']
+11996,['|P17| left hand in |Bin 43|']
+11997,['|P17| left hand in |Bin 43|']
+11998,['|P17| left hand in |Bin 43|']
+11999,['|P17| left hand in |Bin 43|']
+12000,['|P17| left hand in |Bin 43|']
+12001,['|P17| left hand in |Bin 43|']
+12002,['|P17| left hand in |Bin 43|']
+12003,['|P17| left hand in |Bin 43|']
+12004,['|P17| left hand in |Bin 43|']
+12005,['|P17| left hand in |Bin 43|']
+12006,['|P17| left hand in |Bin 43|']
+12007,['|P17| left hand in |Bin 43|']
 12008,[]
 12009,[]
 12010,[]
