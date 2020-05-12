@@ -22,15 +22,26 @@ init(autoreset=True)
 
 ########### PAX and Bin detection files  ###########
 # PAX and Bin detection files
-bin_file = "./info/info_exp2_cam09cam11cam13.csv"
+if conf.file_num == "exp2":
+    bin_file = "./info/info_exp2_cam09cam11cam13.csv"
 
-pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
-pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
-pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
+    pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
+    pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
+    pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
 
-nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
-nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
-nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
+    nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
+    nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
+    nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
+elif conf.file_num == "exp1":
+    bin_file = "./info/info_exp1_cam09cam11cam13.csv"
+
+    pax_file_9 = "./info/cam09exp1_logs_full_may14.txt"
+    pax_file_11 = "./info/cam11exp1_logs_full_may14.txt"
+    pax_file_13 = "./info/cam13exp1_logs_full_may14.txt"
+
+    nu_file_cam9 = "./info/events_test_cam09exp1_102419.csv"
+    nu_file_cam11 = "./info/events_test_cam11exp1_102419.csv"
+    nu_file_cam13 = "./info/events_test_cam13exp1_102419.csv"
 
 # # NOTE: Travel Unit info for exp2_train. Make it empty if we don't know TU info.
 TU_info = {}

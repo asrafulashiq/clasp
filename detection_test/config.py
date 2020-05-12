@@ -61,7 +61,7 @@ def get_arg():
                         nargs="*",
                         default=["cam09", "cam11", "cam13"])
 
-    parser.add_argument("--start-frame", type=int, default=2400)
+    parser.add_argument("--start-frame", type=int, default=100)
     parser.add_argument("--skip-end", type=int, default=0)
     parser.add_argument("--end-frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)

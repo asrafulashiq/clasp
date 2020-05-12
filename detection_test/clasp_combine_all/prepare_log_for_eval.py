@@ -7,19 +7,31 @@ import numpy as np
 from parse import parse
 from collections import defaultdict
 from tqdm import tqdm
+from config import conf
 from tools import read_nu_association, read_mu, read_rpi
 from rich import print as rprint
 
 # PAX and Bin detection files
-bin_file = "./info/info_exp2_cam09cam11cam13.csv"
+if conf.file_num == "exp2":
+    bin_file = "./info/info_exp2_cam09cam11cam13.csv"
 
-pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
-pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
-pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
+    pax_file_9 = "./info/cam09exp2_logs_full_may14.txt"
+    pax_file_11 = "./info/cam11exp2_logs_full_may14.txt"
+    pax_file_13 = "./info/cam13exp2_logs_full_may14.txt"
 
-nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
-nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
-nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
+    nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
+    nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
+    nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
+elif conf.file_num == "exp1":
+    bin_file = "./info/info_exp1_cam09cam11cam13.csv"
+
+    pax_file_9 = "./info/cam09exp1_logs_full_may14.txt"
+    pax_file_11 = "./info/cam11exp1_logs_full_may14.txt"
+    pax_file_13 = "./info/cam13exp1_logs_full_may14.txt"
+
+    nu_file_cam9 = "./info/events_test_cam09exp1_102419.csv"
+    nu_file_cam11 = "./info/events_test_cam11exp1_102419.csv"
+    nu_file_cam13 = "./info/events_test_cam13exp1_102419.csv"
 
 ################   DATA PROCSSING #############
 # Bin
@@ -114,7 +126,7 @@ for _, row in tqdm(df_comb.iterrows(),
     full_log[cam].append(log_msg)
 
 for each_cam in full_log:
-    fp_writename = f"ata_output/ata_{each_cam}.txt"
+    fp_writename = f"ata_output/ata_{each_cam}{conf.file_num}.txt"
     with open(fp_writename, 'w') as fp:
         fp.write('\n'.join(full_log[each_cam]))
     rprint(
