@@ -31,10 +31,10 @@ nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
 # Life of a bin and pax
 BIN = "B27"
 PAX = "P12"
-conf.start_frame = 8460
-conf.end_frame = 13080
+conf.start_frame = 7260
+conf.end_frame = 9800
 conf.skip_end = None
-conf.delta = 2
+conf.delta = 1
 
 _BIN_COLOR = (33, 217, 14)
 _BIN_COLOR_RED = (217, 17, 14)
@@ -249,7 +249,7 @@ if __name__ == "__main__":
     vis_feed = VisFeed()  # Visualization class
 
     feed_folder = Path((conf.fmt_filename_out_feed +
-                        "_left_behind").format(file_num=conf.file_num))
+                        "_left_behind_s").format(file_num=conf.file_num))
     if feed_folder.exists():
         shutil.rmtree(str(feed_folder))
     feed_folder.mkdir(exist_ok=True, parents=True)
@@ -339,12 +339,14 @@ if __name__ == "__main__":
                            ], ["11",
                                to_sec(frame_num1), f"{BIN} left behind"]]
 
-            im_feed = vis_feed.draw(im1,
-                                    im2,
-                                    im3,
-                                    frame_num1,
-                                    msglist,
-                                    with_feed=True)
+            if frame_num1 >= (242 * 30) and frame_num1 < (268 * 30):
+                ims = [im1, None, None]
+            elif frame_num1 >= (268 * 30) and frame_num1 < (297 * 30):
+                ims = [None, im2, None]
+            elif frame_num1 >= (297 * 30):
+                ims = [None, None, im3]
+
+            im_feed = vis_feed.draw(*ims, frame_num1, msglist, with_feed=False)
 
             f_write = feed_folder / (str(frame_num1).zfill(6) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
