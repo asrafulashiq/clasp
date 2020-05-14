@@ -22,6 +22,8 @@ init(autoreset=True)
 
 ########### PAX and Bin detection files  ###########
 # PAX and Bin detection files
+TU_info = {}
+
 if conf.file_num == "exp2":
     bin_file = "./info/info_exp2_cam09cam11cam13.csv"
 
@@ -32,6 +34,18 @@ if conf.file_num == "exp2":
     nu_file_cam9 = "./info/events_training_cam09exp2_102419.csv"
     nu_file_cam11 = "./info/events_training_cam11exp2_102419.csv"
     nu_file_cam13 = "./info/events_training_cam13exp2_102419.csv"
+
+    # TU_info = {}
+    TU_info = {
+        'P2': 'TU1',
+        'P3': 'TU1',
+        'P4': 'TU1',
+        'P7': 'TU2',
+        'P8': 'TU2',
+        'P15': 'TU3',
+        'P13': 'TU3',
+        'P14': 'TU3'
+    }
 elif conf.file_num == "exp1":
     bin_file = "./info/info_exp1_cam09cam11cam13.csv"
 
@@ -44,7 +58,7 @@ elif conf.file_num == "exp1":
     nu_file_cam13 = "./info/events_test_cam13exp1_102419.csv"
 
 # # NOTE: Travel Unit info for exp2_train. Make it empty if we don't know TU info.
-TU_info = {}
+# TU_info = {}
 # TU_info = {
 #     'P2': 'TU1',
 #     'P3': 'TU1',
