@@ -1,5 +1,5 @@
 __pycache__/
-detectron/
+# detectron/
 .backup/
 *.avi
 *.mp4
@@ -9,3 +9,17 @@ detectron/
 *.pbtxt
 *.pyc
 weights/
+.vscode/*
+*.png
+*.txt
+*/.vscode
+settings.json
+*.pth
+
+*.vscode
+detection_test/.vscode
+
+**/*.swp
+!**/info/*
+!**/ata_output/*
+
