@@ -4,6 +4,7 @@ import datetime
 from loguru import logger
 import logging
 from colorama import Fore, Back
+from tqdm import tqdm
 
 
 class ClaspLogger():
@@ -13,7 +14,7 @@ class ClaspLogger():
         # sys.stdout logger
         self.logger.configure(handlers=[
             dict(
-                sink=sys.stdout,
+                sink=lambda x: tqdm.write(x, end=''),
                 level='DEBUG',
                 colorize=True,
                 format=
