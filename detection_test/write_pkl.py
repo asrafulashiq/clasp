@@ -22,7 +22,7 @@ for camera in tqdm(cameras, desc="Camera", position=0):
     assert src_folder.exists()
 
     out_folder = Path(
-        conf.fmt_filename_out.format(file_num=file_num, cam=camera))
+        conf.fmt_filename_out_detection.format(file_num=file_num, cam=camera))
     out_folder.mkdir(parents=True, exist_ok=True)
 
     pickle_file = Path(

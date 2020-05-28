@@ -36,6 +36,10 @@ class BinManager:
             self.init_cam_11()
         elif camera == "cam13":
             self.init_cam_13()
+        elif camera == "cam08":
+            self.init_cam_8()
+        elif camera == "cam20":
+            self.init_cam_20()
 
         # number of iteration to wait for new bin detection
         self._wait_new_bin = 15
@@ -99,6 +103,82 @@ class BinManager:
 
         self._min_area = 40 * 40
         self._min_dim = 50  # REVIEW: Is it okay, for camera 9?
+        self._max_area = 120 * 120
+
+    def init_cam_8(self):
+        self._left_bins = []
+        self._min_iou = 0.4
+        self._bin_count = 0
+        # self._thres_incoming_bin_bound = [
+        #     (165, 117),
+        #     (164, 235),
+        #     (481, 222),
+        #     (475, 110),
+        # ]  # bound for detecting incoming
+
+        self._thres_incoming_bin_bound = [
+            (271, 225),
+            (400, 302),
+            (514, 97),
+            (410, 54),
+        ]
+
+        self._thres_out_bin_bound = [
+            (413, 68),  # (111, 225),
+            (492, 97),  # (131, 113),
+            (505, 70),  # (73, 91),
+            (432, 40),  # (48, 213),
+        ]
+        # self._thres_incoming_bin_init_x = 1420 / 3
+        self._thres_max_idle_count = 5
+
+        self._max_det_fail = 8 * self._mul
+        self._max_track_fail = 10 * self._mul
+
+        self._default_bin_state = "items"
+        self.maxlen = 5 * self._mul
+        self._rat_track_det = 0.8  # FIXME : should it be less
+
+        self._min_area = 40 * 40
+        self._min_dim = 40  # REVIEW: Is it okay, for camera 9?
+        self._max_area = 120 * 120
+
+    def init_cam_20(self):
+        self._left_bins = []
+        self._min_iou = 0.4
+        self._bin_count = 0
+        # self._thres_incoming_bin_bound = [
+        #     (165, 117),
+        #     (164, 235),
+        #     (481, 222),
+        #     (475, 110),
+        # ]  # bound for detecting incoming
+
+        self._thres_incoming_bin_bound = [
+            (82, 153),
+            (621, 252),
+            (618, 189),
+            (125, 87),
+        ]
+
+        self._thres_out_bin_bound = [
+            (571, 177),  # (111, 225),
+            (626, 190),  # (131, 113),
+            (629, 251),  # (73, 91),
+            (563, 244),  # (48, 213),
+        ]
+        # self._thres_incoming_bin_init_x = 1420 / 3
+        self._thres_max_idle_count = 5
+
+        self._max_det_fail = 8 * self._mul
+        self._max_track_fail = 10 * self._mul
+
+        self._default_bin_state = "items"
+        self.maxlen = 5 * self._mul
+        self._rat_track_det = 0.8  # FIXME : should it be less
+
+        self._min_area = 40 * 40
+        self._min_dim = 40  # REVIEW: Is it okay, for camera 9?
         self._max_area = 120 * 120
 
     def init_cam_11(self):
@@ -265,8 +345,9 @@ class BinManager:
         # if label > 49:
         #     return
 
-        if self._camera != "cam09":
-            self._manager_prev_cam._left_bins.pop(i_man)
+        # FIXME: why this?
+        # if self._camera != "cam09":
+        #     self._manager_prev_cam._left_bins.pop(i_man)
 
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)

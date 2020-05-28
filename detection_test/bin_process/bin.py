@@ -8,7 +8,7 @@ import tools.utils_box as utils
 import cv2
 import numpy as np
 import torch
-
+from loguru import logger
 # import simatrack
 
 from siammask.tools.test import siamese_init, siamese_track, load_config, load_pretrain
@@ -107,7 +107,7 @@ class Bin:
             else:
                 status = True
         except:
-            print("======= TRACK ERROR =======")
+            logger.info("======= TRACK ERROR =======")
             status = False
 
         if status:

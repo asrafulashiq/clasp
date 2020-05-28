@@ -26,9 +26,6 @@ class ClaspLogger():
         filename = os.path.join(
             "./logs", "{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
                                                now.hour))
-        # self._level = logger.level("CUSTOM", no=45)
-        # # only add CUSTOM log into the logfile
-        # self.logger.add(sink=filename, level='CUSTOM', format="{message}")
 
         self.logger.add(sink=filename,
                         level='INFO',
