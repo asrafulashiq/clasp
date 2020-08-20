@@ -2,8 +2,6 @@ import os
 import sys
 import datetime
 from loguru import logger
-import logging
-from colorama import Fore, Back
 from tqdm import tqdm
 
 
@@ -28,7 +26,7 @@ class ClaspLogger():
                                                now.hour))
 
         self.logger.add(sink=filename,
-                        level='INFO',
+                        level='DEBUG',
                         format="{time: MM-DD at HH:mm} | {message}")
         self.pre_msg = ""
 
@@ -48,5 +46,5 @@ class ClaspLogger():
         self.logger.log(level, msg)
 
     def clasp_log(self, msg):
-        self.logger.info("{} :: {}".format(self.pre_msg, msg))
+        self.logger.debug("{} :: {}".format(self.pre_msg, msg))
         # self.info(msg)

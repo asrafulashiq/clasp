@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
         if cameras[i_cnt] == "cam13":
             frame_num += 50
-        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num}")
+        pbar.set_description(f"{Fore.CYAN} Processing: {frame_num}")
 
     if conf.write:
         manager.final_write()

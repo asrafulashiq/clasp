@@ -48,7 +48,7 @@ def get_arg():
     parser.add_argument(
         "--info",
         # default=
-        # "~/dataset/ALERT/clasp_data/output/run/info_exp1_test_cam09.csv",
+        # "~/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
         default=None,
         type=str,
         help="info file to save/load",
@@ -61,7 +61,7 @@ def get_arg():
                         nargs="*",
                         default=["cam09", "cam11", "cam13"])
 
-    parser.add_argument("--start-frame", type=int, default=100)
+    parser.add_argument("--start-frame", type=int, default=6715)
     parser.add_argument("--skip-end", type=int, default=0)
     parser.add_argument("--end-frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)
@@ -73,9 +73,9 @@ def get_arg():
                         help="whether to load exit info from previous cameras")
     parser.add_argument(
         "--info-prev",
-        default=
-        "~/dataset/ALERT/clasp_data/output/run/info_exp1_test_cam09.csv",
-        # default=None,
+        # default=
+        # "~/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
+        default=None,
         type=str,
         help="info file to save/load",
     )
