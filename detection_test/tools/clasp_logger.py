@@ -7,10 +7,10 @@ from tqdm import tqdm
 
 class ClaspLogger():
     def __init__(self):
-        self.logger = logger
+        self._logger = logger
 
         # sys.stdout logger
-        self.logger.configure(handlers=[
+        self._logger.configure(handlers=[
             dict(
                 sink=lambda x: tqdm.write(x, end=''),
                 level='DEBUG',
@@ -25,10 +25,14 @@ class ClaspLogger():
             "./logs", "{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
                                                now.hour))
 
-        self.logger.add(sink=filename,
-                        level='DEBUG',
-                        format="{time: MM-DD at HH:mm} | {message}")
+        self._logger.add(sink=filename,
+                         level='DEBUG',
+                         format="{time: MM-DD at HH:mm} | {message}")
         self.pre_msg = ""
+
+    @property
+    def logger(self):
+        return self._logger
 
     def info(self, msg, *args, **kwargs):
         self.logger.info(msg, *args, **kwargs)

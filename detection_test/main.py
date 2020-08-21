@@ -4,7 +4,7 @@ from pathlib import Path
 import cv2
 from tqdm import tqdm
 import tools.utils as utils
-from config import conf
+from config import get_conf, get_parser, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
@@ -13,6 +13,11 @@ import torch
 from colorama import init, Fore
 
 init(autoreset=True)
+
+parser = get_parser()
+if os.uname()[1] == 'lambda-server':  # code is in clasp server
+    parser = add_server_specific_arg(parser)
+conf = get_conf(parser)
 
 if __name__ == "__main__":
     log = ClaspLogger()

@@ -6,7 +6,7 @@ from os.path import expanduser
 _HOME = os.environ["HOME"]
 
 
-def get_arg():
+def get_parser():
     """ get command-line arguments """
     parser = argparse.ArgumentParser(description="Arguments for program")
     parser.add_argument(
@@ -107,29 +107,26 @@ def add_server_specific_arg(parent_parser):
     return parser
 
 
-parser = get_arg()
+def get_conf(parser):
+    conf = parser.parse_args()
+    conf.size = [int(x) for x in conf.size.split("x")]
+    conf.root = expanduser(conf.root)
+    conf.out_dir = expanduser(conf.out_dir)
+    conf.bin_ckpt = expanduser(conf.bin_ckpt)
+    conf.info = expanduser(conf.info) if conf.info is not None else None
+    conf.info_prev = expanduser(
+        conf.info_prev) if conf.info_prev is not None else None
 
-if os.uname()[1] == 'lambda-server':  # code is in clasp server
-    parser = add_server_specific_arg(parser)
+    conf.fmt = "{:06d}.jpg"  # frame name format
 
-conf = parser.parse_args()
-conf.size = [int(x) for x in conf.size.split("x")]
-conf.root = expanduser(conf.root)
-conf.out_dir = expanduser(conf.out_dir)
-conf.bin_ckpt = expanduser(conf.bin_ckpt)
-conf.info = expanduser(conf.info) if conf.info is not None else None
-conf.info_prev = expanduser(
-    conf.info_prev) if conf.info_prev is not None else None
+    if os.uname()[1] == 'lambda-server':  # code is in clasp server
+        conf.fmt = "frame{:05d}.jpg"
+        conf.fmt_filename_src = conf.root + "/20191024-" + conf.mode + "-{cam}{file_num}"
+    else:
+        conf.fmt_filename_src = conf.root + "/{file_num}/{cam}"
 
-conf.fmt = "{:06d}.jpg"  # frame name format
-
-if os.uname()[1] == 'lambda-server':  # code is in clasp server
-    conf.fmt = "frame{:05d}.jpg"
-    conf.fmt_filename_src = conf.root + "/20191024-" + conf.mode + "-{cam}{file_num}"
-else:
-    conf.fmt_filename_src = conf.root + "/{file_num}/{cam}"
-
-conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
-conf.fmt_filename_out_detection = conf.out_dir + "/out_detection/{file_num}/{cam}"
-conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}"
-conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
+    conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
+    conf.fmt_filename_out_detection = conf.out_dir + "/out_detection/{file_num}/{cam}"
+    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}"
+    conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
+    return conf
