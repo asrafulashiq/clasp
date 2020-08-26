@@ -259,3 +259,39 @@ class Manager:
             fp.write("\n".join(self.write_list))
 
         self.log.info(f"Output info to : {write_file}")
+
+    # Live API log for NU
+    def init_data_dict(self):
+        self.data_dict_keys = [
+            "file", "cam", "frame", "id", "class", "x1", "y1", "x2", "y2",
+            "type", "msg"
+        ]
+        self.data_dict = {k: [] for k in self.data_dict_keys}
+
+    def load_info(self):
+        for cam, bin_manager in self._bin_managers.items():
+            for each_bin in bin_manager._current_bins:
+                bbox = ",".join(str(int(i)) for i in each_bin.pos)
+                line = (
+                    f"{self.file_num},{cam},{bin_manager.current_frame},{each_bin.label},{each_bin.cls},{bbox},"
+                    + f"loc, -1")
+                self.write_list.append(line)
+                vals = [
+                    self.file_num, cam, bin_manager.current_frame,
+                    each_bin.label, each_bin.cls,
+                    *[3 * int(_k) for _k in bbox.split(',')], "loc", "-1"
+                ]
+                kvpairs = {k: v
+                           for k, v in zip(self.data_dict_keys, vals)}.items()
+                self.data_dict = self.append_to_dict(self.data_dict, kvpairs)
+
+    def get_batch_info(self):
+        df = pd.DataFrame(self.data_dict)
+        return df
+
+    @staticmethod
+    def append_to_dict(dictionary, kvpairs):
+        for k, v in kvpairs:
+            if k in dictionary:
+                dictionary[k].append(v)
+        return dictionary

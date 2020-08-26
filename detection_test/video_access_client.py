@@ -34,18 +34,26 @@ current_ram_usage = []
 
 myurl = 'http://127.0.0.1:5000/frames'
 
-dataset = str(input("Enter the dataset:"))
-cameralist = '2,5,9,11,13,14,20'
-timeoffset = '0.00'
-duration = 4.0
+# dataset = str(input("Enter the dataset:"))
+dataset = "exp2training"
+
+cameralist = '9,11,13'
+timeoffset = '100.00'
+duration = 2.0
 duration = "{0:.2f}".format(float(duration))
 
 inputdir = "/home/rpi/data/wrapper_data/"
-Wrapper_Flag_File = "/home/rpi/data/wrapper_log/FrameSyncFlags.yaml"
+Wrapper_Flag_File = "/home/rpi/data/wrapper_log/Flags_Wrapper.yaml"
 RPI_Flag_File = "/home/rpi/data/wrapper_log/Flags_RPI.yaml"
 CleanInputDir(inputdir)
 #Set wrapper flag defaults
-wrapperFlags = GetFlags(Wrapper_Flag_File)
+# wrapperFlags = GetFlags(Wrapper_Flag_File)
+wrapperFlags = {
+    "Frames_Ready_MU": "FALSE",
+    "Frames_Ready_NEU": "FALSE",
+    "Frames_Ready_RPI": "FALSE",
+    "No_More_Frames": "FALSE"
+}
 for flag in wrapperFlags:
     wrapperFlags[flag] = "FALSE"
 WriteFlags(wrapperFlags, Wrapper_Flag_File)
@@ -53,7 +61,10 @@ WriteFlags(wrapperFlags, Wrapper_Flag_File)
 #Set RPI flag default
 while True:
     try:
-        rpiFlags = GetFlags(RPI_Flag_File)
+        # try:
+        #     rpiFlags = GetFlags(RPI_Flag_File)
+        # except:
+        rpiFlags = {"Batch_Processed": "TRUE", "Bin_Processed": "FALSE"}
         rpiFlags["Batch_Processed"] = "TRUE"
         WriteFlags(rpiFlags, RPI_Flag_File)
         break
@@ -67,6 +78,8 @@ total_start_time = time.time()
 
 while True:
     rpiFlags = GetFlags(RPI_Flag_File)
+    if rpiFlags is None:
+        continue
     if rpiFlags["Batch_Processed"] == "TRUE":
 
         #Reset RPI flag
