@@ -1,4 +1,5 @@
 import cv2
+import pandas as pd
 from tqdm import tqdm
 import tools.utils as utils
 from config import get_parser, get_conf, add_server_specific_arg
@@ -17,10 +18,14 @@ import argparse
 from typing import Any, Sequence, Dict, List, Optional, Tuple
 import time
 from tools.utils_video_api import YAMLCommunicator
+from tools.time_calculator import ComplexityAnalysis
+
+complexity_analyzer = ComplexityAnalysis()
 
 
 class BatchPrecessingMain(object):
     def __init__(self) -> None:
+
         self.params = self.config_parser()
         self.params.run_detector = True
         self.logger = ClaspLogger()
@@ -38,7 +43,9 @@ class BatchPrecessingMain(object):
                                log=self.logger,
                                bin_only=True)
         self.yaml_communicator = YAMLCommunicator(
-            self.params.flag_file, rpi_flagfile=self.params.rpi_flagfile)
+            self.params.flag_file,
+            rpi_flagfile=self.params.rpi_flagfile,
+            neu_flagfile=self.params.neu_flagfile)
 
         # output folder name for each camera
         self.out_folder = {}
@@ -55,7 +62,7 @@ class BatchPrecessingMain(object):
         batch_files_to_process, flag = self._get_batch_file_names()
         if flag is False:
             return
-        self.yaml_communicator.set_batch_read()
+        # self.yaml_communicator.set_batch_read()
 
         # fresh dict for storing the batch info only
         self.manager.init_data_dict()
@@ -85,7 +92,8 @@ class BatchPrecessingMain(object):
             if self.params.write:
                 df_batch = self.manager.get_batch_info()
                 write_path = os.path.join(self.params.batch_out_folder,
-                                          "bin_log_batch.csv")
+                                          "rpi_result.csv")
+                # write output files for NU
                 df_batch.to_csv(write_path, index=False)
 
         pbar.close()
@@ -93,22 +101,27 @@ class BatchPrecessingMain(object):
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
 
-        # TODO: write output files for NU
-        if self.params.debug:
-            self.logger.debug("DEBUG: mock writted outfile files for NU")
-        else:
-            raise NotImplementedError()
-
         # TODO: create combined log and feed
-        if self.params.debug:
-            self.logger.debug("DEBUG: mock create combined output")
-        else:
-            raise NotImplementedError()
+        # if self.params.debug:
+        #     self.logger.debug("DEBUG: mock create combined output")
+        # else:
+        #     raise NotImplementedError()
+        # read NEU file
+        while True:
+            ret = self.yaml_communicator.is_association_ready()
+            if ret:
+                # read neu file
+                self.logger.info("Read NEU file")
+                # df_asso = pd.read_csv(self.params.neu_result_file)
+                # self.logger.info(df_asso)
+                break
 
         # Set batch processed flag
         self.yaml_communicator.set_batch_processed()
         # tell NU that bin is not processed
         self.yaml_communicator.set_bin_processed(value='FALSE')
+
+        complexity_analyzer.current_memory_usage()
 
     def on_after_batch_processing(self) -> None:
         pass
@@ -118,12 +131,16 @@ class BatchPrecessingMain(object):
         pbar = tqdm(position=1)
         while self.yaml_communicator.is_end_of_frames() is False:
             if self.yaml_communicator.is_batch_ready():
+                complexity_analyzer.start_time()
                 self.process_batch_step()
+                complexity_analyzer.batch_end_time()
+
             else:
                 time.sleep(1)  # pause for 1 sec
             pbar.set_description(Fore.RED + f"Loop {counter}")
             pbar.update()
             counter += 1
+
         pbar.close()
 
     def _get_batch_file_names(self) -> bool:
@@ -218,12 +235,26 @@ class BatchPrecessingMain(object):
         parser.add_argument(
             "--batch_out_folder",
             type=str,
-            default="/data/ALERT-SHARE/alert-api-wrapper-data/rpi")
+            default="/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/")
         parser.add_argument(
             "--rpi_flagfile",
             type=str,
             default=
             "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_RPI.yaml"
+        )
+
+        parser.add_argument(
+            "--neu_result_file",
+            type=str,
+            default=
+            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/NEU/log_batch_association.csv"
+        )
+
+        parser.add_argument(
+            "--neu_flagfile",
+            type=str,
+            default=
+            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_NEU.yaml"
         )
 
         if parser.parse_known_args()[0].debug:
