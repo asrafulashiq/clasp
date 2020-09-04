@@ -19,6 +19,7 @@ from typing import Any, Sequence, Dict, List, Optional, Tuple
 import time
 from tools.utils_video_api import YAMLCommunicator
 from tools.time_calculator import ComplexityAnalysis
+from tools.utils_feed import DrawClass
 
 complexity_analyzer = ComplexityAnalysis()
 
@@ -45,7 +46,9 @@ class BatchPrecessingMain(object):
         self.yaml_communicator = YAMLCommunicator(
             self.params.flag_file,
             rpi_flagfile=self.params.rpi_flagfile,
-            neu_flagfile=self.params.neu_flagfile)
+            neu_flagfile=self.params.neu_flagfile,
+            mu_flagfile=self.params.neu_flagfile)
+        # self.drawing_obj = DrawClass(conf=self.params, plot=True)
 
         # output folder name for each camera
         self.out_folder = {}
@@ -72,7 +75,11 @@ class BatchPrecessingMain(object):
                     total=len(batch_files_to_process[self.cameras[0]]),
                     position=5)
         cam_frame_num, i_cnt = None, None
+        batch_frames = []
+        complexity_analyzer.start_time()
+
         for _, ret in enumerate(pbar):
+            _rets_cam = []
             for i_cnt in range(len(ret)):
                 im, imfile, frame_num = self.load_images_from_files(
                     [ret[i_cnt]], size=self.params.size, file_only=False)[0]
@@ -82,6 +89,9 @@ class BatchPrecessingMain(object):
                     str(self.out_folder[self.cameras[i_cnt]] / imfile.name),
                     new_im)
                 cam_frame_num = frame_num
+                _rets_cam.append((im, imfile, frame_num))
+
+            batch_frames.append(_rets_cam)
             if self.params.write:
                 self.manager.load_info()
 
@@ -91,13 +101,14 @@ class BatchPrecessingMain(object):
 
             if self.params.write:
                 df_batch = self.manager.get_batch_info()
-                write_path = os.path.join(self.params.batch_out_folder,
-                                          "rpi_result.csv")
+                write_path = self.params.rpi_result_file
                 # write output files for NU
-                df_batch.to_csv(write_path, index=False)
+                df_batch['timeoffset'] = df_batch['frame'].apply(
+                    lambda frame: '{:.2f}'.format(frame / 30.0))
+                df_batch.to_csv(write_path, index=False, header=True)
 
         pbar.close()
-
+        complexity_analyzer.batch_end_time()
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
 
@@ -110,30 +121,43 @@ class BatchPrecessingMain(object):
         while True:
             ret = self.yaml_communicator.is_association_ready()
             if ret:
-                # read neu file
-                self.logger.info("Read NEU file")
-                # df_asso = pd.read_csv(self.params.neu_result_file)
-                # self.logger.info(df_asso)
+                self.on_after_batch_processing()
                 break
 
         # Set batch processed flag
         self.yaml_communicator.set_batch_processed()
+
+        while True:
+            if (self.yaml_communicator.check_next_batch_ready() and
+                    not self.yaml_communicator.check_people_processed_ready()
+                    and not self.yaml_communicator.is_association_ready()):
+                self.yaml_communicator.set_batch_processed(value='FALSE')
+                self.logger.info("Batch processed set to FALSE")
+                break
+
         # tell NU that bin is not processed
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
         complexity_analyzer.current_memory_usage()
 
     def on_after_batch_processing(self) -> None:
-        pass
+        try:
+            df_mu = pd.read_csv(self.params.mu_result_file)
+
+            # read nu file
+            df_asso = pd.read_csv(self.params.neu_result_file)
+            if self.params.debug:
+                logger.info(df_asso.head(5))
+        except:
+            pass
 
     def run(self):
         counter = 0
         pbar = tqdm(position=1)
         while self.yaml_communicator.is_end_of_frames() is False:
             if self.yaml_communicator.is_batch_ready():
-                complexity_analyzer.start_time()
+
                 self.process_batch_step()
-                complexity_analyzer.batch_end_time()
 
             else:
                 time.sleep(1)  # pause for 1 sec
@@ -142,6 +166,7 @@ class BatchPrecessingMain(object):
             counter += 1
 
         pbar.close()
+        complexity_analyzer.final_info()
 
     def _get_batch_file_names(self) -> bool:
         """ return: True denotes there are some files to process """
@@ -244,10 +269,31 @@ class BatchPrecessingMain(object):
         )
 
         parser.add_argument(
+            "--mu_flagfile",
+            type=str,
+            default=
+            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_MU.yaml"
+        )
+
+        parser.add_argument(
             "--neu_result_file",
             type=str,
             default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/NEU/log_batch_association.csv"
+            "/data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_batch_association.csv"
+        )
+
+        parser.add_argument(
+            "--mu_result_file",
+            type=str,
+            default=
+            "/data/ALERT-SHARE/alert-api-wrapper-data/mu/log_batch_mu_current.csv"
+        )
+
+        parser.add_argument(
+            "--rpi_result_file",
+            type=str,
+            default=
+            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_result.csv"
         )
 
         parser.add_argument(

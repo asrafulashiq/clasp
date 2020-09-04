@@ -24,7 +24,7 @@ def get_parser():
     )
 
     parser.add_argument(
-        "--bin-ckpt",
+        "--bin_ckpt",
         type=str,
         default="~/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
     )
@@ -41,7 +41,7 @@ def get_parser():
     )
 
     # whether to also run rcnn detector to detect item
-    parser.add_argument('--run-detector',
+    parser.add_argument('--run_detector',
                         action='store_true',
                         help='whether to run detector or load pre-run results')
 
@@ -55,24 +55,24 @@ def get_parser():
     )
 
     # NOTE: exp name and cameras to use
-    parser.add_argument("--file-num", type=str, default="exp2_train")
+    parser.add_argument("--file_num", type=str, default="exp2_train")
     parser.add_argument("--cameras",
                         type=str,
                         nargs="*",
                         default=["cam09", "cam11", "cam13"])
 
-    parser.add_argument("--start-frame", type=int, default=6715)
-    parser.add_argument("--skip-end", type=int, default=0)
-    parser.add_argument("--end-frame", type=int, default=None)
+    parser.add_argument("--start_frame", type=int, default=6715)
+    parser.add_argument("--skip_end", type=int, default=0)
+    parser.add_argument("--end_frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)
     parser.add_argument("--plot", action="store_true")
 
     # NOTE: DEBUG only
-    parser.add_argument("--load-prev-exit-info",
+    parser.add_argument("--load_prev_exit_info",
                         action="store_true",
                         help="whether to load exit info from previous cameras")
     parser.add_argument(
-        "--info-prev",
+        "--info_prev",
         # default=
         # "~/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
         default=None,

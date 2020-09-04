@@ -7,18 +7,19 @@ import time
 
 
 class YAMLCommunicator(object):
-    def __init__(self, runtime_file, rpi_flagfile, neu_flagfile) -> None:
+    def __init__(self, runtime_file, rpi_flagfile, neu_flagfile,
+                 mu_flagfile) -> None:
         super().__init__()
         self.runfile = os.path.expanduser(runtime_file)
         self.rpi_flagfile = os.path.expanduser(rpi_flagfile)
         self.neu_flagfile = os.path.expanduser(neu_flagfile)
+        self.mu_flagfile = os.path.expanduser(mu_flagfile)
 
         assert os.path.exists(self.runfile)
         data = {"Batch_Processed": "FALSE", "Bin_Processed": "FALSE"}
         self.set_flag_init(data, self.rpi_flagfile)
 
     def is_association_ready(self):
-        #
         return self._get_flag('Association_Ready', self.neu_flagfile) == 'TRUE'
 
     def is_batch_ready(self):
@@ -33,15 +34,21 @@ class YAMLCommunicator(object):
     #     # tell the wrapper that batch is processed from RPI side
     #     self._set_flag('Frames_Ready_RPI', 'FALSE', self.runfile)
 
-    def set_batch_processed(self):
+    def check_next_batch_ready(self):
+        return self._get_flag("Next_Batch_Requested", self.runfile) == 'TRUE'
+
+    def set_batch_processed(self, value='TRUE'):
         # This will be set to TRUE by Ashraful once
         # the combined output for current batch has been created.
-        self._set_flag('Batch_Processed', 'TRUE', self.rpi_flagfile)
+        self._set_flag('Batch_Processed', value, self.rpi_flagfile)
 
     def is_end_of_frames(self):
         # return False
         # # check whether there are any frame left
         return self._get_flag('No_More_Frames', self.runfile) == 'TRUE'
+
+    def check_people_processed_ready(self):
+        return self._get_flag('People_Processed', self.mu_flagfile) == 'TRUE'
 
     def _get_flag(self, flag_name, flagfile):
         value = None
