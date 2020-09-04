@@ -129,9 +129,6 @@ class IntegratorClass:
         return asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
-
-        logs = []
-
         # get pax info
         df = self.df_pax
         msglist = []
@@ -144,34 +141,19 @@ class IntegratorClass:
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
                     row["y2"]
                 ])
-                first_used = False
-                if row["id"] in self.item_first_used:
-                    first_used = True
-                    self.item_first_used.append(row["id"])
-                if "TSO" in row["id"]:
-                    pax_type = "TSO"
-                else:
-                    pax_type = "PAX"
-                log = (
-                    f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
-                    +
-                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
-                    + f"ID: {row['id']} PAX-ID: NA first-used: {first_used} " +
-                    "partial-complete: NA")
-                logs.append(log)
 
-        # get bin info
-        _frame = frame
+        # get bin info.
         df = self.df_bin
-
-        info = df[(df["frame"] == _frame) & (df["camera"] == cam)]
+        info = df[(df["frame"] == frame) & (df["camera"] == cam)]
         list_info_bin = []
         list_event_bin = []
 
-        asso_info = self.asso_info[cam]
+        asso_info = self.asso_info["cam09"]  # association from camera 09
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                _id = "B" + str(row["id"])
+                _id = str(row["id"])  # convert id name to B[id]
+
+                # get associated pax
                 if _id in asso_info:
                     ffs = list(asso_info[_id])
                     for _f in ffs:
@@ -179,10 +161,8 @@ class IntegratorClass:
                             self.bin_pax[_id] = asso_info[_id][_f]
                 else:
                     pass
-                first_used = False
-                if _id in self.item_first_used:
-                    first_used = True
-                    self.item_first_used.append(_id)
+
+                # bin info for visualization
                 list_info_bin.append([
                     _id,
                     "item",
@@ -192,45 +172,30 @@ class IntegratorClass:
                     row["y2"],
                     self.bin_pax.get(_id, ""),
                 ])
-                log = (
-                    f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
-                    +
-                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
-                    +
-                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} first-used: {first_used} "
-                    + "partial-complete: NA")
-                logs.append(log)
+
             else:  # event type
-                if (row["type"] == "enter" and cam == "cam09") or \
-                     row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
-                    # xfr event
-                    _id = "B" + str(row["id"])
-                    _type = "TO" if cam == "cam09" else "FROM"
-                    log = (
-                        f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
-                        +
-                        f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
-                        +
-                        f"owner-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: False"
-                    )
-                    logs.append(log)
-                    continue
-
+                # Which event to skip
                 if row["type"] not in ("enter", "exit"):
-                    continue
-                list_event_bin.append([row["type"], row["msg"]])
-                msglist.append(
-                    [row["camera"][-2:],
-                     to_sec(row["frame"]), row["msg"]])
+                    pass  # skip event
+                elif row["type"] == "enter" and cam == "cam09":
+                    # skip bin 'enter' event for cam 09
+                    pass
+                else:
+                    list_event_bin.append([row["type"], row["msg"]])
+                    msglist.append(
+                        [row["camera"][-2:],
+                         to_sec(row["frame"]), row["msg"]])
 
+            # add 'theft' message for visualization
             if frame in self.asso_msg:
                 rr = self.asso_msg[frame]
-                if rr[2] not in self.tmp:
-                    msglist.append([rr[0], to_sec(rr[1]), rr[2]])
-                    self.tmp.append(rr[2])
+                if rr[0] == cam[3:5]:
+                    if (cam + rr[2]) not in self.tmp:
+                        msglist.append([rr[0], to_sec(rr[1]), rr[2]])
+                        self.tmp.append(cam + rr[2])
 
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
-                msglist, logs)
+                msglist)
 
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
@@ -288,24 +253,24 @@ class DrawClass:
         # Cam 09
         info_bin, info_pax, event_bin, event_pax, msglist, logs = self.Info.get_info_from_frame(
             frame_num, "cam09")
-        full_log_cam09.extend(logs)
+        # full_log_cam09.extend(logs)
         if self.plot:
-            im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
+            im1 = self.Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
             frame_num, "cam11")
-        full_log_cam11.extend(logs)
+        # full_log_cam11.extend(logs)
         if self.plot:
-            im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+            im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         # Cam 13
         frame_num3 = int(Path(imfile3).stem) - 1
         info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
             frame_num3, "cam13")
-        full_log_cam13.extend(logs)
+        # full_log_cam13.extend(logs)
         if self.plot:
-            im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
+            im3 = self.Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
 
         # News feed info
         if self.plot:

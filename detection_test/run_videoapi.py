@@ -1,7 +1,6 @@
 import cv2
 import pandas as pd
 from tqdm import tqdm
-import tools.utils as utils
 from config import get_parser, get_conf, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
@@ -12,7 +11,6 @@ from loguru import logger
 import pathlib
 import torch
 import copy
-import yaml
 from colorama import init, Fore
 import argparse
 from typing import Any, Sequence, Dict, List, Optional, Tuple
@@ -48,7 +46,7 @@ class BatchPrecessingMain(object):
             rpi_flagfile=self.params.rpi_flagfile,
             neu_flagfile=self.params.neu_flagfile,
             mu_flagfile=self.params.neu_flagfile)
-        # self.drawing_obj = DrawClass(conf=self.params, plot=True)
+        self.drawing_obj = DrawClass(conf=self.params, plot=True)
 
         # output folder name for each camera
         self.out_folder = {}
@@ -99,13 +97,13 @@ class BatchPrecessingMain(object):
             #     frame_num += 50
             pbar.set_description(f"{Fore.CYAN} Processing: {cam_frame_num}")
 
-            if self.params.write:
-                df_batch = self.manager.get_batch_info()
-                write_path = self.params.rpi_result_file
-                # write output files for NU
-                df_batch['timeoffset'] = df_batch['frame'].apply(
-                    lambda frame: '{:.2f}'.format(frame / 30.0))
-                df_batch.to_csv(write_path, index=False, header=True)
+        if self.params.write:
+            df_batch = self.manager.get_batch_info()
+            write_path = self.params.rpi_result_file
+            # write output files for NU
+            df_batch['timeoffset'] = df_batch['frame'].apply(
+                lambda frame: '{:.2f}'.format(frame / 30.0))
+            df_batch.to_csv(write_path, index=False, header=True)
 
         pbar.close()
         complexity_analyzer.batch_end_time()
@@ -142,6 +140,7 @@ class BatchPrecessingMain(object):
 
     def on_after_batch_processing(self) -> None:
         try:
+            self.drawing_obj.draw_batch()
             df_mu = pd.read_csv(self.params.mu_result_file)
 
             # read nu file
@@ -160,8 +159,8 @@ class BatchPrecessingMain(object):
                 self.process_batch_step()
 
             else:
-                time.sleep(1)  # pause for 1 sec
-            pbar.set_description(Fore.RED + f"Loop {counter}")
+                time.sleep(0.2)  # pause for 1 sec
+            pbar.set_description(Fore.YELLOW + f"Loop {counter}")
             pbar.update()
             counter += 1
 
