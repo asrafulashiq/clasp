@@ -25,9 +25,9 @@ class ClaspLogger():
             "./logs", "{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
                                                now.hour))
 
-        self._logger.add(sink=filename,
-                         level='DEBUG',
-                         format="{time: MM-DD at HH:mm} | {message}")
+        # self._logger.add(sink=filename,
+        #                  level='DEBUG',
+        #                  format="{time: MM-DD at HH:mm} | {message}")
         self.pre_msg = ""
 
     @property

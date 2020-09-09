@@ -3,7 +3,8 @@ import os
 import sys
 from os.path import expanduser
 
-_HOME = os.environ["HOME"]
+# _HOME = os.environ["HOME"]
+_HOME = "/home/rpi"
 
 
 def get_parser():
@@ -12,21 +13,21 @@ def get_parser():
     parser.add_argument(
         "--root",
         type=str,
-        default="~/dataset/ALERT/alert_frames/20191024",
+        default="/home/rpi/dataset/ALERT/alert_frames/20191024",
         help="root direcotory of all frames",
     )
 
     # NOTE: change output directory to save frames and logs
     parser.add_argument(
         "--out_dir",
-        default="~/dataset/ALERT/clasp_data/output",
+        default="/home/rpi/dataset/ALERT/clasp_data/output",
         help="output directory",
     )
 
     parser.add_argument(
         "--bin_ckpt",
         type=str,
-        default="~/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
+        default="/home/rpi/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
     )
 
     parser.add_argument("--write",
@@ -48,7 +49,7 @@ def get_parser():
     parser.add_argument(
         "--info",
         # default=
-        # "~/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
+        # "/home/rpi/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
         default=None,
         type=str,
         help="info file to save/load",
@@ -74,7 +75,7 @@ def get_parser():
     parser.add_argument(
         "--info_prev",
         # default=
-        # "~/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
+        # "/home/rpi/dataset/ALERT/clasp_data/output/run/info_exp2_train_cam09cam11cam13.csv",
         default=None,
         type=str,
         help="info file to save/load",
