@@ -74,15 +74,21 @@ class BatchPrecessingMain(object):
                     position=5)
         cam_frame_num, i_cnt = None, None
         batch_frames = []
-        complexity_analyzer.start_time()
 
+        complexity_analyzer.start("BIN_PROCESS")
         for _, ret in enumerate(pbar):
             _rets_cam = []
             for i_cnt in range(len(ret)):
+                complexity_analyzer.start("READ")
                 im, imfile, frame_num = self.load_images_from_files(
                     [ret[i_cnt]], size=self.params.size, file_only=False)[0]
+                complexity_analyzer.pause("READ")
+
+                complexity_analyzer.start("PROCESS")
                 new_im = self.manager.run_detector_image(
                     im, cam=self.cameras[i_cnt], frame_num=frame_num)
+                complexity_analyzer.pause("PROCESS")
+
                 skimage.io.imsave(
                     str(self.out_folder[self.cameras[i_cnt]] / imfile.name),
                     new_im)
@@ -104,67 +110,78 @@ class BatchPrecessingMain(object):
             df_batch['timeoffset'] = df_batch['frame'].apply(
                 lambda frame: '{:.2f}'.format(frame / 30.0))
             df_batch.to_csv(write_path, index=False, header=True)
-
         pbar.close()
-        complexity_analyzer.batch_end_time()
+
+        complexity_analyzer.pause("BIN_PROCESS")
+
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
 
         # TODO: create combined log and feed
-        # if self.params.debug:
-        #     self.logger.debug("DEBUG: mock create combined output")
-        # else:
-        #     raise NotImplementedError()
-        # read NEU file
-        while True:
-            ret = self.yaml_communicator.is_association_ready()
-            if ret:
-                self.on_after_batch_processing()
-                break
+        if self.params.debug:
+            self.logger.debug("DEBUG: mock create combined output")
+            if self.params.create_feed:
+                self.on_after_batch_processing(batch_frames)
+        else:
+            while True:
+                ret = self.yaml_communicator.is_association_ready()
+                if ret:
+                    self.on_after_batch_processing(batch_frames)
+                    break
 
         # Set batch processed flag
         self.yaml_communicator.set_batch_processed()
 
         while True:
-            if (self.yaml_communicator.check_next_batch_ready() and
-                    not self.yaml_communicator.check_people_processed_ready()
-                    and not self.yaml_communicator.is_association_ready()):
-                self.yaml_communicator.set_batch_processed(value='FALSE')
-                self.logger.info("Batch processed set to FALSE")
-                break
+            if self.params.debug:
+                # set people processed
+                self.yaml_communicator._set_flag('People_Processed', 'TRUE',
+                                                 self.params.mu_flagfile)
+                # set association ready
+                self.yaml_communicator._set_flag('Association_Ready', 'TRUE',
+                                                 self.params.neu_flagfile)
+                if (self.yaml_communicator.check_next_batch_ready()):
+                    self.yaml_communicator.set_batch_processed(value='FALSE')
+                    self.logger.info("Batch processed set to FALSE")
+                    break
+            else:
+                if (self.yaml_communicator.check_next_batch_ready()
+                        and not self.yaml_communicator.
+                        check_people_processed_ready()
+                        and not self.yaml_communicator.is_association_ready()):
+                    self.yaml_communicator.set_batch_processed(value='FALSE')
+                    self.logger.info("Batch processed set to FALSE")
+                    break
 
         # tell NU that bin is not processed
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
         complexity_analyzer.current_memory_usage()
+        # complexity_analyzer.process_memory()
+        complexity_analyzer.get_time_info()
 
-    def on_after_batch_processing(self) -> None:
-        try:
-            self.drawing_obj.draw_batch()
-            df_mu = pd.read_csv(self.params.mu_result_file)
-
-            # read nu file
-            df_asso = pd.read_csv(self.params.neu_result_file)
-            if self.params.debug:
-                logger.info(df_asso.head(5))
-        except:
-            pass
+    def on_after_batch_processing(self, batch_frames) -> None:
+        complexity_analyzer.start("DRAW")
+        self.drawing_obj.draw_batch(batch_frames, self.params.rpi_result_file,
+                                    self.params.mu_result_file,
+                                    self.params.neu_result_file)
+        complexity_analyzer.pause("DRAW")
 
     def run(self):
+        complexity_analyzer.start("INIT")
         counter = 0
         pbar = tqdm(position=1)
         while self.yaml_communicator.is_end_of_frames() is False:
             if self.yaml_communicator.is_batch_ready():
-
                 self.process_batch_step()
-
             else:
                 time.sleep(0.2)  # pause for 1 sec
             pbar.set_description(Fore.YELLOW + f"Loop {counter}")
             pbar.update()
             counter += 1
-
         pbar.close()
+        complexity_analyzer.pause("INIT")
+        complexity_analyzer.get_time_info()
         complexity_analyzer.final_info()
 
     def _get_batch_file_names(self) -> bool:
@@ -234,6 +251,8 @@ class BatchPrecessingMain(object):
             parser = add_server_specific_arg(parser)
         parser = argparse.ArgumentParser(parents=[parser],
                                          conflict_handler='resolve')
+
+        # parser.add_argument("--show_info")
 
         # add parser for video access
         parser.add_argument(
@@ -307,17 +326,49 @@ class BatchPrecessingMain(object):
                 "--flag_file",
                 type=str,
                 default="/home/rpi/data/wrapper_log/Flags_Wrapper.yaml")
+            parser.add_argument("--max_files_in_batch", type=int, default=30)
+            parser.add_argument("--debug", action="store_true")
+            parser.add_argument(
+                "--batch_out_folder",
+                type=str,
+                default=
+                "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/")
+            parser.add_argument(
+                "--rpi_flagfile",
+                type=str,
+                default="/home/rpi/data/wrapper_log/Flags_RPI.yaml")
+
+            parser.add_argument(
+                "--mu_flagfile",
+                type=str,
+                default="/home/rpi/data/wrapper_log/Flags_MU.yaml")
+
+            parser.add_argument(
+                "--neu_result_file",
+                type=str,
+                default="/home/rpi/data/wrapper_log/log_batch_association.csv")
+
+            parser.add_argument(
+                "--mu_result_file",
+                type=str,
+                default="/home/rpi/data/wrapper_log/log_batch_mu_current.csv")
+
+            parser.add_argument(
+                "--rpi_result_file",
+                type=str,
+                default="/home/rpi/data/wrapper_log/rpi_result.csv")
+
+            parser.add_argument(
+                "--neu_flagfile",
+                type=str,
+                default="/home/rpi/data/wrapper_log/Flags_NEU.yaml")
+
             parser.add_argument(
                 "--root",
                 type=str,
                 default="/home/rpi/data/wrapper_data/",
                 help="root direcotory of all frames",
             )
-
-            parser.add_argument(
-                "--rpi_flagfile",
-                type=str,
-                default="/home/rpi/data/wrapper_log/Flags_RPI.yaml")
 
         parser.add_argument("--start_frame", type=int, default=0)
 

@@ -80,6 +80,8 @@ def get_parser():
         type=str,
         help="info file to save/load",
     )
+
+    parser.add_argument("--create_feed", "-f", action="store_true")
     return parser
 
 

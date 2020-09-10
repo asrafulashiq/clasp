@@ -32,6 +32,13 @@ def to_sec(frame, fps=30):
     return str(int(frame) // fps) + "s"
 
 
+def frame_to_time(imfile):
+    # frame_num = int(Path(imfile1).stem) - 1
+    sec, msec = Path(imfile).stem.split("_")[-2:]
+    frame_num = int(round(float(f"{sec}.{msec}") * 30))
+    return frame_num
+
+
 class IntegratorClass:
     def __init__(self):
         self.bin_pax = {}
@@ -48,11 +55,12 @@ class IntegratorClass:
 
         # get association info
         self.asso_info = {}
-        self.asso_info["cam09"], _asso_msg = self.get_association_info(
-            nu_file_cam, "09")
+        self.asso_info, _asso_msg = self.get_association_info(nu_file_cam)
 
-        for k, v in _asso_msg:
-            self.asso_info.update(v)
+        for k, v in _asso_msg.items():
+            if k not in self.asso_info:
+                self.asso_info[k] = {}
+            self.asso_info[k].update(v)
 
         print("loaded")
 
@@ -63,6 +71,7 @@ class IntegratorClass:
         df["y1"] = df["y1"] / 3
         df["x2"] = df["x2"] / 3
         df["y2"] = df["y2"] / 3
+        df["camera"] = df["cam"]
         # load location type
         df_new = df[df["type"] == "loc"].copy()
         df_comb = df_new
@@ -91,6 +100,8 @@ class IntegratorClass:
     def get_association_info(self, nu_file):
         asso_info = defaultdict(lambda: defaultdict(dict))
         asso_msg = defaultdict(dict)
+        return asso_info, asso_msg
+
         df = pd.read_csv(nu_file, header=None, names=["time", "cam", "des"])
 
         def time2frame(time):
@@ -136,7 +147,7 @@ class IntegratorClass:
         list_info_pax = []
         list_event_pax = []
         for _, row in info.iterrows():
-            if row["type"] == "loc":
+            if not row.empty:  #row["type"] == "loc":
                 list_info_pax.append([
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
                     row["y2"]
@@ -187,12 +198,12 @@ class IntegratorClass:
                          to_sec(row["frame"]), row["msg"]])
 
             # add 'theft' message for visualization
-            if frame in self.asso_msg:
-                rr = self.asso_msg[frame]
-                if rr[0] == cam[3:5]:
-                    if (cam + rr[2]) not in self.tmp:
-                        msglist.append([rr[0], to_sec(rr[1]), rr[2]])
-                        self.tmp.append(cam + rr[2])
+            # if frame in self.asso_msg:
+            #     rr = self.asso_msg[frame]
+            #     if rr[0] == cam[3:5]:
+            #         if (cam + rr[2]) not in self.tmp:
+            #             msglist.append([rr[0], to_sec(rr[1]), rr[2]])
+            #             self.tmp.append(cam + rr[2])
 
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
                 msglist)
@@ -248,25 +259,24 @@ class DrawClass:
         im2, imfile2, _ = out2
         im3, imfile3, _ = out3
 
-        frame_num = int(Path(imfile1).stem) - 1
-
+        frame_num = frame_to_time(imfile1)
         # Cam 09
-        info_bin, info_pax, event_bin, event_pax, msglist, logs = self.Info.get_info_from_frame(
+        info_bin, info_pax, event_bin, event_pax, msglist = self.Info.get_info_from_frame(
             frame_num, "cam09")
         # full_log_cam09.extend(logs)
         if self.plot:
             im1 = self.Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
         # Cam 11
-        info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
+        info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
             frame_num, "cam11")
         # full_log_cam11.extend(logs)
         if self.plot:
             im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         # Cam 13
-        frame_num3 = int(Path(imfile3).stem) - 1
-        info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
+        frame_num3 = frame_to_time(imfile3)
+        info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
             frame_num3, "cam13")
         # full_log_cam13.extend(logs)
         if self.plot:

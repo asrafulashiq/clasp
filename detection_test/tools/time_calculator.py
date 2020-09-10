@@ -5,6 +5,7 @@ import tracemalloc
 from loguru import logger
 import numpy as np
 import torch
+from collections import defaultdict
 
 
 class ComplexityAnalysis(object):
@@ -14,20 +15,41 @@ class ComplexityAnalysis(object):
         logger.info(f"process id: {self.process.pid}")
 
         self.list_time = []
-        self.list_memory = []
+        self.list_gpu_memory = []
+        self.list_cpu_memory = []
 
-    def start_time(self):
-        self.time_0 = time.time()
+        self.dict_time = {}
+        self.dict_start = {}
+        self.dict_start = defaultdict(float)
 
-    def batch_end_time(self):
-        time_now = time.time()
-        time_passed = time_now - self.time_0
-        self.list_time.append(time_passed)
+    def start(self, field=None):
+        if field is None:
+            raise ValueError("Provide a name for this timing")
 
-        logger.info(f"time passed {time_passed} sec")
+        if field not in self.dict_time:
+            self.dict_time[field] = []
+        self.dict_start[field] = time.time()
+
+    def pause(self, field=None):
+        if field is None:
+            raise ValueError("Provide a name for this timing")
+        assert field in self.dict_time
+        assert field in self.dict_start
+
+        time_passed = time.time() - self.dict_start[field]
+        self.dict_time[field].append(time_passed)
+
+    def get_time_info(self):
+        logger.info("Time info")
+        for k in self.dict_time:
+            if len(self.dict_time[k]) == 0:
+                continue
+            avg, _max = np.mean(self.dict_time[k]), max(self.dict_time[k])
+            logger.info(f"{k} :: avg : {avg:.4f} s, max : {_max:.4f} s")
 
     def process_memory(self):
         memory_mb = round(self.process.memory_info()[0] / (1024 * 1024))
+        self.list_cpu_memory.append(memory_mb)
         logger.info(f"Process memory mb : {memory_mb} MB")
         return memory_mb
 
@@ -35,21 +57,23 @@ class ComplexityAnalysis(object):
         current, peak = tracemalloc.get_traced_memory()
         max_gpu = torch.cuda.max_memory_allocated(
             device=torch.device('cuda:0'))
-
         logger.info(
-            f"Current memory usage is {current / 10**6}MB; Peak was {peak / 10**6}MB, Max gpu: {max_gpu / 10**6}MB"
+            f"Current memory usage is {current / (1024 * 1024)}MB; Peak was {peak / (1024 * 1024)}MB, Max gpu: {max_gpu / (1024 * 1024)}MB"
         )
-        self.list_memory.append(current)
+        self.list_gpu_memory.append(current / (1024 * 1024))
+        memory_mb = round(self.process.memory_info()[0] / (1024 * 1024))
+        self.list_cpu_memory.append(memory_mb)
+        logger.info(f"Process memory mb : {memory_mb} MB")
+
         return current, peak
 
     def final_info(self):
-        mean_time = np.mean(self.list_time)
-        max_time = np.max(self.list_time)
-        logger.info(
-            f" avegare batch time: {mean_time}, maximum batch time: {max_time} "
+        logger.debug(
+            f"gpu memory: avg: {np.mean(self.list_gpu_memory)} MB, max: {max(self.list_gpu_memory)} MB"
         )
-
-        logger.debug(f"average gpu memory: {np.mean(self.list_memory)}")
+        logger.debug(
+            f"cpu memory: avg: {np.mean(self.list_cpu_memory)} MB, max: {max(self.list_cpu_memory)} MB"
+        )
 
     def close(self):
         tracemalloc.stop()
