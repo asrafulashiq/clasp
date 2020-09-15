@@ -40,7 +40,8 @@ class BatchPrecessingMain(object):
         }
         self.manager = Manager(config=self.params,
                                log=self.logger,
-                               bin_only=True)
+                               bin_only=True,
+                               analyzer=complexity_analyzer)
         self.yaml_communicator = YAMLCommunicator(
             self.params.flag_file,
             rpi_flagfile=self.params.rpi_flagfile,
@@ -173,7 +174,9 @@ class BatchPrecessingMain(object):
         pbar = tqdm(position=1)
         while self.yaml_communicator.is_end_of_frames() is False:
             if self.yaml_communicator.is_batch_ready():
+                complexity_analyzer.start("BATCH")
                 self.process_batch_step()
+                complexity_analyzer.pause("BATCH")
             else:
                 time.sleep(0.2)  # pause for 1 sec
             pbar.set_description(Fore.YELLOW + f"Loop {counter}")
@@ -274,7 +277,7 @@ class BatchPrecessingMain(object):
             "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_Wrapper.yaml"
         )
         parser.add_argument("--max_files_in_batch", type=int, default=30)
-        parser.add_argument("--debug", action="store_true")
+        parser.add_argument("--debug", "-d", action="store_true")
         parser.add_argument(
             "--batch_out_folder",
             type=str,

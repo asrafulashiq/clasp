@@ -8,21 +8,36 @@ import numpy as np
 from pathlib import Path
 import pandas as pd
 from loguru import logger
+from tools.time_calculator import ComplexityAnalysis
+
+
+class Dummy:
+    def __init__(*args, **kwargs):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    def __getattr__(self, *args, **kwargs):
+        return self
 
 
 class Manager:
     def __init__(
-            self,
-            config,
-            log=None,
-            bin_only=True,
-            write=True,  # whether to save intermediate results
-    ):
+        self,
+        config,
+        log=None,
+        bin_only=True,
+        write=True,  # whether to save intermediate results
+        analyzer: ComplexityAnalysis = None):
         self.file_num = config.file_num
         self.bin_only = bin_only
         self.cameras = config.cameras
         self.config = config
         self.log = log
+        self.analyzer = analyzer
+        if self.analyzer is None:
+            self.analyzer = Dummy()
         if log is None:
             self.log = logger
             self.log.clasp_log = self.log.info
@@ -127,8 +142,9 @@ class Manager:
 
         # get dummy results
         if cam in self._bin_managers:
+            self.analyzer.start("DET")
             boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
-
+            self.analyzer.pause("DET")
             # # :: Something wrong with frame 2757 to 2761 of exp1 cam 09
             # if (boxes is not None and self.file_num == "exp1"
             #         and cam == "cam09" and frame_num >= 2757
@@ -143,12 +159,15 @@ class Manager:
             #         if frame_num > 2761:
             #             bin.init_tracker(pos, im)
             # else:
-
+            self.analyzer.start("TRACK")
             self._bin_managers[cam].update_state(im, boxes, scores, classes,
                                                  frame_num)
-
+            self.analyzer.pause("TRACK")
         if return_im:
-            return self.draw(im, cam=cam)
+            self.analyzer.start("DRAW_BIN")
+            ret = self.draw(im, cam=cam)
+            self.analyzer.pause("DRAW_BIN")
+            return ret
 
     def draw(self, im, cam="cam09"):
         if cam in self._bin_managers:
