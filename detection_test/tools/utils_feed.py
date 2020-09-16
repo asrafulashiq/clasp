@@ -34,8 +34,7 @@ def to_sec(frame, fps=30):
 
 def frame_to_time(imfile):
     # frame_num = int(Path(imfile1).stem) - 1
-    sec, msec = Path(imfile).stem.split("_")[-2:]
-    frame_num = int(round(float(f"{sec}.{msec}") * 30))
+    frame_num = int(Path(imfile).stem.split("_")[-1])
     return frame_num
 
 

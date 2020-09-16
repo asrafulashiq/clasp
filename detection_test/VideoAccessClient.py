@@ -43,10 +43,11 @@ myurl = 'http://127.0.0.1:5000/frames'
 #dataset = str(input("Enter the dataset:"))
 dataset = "exp2training"
 cameralist = '2,5,9,11,13,14,20'
-timeoffset = args.start_frame
 duration = args.duration
 duration = "{0:.2f}".format(float(duration))
 count = 0
+framerate = "10"
+timeoffset = args.start_frame / float(framerate)
 
 inputdir = "/home/rpi/data/wrapper_data/"
 Wrapper_Flag_File = "/home/rpi/data/wrapper_log/Flags_Wrapper.yaml"

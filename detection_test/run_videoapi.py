@@ -18,6 +18,8 @@ import time
 from tools.utils_video_api import YAMLCommunicator
 from tools.time_calculator import ComplexityAnalysis
 from tools.utils_feed import DrawClass
+import PIL
+from PIL import Image
 
 complexity_analyzer = ComplexityAnalysis()
 
@@ -34,8 +36,8 @@ class BatchPrecessingMain(object):
         self.cameras = self.params.cameras
         self.cameras_short = cam
 
-        self._last_time: Dict[str, List[int]] = {
-            cam: [self.params.start_frame, -1]
+        self._last_frame: Dict[str, int] = {
+            cam: self.params.start_frame - 1
             for cam in self.cameras
         }
         self.manager = Manager(config=self.params,
@@ -64,7 +66,6 @@ class BatchPrecessingMain(object):
         batch_files_to_process, flag = self._get_batch_file_names()
         if flag is False:
             return
-        # self.yaml_communicator.set_batch_read()
 
         # fresh dict for storing the batch info only
         self.manager.init_data_dict()
@@ -195,25 +196,23 @@ class BatchPrecessingMain(object):
 
         flag = False
         for cam, cam_num in zip(self.cameras, self.cameras_short):
-            last_time_sec, last_time_ms = self._last_time[cam]
+            last_frame = self._last_frame[cam]
 
             skip_f = 0
             while skip_f < 5:
-                cur_sec, cur_msec = self.increment_time(
-                    last_time_sec, last_time_ms)
+                cur_frame = last_frame + 1
 
                 # file name
-                fname = os.path.join(
-                    self.params.root,
-                    f"cam{cam_num}_{cur_sec}_{cur_msec:02d}.jpg")
+                fname = os.path.join(self.params.root,
+                                     f"cam{cam_num}_{cur_frame:06d}.jpg")
                 if not os.path.exists(fname):
                     skip_f += 1
                 else:
                     skip_f = 0
                     flag = True
                     batch_files_to_process[cam].append(fname)
-                last_time_sec, last_time_ms = cur_sec, cur_msec
-            self._last_time[cam] = [last_time_sec, last_time_ms]
+                last_frame = cur_frame
+            self._last_frame[cam] = last_frame
         return batch_files_to_process, flag
 
     @staticmethod
@@ -231,22 +230,15 @@ class BatchPrecessingMain(object):
             if file_only:
                 image = None
             else:
-                image = skimage.io.imread(str(imfile))
+                image = cv2.cvtColor(cv2.imread(str(imfile)),
+                                     cv2.COLOR_BGR2RGB)
                 image = cv2.resize(image,
                                    tuple(size),
                                    interpolation=cv2.INTER_LINEAR)
             # get frame number
-            frame_num = int(
-                round(float('.'.join(imfile.stem.split('_')[-2:])) * 30))
+            frame_num = int(imfile.stem.split('_')[-1])
             data.append((image, imfile, frame_num))
         return data
-
-    @staticmethod
-    def increment_time(sec, msec, step=1):
-        _msec = msec + step
-        msec = _msec % 100
-        sec += (_msec // 100)
-        return sec, msec
 
     def config_parser(self) -> argparse.Namespace:
         parser = get_parser()
