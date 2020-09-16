@@ -54,18 +54,21 @@ class ComplexityAnalysis(object):
         return memory_mb
 
     def current_memory_usage(self):
-        current, peak = tracemalloc.get_traced_memory()
+        # current, peak = tracemalloc.get_traced_memory()
         max_gpu = torch.cuda.max_memory_allocated(
             device=torch.device('cuda:0'))
-        logger.info(
-            f"Current memory usage is {current / (1024 * 1024)}MB; Peak was {peak / (1024 * 1024)}MB, Max gpu: {max_gpu / (1024 * 1024)}MB"
-        )
-        self.list_gpu_memory.append(current / (1024 * 1024))
-        memory_mb = round(self.process.memory_info()[0] / (1024 * 1024))
-        self.list_cpu_memory.append(memory_mb)
-        logger.info(f"Process memory mb : {memory_mb} MB")
+        current = round(self.process.memory_info()[0])
 
-        return current, peak
+        logger.info(
+            f"Current memory usage is {current / (1024 * 1024)}MB; Max gpu: {max_gpu / (1024 * 1024)}MB"
+        )
+
+        self.list_cpu_memory.append(current / (1024 * 1024))
+        self.list_gpu_memory.append(max_gpu / (1024 * 1024))
+
+        memory_mb = round(self.process.memory_info()[0] / (1024 * 1024))
+        logger.info(f"Process memory mb : {memory_mb} MB")
+        return current
 
     def final_info(self):
         logger.debug(
