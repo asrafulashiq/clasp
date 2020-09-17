@@ -145,7 +145,7 @@ class Manager:
             return im
 
         if cam in self._bin_managers:
-            _, boxes, scores, classes = det[cam]
+            _, boxes, scores, classes = det
             self.analyzer.start("TRACK")
             self._bin_managers[cam].update_state(im, boxes, scores, classes,
                                                  frame_num)

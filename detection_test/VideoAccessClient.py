@@ -42,7 +42,7 @@ myurl = 'http://127.0.0.1:5000/frames'
 
 #dataset = str(input("Enter the dataset:"))
 dataset = "exp2training"
-cameralist = '2,5,9,11,13,14,20'
+cameralist = '9,11,13'
 duration = args.duration
 duration = "{0:.2f}".format(float(duration))
 count = 0

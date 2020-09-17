@@ -1,6 +1,6 @@
+from pathlib import Path
 import cv2
 import pandas as pd
-from sklearn.datasets import load_iris
 from tqdm import tqdm
 from config import get_parser, get_conf, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
@@ -21,6 +21,9 @@ from tools.time_calculator import ComplexityAnalysis
 from tools.utils_feed import DrawClass
 import PIL
 from PIL import Image
+from colorama import init
+
+init(autoreset=True)
 
 complexity_analyzer = ComplexityAnalysis()
 
@@ -72,31 +75,40 @@ class BatchPrecessingMain(object):
         # fresh dict for storing the batch info only
         self.manager.init_data_dict()
 
+        # calculate detection
+        for cam, value in batch_files_to_process.items():
+            imlist = [v[0] for v in value]
+            result_det_list = self.manager.pre_calculate_detector(
+                imlist, return_im=False)
+            for iret, det in enumerate(result_det_list):
+                value[iret].append(det)
+
+        cam_frame_num, i_cnt = None, None
+        batch_frames = []
+
         # load images for all cameras
         pbar = tqdm(zip(*batch_files_to_process.values()),
                     total=len(batch_files_to_process[self.cameras[0]]),
                     position=5)
 
-        cam_frame_num, i_cnt = None, None
-        batch_frames = []
-
         complexity_analyzer.start("BIN_PROCESS")
         for _, ret in enumerate(pbar):
             _rets_cam = []
             for i_cnt in range(len(ret)):
-                complexity_analyzer.start("READ")
-                im, imfile, frame_num = self.load_images_from_files(
-                    [ret[i_cnt]], size=self.params.size, file_only=False)[0]
-                complexity_analyzer.pause("READ")
+                # complexity_analyzer.start("READ")
+                # im, imfile, frame_num = self.load_images_from_files(
+                #     [ret[i_cnt]], size=self.params.size, file_only=False)[0]
+                # complexity_analyzer.pause("READ")
 
+                im, imfile, frame_num, det = ret[i_cnt]
                 complexity_analyzer.start("PROCESS")
-                new_im = self.manager.run_detector_image(
-                    im, cam=self.cameras[i_cnt], frame_num=frame_num)
+                new_im = self.manager.run_tracking_per_frame(
+                    im, det, cam=self.cameras[i_cnt], frame_num=frame_num)
                 complexity_analyzer.pause("PROCESS")
 
                 skimage.io.imsave(
-                    str(self.out_folder[self.cameras[i_cnt]] / imfile.name),
-                    new_im)
+                    str(self.out_folder[self.cameras[i_cnt]] /
+                        Path(imfile).name), new_im)
                 cam_frame_num = frame_num
                 _rets_cam.append((im, imfile, frame_num))
 
@@ -214,13 +226,46 @@ class BatchPrecessingMain(object):
                     skip_f = 0
                     flag = True
                     if load_image:
+                        frame_num = int(Path(fname).stem.split('_')[-1])
+                        image = self.read_image(fname, size=self.params.size)
                         batch_files_to_process[cam].append(
-                            self.read_image(fname, size=self.params.size))
+                            [image, str(fname), frame_num])
                     else:
                         batch_files_to_process[cam].append(fname)
                 last_frame = cur_frame
             self._last_frame[cam] = last_frame
         return batch_files_to_process, flag
+
+    # def _get_batch_file_names(self, load_image=False) -> bool:
+    #     """ return: True denotes there are some files to process """
+    #     batch_files_to_process: Dict[str,
+    #                                  List] = {cam: []
+    #                                           for cam in self.cameras}
+
+    #     flag = False
+    #     for cam, cam_num in zip(self.cameras, self.cameras_short):
+    #         last_frame = self._last_frame[cam]
+
+    #         skip_f = 0
+    #         while skip_f < 5:
+    #             cur_frame = last_frame + 1
+
+    #             # file name
+    #             fname = os.path.join(self.params.root,
+    #                                  f"cam{cam_num}_{cur_frame:06d}.jpg")
+    #             if not os.path.exists(fname):
+    #                 skip_f += 1
+    #             else:
+    #                 skip_f = 0
+    #                 flag = True
+    #                 if load_image:
+    #                     batch_files_to_process[cam].append(
+    #                         self.read_image(fname, size=self.params.size))
+    #                 else:
+    #                     batch_files_to_process[cam].append(fname)
+    #             last_frame = cur_frame
+    #         self._last_frame[cam] = last_frame
+    #     return batch_files_to_process, flag
 
     def load_images_from_files(
             self,

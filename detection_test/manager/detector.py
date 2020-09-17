@@ -1,13 +1,6 @@
-from collections import defaultdict
-import argparse
-import cv2  # NOQA (Must import before importing caffe2 due to bug in cv2)
-import glob
-import logging
-import os
-import sys
-import time
+import cv2
 import numpy as np
-
+from tqdm import tqdm
 from rcnn import rcnn_utils
 
 _GRAY = (218, 227, 218)
@@ -154,8 +147,22 @@ class DummyDetector:
         else:
             return im, None, None, None
 
-    def predict_box_batch(self, imlist, show=False):
-        rets = self.model.predict_batch(imlist)
+    def predict_box_batch(self, imlist, show=False, max_batch=10):
+        rets = []
+        strt = 0
+        pbar = tqdm(total=len(imlist), desc="DET ", leave=False)
+        while True:
+            _end = min(strt + max_batch, len(imlist))
+            ims = [imlist[i] for i in range(strt, _end)]
+            _ret = self.model.predict_batch(ims)
+            rets.extend(_ret)
+            pbar.update(len(ims))
+            if _end >= len(imlist):
+                break
+            strt = _end
+        pbar.clear()
+        pbar.close()
+
         results = []
         for i, ret in enumerate(rets):
             im = imlist[i]
