@@ -154,6 +154,28 @@ class DummyDetector:
         else:
             return im, None, None, None
 
+    def predict_box_batch(self, imlist, show=False):
+        rets = self.model.predict_batch(imlist)
+        results = []
+        for i, ret in enumerate(rets):
+            im = imlist[i]
+            if ret is not None:
+                boxes, scores, classes = ret
+                nim = imlist[i]
+                # if show:
+                nim, boxes, scores, classes = vis_one_image_opencv(
+                    im,
+                    boxes,
+                    scores,
+                    classes,
+                    thresh=self.thres,
+                    dataset=self.dummy_coco_dataset,
+                    vis=show)
+                results.append((nim, boxes, scores, classes))
+            else:
+                results.append((im, None, None, None))
+        return results
+
 
 class BinDetector:
     def __init__(self, ckpt=None, thres=0.5):

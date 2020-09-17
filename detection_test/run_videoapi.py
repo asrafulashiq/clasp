@@ -1,5 +1,6 @@
 import cv2
 import pandas as pd
+from sklearn.datasets import load_iris
 from tqdm import tqdm
 from config import get_parser, get_conf, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
@@ -63,7 +64,8 @@ class BatchPrecessingMain(object):
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
         # Read batch files
-        batch_files_to_process, flag = self._get_batch_file_names()
+        batch_files_to_process, flag = self._get_batch_file_names(
+            load_image=True)
         if flag is False:
             return
 
@@ -74,6 +76,7 @@ class BatchPrecessingMain(object):
         pbar = tqdm(zip(*batch_files_to_process.values()),
                     total=len(batch_files_to_process[self.cameras[0]]),
                     position=5)
+
         cam_frame_num, i_cnt = None, None
         batch_frames = []
 
@@ -188,7 +191,7 @@ class BatchPrecessingMain(object):
         complexity_analyzer.get_time_info()
         complexity_analyzer.final_info()
 
-    def _get_batch_file_names(self) -> bool:
+    def _get_batch_file_names(self, load_image=False) -> bool:
         """ return: True denotes there are some files to process """
         batch_files_to_process: Dict[str,
                                      List] = {cam: []
@@ -210,13 +213,17 @@ class BatchPrecessingMain(object):
                 else:
                     skip_f = 0
                     flag = True
-                    batch_files_to_process[cam].append(fname)
+                    if load_image:
+                        batch_files_to_process[cam].append(
+                            self.read_image(fname, size=self.params.size))
+                    else:
+                        batch_files_to_process[cam].append(fname)
                 last_frame = cur_frame
             self._last_frame[cam] = last_frame
         return batch_files_to_process, flag
 
-    @staticmethod
     def load_images_from_files(
+            self,
             file_list: List[str],
             size=(640, 360),
             file_only=False) -> List[Tuple[np.ndarray, str, int]]:
@@ -230,15 +237,17 @@ class BatchPrecessingMain(object):
             if file_only:
                 image = None
             else:
-                image = cv2.cvtColor(cv2.imread(str(imfile)),
-                                     cv2.COLOR_BGR2RGB)
-                image = cv2.resize(image,
-                                   tuple(size),
-                                   interpolation=cv2.INTER_LINEAR)
+                image = self.read_image(imfile)
             # get frame number
             frame_num = int(imfile.stem.split('_')[-1])
             data.append((image, imfile, frame_num))
         return data
+
+    @staticmethod
+    def read_image(imfile, size=(640, 360)):
+        image = cv2.cvtColor(cv2.imread(str(imfile)), cv2.COLOR_BGR2RGB)
+        image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
+        return image
 
     def config_parser(self) -> argparse.Namespace:
         parser = get_parser()

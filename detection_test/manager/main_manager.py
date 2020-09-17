@@ -127,9 +127,39 @@ class Manager:
         classes = classes[ind]
         return boxes, scores, classes
 
+    def pre_calculate_detector(self, imlist, return_im=True):
+        if self.config.run_detector:
+            info_detector_list = self._detector.predict_box_batch(imlist)
+            return info_detector_list
+
+    def run_tracking_per_frame(self,
+                               im=None,
+                               det=None,
+                               cam="cam09",
+                               frame_num=None,
+                               return_im=True):
+        self.current_frame = frame_num
+        self.log.addinfo(self.file_num, cam, frame_num)
+        if im is None:
+            self.log.warning("No image detected")
+            return im
+
+        if cam in self._bin_managers:
+            _, boxes, scores, classes = det[cam]
+            self.analyzer.start("TRACK")
+            self._bin_managers[cam].update_state(im, boxes, scores, classes,
+                                                 frame_num)
+            self.analyzer.pause("TRACK")
+
+        if return_im:
+            self.analyzer.start("DRAW_BIN")
+            ret = self.draw(im, cam=cam)
+            self.analyzer.pause("DRAW_BIN")
+            return ret
+
     def run_detector_image(self,
                            im=None,
-                           cam="cam09",
+                           cam=None,
                            frame_num=None,
                            return_im=True):
         """ main loop """

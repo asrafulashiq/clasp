@@ -48,5 +48,41 @@ class RCNN_Detector():
         else:
             return None
 
+    @torch.no_grad()
+    def predict_one(self, im, show=False):
+        im = skimage.img_as_float32(im)
+        imt = F.to_tensor(im)
+        self.model.eval()
+        output = self.model([imt.to(self.device)])
+        output = {k: v.cpu().data.numpy() for k, v in output[0].items()}
+        index = (np.isin(output["labels"], self.labels_to_keep) &
+                 (output["scores"] > self.thres))
+        if index.size > 0:
+            boxes = output["boxes"][index]
+            scores = output["scores"][index]
+            classes = output["labels"][index]
+            return boxes, scores, classes
+        else:
+            return None
+
+    @torch.no_grad()
+    def predict_batch(self, imlist, show=False):
+        imt = [F.to_tensor(im) for im in imlist]
+        self.model.eval()
+        output = self.model(torch.stack(imt, dim=0).to(self.device))
+        results = []
+        for i in range(len(imlist)):
+            output = {k: v.cpu().data.numpy() for k, v in output[i].items()}
+            index = (np.isin(output["labels"], self.labels_to_keep) &
+                     (output["scores"] > self.thres))
+            if index.size > 0:
+                boxes = output["boxes"][index]
+                scores = output["scores"][index]
+                classes = output["labels"][index]
+                results.append((boxes, scores, classes))
+            else:
+                results.append(None)
+        return results
+
     def __call__(self, images):
         return self.predict_one(images)
