@@ -179,7 +179,7 @@ class BatchPrecessingMain(object):
                 self.process_batch_step()
                 complexity_analyzer.pause("BATCH")
             else:
-                time.sleep(0.2)  # pause for 1 sec
+                time.sleep(0.1)  # pause for 0.1 sec
             pbar.set_description(Fore.YELLOW + f"Loop {counter}")
             pbar.update()
             counter += 1

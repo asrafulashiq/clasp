@@ -101,15 +101,16 @@ class IntegratorClass:
         asso_msg = defaultdict(dict)
         return asso_info, asso_msg
 
-        df = pd.read_csv(nu_file, header=None, names=["time", "cam", "des"])
+        # fid, cam, events
+        df = pd.read_csv(nu_file, header=None, names=["frame", "cam", "des"])
 
-        def time2frame(time):
-            time = str(time)
-            sec, msec = time[:-2], time[-2:]
-            frame = int(round(float(f"{sec}.{msec}") * 30))
-            return frame
+        # def time2frame(time):
+        #     time = str(time)
+        #     sec, msec = time[:-2], time[-2:]
+        #     frame = int(round(float(f"{sec}.{msec}") * 30))
+        #     return frame
 
-        df['frame'] = df["time"].apply(time2frame)
+        # df['frame'] = df["time"].apply(time2frame)
         df['cam'] = df['cam'].apply(lambda x: f"cam{int(x[3:]):02d}")
         for _, row in df.iterrows():
             frame = row["frame"]
