@@ -6,6 +6,7 @@ from loguru import logger
 import numpy as np
 import torch
 from collections import defaultdict
+from contextlib import contextmanager
 
 
 class ComplexityAnalysis(object):
@@ -21,13 +22,23 @@ class ComplexityAnalysis(object):
         self.dict_time = {}
         self.dict_start = {}
         self.dict_start = defaultdict(float)
+        self.dict_batch_mode = defaultdict(bool)
 
-    def start(self, field=None):
+        self.frames_per_batch = 1
+
+    @contextmanager
+    def __call__(self, field=None, batch_mode=True):
+        self.start(field, batch_mode)
+        yield
+        self.pause(field)
+
+    def start(self, field=None, batch_mode=True):
         if field is None:
             raise ValueError("Provide a name for this timing")
 
         if field not in self.dict_time:
             self.dict_time[field] = []
+        self.dict_batch_mode[field] = batch_mode
         self.dict_start[field] = time.time()
 
     def pause(self, field=None):
@@ -45,6 +56,10 @@ class ComplexityAnalysis(object):
             if len(self.dict_time[k]) == 0:
                 continue
             avg, _max = np.mean(self.dict_time[k]), max(self.dict_time[k])
+            if not self.dict_batch_mode[k]:
+                avg *= self.frames_per_batch
+                _max *= self.frames_per_batch
+
             logger.info(f"{k} :: avg : {avg:.4f} s, max : {_max:.4f} s")
 
     def process_memory(self):
@@ -71,6 +86,7 @@ class ComplexityAnalysis(object):
         return current
 
     def final_info(self):
+        self.get_time_info()
         logger.debug(
             f"gpu memory: avg: {np.mean(self.list_gpu_memory)} MB, max: {max(self.list_gpu_memory)} MB"
         )

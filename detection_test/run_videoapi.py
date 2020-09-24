@@ -1,6 +1,5 @@
 from pathlib import Path
 import cv2
-import pandas as pd
 from tqdm import tqdm
 from config import get_parser, get_conf, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
@@ -10,7 +9,6 @@ import os
 import numpy as np
 from loguru import logger
 import pathlib
-import torch
 import copy
 from colorama import init, Fore
 import argparse
@@ -20,7 +18,6 @@ from tools.utils_video_api import YAMLCommunicator
 from tools.time_calculator import ComplexityAnalysis
 from tools.utils_feed import DrawClass
 import PIL
-from PIL import Image
 from colorama import init
 
 init(autoreset=True)
@@ -39,6 +36,9 @@ class BatchPrecessingMain(object):
         self.params.cameras = [f"cam{int(x):02d}" for x in self.params.cameras]
         self.cameras = self.params.cameras
         self.cameras_short = cam
+
+        complexity_analyzer.frames_per_batch = int(
+            self.params.duration * self.params.fps * len(self.cameras))
 
         self._last_frame: Dict[str, int] = {
             cam: self.params.start_frame - 1
@@ -67,69 +67,72 @@ class BatchPrecessingMain(object):
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
         # Read batch files
-        batch_files_to_process, flag = self._get_batch_file_names(
-            load_image=True)
+        with complexity_analyzer("READ"):
+            batch_files_to_process, flag = self._get_batch_file_names(
+                load_image=True)
         if flag is False:
             return
 
         # fresh dict for storing the batch info only
         self.manager.init_data_dict()
 
-        # calculate detection
-        for cam, value in batch_files_to_process.items():
-            imlist = [v[0] for v in value]
-            result_det_list = self.manager.pre_calculate_detector(
-                imlist, return_im=False)
-            for iret, det in enumerate(result_det_list):
-                value[iret].append(det)
+        with complexity_analyzer("RPI_only"):
+            # calculate detection
+            with complexity_analyzer("DET"):
+                for cam, value in batch_files_to_process.items():
+                    imlist = [v[0] for v in value]
+                    result_det_list = self.manager.pre_calculate_detector(
+                        imlist, return_im=False)
+                    for iret, det in enumerate(result_det_list):
+                        value[iret].append(det)
 
-        cam_frame_num, i_cnt = None, None
-        batch_frames = []
+            cam_frame_num, i_cnt = None, None
+            batch_frames = []
 
-        # load images for all cameras
-        pbar = tqdm(zip(*batch_files_to_process.values()),
-                    total=len(batch_files_to_process[self.cameras[0]]),
-                    position=5)
+            # load images for all cameras
+            pbar = tqdm(zip(*batch_files_to_process.values()),
+                        total=len(batch_files_to_process[self.cameras[0]]),
+                        position=5)
+            with complexity_analyzer("BIN_PROCESS"):
+                for _, ret in enumerate(pbar):
+                    _rets_cam = []
+                    for i_cnt in range(len(ret)):
+                        # complexity_analyzer.start("READ")
+                        # im, imfile, frame_num = self.load_images_from_files(
+                        #     [ret[i_cnt]], size=self.params.size, file_only=False)[0]
+                        # complexity_analyzer.pause("READ")
 
-        complexity_analyzer.start("BIN_PROCESS")
-        for _, ret in enumerate(pbar):
-            _rets_cam = []
-            for i_cnt in range(len(ret)):
-                # complexity_analyzer.start("READ")
-                # im, imfile, frame_num = self.load_images_from_files(
-                #     [ret[i_cnt]], size=self.params.size, file_only=False)[0]
-                # complexity_analyzer.pause("READ")
+                        im, imfile, frame_num, det = ret[i_cnt]
+                        with complexity_analyzer("TRACK", False):
+                            new_im = self.manager.run_tracking_per_frame(
+                                im,
+                                det,
+                                cam=self.cameras[i_cnt],
+                                frame_num=frame_num)
 
-                im, imfile, frame_num, det = ret[i_cnt]
-                complexity_analyzer.start("PROCESS")
-                new_im = self.manager.run_tracking_per_frame(
-                    im, det, cam=self.cameras[i_cnt], frame_num=frame_num)
-                complexity_analyzer.pause("PROCESS")
+                        skimage.io.imsave(
+                            str(self.out_folder[self.cameras[i_cnt]] /
+                                Path(imfile).name), new_im)
+                        cam_frame_num = frame_num
+                        _rets_cam.append((im, imfile, frame_num))
 
-                skimage.io.imsave(
-                    str(self.out_folder[self.cameras[i_cnt]] /
-                        Path(imfile).name), new_im)
-                cam_frame_num = frame_num
-                _rets_cam.append((im, imfile, frame_num))
+                    batch_frames.append(_rets_cam)
+                    if self.params.write:
+                        self.manager.load_info()
 
-            batch_frames.append(_rets_cam)
-            if self.params.write:
-                self.manager.load_info()
+                    # if self.cameras[i_cnt] == "cam13":
+                    #     frame_num += 50
+                    pbar.set_description(
+                        f"{Fore.CYAN} Processing: {cam_frame_num}")
 
-            # if self.cameras[i_cnt] == "cam13":
-            #     frame_num += 50
-            pbar.set_description(f"{Fore.CYAN} Processing: {cam_frame_num}")
-
-        if self.params.write:
-            df_batch = self.manager.get_batch_info()
-            write_path = self.params.rpi_result_file
-            # write output files for NU
-            df_batch['timeoffset'] = df_batch['frame'].apply(
-                lambda frame: '{:.2f}'.format(frame / 30.0))
-            df_batch.to_csv(write_path, index=False, header=True)
-        pbar.close()
-
-        complexity_analyzer.pause("BIN_PROCESS")
+                if self.params.write:
+                    df_batch = self.manager.get_batch_info()
+                    write_path = self.params.rpi_result_file
+                    # write output files for NU
+                    df_batch['timeoffset'] = df_batch['frame'].apply(
+                        lambda frame: '{:.2f}'.format(frame / 30.0))
+                    df_batch.to_csv(write_path, index=False, header=True)
+                pbar.close()
 
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
@@ -173,34 +176,31 @@ class BatchPrecessingMain(object):
         # tell NU that bin is not processed
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
-        complexity_analyzer.current_memory_usage()
-        # complexity_analyzer.process_memory()
-        complexity_analyzer.get_time_info()
-
     def on_after_batch_processing(self, batch_frames) -> None:
-        complexity_analyzer.start("DRAW")
-        self.drawing_obj.draw_batch(batch_frames, self.params.rpi_result_file,
-                                    self.params.mu_result_file,
-                                    self.params.neu_result_file)
-        complexity_analyzer.pause("DRAW")
+        with complexity_analyzer("DRAW"):
+            self.drawing_obj.draw_batch(batch_frames,
+                                        self.params.rpi_result_file,
+                                        self.params.mu_result_file,
+                                        self.params.neu_result_file)
 
     def run(self):
-        complexity_analyzer.start("INIT")
-        counter = 0
-        pbar = tqdm(position=1)
-        while self.yaml_communicator.is_end_of_frames() is False:
-            if self.yaml_communicator.is_batch_ready():
-                complexity_analyzer.start("BATCH")
-                self.process_batch_step()
-                complexity_analyzer.pause("BATCH")
-            else:
-                time.sleep(0.1)  # pause for 0.1 sec
-            pbar.set_description(Fore.YELLOW + f"Loop {counter}")
-            pbar.update()
-            counter += 1
-        pbar.close()
-        complexity_analyzer.pause("INIT")
-        complexity_analyzer.get_time_info()
+        with complexity_analyzer("INIT"):
+            counter = 0
+            pbar = tqdm(position=1)
+            while self.yaml_communicator.is_end_of_frames() is False:
+                if self.yaml_communicator.is_batch_ready():
+                    with complexity_analyzer("BATCH"):
+                        self.process_batch_step()
+
+                    complexity_analyzer.current_memory_usage()
+                    complexity_analyzer.get_time_info()
+
+                else:
+                    time.sleep(0.1)  # pause for 0.1 sec
+                pbar.set_description(Fore.YELLOW + f"Loop {counter}")
+                pbar.update()
+                counter += 1
+            pbar.close()
         complexity_analyzer.final_info()
 
     def _get_batch_file_names(self, load_image=False) -> bool:
@@ -369,6 +369,9 @@ class BatchPrecessingMain(object):
             default=
             "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_NEU.yaml"
         )
+
+        parser.add_argument("--duration", type=float, default=4)
+        parser.add_argument("--fps", type=int, default=10)
 
         if parser.parse_known_args()[0].debug:
             parser.add_argument(

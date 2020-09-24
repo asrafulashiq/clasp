@@ -146,13 +146,11 @@ class Manager:
 
         if cam in self._bin_managers:
             _, boxes, scores, classes = det
-            self.analyzer.start("TRACK")
             self._bin_managers[cam].update_state(im, boxes, scores, classes,
                                                  frame_num)
-            self.analyzer.pause("TRACK")
 
         if return_im:
-            self.analyzer.start("DRAW_BIN")
+            self.analyzer.start("DRAW_BIN", False)
             ret = self.draw(im, cam=cam)
             self.analyzer.pause("DRAW_BIN")
             return ret
