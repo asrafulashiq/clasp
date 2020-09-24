@@ -80,7 +80,7 @@ def vis_one_image_opencv(im,
     """Constructs a numpy array with the detections visualized."""
 
     if boxes is None or boxes.shape[0] == 0 or max(scores) < thresh:
-        return None, None, None, None
+        return im, None, None, None
 
     # Display in largest to smallest order to reduce occlusion
     areas = (boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1])

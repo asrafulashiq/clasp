@@ -3,8 +3,10 @@ import os
 import sys
 from os.path import expanduser
 
-# _HOME = os.environ["HOME"]
-_HOME = "/home/rpi"
+if os.uname()[1] == 'lambda-server':
+    _HOME = "/home/rpi"
+else:
+    _HOME = os.environ["HOME"]
 
 
 def get_parser():
@@ -13,21 +15,21 @@ def get_parser():
     parser.add_argument(
         "--root",
         type=str,
-        default="/home/rpi/dataset/ALERT/alert_frames/20191024",
+        default=_HOME + "/dataset/ALERT/alert_frames/20191024",
         help="root direcotory of all frames",
     )
 
     # NOTE: change output directory to save frames and logs
     parser.add_argument(
         "--out_dir",
-        default="/home/rpi/dataset/ALERT/clasp_data/output",
+        default=_HOME + "/dataset/ALERT/clasp_data/output",
         help="output directory",
     )
 
     parser.add_argument(
         "--bin_ckpt",
         type=str,
-        default="/home/rpi/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
+        default=_HOME + "/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
     )
 
     parser.add_argument("--write",
@@ -62,7 +64,7 @@ def get_parser():
                         nargs="*",
                         default=["cam09", "cam11", "cam13"])
 
-    parser.add_argument("--start_frame", type=int, default=6715)
+    parser.add_argument("--start_frame", type=int, default=3600)
     parser.add_argument("--skip_end", type=int, default=0)
     parser.add_argument("--end_frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=1)
@@ -80,6 +82,8 @@ def get_parser():
         type=str,
         help="info file to save/load",
     )
+
+    parser.add_argument("--out_suffix", type=str, default="")
 
     parser.add_argument("--create_feed", "-f", action="store_true")
     return parser
@@ -128,7 +132,7 @@ def get_conf(parser):
     else:
         conf.fmt_filename_src = conf.root + "/{file_num}/{cam}"
 
-    conf.fmt_filename_out = conf.out_dir + "/run/{file_num}/{cam}"
+    conf.fmt_filename_out = conf.out_dir + "/run/{file_num}" + conf.out_suffix + "/{cam}"
     conf.fmt_filename_out_detection = conf.out_dir + "/out_detection/{file_num}/{cam}"
     conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}"
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
