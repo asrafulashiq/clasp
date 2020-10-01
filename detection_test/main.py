@@ -68,6 +68,7 @@ if __name__ == "__main__":
 
         imlist.append(
             utils.get_images_from_dir(src_folder[cam],
+                                      size=conf.size,
                                       start_frame=start_frame,
                                       skip_end=conf.skip_end,
                                       delta=conf.delta,
