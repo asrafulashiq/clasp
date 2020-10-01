@@ -62,7 +62,7 @@ def get_parser():
     parser.add_argument("--cameras",
                         type=str,
                         nargs="*",
-                        default=["cam09", "cam11", "cam13"])
+                        default=["cam09", "cam11"])
 
     parser.add_argument("--start_frame", type=int, default=3600)
     parser.add_argument("--skip_end", type=int, default=0)
@@ -84,8 +84,11 @@ def get_parser():
     )
 
     parser.add_argument("--out_suffix", type=str, default="")
-
     parser.add_argument("--create_feed", "-f", action="store_true")
+
+    parser.add_argument("--spatial_scale_mul", type=float, default=1)
+    parser.add_argument("--temporal_scale_mul", type=float, default=1)
+
     return parser
 
 

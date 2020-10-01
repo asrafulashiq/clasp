@@ -106,6 +106,8 @@ class Bin:
                 status = False
             else:
                 status = True
+        except KeyboardInterrupt:
+            raise KeyboardInterrupt
         except:
             logger.info("======= TRACK ERROR =======")
             status = False

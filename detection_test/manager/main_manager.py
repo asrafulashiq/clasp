@@ -24,12 +24,12 @@ class Dummy:
 
 class Manager:
     def __init__(
-        self,
-        config,
-        log=None,
-        bin_only=True,
-        write=True,  # whether to save intermediate results
-        analyzer: ComplexityAnalysis = None):
+            self,
+            config,
+            log=None,
+            bin_only=True,
+            write=True,  # whether to save intermediate results
+            analyzer: ComplexityAnalysis = None):
         self.file_num = config.file_num
         self.bin_only = bin_only
         self.cameras = config.cameras
@@ -88,22 +88,26 @@ class Manager:
         self._bin_managers = {}
 
         for camera in self.cameras:
-            self._bin_managers[camera] = BinManager(camera=camera,
+            self._bin_managers[camera] = BinManager(self.config,
+                                                    camera=camera,
                                                     log=self.log)
 
             # set previous camera manager
             if camera == "cam11":
                 self._bin_managers[camera].set_prev_cam_manager(
                     self._bin_managers.get(
-                        "cam09", BinManager(camera="cam09", log=self.log)))
+                        "cam09",
+                        BinManager(self.config, camera="cam09", log=self.log)))
             elif camera == "cam13":
                 self._bin_managers[camera].set_prev_cam_manager(
                     self._bin_managers.get(
-                        "cam11", BinManager(camera="cam11", log=self.log)))
+                        "cam11",
+                        BinManager(self.config, camera="cam11", log=self.log)))
             elif camera == "cam14":
                 self._bin_managers[camera].set_prev_cam_manager(
                     self._bin_managers.get(
-                        "cam13", BinManager(camera="cam13", log=self.log)))
+                        "cam13",
+                        BinManager(self.config, camera="cam13", log=self.log)))
 
     def get_item_bb(self, camera, frame_num, image):
         """ get results from pkl file """

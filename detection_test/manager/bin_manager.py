@@ -1,25 +1,22 @@
 """This script is responsible for managing bins in a camera"""
 
-import logging
 import os
 import numpy as np
 import collections
+import itertools
+import copy
+from omegaconf import OmegaConf
+
 from bin_process.bin import Bin
 from visutils.vis import vis_bins
 import tools.utils_geo as geo
 import tools.utils_box as utils_box
 from tools import nms
-from colorama import Fore, Back
-import copy
 
 
 class BinManager:
-    def __init__(self,
-                 bins=None,
-                 log=None,
-                 detector=None,
-                 camera="cam09",
-                 write=True):
+    def __init__(self, config, bins=None, log=None, camera="cam09"):
+        self.config = config
         self.log = log
         if bins is None:
             self._current_bins = []
@@ -29,212 +26,50 @@ class BinManager:
 
         self._camera = camera
 
-        # initialize configuration
-        self._mul = 3
-        if camera == "cam09":
-            self.init_cam_9()
-        elif camera == "cam11":
-            self.init_cam_11()
-        elif camera == "cam13":
-            self.init_cam_13()
-        elif camera == "cam08":
-            self.init_cam_8()
-        elif camera == "cam20":
-            self.init_cam_20()
+        self.init_camera_params()
 
-        # number of iteration to wait for new bin detection
-        self._wait_new_bin = 15
-
-        self.detector = detector
         self.current_frame = -1
 
         # exit bin labels of previous cameras
         self._prev_cam_exit = None
 
         self._empty_bins = []
+        self._left_bins = []
         self._dummy_bin_count = collections.defaultdict(int)
 
-    @property
-    def detector(self):
-        return self._detector
+    def init_camera_params(self):
+        # initialize configuration
+        self._mul = 3
+        CWD = os.path.dirname(os.path.abspath(__file__))
+        conf_file = os.path.join(CWD, "bin_params.yml")
+        bin_params_for_camera = OmegaConf.load(conf_file)
 
-    @detector.setter
-    def detector(self, _det):
-        self._detector = _det
+        spatial_params = [
+            "_thres_incoming_bin_bound", "_thres_out_bin_bound",
+            "_box_conveyor_belt", "_min_dim"
+        ]
+        spatial_params_area = ["_min_area", "_max_area"]
 
-    def init_cam_9(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        # self._thres_incoming_bin_bound = [
-        #     (165, 117),
-        #     (164, 235),
-        #     (481, 222),
-        #     (475, 110),
-        # ]  # bound for detecting incoming
-
-        self._thres_incoming_bin_bound = [
-            (110, 117),
-            (110, 340),
-            (590, 292),
-            (570, 114),
+        temporal_params = [
+            "_thres_max_idle_count",
+            "_max_det_fail",
+            "_max_track_fail",
+            "maxlen",
         ]
 
-        self._thres_out_bin_bound = [
-            (60, 122),  # (111, 225),
-            (65, 243),  # (131, 113),
-            (90, 236),  # (73, 91),
-            (90, 119),  # (48, 213),
-        ]
-        # self._thres_incoming_bin_init_x = 1420 / 3
-        self._thres_max_idle_count = 5
-        self._box_conveyor_belt = [
-            (51, 120),  # (26, 210),
-            (60, 233),  # (61, 82),
-            (480, 226),  # (496, 180),
-            (474, 110),  # (467, 302),
-        ]  # conveyor belt co-ords (x,y) from bottom left
+        for k, v in itertools.chain(
+                bin_params_for_camera[self._camera].items(),
+                bin_params_for_camera['all'].items()):
+            if isinstance(v, str) and "*" in v:
+                v = eval(v)
+            if k in spatial_params:
+                v = recursive_mul(v, self.config.spatial_scale_mul)
+            elif k in spatial_params_area:
+                v = recursive_mul(v, self.config.spatial_scale_mul**2)
+            elif k in temporal_params:
+                v = recursive_mul(v, self.config.temporal_scale_mul)
 
-        self._max_det_fail = 8 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 5 * self._mul
-        self._rat_track_det = 0.8  # FIXME : should it be less
-
-        self._min_area = 40 * 40
-        self._min_dim = 50  # REVIEW: Is it okay, for camera 9?
-        self._max_area = 120 * 120
-
-    def init_cam_8(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        # self._thres_incoming_bin_bound = [
-        #     (165, 117),
-        #     (164, 235),
-        #     (481, 222),
-        #     (475, 110),
-        # ]  # bound for detecting incoming
-
-        self._thres_incoming_bin_bound = [
-            (271, 225),
-            (400, 302),
-            (514, 97),
-            (410, 54),
-        ]
-
-        self._thres_out_bin_bound = [
-            (413, 68),  # (111, 225),
-            (492, 97),  # (131, 113),
-            (505, 70),  # (73, 91),
-            (432, 40),  # (48, 213),
-        ]
-        # self._thres_incoming_bin_init_x = 1420 / 3
-        self._thres_max_idle_count = 5
-
-        self._max_det_fail = 8 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 5 * self._mul
-        self._rat_track_det = 0.8  # FIXME : should it be less
-
-        self._min_area = 40 * 40
-        self._min_dim = 40  # REVIEW: Is it okay, for camera 9?
-        self._max_area = 120 * 120
-
-    def init_cam_20(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        # self._thres_incoming_bin_bound = [
-        #     (165, 117),
-        #     (164, 235),
-        #     (481, 222),
-        #     (475, 110),
-        # ]  # bound for detecting incoming
-
-        self._thres_incoming_bin_bound = [
-            (82, 153),
-            (621, 252),
-            (618, 189),
-            (125, 87),
-        ]
-
-        self._thres_out_bin_bound = [
-            (571, 177),  # (111, 225),
-            (626, 190),  # (131, 113),
-            (629, 251),  # (73, 91),
-            (563, 244),  # (48, 213),
-        ]
-        # self._thres_incoming_bin_init_x = 1420 / 3
-        self._thres_max_idle_count = 5
-
-        self._max_det_fail = 8 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 5 * self._mul
-        self._rat_track_det = 0.8  # FIXME : should it be less
-
-        self._min_area = 40 * 40
-        self._min_dim = 40  # REVIEW: Is it okay, for camera 9?
-        self._max_area = 120 * 120
-
-    def init_cam_11(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        self._thres_max_idle_count = 5
-
-        self._thres_incoming_bin_bound = [(617, 189), (617, 90), (430, 70),
-                                          (430, 176)]
-
-        self._box_conveyor_belt = [(636, 189), (636, 60), (8, 60), (8, 189)]  #
-
-        self._thres_out_bin_bound = [(0, 77), (0, 187), (90, 184), (90, 62)]
-
-        # NOTE: absolute out
-        self._thres_out_bin_bound_absolute = [(0, 77), (0, 187), (21, 184),
-                                              (21, 62)]
-
-        self._max_det_fail = 4 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 3 * self._mul
-        self._rat_track_det = 1.2
-
-        self._min_dim = 40
-        self._max_area = 140 * 140
-        self._min_area = 40 * 70
-
-    def init_cam_13(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        self._thres_max_idle_count = 5
-
-        self._thres_incoming_bin_bound = [(450, 51), (450, 180), (590, 167),
-                                          (590, 48)]
-
-        self._box_conveyor_belt = [(177, 65), (180, 194), (590, 167),
-                                   (590, 48)]  #
-
-        self._thres_out_bin_bound = [(177, 65), (180, 194), (74, 200),
-                                     (74, 76)]
-
-        self._max_det_fail = 5 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 3 * self._mul
-        self._rat_track_det = 1.2
-
-        self._min_dim = 40
-        self._max_area = 150 * 150
-        self._min_area = 40 * 70
+            setattr(self, k, v)
 
     # NOTE: ONLY FOR CAMERA 11 or 13
     def set_prev_cam_manager(self, _manager):
@@ -769,3 +604,13 @@ class BinManager:
                 elif _type == "empty":
                     self._empty_bins.append(new_bin)
                 self._bin_count = max(self._bin_count, _id)
+
+
+# ------------------------------ Helper function ----------------------------- #
+def recursive_mul(item, scale=1):
+    """ recursively multiply all elements in item """
+    if isinstance(item, collections.abc.Iterable):
+        item = type(item)([recursive_mul(x, scale) for x in item])
+        return item
+    else:
+        return type(item)(item * scale)

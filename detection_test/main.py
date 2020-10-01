@@ -1,7 +1,6 @@
 """ Main file to run the program """
 
 from pathlib import Path
-import cv2
 from tqdm import tqdm
 import tools.utils as utils
 from config import get_conf, get_parser, add_server_specific_arg
@@ -9,7 +8,6 @@ from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
-import torch
 from colorama import init, Fore
 
 init(autoreset=True)
@@ -47,6 +45,7 @@ if __name__ == "__main__":
         out_folder[cam] = Path(
             conf.fmt_filename_out.format(file_num=file_num, cam=cam))
         out_folder[cam].mkdir(parents=True, exist_ok=True)
+        print(f"out_folder {str(out_folder[cam])}")
 
         if cam == "cam13":
             # NOTE: camera 13 is 50 frames behind (approx)
