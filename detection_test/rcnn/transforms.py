@@ -50,10 +50,17 @@ class ToTensor(object):
         image = F.to_tensor(image)
         return image, target
 
+
 class Resize(object):
     def __init__(self, size):
         self.size = size  # w, h
 
     def __call__(self, image, target):
+        width, height = image.size
+        new_w, new_h = self.size
+        rat_w, rat_h = new_w / width, new_h / height
         image = F.resize(image, self.size[::-1])
-        return image, target        
+        bbox = target["boxes"]
+        bbox[:, [0, 2]] *= rat_w
+        bbox[:, [1, 3]] *= rat_h
+        return image, target

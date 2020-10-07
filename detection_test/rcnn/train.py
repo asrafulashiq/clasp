@@ -35,17 +35,18 @@ if __name__ == "__main__":
         default=HOME + "/dataset/ALERT/alert_frames",
         help="root directory where the images are downloaded to")
 
-    parser.add_argument("--ann-file",
+    parser.add_argument("--ann_file",
+                        "-a",
                         type=str,
-                        default=HOME +
-                        "/dataset/clasp/clasp_annotations/ann.json",
+                        default=HOME + "/dataset/ALERT/annotations/ann.json",
                         help="annotation file")
-    parser.add_argument("--out-dir",
+    parser.add_argument("--out_dir",
                         type=str,
                         help="model output directory",
                         default=HOME + "/dataset/ALERT/trained_model")
 
-    parser.add_argument("--out-name",
+    parser.add_argument("--out_name",
+                        "-o",
                         type=str,
                         help="output model name",
                         default="model.pkl")
@@ -59,9 +60,14 @@ if __name__ == "__main__":
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
+    parser.add_argument("--num_workers", type=int, default=6)
+
+    parser.add_argument("--size", type=str, default="640x360")
     args = parser.parse_args()
 
-    args.size = (640, 360)  # width, height
+    args.size = tuple(int(x) for x in args.size.split("x"))  # width, height
+    args.ann_file = os.path.expanduser(args.ann_file)
+    args.root = os.path.expanduser(args.root)
     print(args)
 
     np.random.seed(args.seed)
@@ -101,11 +107,12 @@ if __name__ == "__main__":
         num_workers=4,
         collate_fn=utils.collate_fn)
 
-    data_loader_test = torch.utils.data.DataLoader(dataset_test,
-                                                   batch_size=1,
-                                                   shuffle=False,
-                                                   num_workers=4,
-                                                   collate_fn=utils.collate_fn)
+    data_loader_test = torch.utils.data.DataLoader(
+        dataset_test,
+        batch_size=1,
+        shuffle=False,
+        num_workers=args.num_workers,
+        collate_fn=utils.collate_fn)
 
     # dataset[0]
 
