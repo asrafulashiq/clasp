@@ -20,6 +20,7 @@ def add_bbox_ann(I, anns):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--ann-file",
+                    "-a",
                     type=str,
                     default='annotations/anns_exp1_exp2_traincam9.json')
 parser.add_argument("--seed", type=int, default=0)
