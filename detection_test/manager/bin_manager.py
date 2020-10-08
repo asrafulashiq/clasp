@@ -189,7 +189,7 @@ class BinManager:
 
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
-        self.log.clasp_log(f"{self._camera} : Bin {self._bin_count} enters")
+        self.log.clasp_log(f"{self._camera} : Bin {label} enters")
 
         if self._camera == "cam09":
             self._current_events.append([
