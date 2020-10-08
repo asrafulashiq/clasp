@@ -1,17 +1,14 @@
 import torch
-import torch.nn as nn
-import torchvision
 import argparse
 import os
 from os.path import expanduser
-import utils
+import shutil
 from torchvision.transforms import functional as F
-
+import cv2
 import numpy as np
 from pathlib import Path
 
 import model as models
-import coco_utils
 
 import cv2
 import skimage
@@ -45,15 +42,17 @@ if __name__ == "__main__":
                         type=str,
                         help="Image folder",
                         default=HOME +
-                        "/dataset/ALERT/alert_frames/exp1/cam09/")
+                        "/dataset/ALERT/alert_frames/exp2/cam09/")
     parser.add_argument("--write-folder",
                         type=str,
                         help="Image folder",
                         default=HOME + "/dataset/ALERT/out_rcnn/")
+    parser.add_argument("--size", type=str, default="640x360")
     args = parser.parse_args()
     args.ckpt = expanduser(args.ckpt)
     args.folder = expanduser(args.folder)
     args.write_folder = expanduser(args.write_folder)
+    args.size = tuple(int(x) for x in args.size.split("x"))  # width, height
     print(args)
 
     np.random.seed(args.seed)
@@ -76,12 +75,15 @@ if __name__ == "__main__":
     assert os.path.isdir(args.folder)
     imfiles = sorted(os.listdir(args.folder))
     write_folder = Path(args.write_folder)
+    if write_folder.exists():
+        shutil.rmtree(str(write_folder))
     write_folder.mkdir(exist_ok=True)
 
     for i in tqdm(range(3000, 6800, 100)):
         filename = Path(args.folder) / f"{i:06d}.jpg"
         if filename.exists():
             im = skimage.io.imread(str(filename))
+            im = cv2.resize(im, args.size)
             im = skimage.img_as_float32(im)
             imt = F.to_tensor(im)
             with torch.no_grad():

@@ -148,5 +148,3 @@ if __name__ == "__main__":
         print("Finished epoch {}".format(epoch))
         lr_scheduler.step()
         torch.save(model.state_dict(), str(out_file))
-
-        # evaluate(model, data_loader_test, device=device)

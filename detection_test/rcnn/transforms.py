@@ -56,7 +56,7 @@ class Resize(object):
         self.size = size  # w, h
 
     def __call__(self, image, target):
-        width, height = image.size
+        width, height = 640, 360
         new_w, new_h = self.size
         rat_w, rat_h = new_w / width, new_h / height
         image = F.resize(image, self.size[::-1])

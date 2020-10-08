@@ -18,6 +18,12 @@ class Dummy:
     def __call__(self, *args, **kwargs):
         return self
 
+    def __enter__(self, *args, **kwargs):
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        return self
+
     def __getattr__(self, *args, **kwargs):
         return self
 
@@ -154,9 +160,8 @@ class Manager:
                                                  frame_num)
 
         if return_im:
-            self.analyzer.start("DRAW_BIN", False)
-            ret = self.draw(im, cam=cam)
-            self.analyzer.pause("DRAW_BIN")
+            with self.analyzer("DRAW_BIN", False):
+                ret = self.draw(im, cam=cam)
             return ret
 
     def run_detector_image(self,
@@ -174,9 +179,8 @@ class Manager:
 
         # get dummy results
         if cam in self._bin_managers:
-            self.analyzer.start("DET")
-            boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
-            self.analyzer.pause("DET")
+            with self.analyzer("DET"):
+                boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
             # # :: Something wrong with frame 2757 to 2761 of exp1 cam 09
             # if (boxes is not None and self.file_num == "exp1"
             #         and cam == "cam09" and frame_num >= 2757
@@ -191,14 +195,12 @@ class Manager:
             #         if frame_num > 2761:
             #             bin.init_tracker(pos, im)
             # else:
-            self.analyzer.start("TRACK")
-            self._bin_managers[cam].update_state(im, boxes, scores, classes,
-                                                 frame_num)
-            self.analyzer.pause("TRACK")
+            with self.analyzer("TRACK"):
+                self._bin_managers[cam].update_state(im, boxes, scores,
+                                                     classes, frame_num)
         if return_im:
-            self.analyzer.start("DRAW_BIN")
-            ret = self.draw(im, cam=cam)
-            self.analyzer.pause("DRAW_BIN")
+            with self.analyzer("DRAW_BIN", False):
+                ret = self.draw(im, cam=cam)
             return ret
 
     def draw(self, im, cam="cam09"):
