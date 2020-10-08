@@ -52,6 +52,8 @@ def get_parser():
                         action='store_true',
                         help='whether to run detector or load pre-run results')
 
+    parser.add_argument("--max_batch_detector", type=int, default=10)
+
     parser.add_argument(
         "--info",
         # default=

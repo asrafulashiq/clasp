@@ -47,6 +47,7 @@ duration = args.duration
 duration = "{0:.2f}".format(float(duration))
 count = 0
 framerate = "10"
+filesize = "720x1080"  #or "720x1080"
 timeoffset = args.start_frame / float(framerate)
 
 inputdir = "/home/rpi/data/wrapper_data/"
@@ -116,7 +117,7 @@ while True:
             "cameralist": cameralist,
             "timeoffset": timeoffset,
             "duration": duration,
-            "filesize": "1920x1080",
+            "filesize": filesize,
             "inputdir": inputdir,
             "framerate": framerate
         }
@@ -179,7 +180,7 @@ while True:
             "cameralist": cameralist,
             "timeoffset": timeoffset,
             "duration": duration,
-            "filesize": "1920x1080",
+            "filesize": filesize,
             "inputdir": inputdir,
             "framerate": framerate
         }

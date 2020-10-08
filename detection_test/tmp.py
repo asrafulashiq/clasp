@@ -37,6 +37,7 @@ duration = 4.0
 duration = "{0:.2f}".format(float(duration))
 framerate = "10"
 count = 0
+filesize = "720x1080" #or "720x1080"
 
 inputdir = "/data/ALERT-SHARE/alert-api-wrapper-data/"
 Wrapper_Flag_File = "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_Wrapper.yaml"
@@ -105,7 +106,7 @@ while True:
         except Exception as ex:
             print(ex)
         inputParams = {"dataset": dataset, "cameralist": cameralist, "timeoffset": timeoffset, "duration": duration,
-                       "filesize": "1920x1080", "inputdir": inputdir, "framerate": framerate}
+                       "filesize": filesize, "inputdir": inputdir, "framerate": framerate}
         jsoninputParams = json.dumps(inputParams)
         jsonParams = {"APIParams": jsoninputParams}
         response = requests.get(url=myurl, params=jsonParams)
@@ -158,7 +159,7 @@ while True:
             print("Batch Processing Time: " + time.strftime("%H:%M:%S", time.gmtime(overall_batch_elapsed_time)))
         overall_batch_start_time = time.time()
         inputParams = {"dataset": dataset, "cameralist": cameralist, "timeoffset": timeoffset, "duration": duration,
-                           "filesize": "1920x1080", "inputdir": inputdir, "framerate": framerate}
+                           "filesize": filesize, "inputdir": inputdir, "framerate": framerate}
         jsoninputParams = json.dumps(inputParams)
         jsonParams = {"APIParams": jsoninputParams}
         response = requests.get(url=myurl, params=jsonParams)

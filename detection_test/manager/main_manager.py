@@ -33,12 +33,12 @@ class Dummy:
 
 class Manager:
     def __init__(
-            self,
-            config,
-            log=None,
-            bin_only=True,
-            write=True,  # whether to save intermediate results
-            analyzer: ComplexityAnalysis = None):
+        self,
+        config,
+        log=None,
+        bin_only=True,
+        write=True,  # whether to save intermediate results
+        analyzer: ComplexityAnalysis = None):
         self.file_num = config.file_num
         self.bin_only = bin_only
         self.cameras = config.cameras
@@ -142,9 +142,10 @@ class Manager:
         classes = classes[ind]
         return boxes, scores, classes
 
-    def pre_calculate_detector(self, imlist, return_im=True):
+    def pre_calculate_detector(self, imlist, return_im=True, max_batch=10):
         if self.config.run_detector:
-            info_detector_list = self._detector.predict_box_batch(imlist)
+            info_detector_list = self._detector.predict_box_batch(
+                imlist, max_batch=max_batch)
             return info_detector_list
 
     def run_tracking_per_frame(self,
