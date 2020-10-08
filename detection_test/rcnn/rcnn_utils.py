@@ -24,13 +24,13 @@ class RCNN_Detector():
         if self.fp16:
             self.model = self.model.half()
         self.model.to(self.device)
-        self.model.eval()
 
         if os.path.exists(ckpt):
             self.model.load_state_dict(torch.load(str(ckpt)))
         else:
             raise ValueError(f"{ckpt} does not exist")
 
+        self.model.eval()
         self.labels_to_keep = labels_to_keep
         self.thres = thres
 

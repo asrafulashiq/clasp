@@ -79,12 +79,12 @@ if __name__ == "__main__":
         shutil.rmtree(str(write_folder))
     write_folder.mkdir(exist_ok=True)
 
-    for i in tqdm(range(3000, 6800, 100)):
+    for i in tqdm(range(3600, 4200, 10)):
         filename = Path(args.folder) / f"{i:06d}.jpg"
         if filename.exists():
-            im = skimage.io.imread(str(filename))
+            im = cv2.cvtColor(cv2.imread(str(filename)), cv2.COLOR_BGR2RGB)
             im = cv2.resize(im, args.size)
-            im = skimage.img_as_float32(im)
+            # im = skimage.img_as_float32(im)
             imt = F.to_tensor(im)
             with torch.no_grad():
                 output = model([imt.to(device)])
@@ -92,7 +92,7 @@ if __name__ == "__main__":
                 k: v.to(cpu_device).data.numpy()
                 for k, v in output[0].items()
             }
-            index = (((output["labels"] == 2) | (output["labels"] == 3)) &
+            index = (((output["labels"] == 2)) &
                      (output["scores"] > args.thres))
             if index.size > 0:
                 boxes = output["boxes"][index]
