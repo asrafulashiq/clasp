@@ -109,7 +109,7 @@ def vis_one_image_opencv(im,
 
 
 class DummyDetector:
-    def __init__(self, ckpt=None, thres=0.5, labels_to_keep=(1, 2)):
+    def __init__(self, ckpt=None, thres=0.5, labels_to_keep=(2, )):
         self.model = None
         self.ckpt = ckpt
 

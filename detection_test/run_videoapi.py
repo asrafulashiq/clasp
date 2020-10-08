@@ -1,3 +1,6 @@
+import torch
+torch.backends.cudnn.benchmark = True
+
 from pathlib import Path
 import cv2
 from tqdm import tqdm

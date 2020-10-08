@@ -1,4 +1,6 @@
 """ Main file to run the program """
+import torch
+torch.backends.cudnn.benchmark = True
 
 from pathlib import Path
 from tqdm import tqdm

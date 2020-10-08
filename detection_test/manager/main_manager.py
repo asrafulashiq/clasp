@@ -1,3 +1,6 @@
+import torch
+torch.backends.cudnn.benchmark = True
+
 from manager.bin_manager import BinManager
 # from manager.pax_manager import PAXManager
 from manager.detector import DummyDetector
