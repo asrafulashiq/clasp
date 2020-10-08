@@ -108,13 +108,20 @@ def vis_one_image_opencv(im,
     return im, np.array(_boxes), np.array(_score), np.array(_class)
 
 
-class DummyDetector:
-    def __init__(self, ckpt=None, thres=0.5, labels_to_keep=(2, )):
+class DetectorObj:
+    def __init__(self,
+                 ckpt=None,
+                 thres=0.5,
+                 labels_to_keep=(2, ),
+                 size=(640, 360),
+                 fp16=False):
         self.model = None
         self.ckpt = ckpt
+        self.size = size
 
         # threshold for score
         self.thres = thres
+        self.fp16 = fp16
 
         self.labels_to_keep = labels_to_keep
         # 1 : pax, 2: items
@@ -125,7 +132,9 @@ class DummyDetector:
         self.model = rcnn_utils.RCNN_Detector(
             ckpt=self.ckpt,
             labels_to_keep=self.labels_to_keep,
-            thres=self.thres)
+            thres=self.thres,
+            size=self.size,
+            fp16=self.fp16)
         #* lables to keep is important, 1 means pax, 2 is bins
         self.dummy_coco_dataset = get_clasp_dataset()
 
@@ -182,73 +191,3 @@ class DummyDetector:
             else:
                 results.append((im, None, None, None))
         return results
-
-
-class BinDetector:
-    def __init__(self, ckpt=None, thres=0.5):
-        self.model = None
-        self.ckpt = ckpt
-        self.thres = thres
-        self.create_model()
-
-    def create_model(self):
-        self.model = rcnn_utils.RCNN_Detector(ckpt=self.ckpt,
-                                              labels_to_keep=(2, 3),
-                                              thres=self.thres)
-        self.dummy_coco_dataset = get_clasp_dataset()
-
-    def predict_box(self, im, show=False):
-        ret = self.model(im)
-        if ret is not None:
-            boxes, scores, classes = ret
-            nim = im
-            if show:
-                nim, boxes, scores, classes = vis_one_image_opencv(
-                    im,
-                    boxes,
-                    scores,
-                    classes,
-                    thresh=self.thres,
-                    dataset=self.dummy_coco_dataset,
-                )
-            return nim, boxes, scores, classes
-        else:
-            return im, None, None, None
-
-
-class PAXDetector:
-    def __init__(self, ckpt=None, thres=0.5, labels_to_keep=(1, 2)):
-        self.model = None
-        self.ckpt = ckpt
-
-        # threshold for score
-        self.thres = thres
-
-        self.labels_to_keep = labels_to_keep
-        # 1 : pax, 2: items
-
-        self.create_model()
-
-    def create_model(self):
-        self.model = rcnn_utils.RCNN_Detector(ckpt=self.ckpt,
-                                              labels_to_keep=(1, ),
-                                              thres=self.thres)
-        self.dummy_coco_dataset = get_clasp_dataset()
-
-    def predict_box(self, im, show=False):
-        ret = self.model(im)
-        if ret is not None:
-            boxes, scores, classes = ret
-            nim = im
-            if show:
-                nim, boxes, scores, classes = vis_one_image_opencv(
-                    im,
-                    boxes,
-                    scores,
-                    classes,
-                    thresh=self.thres,
-                    dataset=self.dummy_coco_dataset,
-                )
-            return nim, boxes, scores, classes
-        else:
-            return im, None, None, None

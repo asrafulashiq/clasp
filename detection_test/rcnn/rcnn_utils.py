@@ -7,15 +7,22 @@ from torchvision.transforms import functional as F
 
 import numpy as np
 import rcnn.model as models
-import skimage
 
 
 class RCNN_Detector():
-    def __init__(self, ckpt=None, labels_to_keep=(1, 2), thres=0.5):
+    def __init__(self,
+                 ckpt=None,
+                 labels_to_keep=(1, 2),
+                 thres=0.5,
+                 fp16=False,
+                 size=(640, 360)):
         self.device = torch.device('cuda:0') if torch.cuda.is_available() \
             else torch.device('cpu')
 
-        self.model = models.get_model(num_classes=4)
+        self.fp16 = fp16
+        self.model = models.get_model(num_classes=4, size=size)
+        if self.fp16:
+            self.model = self.model.half()
         self.model.to(self.device)
         self.model.eval()
 
@@ -29,8 +36,10 @@ class RCNN_Detector():
 
     @torch.no_grad()
     def predict_one(self, im, show=False):
-        im = skimage.img_as_float32(im)
+        # im = skimage.img_as_float32(im)
         imt = F.to_tensor(im)
+        if self.fp16:
+            imt = imt.half()
         output = self.model([imt.to(self.device)])
         output = {k: v.cpu().data.numpy() for k, v in output[0].items()}
         index = (np.isin(output["labels"], self.labels_to_keep) &
@@ -45,7 +54,10 @@ class RCNN_Detector():
 
     @torch.no_grad()
     def predict_batch(self, imlist, show=False):
-        imt = [F.to_tensor(im) for im in imlist]
+        if self.fp16:
+            imt = [F.to_tensor(im).half() for im in imlist]
+        else:
+            imt = [F.to_tensor(im) for im in imlist]
         imlist_gpu = torch.stack(imt, dim=0).to(self.device)
         batch_output = self.model(imlist_gpu)
         results = []

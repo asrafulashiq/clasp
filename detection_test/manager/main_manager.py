@@ -3,7 +3,7 @@ torch.backends.cudnn.benchmark = True
 
 from manager.bin_manager import BinManager
 # from manager.pax_manager import PAXManager
-from manager.detector import DummyDetector
+from manager.detector import DetectorObj
 
 import pickle
 import os
@@ -88,9 +88,11 @@ class Manager:
             self._det_bin[camera] = pickle.load(fp)
 
     def init_detectors(self):
-        detector = DummyDetector(ckpt=self.config.bin_ckpt,
-                                 thres=0.3,
-                                 labels_to_keep=(2, ))
+        detector = DetectorObj(ckpt=self.config.bin_ckpt,
+                               thres=0.3,
+                               labels_to_keep=(2, ),
+                               size=self.config.size,
+                               fp16=self.config.fp16)
         self._detector = detector
 
     def init_cameras(self):

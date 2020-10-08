@@ -1,5 +1,5 @@
 import skimage.io
-from manager.detector import DummyDetector
+from manager.detector import DetectorObj
 import os
 import argparse
 import shutil
@@ -35,9 +35,7 @@ if __name__ == "__main__":
         shutil.rmtree(args.output)
     os.makedirs(args.output, exist_ok=True)
 
-    detector = DummyDetector(ckpt=args.bin_ckpt,
-                             thres=0.3,
-                             labels_to_keep=(2, ))
+    detector = DetectorObj(ckpt=args.bin_ckpt, thres=0.3, labels_to_keep=(2, ))
     list_of_files = sorted(os.listdir(args.input))[::args.delta]
 
     for i, imfilebase in enumerate(tqdm(list_of_files)):

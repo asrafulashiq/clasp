@@ -119,7 +119,7 @@ if __name__ == "__main__":
     device = torch.device('cuda') if torch.cuda.is_available() \
         else torch.device('cpu')
 
-    model = model.get_model(num_classes=4)
+    model = model.get_model(num_classes=4, size=args.size)
     model.to(device)
 
     if args.ckpt is not None:

@@ -43,6 +43,10 @@ def get_parser():
         help="image size(width x height)",
     )
 
+    parser.add_argument("--fp16",
+                        action="store_true",
+                        help="whether to activate 16 bit precision")
+
     # whether to also run rcnn detector to detect item
     parser.add_argument('--run_detector',
                         action='store_true',
