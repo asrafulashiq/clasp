@@ -1,3 +1,7 @@
+"""usage:
+
+python train.py -a [annotation_file] -o [output_name] --size [image_size]   
+"""
 import torch
 import torch.nn as nn
 import torchvision

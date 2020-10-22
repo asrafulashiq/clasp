@@ -5,7 +5,7 @@ import math
 import numpy as np
 import cv2
 import csv
-from commands import getstatusoutput as cmd
+from subprocess import getstatusoutput as cmd
 
 # tool version
 scoringToolVersion = "4.0"

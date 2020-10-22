@@ -30,6 +30,9 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     args.size = tuple(int(x) for x in args.size.split('x'))
+    args.input = os.path.expanduser(args.input)
+    args.output = os.path.expanduser(args.output)
+    args.bin_ckpt = os.path.expanduser(args.bin_ckpt)
 
     if os.path.exists(args.output):
         shutil.rmtree(args.output)
