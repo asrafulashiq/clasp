@@ -287,6 +287,7 @@ class DrawClass():
         if self.plot:
             im1 = self.Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
+        print("#draw:1", flush=True)
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
             frame_num, "cam11")
@@ -308,6 +309,8 @@ class DrawClass():
         else:
             im3 = None
         # News feed info
+
+        print("#draw:2", flush=True)
         if self.plot:
             # get message
             msglist.extend(mlist)
@@ -315,6 +318,8 @@ class DrawClass():
 
             f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
+
+        print("#draw:3", flush=True)
 
 
 # if __name__ == "__main__":
