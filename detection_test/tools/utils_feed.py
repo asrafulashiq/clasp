@@ -315,6 +315,7 @@ class DrawClass():
             # get message
             msglist.extend(mlist)
             im_feed = self.vis_feed.draw(im1, im2, im3, frame_num, msglist)
+            print("#draw:2a", flush=True)
 
             f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
