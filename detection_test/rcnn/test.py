@@ -23,7 +23,7 @@ def draw_rect(img, boxes):
     else:
         pt1 = (int(boxes[0]), int(boxes[1]))
         pt2 = (int(boxes[2]), int(boxes[3]))
-        cv2.rectangle(img, pt1, pt2, (0, 0, 1.), 5)
+        cv2.rectangle(img, pt1, pt2, (0, 255, 0), 5)
         return img
 
 
@@ -43,11 +43,16 @@ if __name__ == "__main__":
                         help="Image folder",
                         default=HOME +
                         "/dataset/ALERT/alert_frames/exp2/cam09/")
-    parser.add_argument("--write-folder",
+    parser.add_argument("--write_folder",
                         type=str,
                         help="Image folder",
                         default=HOME + "/dataset/ALERT/out_rcnn/")
     parser.add_argument("--size", type=str, default="640x360")
+    parser.add_argument("--range",
+                        type=int,
+                        nargs=3,
+                        default=[2600, 10000, 100])
+
     args = parser.parse_args()
     args.ckpt = expanduser(args.ckpt)
     args.folder = expanduser(args.folder)
@@ -77,9 +82,9 @@ if __name__ == "__main__":
     write_folder = Path(args.write_folder)
     if write_folder.exists():
         shutil.rmtree(str(write_folder))
-    write_folder.mkdir(exist_ok=True)
+    write_folder.mkdir(exist_ok=True, parents=True)
 
-    for i in tqdm(range(3600, 4200, 10)):
+    for i in tqdm(range(*args.range)):
         filename = Path(args.folder) / f"{i:06d}.jpg"
         if filename.exists():
             im = cv2.cvtColor(cv2.imread(str(filename)), cv2.COLOR_BGR2RGB)

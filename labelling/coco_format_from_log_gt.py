@@ -1,4 +1,4 @@
-"""python -m pdb coco_format_from_clasp_gt.py --out_name fullsize  --exp  exp3  --cam cam14 --size 1920x1080
+"""python -m pdb coco_format_from_log_gt.py --out_name test --size 1920x1080 --frame_rate []
 """
 import json
 from pathlib import Path
@@ -14,39 +14,39 @@ from tqdm import tqdm
 
 
 def parse_file(fname):
-    p = parse.parse('cam{cam:d}{exp}', fname)
+    p = parse.parse('cam{cam:d}exp{exp:d}{other}', fname)
     cam = p['cam']
     exp = p['exp']
-    nfname = f'{exp}/cam{cam:02d}'
+    nfname = f'exp{exp}/cam{cam:02d}'
     return nfname
 
 
 if __name__ == "__main__":
     HOME = os.environ['HOME']
     parser = argparse.ArgumentParser()
-    parser.add_argument("--root",
-                        type=str,
-                        default=HOME + '/dataset/ALERT/annotation')
+    parser.add_argument("--root", type=str, default='./alert_log_gt')
     parser.add_argument("--out",
                         type=str,
                         help="save path of json",
                         default="annotations")
     # default=HOME+'/dataset/clasp/clasp_annotations')
-    parser.add_argument("--out_name", type=str, default="anns")
+    parser.add_argument("--out_name", type=str, default="test")
     parser.add_argument("--im_folder",
                         type=str,
                         default=HOME + '/dataset/ALERT/alert_frames')
     parser.add_argument("--test", action='store_true')
-    parser.add_argument("--exp", default=None, type=str, nargs='*')
-    parser.add_argument("--cam", default=None, type=str, nargs='*')
+    parser.add_argument("--exp", type=str, nargs='*', default=["exp"])
+    parser.add_argument("--cam", type=str, nargs='*', default=["cam"])
     parser.add_argument('--size',
                         type=str,
-                        default='640x360',
+                        default=None,
                         help='image size(width x height)')
-
+    parser.add_argument("--frame_rate", type=int, default=30)
+    # parser.add_argument("--ann_files", type=str, nargs="*")
     args = parser.parse_args()
 
-    args.size = tuple(int(x) for x in args.size.split('x'))
+    if args.size is not None:
+        args.size = tuple(int(x) for x in args.size.split('x'))
     print(args)
 
     Path(args.out).mkdir(exist_ok=True)
@@ -94,18 +94,12 @@ if __name__ == "__main__":
 
     # concatenate all annotations
     path_dir = Path(args.root)
-    anns = []
-    for json_dir in path_dir.iterdir():
-        if args.exp is not None and (json_dir.name in args.exp):
-            for file in json_dir.iterdir():
-                if file.stem in args.cam:
-                    if str(file).endswith('json'):
-                        fdata = json.load(file.open())
-                        if len(fdata) == 2:
-                            fdata = fdata[0]
-                        anns.extend(fdata)
+    ann_files = list(path_dir.iterdir())
 
-    print(anns[0])
+    DVI_LINE = (
+        "LOC: type: DVI camera-num: {camera} frame: {frame:d} time-offset:"
+        " {time_offset} BB: {x1:d}, {y1:d}, {x2:d}, {y2:d} ID: {bin_id} PAX-ID: {pax_id} "
+        "{others}")
 
     dict_cat = {'passengers': 1, 'items': 2}
     data = {}
@@ -127,56 +121,59 @@ if __name__ == "__main__":
     counter_id = 1
     counter_im = 1
 
-    for each_ann_file in tqdm(anns):
-        if 'camera' in each_ann_file:
-            fcam = parse_file(each_ann_file['camera'])
-        elif 'camera_filename' in each_ann_file:
-            fcam = parse_file(each_ann_file['camera_filename'])
-        else:
-            raise KeyError
-        frame = f"{int(each_ann_file['frame']):06d}.jpg"
-        fname = os.path.join(fcam, frame)
+    for each_ann_file in tqdm(ann_files):
+        basename = Path(str(each_ann_file)).stem
+        fcam = parse_file(basename)
 
-        if not fname in dict_im:
-            dict_im[fname] = counter_im
-            counter_im += 1
+        with open(os.path.expanduser(each_ann_file), 'r') as fp:
+            for line in fp:
+                info = parse.parse(DVI_LINE, line.strip())
 
-        imfile = os.path.join(args.im_folder, fname)
-        h, w, _ = cv2.imread(imfile).shape
+                if not info:
+                    continue
 
-        for _ann in each_ann_file['items']:
+                wt_fps = args.frame_rate / 30
+                frame = f"{int((info['frame']+1) / wt_fps+310):06d}.jpg"
+                fname = os.path.join(fcam, frame)
 
-            rat_w, rat_h = args.size[0] / w, args.size[1] / h
+                imfile = os.path.join(args.im_folder, fname)
+                h, w, _ = cv2.imread(imfile).shape
+                if args.size is None:
+                    rat_w, rat_h = 1, 1
+                else:
+                    rat_w, rat_h = args.size[0] / w, args.size[1] / h
 
-            tmp = {
-                "id":
-                counter_id,
-                "image_id":
-                dict_im[fname],
-                "category_id":
-                dict_cat['items'],
-                "area":
-                args.size[0] * args.size[1],
-                'segmentation': [],
-                "bbox": [
-                    _ann['location']['x'] * rat_w,
-                    _ann['location']['y'] * rat_h,
-                    _ann['size']['width'] * rat_w,
-                    _ann['size']['height'] * rat_h
-                ],
-                "iscrowd":
-                0,
-            }
-            data['annotations'].append(tmp)
-            counter_id += 1
+                if not fname in dict_im:
+                    dict_im[fname] = [counter_im, w, h]
+                    counter_im += 1
+
+                tmp = {
+                    "id":
+                    counter_id,
+                    "image_id":
+                    dict_im[fname][0],
+                    "category_id":
+                    dict_cat['items'],
+                    "area":
+                    w * h,
+                    'segmentation': [],
+                    "bbox": [
+                        info['x1'] * rat_w, info['y1'] * rat_h,
+                        (info['x2'] - info['x1']) * rat_w,
+                        (info['y2'] - info['y1']) * rat_h
+                    ],
+                    "iscrowd":
+                    0,
+                }
+                data['annotations'].append(tmp)
+                counter_id += 1
 
     for k in dict_im:
         data['images'].append({
             'file_name': k,
-            'id': dict_im[k],
-            # 'width': w, 'height': h
-            'width': args.size[0],
-            'height': args.size[1]
+            'id': dict_im[k][0],
+            'width': dict_im[k][1],
+            'height': dict_im[k][2]
         })
 
     with open(out_path, 'w') as ftarget:

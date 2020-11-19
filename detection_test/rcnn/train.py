@@ -18,15 +18,17 @@ import model
 import coco_utils
 
 
-def get_transform(train=True, size=(640, 360)):
+def get_transform(train=True, size=(640, 360), orig_size=(1920, 1080)):
     transforms = []
     # converts the image, a PIL image, into a PyTorch Tensor
-    transforms.append(T.Resize(size))
-    transforms.append(T.ToTensor())
+    transforms.append(T.Resize(size, orig_size))
+
     if train:
         # during training, randomly flip the training images
         # and ground-truth for data augmentation
-        transforms.append(T.RandomHorizontalFlip(0.5))
+        # transforms.append(T.RandomHorizontalFlip(0.5))
+        transforms.append(T.ExtraBBAug())
+    transforms.append(T.ToTensor())
     return T.Compose(transforms)
 
 
@@ -61,17 +63,21 @@ if __name__ == "__main__":
                         default=0.9)
     parser.add_argument("--ckpt", type=str, default=None)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--num_workers", type=int, default=6)
 
+    parser.add_argument("--orig_size", type=str, default="1920x1080")
     parser.add_argument("--size", type=str, default="640x360")
     args = parser.parse_args()
 
     args.size = tuple(int(x) for x in args.size.split("x"))  # width, height
-    args.ann_file = os.path.expanduser(args.ann_file)
-    args.root = os.path.expanduser(args.root)
+    args.orig_size = tuple(int(x)
+                           for x in args.orig_size.split("x"))  # width, height
+
+    args.ann_file = os.path.abspath(os.path.expanduser(args.ann_file))
+    args.root = os.path.abspath(os.path.expanduser(args.root))
     print(args)
 
     np.random.seed(args.seed)
@@ -86,13 +92,13 @@ if __name__ == "__main__":
     dataset_train = coco_utils.get_coco(args.root,
                                         args.ann_file,
                                         transforms=get_transform(
-                                            True, args.size))
+                                            True, args.size, args.orig_size))
     dataset_test = coco_utils.get_coco(args.root,
                                        args.ann_file,
                                        transforms=get_transform(
-                                           False, args.size))
+                                           False, args.size, args.orig_size))
 
-    print(dataset_train[100][1])
+    print(dataset_train[80][1])
 
     # split into train and test
     train_size = int(args.split * len(dataset_train))
@@ -127,7 +133,8 @@ if __name__ == "__main__":
     model.to(device)
 
     if args.ckpt is not None:
-        model.load_state_dict(torch.load(args.ckpt))
+        model.load_state_dict(
+            torch.load(os.path.expanduser(os.path.abspath(args.ckpt))))
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
