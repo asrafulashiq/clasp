@@ -240,12 +240,6 @@ class IntegratorClass:
 import multiprocessing
 
 
-def draw_batch(self, batch_frames, *csv_files):
-    self.Info.load_info(*csv_files)
-    for out in tqdm(batch_frames, desc="Drawing", position=10):
-        self._draw_frame(*out)
-
-
 class DrawClass():
     def __init__(self, conf=None, plot=True) -> None:
         self.vis_feed = VisFeed()
@@ -260,9 +254,8 @@ class DrawClass():
 
     def run_process(self, batch_frames, *csv_files):
         def get_proc():
-            return multiprocessing.Process(target=draw_batch,
-                                           args=(self, batch_frames,
-                                                 *csv_files))
+            return multiprocessing.Process(target=self.draw_batch,
+                                           args=(batch_frames, *csv_files))
 
         if not hasattr(self, "proc"):
             self.proc = get_proc()
@@ -272,6 +265,11 @@ class DrawClass():
             self.proc.close()
             self.proc = get_proc()
         self.proc.start()
+
+    def draw_batch(self, batch_frames, *csv_files):
+        self.Info.load_info(*csv_files)
+        for out in tqdm(batch_frames, desc="Drawing", position=10):
+            self._draw_frame(*out)
 
     def _draw_frame(self, out1, out2, out3):
         im1, imfile1, _ = out1
