@@ -268,7 +268,8 @@ class DrawClass():
 
     def draw_batch(self, batch_frames, *csv_files):
         self.Info.load_info(*csv_files)
-        for out in tqdm(batch_frames, desc="Drawing", position=10):
+        # for out in tqdm(batch_frames, desc="Drawing", position=10):
+        for out in batch_frames:
             self._draw_frame(*out)
 
     def _draw_frame(self, out1, out2, out3=None):
