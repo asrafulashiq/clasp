@@ -73,7 +73,7 @@ def get_parser():
     parser.add_argument("--start_frame", type=int, default=3600)
     parser.add_argument("--skip_end", type=int, default=0)
     parser.add_argument("--end_frame", type=int, default=None)
-    parser.add_argument("--delta", type=int, default=1)
+    parser.add_argument("--delta", type=int, default=3)
     parser.add_argument("--plot", action="store_true")
 
     # NOTE: DEBUG only

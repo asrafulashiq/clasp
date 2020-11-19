@@ -210,9 +210,10 @@ class BatchPrecessingMain(object):
 
     def _get_batch_file_names(self, load_image=False) -> bool:
         """ return: True denotes there are some files to process """
-        batch_files_to_process: Dict[str,
-                                     List] = {cam: []
-                                              for cam in self.cameras}
+        batch_files_to_process: Dict[str, List] = {
+            cam: []
+            for cam in self.cameras
+        }
 
         flag = False
         for cam, cam_num in zip(self.cameras, self.cameras_short):
@@ -241,11 +242,11 @@ class BatchPrecessingMain(object):
             self._last_frame[cam] = last_frame
         return batch_files_to_process, flag
 
-    def load_images_from_files(
-            self,
-            file_list: List[str],
-            size=(640, 360),
-            file_only=False) -> List[Tuple[np.ndarray, str, int]]:
+    def load_images_from_files(self,
+                               file_list: List[str],
+                               size=(640, 360),
+                               file_only=False
+                               ) -> List[Tuple[np.ndarray, str, int]]:
         """ get images as numpy array from a folder"""
         data = []
         for imfile in file_list:
