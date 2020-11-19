@@ -237,7 +237,10 @@ class IntegratorClass:
         return im
 
 
-class DrawClass:
+import multiprocessing
+
+
+class DrawClass():
     def __init__(self, conf=None, plot=True) -> None:
         self.vis_feed = VisFeed()
         self.Info = IntegratorClass()
@@ -248,6 +251,21 @@ class DrawClass:
         if self.feed_folder.exists():
             shutil.rmtree(str(self.feed_folder))
         self.feed_folder.mkdir(exist_ok=True)
+
+    def run_process(self, batch_frames, *csv_files):
+        def get_proc():
+            return multiprocessing.Process(target=self.draw_batch,
+                                           args=(self, batch_frames,
+                                                 *csv_files))
+
+        if not hasattr(self, "proc"):
+            self.proc = get_proc()
+
+        if self.proc.is_alive():
+            self.proc.join()
+            self.proc.close()
+            self.proc = get_proc()
+        self.proc.start()
 
     def draw_batch(self, batch_frames, *csv_files):
         self.Info.load_info(*csv_files)

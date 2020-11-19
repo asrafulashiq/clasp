@@ -115,9 +115,10 @@ class BatchPrecessingMain(object):
                                 cam=self.cameras[i_cnt],
                                 frame_num=frame_num)
 
-                        skimage.io.imsave(
-                            str(self.out_folder[self.cameras[i_cnt]] /
-                                Path(imfile).name), new_im)
+                        if self.params.save_im == "true":
+                            skimage.io.imsave(
+                                str(self.out_folder[self.cameras[i_cnt]] /
+                                    Path(imfile).name), new_im)
                         cam_frame_num = frame_num
                         _rets_cam.append((im, imfile, frame_num))
 
@@ -183,10 +184,10 @@ class BatchPrecessingMain(object):
 
     def on_after_batch_processing(self, batch_frames) -> None:
         with complexity_analyzer("DRAW"):
-            self.drawing_obj.draw_batch(batch_frames,
-                                        self.params.rpi_result_file,
-                                        self.params.mu_result_file,
-                                        self.params.neu_result_file)
+            self.drawing_obj.run_process(batch_frames,
+                                         self.params.rpi_result_file,
+                                         self.params.mu_result_file,
+                                         self.params.neu_result_file)
 
     def run(self):
         with complexity_analyzer("INIT"):
@@ -289,7 +290,7 @@ class BatchPrecessingMain(object):
         parser.add_argument("--cameras",
                             type=str,
                             nargs="*",
-                            default=["9", "11", "13"])
+                            default=["9", "11"])
 
         parser.add_argument(
             "--flag_file",
@@ -347,6 +348,8 @@ class BatchPrecessingMain(object):
 
         parser.add_argument("--duration", type=float, default=4)
         parser.add_argument("--fps", type=int, default=10)
+
+        parser.add_argument("--save_im", type=str, default="true")
 
         if parser.parse_known_args()[0].debug:
             parser.add_argument(
