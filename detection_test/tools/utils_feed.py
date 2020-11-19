@@ -319,6 +319,7 @@ class DrawClass():
 
             f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
             skimage.io.imsave(str(f_write), im_feed)
+            print("#draw:2b", flush=True)
 
         print("#draw:3", flush=True)
 
