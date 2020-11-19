@@ -271,10 +271,11 @@ class DrawClass():
         for out in tqdm(batch_frames, desc="Drawing", position=10):
             self._draw_frame(*out)
 
-    def _draw_frame(self, out1, out2, out3):
+    def _draw_frame(self, out1, out2, out3=None):
         im1, imfile1, _ = out1
         im2, imfile2, _ = out2
-        im3, imfile3, _ = out3
+        if out3 is not None:
+            im3, imfile3, _ = out3
 
         frame_num = frame_to_time(imfile1)
         # Cam 09
@@ -292,13 +293,18 @@ class DrawClass():
             im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         # Cam 13
-        frame_num3 = frame_to_time(imfile3)
-        info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
-            frame_num3, "cam13")
-        # full_log_cam13.extend(logs)
-        if self.plot:
-            im3 = self.Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
-
+        if out3 is not None:
+            frame_num3 = frame_to_time(imfile3)
+            info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
+                frame_num3, "cam13")
+            # full_log_cam13.extend(logs)
+            if self.plot:
+                im3 = self.Info.draw_im(im3,
+                                        info_bin,
+                                        info_pax,
+                                        font_scale=0.7)
+        else:
+            im3 = None
         # News feed info
         if self.plot:
             # get message
