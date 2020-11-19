@@ -33,12 +33,12 @@ class Dummy:
 
 class Manager:
     def __init__(
-        self,
-        config,
-        log=None,
-        bin_only=True,
-        write=True,  # whether to save intermediate results
-        analyzer: ComplexityAnalysis = None):
+            self,
+            config,
+            log=None,
+            bin_only=True,
+            write=True,  # whether to save intermediate results
+            analyzer: ComplexityAnalysis = None):
         self.file_num = config.file_num
         self.bin_only = bin_only
         self.cameras = config.cameras

@@ -29,7 +29,7 @@ def get_parser():
     parser.add_argument(
         "--bin_ckpt",
         type=str,
-        default=_HOME + "/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
+        default=_HOME + "/dataset/ALERT/trained_model/weight_1280x720_aug.pkl",
     )
 
     parser.add_argument("--write",
@@ -39,7 +39,8 @@ def get_parser():
     parser.add_argument(
         "--size",
         type=str,
-        default="640x360",
+        # default="640x360",
+        default="1280x720",
         help="image size(width x height)",
     )
 
@@ -70,7 +71,7 @@ def get_parser():
                         nargs="*",
                         default=["cam09", "cam11"])
 
-    parser.add_argument("--start_frame", type=int, default=3600)
+    parser.add_argument("--start_frame", type=int, default=2500)
     parser.add_argument("--skip_end", type=int, default=0)
     parser.add_argument("--end_frame", type=int, default=None)
     parser.add_argument("--delta", type=int, default=3)
@@ -92,8 +93,8 @@ def get_parser():
     parser.add_argument("--out_suffix", type=str, default="")
     parser.add_argument("--create_feed", "-f", action="store_true")
 
-    parser.add_argument("--spatial_scale_mul", type=float, default=1)
-    parser.add_argument("--temporal_scale_mul", type=float, default=1)
+    parser.add_argument("--spatial_scale_mul", type=float, default=2)
+    parser.add_argument("--temporal_scale_mul", type=float, default=3)
 
     return parser
 

@@ -19,6 +19,9 @@ if os.uname()[1] == 'lambda-server':  # code is in clasp server
     parser = add_server_specific_arg(parser)
 conf = get_conf(parser)
 
+# FIXME
+conf.run_detector = True
+
 if __name__ == "__main__":
     log = ClaspLogger()
 

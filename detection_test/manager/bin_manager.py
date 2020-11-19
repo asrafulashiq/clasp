@@ -98,7 +98,10 @@ class BinManager:
         if self._camera in ("cam11", "cam13"):
             # set label based on camera 9
             try:
-                for i_man in range(len(self._manager_prev_cam._left_bins)):
+                # for i_man in range(len(self._manager_prev_cam._left_bins)):
+
+                i_man = 0
+                while True:
                     # while len(self._manager_prev_cam._left_bins) > 0:
                     mbin = self._manager_prev_cam._left_bins[i_man]["bin"]
                     mbin_frame = self._manager_prev_cam._left_bins[i_man][
@@ -130,6 +133,7 @@ class BinManager:
                         tmp_labs.append(bin.label)
                     if label in tmp_labs:
                         self._manager_prev_cam._left_bins.pop(i_man)
+                        # i_man += 1
                         continue
                     break
                 else:
@@ -444,8 +448,8 @@ class BinManager:
                 # bin is not completely out of bound from camera 11,
                 # it's still need to be tracked
                 if self._camera == "cam11":
-                    if not geo.point_in_box(
-                            bin.centroid, self._thres_out_bin_bound_absolute):
+                    if not geo.point_in_box(bin.centroid,
+                                            self._thres_out_bin_bound):
                         _ind.append(i)
                     else:
                         bin.clear_track()
