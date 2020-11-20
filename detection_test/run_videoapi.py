@@ -66,6 +66,8 @@ class BatchPrecessingMain(object):
                     file_num=self.params.file_num, cam=cam))
             self.out_folder[cam].mkdir(parents=True, exist_ok=True)
 
+        print(self.params)
+
     def process_batch_step(self) -> None:
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
@@ -404,6 +406,7 @@ class BatchPrecessingMain(object):
                 help="root direcotory of all frames",
             )
 
+        # NOTE where to start
         parser.add_argument("--start_frame", type=int, default=0)
 
         conf = get_conf(parser)
