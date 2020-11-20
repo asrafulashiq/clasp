@@ -29,7 +29,7 @@ def get_parser():
     parser.add_argument(
         "--bin_ckpt",
         type=str,
-        default=_HOME + "/dataset/ALERT/trained_model/weight_1280x720_aug.pkl",
+        default=_HOME + "/dataset/ALERT/trained_model/weight_640x360.pkl",
     )
 
     parser.add_argument("--write",
@@ -39,8 +39,8 @@ def get_parser():
     parser.add_argument(
         "--size",
         type=str,
-        # default="640x360",
-        default="1280x720",
+        default="640x360",
+        # default="1280x720",
         help="image size(width x height)",
     )
 
