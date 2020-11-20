@@ -184,10 +184,14 @@ class BatchPrecessingMain(object):
 
     def on_after_batch_processing(self, batch_frames) -> None:
         with complexity_analyzer("DRAW"):
-            self.drawing_obj.run_process(batch_frames,
-                                         self.params.rpi_result_file,
-                                         self.params.mu_result_file,
-                                         self.params.neu_result_file)
+            # self.drawing_obj.run_process(batch_frames,
+            #                              self.params.rpi_result_file,
+            #                              self.params.mu_result_file,
+            #                              self.params.neu_result_file)
+            self.drawing_obj.draw_batch(batch_frames,
+                                        self.params.rpi_result_file,
+                                        self.params.mu_result_file,
+                                        self.params.neu_result_file)
 
     def run(self):
         with complexity_analyzer("INIT"):

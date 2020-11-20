@@ -261,8 +261,8 @@ class DrawClass():
             self.proc = get_proc()
 
         if self.proc.is_alive():
-            # self.proc.join()
-            self.proc.terminate()
+            self.proc.join()
+            # self.proc.terminate()
             self.proc.close()
             self.proc = get_proc()
         self.proc.start()
