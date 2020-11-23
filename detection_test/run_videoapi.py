@@ -33,6 +33,9 @@ class BatchPrecessingMain(object):
 
         self.params = self.config_parser()
         self.params.run_detector = True
+        # NOTE newsfeed plot
+        self.params.plot = True
+
         self.logger = ClaspLogger()
 
         cam = copy.deepcopy(self.params.cameras)
