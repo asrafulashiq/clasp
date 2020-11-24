@@ -28,7 +28,7 @@ from collections import defaultdict
 # nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
 
 
-def to_sec(frame, fps=30):
+def to_sec(frame, fps=10):
     return str(int(frame) // fps) + "s"
 
 
@@ -123,17 +123,17 @@ class IntegratorClass:
             des = des[0]
             for each_split in des.split(","):
                 each_split = each_split.strip()
-                pp = parse("'|P{pax_id:d}|{event_str}|Bin {bin_id:d}|'",
+                pp = parse("'{event_str}|P{pax_id:d}|{tmp}|Bin {bin_id:d}|'",
                            each_split)
                 if pp is not None:
                     bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
                         pp['pax_id'])
-                    if "owner of" in pp['event_str']:
+                    if "XFR" in pp['event_str'] and "owner of" in pp['tmp']:
                         # association
                         asso_info[cam][bin_id][frame] = pax_id
                     elif "hand in" in pp['event_str']:
                         pass
-                    elif "suspicious" in pp['event_str']:
+                    elif "suspicious" in pp['event_str'].lower():
                         asso_msg[cam][frame] = [
                             cam, frame,
                             each_split.replace("|", "").replace("'", "")
@@ -159,7 +159,7 @@ class IntegratorClass:
                 else:
                     pax_type = "PAX"
                 log = (
-                    f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
+                    f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
                     +
                     f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
                     + f"ID: {row['id']}")
@@ -230,9 +230,10 @@ class IntegratorClass:
                     pass
                 else:
                     list_event_bin.append([row["type"], row["msg"]])
-                    msglist.append(
-                        [row["camera"][-2:],
-                         to_sec(row["frame"]), row["msg"]])
+                    msglist.append([
+                        row["camera"][-2:],
+                        to_sec(row["frame"], fps=self.fps), row["msg"]
+                    ])
 
             # add 'theft' message for visualization
             # if frame in self.asso_msg:
@@ -277,7 +278,7 @@ class IntegratorClass:
 class DrawClass():
     def __init__(self, conf=None, plot=True) -> None:
         self.vis_feed = VisFeed()
-        self.Info = IntegratorClass()
+        self.Info = IntegratorClass(fps=conf.fps)
         self.plot = plot
         self.conf = conf
 

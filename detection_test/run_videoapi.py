@@ -35,6 +35,7 @@ class BatchPrecessingMain(object):
         self.params.run_detector = True
         # NOTE newsfeed plot
         self.params.plot = True
+        self.params.write = True
 
         self.logger = ClaspLogger()
 
@@ -141,14 +142,14 @@ class BatchPrecessingMain(object):
                     write_path = self.params.rpi_result_file
                     # write output files for NU
                     df_batch['timeoffset'] = df_batch['frame'].apply(
-                        lambda frame: '{:.2f}'.format(frame / 30.0))
+                        lambda frame: '{:.2f}'.format(frame / self.params.fps))
                     df_batch.to_csv(write_path, index=False, header=True)
                 pbar.close()
 
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
 
-        # TODO: create combined log and feed
+        # TODO create combined log and feed
         if self.params.debug:
             self.logger.debug("DEBUG: mock create combined output")
             if self.params.create_feed:
@@ -211,7 +212,7 @@ class BatchPrecessingMain(object):
                     complexity_analyzer.get_time_info()
 
                 else:
-                    time.sleep(0.1)  # pause for 0.1 sec
+                    time.sleep(0.05)  # pause for 0.1 sec
                 pbar.set_description(Fore.YELLOW + f"Loop {counter}")
                 pbar.update()
                 counter += 1
@@ -253,27 +254,6 @@ class BatchPrecessingMain(object):
                 last_frame = cur_frame
             self._last_frame[cam] = last_frame
         return batch_files_to_process, flag
-
-    def load_images_from_files(self,
-                               file_list: List[str],
-                               size=(640, 360),
-                               file_only=False
-                               ) -> List[Tuple[np.ndarray, str, int]]:
-        """ get images as numpy array from a folder"""
-        data = []
-        for imfile in file_list:
-            imfile = pathlib.Path(imfile)
-            if not imfile.exists():
-                logger.info(imfile, "does not exist")
-                continue
-            if file_only:
-                image = None
-            else:
-                image = self.read_image(imfile)
-            # get frame number
-            frame_num = int(imfile.stem.split('_')[-1])
-            data.append((image, imfile, frame_num))
-        return data
 
     @staticmethod
     def read_image(imfile, size=(640, 360)):
@@ -423,3 +403,24 @@ class BatchPrecessingMain(object):
 if __name__ == "__main__":
     runner = BatchPrecessingMain()
     runner.run()
+
+    # def load_images_from_files(self,
+    #                            file_list: List[str],
+    #                            size=(640, 360),
+    #                            file_only=False
+    #                            ) -> List[Tuple[np.ndarray, str, int]]:
+    #     """ get images as numpy array from a folder"""
+    #     data = []
+    #     for imfile in file_list:
+    #         imfile = pathlib.Path(imfile)
+    #         if not imfile.exists():
+    #             logger.info(imfile, "does not exist")
+    #             continue
+    #         if file_only:
+    #             image = None
+    #         else:
+    #             image = self.read_image(imfile)
+    #         # get frame number
+    #         frame_num = int(imfile.stem.split('_')[-1])
+    #         data.append((image, imfile, frame_num))
+    #     return data
