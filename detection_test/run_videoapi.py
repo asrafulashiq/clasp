@@ -322,7 +322,7 @@ class BatchPrecessingMain(object):
             "--mu_result_file",
             type=str,
             default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/mu/log_batch_mu_current.csv"
+            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/mu/log_batch_mu_current.csv"
         )
 
         parser.add_argument(
