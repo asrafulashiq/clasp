@@ -328,7 +328,7 @@ class DrawClass():
 
         # print("#draw:1", flush=True)
         # Cam 11
-        info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
+        info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
             frame_num, "cam11")
         self.full_log.extend(logs)
         if self.plot:
@@ -338,7 +338,7 @@ class DrawClass():
         im3 = None
         if out3 is not None:
             frame_num3 = frame_to_time(imfile3)
-            info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
+            info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
                 frame_num3, "cam13")
             self.full_log.extend(logs)
             if self.plot:
