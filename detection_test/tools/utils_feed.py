@@ -39,11 +39,12 @@ def frame_to_time(imfile):
 
 
 class IntegratorClass:
-    def __init__(self):
+    def __init__(self, fps=10):
         self.bin_pax = {}
         self.tmp = []
         # to determine first used
         self.item_first_used = []
+        self.fps = fps
 
     def load_info(self, bin_file, pax_file, nu_file_cam):
         # load bin
@@ -99,7 +100,7 @@ class IntegratorClass:
     def get_association_info(self, nu_file):
         asso_info = defaultdict(lambda: defaultdict(dict))
         asso_msg = defaultdict(dict)
-        return asso_info, asso_msg
+        # return asso_info, asso_msg
 
         # fid, cam, events
         df = pd.read_csv(nu_file, header=None, names=["frame", "cam", "des"])
@@ -141,6 +142,7 @@ class IntegratorClass:
 
     def get_info_from_frame(self, frame, cam="cam09"):
         # get pax info
+        logs = []
         df = self.df_pax
         msglist = []
         info = df[(df["frame"] == frame) & (df["camera"] == cam)]
@@ -152,6 +154,16 @@ class IntegratorClass:
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
                     row["y2"]
                 ])
+                if "TSO" in row["id"]:
+                    pax_type = "TSO"
+                else:
+                    pax_type = "PAX"
+                log = (
+                    f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/30:.2f} "
+                    +
+                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                    + f"ID: {row['id']}")
+                logs.append(log)
 
         # get bin info.
         df = self.df_bin
@@ -184,7 +196,32 @@ class IntegratorClass:
                     self.bin_pax.get(_id, ""),
                 ])
 
+                # FIXME left-behind calculation
+                left_behind = "false"
+                log = (
+                    f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                    +
+                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                    +
+                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                )
+                logs.append(log)
+
             else:  # event type
+                if (row["type"] == "enter" and cam == "cam09") or \
+                     row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
+                    # xfr event
+                    _id = "B" + str(row["id"])
+                    _type = "TO" if cam == "cam09" else "FROM"
+                    log = (
+                        f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                        +
+                        f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                        +
+                        f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
+                    )
+                    logs.append(log)
+                    continue
                 # Which event to skip
                 if row["type"] not in ("enter", "exit"):
                     pass  # skip event
@@ -206,7 +243,7 @@ class IntegratorClass:
             #             self.tmp.append(cam + rr[2])
 
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
-                msglist)
+                msglist, logs)
 
     def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
@@ -237,14 +274,12 @@ class IntegratorClass:
         return im
 
 
-import multiprocessing
-
-
 class DrawClass():
     def __init__(self, conf=None, plot=True) -> None:
         self.vis_feed = VisFeed()
         self.Info = IntegratorClass()
         self.plot = plot
+        self.conf = conf
 
         # Output folder path of the feed
         self.feed_folder = Path(conf.out_dir) / "run" / conf.file_num / "feed"
@@ -252,7 +287,11 @@ class DrawClass():
             shutil.rmtree(str(self.feed_folder))
         self.feed_folder.mkdir(exist_ok=True)
 
+        self.full_log = []
+
     def run_process(self, batch_frames, *csv_files):
+        import multiprocessing
+
         def get_proc():
             return multiprocessing.Process(target=self.draw_batch,
                                            args=(batch_frames, *csv_files))
@@ -281,9 +320,9 @@ class DrawClass():
 
         frame_num = frame_to_time(imfile1)
         # Cam 09
-        info_bin, info_pax, event_bin, event_pax, msglist = self.Info.get_info_from_frame(
+        info_bin, info_pax, event_bin, event_pax, msglist, logs = self.Info.get_info_from_frame(
             frame_num, "cam09")
-        # full_log_cam09.extend(logs)
+        self.full_log.extend(logs)
         if self.plot:
             im1 = self.Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
 
@@ -291,23 +330,23 @@ class DrawClass():
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
             frame_num, "cam11")
-        # full_log_cam11.extend(logs)
+        self.full_log.extend(logs)
         if self.plot:
             im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
         # Cam 13
+        im3 = None
         if out3 is not None:
             frame_num3 = frame_to_time(imfile3)
             info_bin, info_pax, event_bin, event_pax, mlist = self.Info.get_info_from_frame(
                 frame_num3, "cam13")
-            # full_log_cam13.extend(logs)
+            self.full_log.extend(logs)
             if self.plot:
                 im3 = self.Info.draw_im(im3,
                                         info_bin,
                                         info_pax,
                                         font_scale=0.7)
-        else:
-            im3 = None
+
         # News feed info
 
         # print("#draw:2", flush=True)
@@ -317,11 +356,19 @@ class DrawClass():
             im_feed = self.vis_feed.draw(im1, im2, im3, frame_num, msglist)
             # print("#draw:2a", flush=True)
 
-            # f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
-            # skimage.io.imsave(str(f_write), im_feed)
+            f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
+            skimage.io.imsave(str(f_write), im_feed)
             # print("#draw:2b", flush=True)
 
         # print("#draw:3", flush=True)
+
+    def finish(self):
+        log_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)),
+                                  "..", "ata_logs")
+        os.makedirs(log_folder, exist_ok=True)
+        logpath = os.path.join(log_folder, self.conf.ata_out)
+        with open(logpath, "w") as fp:
+            fp.write("\n".join(self.full_log))
 
 
 # if __name__ == "__main__":

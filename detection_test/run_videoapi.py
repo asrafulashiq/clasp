@@ -216,6 +216,8 @@ class BatchPrecessingMain(object):
                 pbar.update()
                 counter += 1
             pbar.close()
+
+        self.drawing_obj.finish()
         complexity_analyzer.final_info()
 
     def _get_batch_file_names(self, load_image=False) -> bool:
@@ -295,6 +297,8 @@ class BatchPrecessingMain(object):
             default="/data/ALERT-SHARE/alert-api-wrapper-data",
             help="root direcotory of all frames",
         )
+
+        parser.add_argument("--ata_out", type=str, default="ata.txt")
         parser.add_argument("--file-num", type=str, default="exp2training")
         parser.add_argument("--cameras",
                             type=str,
