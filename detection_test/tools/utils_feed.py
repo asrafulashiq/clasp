@@ -89,10 +89,10 @@ class IntegratorClass:
         #     "firstused"
         # ]
         df = pd.read_csv(str(pax_file), sep=",", index_col=0)
-        df["x1"] = df["x1"] / 3
-        df["y1"] = df["y1"] / 3
-        df["x2"] = df["x2"] / 3
-        df["y2"] = df["y2"] / 3
+        df["x1"] = df["x1"] / (1080. / 640)
+        df["y1"] = df["y1"] / (720. / 360)
+        df["x2"] = df["x2"] / (1080. / 640)
+        df["y2"] = df["y2"] / (720. / 360)
         df["camera"] = df["cam"].apply(lambda x: f"cam{int(x):02d}")
         # df["type"] = df["type"].str.lower()
         return df
