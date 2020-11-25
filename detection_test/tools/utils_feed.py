@@ -123,9 +123,8 @@ class IntegratorClass:
             des = des[0]
             for each_split in des.split(","):
                 each_split = each_split.strip()
-                pp = parse(
-                    "'{event_str}PP{pax_id:d}{tmp}Bin {bin_id:d}{_end}'",
-                    each_split)
+                pp = parse("'{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}'",
+                           each_split)
                 if pp is not None:
                     bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
                         pp['pax_id'])
@@ -163,7 +162,7 @@ class IntegratorClass:
                 log = (
                     f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
                     +
-                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
                     + f"ID: {row['id']}")
                 logs.append(log)
 
@@ -203,7 +202,7 @@ class IntegratorClass:
                 log = (
                     f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
                     +
-                    f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
                     +
                     f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
                 )
@@ -218,7 +217,7 @@ class IntegratorClass:
                     log = (
                         f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
                         +
-                        f"BB: {row['x1']*3}, {row['y1']*3}, {row['x2']*3}, {row['y2']*3} "
+                        f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
                         +
                         f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
                     )
