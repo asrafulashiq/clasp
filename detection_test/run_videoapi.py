@@ -119,7 +119,8 @@ class BatchPrecessingMain(object):
                                 im,
                                 det,
                                 cam=self.cameras[i_cnt],
-                                frame_num=frame_num)
+                                frame_num=frame_num,
+                                return_im=self.params.save_im == "true")
 
                         if self.params.save_im == "true":
                             skimage.io.imsave(
@@ -342,7 +343,7 @@ class BatchPrecessingMain(object):
         parser.add_argument("--duration", type=float, default=4)
         parser.add_argument("--fps", type=int, default=10)
 
-        parser.add_argument("--save_im", type=str, default="true")
+        parser.add_argument("--save_im", type=str, default="false")
 
         if parser.parse_known_args()[0].debug:
             parser.add_argument(

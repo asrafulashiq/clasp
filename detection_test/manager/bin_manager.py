@@ -187,7 +187,7 @@ class BinManager:
         # if label > 49:
         #     return
 
-        # FIXME: why this?
+        # FIXME why this?
         # if self._camera != "cam09":
         #     self._manager_prev_cam._left_bins.pop(i_man)
 
