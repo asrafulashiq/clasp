@@ -45,6 +45,7 @@ class IntegratorClass:
         # to determine first used
         self.item_first_used = []
         self.fps = fps
+        self.asso_info = defaultdict(lambda: defaultdict(dict))
 
     def load_info(self, bin_file, pax_file, nu_file_cam):
         # load bin
@@ -54,13 +55,17 @@ class IntegratorClass:
         self.df_pax = self.refine_pax_df(pax_file)
 
         # get association info
-        self.asso_info = {}
-        self.asso_info, _asso_msg = self.get_association_info(nu_file_cam)
 
-        for k, v in _asso_msg.items():
-            if k not in self.asso_info:
-                self.asso_info[k] = {}
-            self.asso_info[k].update(v)
+        asso_info, _asso_msg = self.get_association_info(nu_file_cam)
+        # for k, v in _asso_msg.items():
+        #     if k not in self.asso_info:
+        #         asso_info[k] = {}
+        #     asso_info[k].update(v)
+
+        # for cam, _v1 in asso_info.items():
+        #     for bin_id, _v2 in _v1.items():
+        #         for fnum, pax_id in _v2.items():
+        #             self.asso_info[cam][bin_id][fnum] = pax_id
 
         print("loaded")
 
@@ -98,7 +103,7 @@ class IntegratorClass:
         return df
 
     def get_association_info(self, nu_file):
-        asso_info = defaultdict(lambda: defaultdict(dict))
+        # asso_info = defaultdict(lambda: defaultdict(dict))
         asso_msg = defaultdict(dict)
         # return asso_info, asso_msg
 
@@ -131,7 +136,7 @@ class IntegratorClass:
                     bin_id, pax_id = str(pp['bin_id']), 'P' + str(pp['pax_id'])
                     if "XFR" in pp['event_str'] and "owner of" in pp['tmp']:
                         # association
-                        asso_info[cam][bin_id][frame] = pax_id
+                        self.asso_info[cam][bin_id][frame] = pax_id
                     elif "hand in" in pp['event_str']:
                         pass
                     elif "suspicious" in pp['event_str'].lower():
@@ -139,7 +144,7 @@ class IntegratorClass:
                             cam, frame,
                             each_split.replace("|", "").replace("'", "")
                         ]
-        return asso_info, asso_msg
+        return self.asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
         # get pax info
