@@ -178,7 +178,7 @@ class IntegratorClass:
                 _id = str(row["id"])
 
                 # get associated pax
-                if _id in asso_info:
+                if ('B'+_id) in asso_info:
                     ffs = list(asso_info[_id])
                     for _f in ffs:
                         if frame >= _f:
