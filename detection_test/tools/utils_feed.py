@@ -151,6 +151,7 @@ class IntegratorClass:
         list_event_pax = []
         for _, row in info.iterrows():
             if not row.empty:  #row["type"] == "loc":
+                row['id'] = 'P' + row['id']
                 list_info_pax.append([
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
                     row["y2"]
@@ -175,7 +176,7 @@ class IntegratorClass:
         asso_info = self.asso_info["cam09"]  # association from camera 09
         for _, row in info.iterrows():
             if row["type"] == "loc":
-                _id = str(row["id"])  # convert id name to B[id]
+                _id = str(row["id"])
 
                 # get associated pax
                 if _id in asso_info:
