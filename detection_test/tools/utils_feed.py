@@ -126,8 +126,9 @@ class IntegratorClass:
                 pp = parse("'{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}'",
                            each_split)
                 if pp is not None:
-                    bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
-                        pp['pax_id'])
+                    # bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
+                    #     pp['pax_id'])
+                    bin_id, pax_id = str(pp['bin_id']), 'P' + str(pp['pax_id'])
                     if "XFR" in pp['event_str'] and "owner of" in pp['tmp']:
                         # association
                         asso_info[cam][bin_id][frame] = pax_id
@@ -178,7 +179,7 @@ class IntegratorClass:
                 _id = str(row["id"])
 
                 # get associated pax
-                if ('B'+_id) in asso_info:
+                if _id in asso_info:
                     ffs = list(asso_info[_id])
                     for _f in ffs:
                         if frame >= _f:
