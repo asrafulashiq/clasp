@@ -133,7 +133,7 @@ class IntegratorClass:
                 if pp is not None:
                     # bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
                     #     pp['pax_id'])
-                    bin_id, pax_id = str(pp['bin_id']), 'P' + str(pp['pax_id'])
+                    bin_id, pax_id = str(pp['bin_id']), str(pp['pax_id'])
                     if "XFR" in pp['event_str'] and "owner of" in pp['tmp']:
                         # association
                         self.asso_info[cam][bin_id][frame] = pax_id
@@ -156,7 +156,7 @@ class IntegratorClass:
         list_event_pax = []
         for _, row in info.iterrows():
             if not row.empty:  #row["type"] == "loc":
-                row['id'] = 'P' + str(row['id'])
+                row['id'] = str(row['id'])
                 list_info_pax.append([
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
                     row["y2"]
@@ -169,7 +169,7 @@ class IntegratorClass:
                     f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
                     +
                     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    + f"ID: {row['id']}")
+                    + f"ID: P{row['id']}")
                 logs.append(log)
 
         # get bin info.
