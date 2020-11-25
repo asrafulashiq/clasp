@@ -56,7 +56,7 @@ class IntegratorClass:
 
         # get association info
 
-        asso_info, _asso_msg = self.get_association_info(nu_file_cam)
+        asso_info, self._asso_msg = self.get_association_info(nu_file_cam)
         # for k, v in _asso_msg.items():
         #     if k not in self.asso_info:
         #         asso_info[k] = {}
@@ -78,15 +78,15 @@ class IntegratorClass:
         df["y2"] = df["y2"] / 3
         df["camera"] = df["cam"]
         # load location type
-        df_new = df[df["type"] == "loc"].copy()
-        df_comb = df_new
+        # df_new = df[df["type"] == "loc"].copy()
+        # df_comb = df_new
 
         # load change type
         # loc_cng = df["type"] == "chng"
         # df_comb.loc[loc_cng, "frame"] = df[loc_cng]["frame"] - 50
         # change detection offset
-        df_comb = df_comb.sort_values("frame")
-        return df_comb
+        df = df.sort_values("frame")
+        return df
 
     def refine_pax_df(self, pax_file):
         # pax_names = [
@@ -99,24 +99,13 @@ class IntegratorClass:
         df["x2"] = df["x2"] / (1080. / 640)
         df["y2"] = df["y2"] / (720. / 360)
         df["camera"] = df["cam"].apply(lambda x: f"cam{int(x):02d}")
-        # df["type"] = df["type"].str.lower()
         return df
 
     def get_association_info(self, nu_file):
-        # asso_info = defaultdict(lambda: defaultdict(dict))
         asso_msg = defaultdict(dict)
-        # return asso_info, asso_msg
 
         # fid, cam, events
         df = pd.read_csv(nu_file, header=None, names=["frame", "cam", "des"])
-
-        # def time2frame(time):
-        #     time = str(time)
-        #     sec, msec = time[:-2], time[-2:]
-        #     frame = int(round(float(f"{sec}.{msec}") * 30))
-        #     return frame
-
-        # df['frame'] = df["time"].apply(time2frame)
         df['cam'] = df['cam'].apply(lambda x: f"cam{int(x[3:]):02d}")
         for _, row in df.iterrows():
             frame = row["frame"]
@@ -134,16 +123,21 @@ class IntegratorClass:
                     # bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
                     #     pp['pax_id'])
                     bin_id, pax_id = str(pp['bin_id']), str(pp['pax_id'])
-                    if "XFR" in pp['event_str'] and "owner of" in pp['tmp']:
-                        # association
-                        self.asso_info[cam][bin_id][frame] = pax_id
+                    if "XFR" in pp['event_str']:
+                        if "owner of" in pp['tmp']:
+                            # association
+                            self.asso_info[cam][bin_id][frame] = pax_id
+                        else:
+                            asso_msg[cam][frame] = [
+                                'XFR', cam, frame, pax_id, bin_id
+                            ]
                     elif "hand in" in pp['event_str']:
                         pass
                     elif "suspicious" in pp['event_str'].lower():
                         asso_msg[cam][frame] = [
-                            cam, frame,
-                            each_split.replace("|", "").replace("'", "")
+                            'THEFT', cam, frame, pax_id, bin_id
                         ]
+                        # each_split.replace("|", "").replace("'", "")
         return self.asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
@@ -155,7 +149,7 @@ class IntegratorClass:
         list_info_pax = []
         list_event_pax = []
         for _, row in info.iterrows():
-            if not row.empty:  #row["type"] == "loc":
+            if not row.empty:
                 row['id'] = str(row['id'])
                 list_info_pax.append([
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
@@ -213,22 +207,21 @@ class IntegratorClass:
                     f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
                 )
                 logs.append(log)
-
             else:  # event type
                 if (row["type"] == "enter" and cam == "cam09") or \
                      row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
                     # xfr event
                     _id = str(row["id"])
                     _type = "TO" if cam == "cam09" else "FROM"
-                    log = (
-                        f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                        +
-                        f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                        +
-                        f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
-                    )
-                    logs.append(log)
-                    continue
+                    # log = (
+                    #     f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                    #     +
+                    #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                    #     +
+                    #     f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
+                    # )
+                    # logs.append(log)
+                    # continue
                 # Which event to skip
                 if row["type"] not in ("enter", "exit"):
                     pass  # skip event
@@ -249,6 +242,15 @@ class IntegratorClass:
             #         if (cam + rr[2]) not in self.tmp:
             #             msglist.append([rr[0], to_sec(rr[1]), rr[2]])
             #             self.tmp.append(cam + rr[2])
+
+        # if cam in self._asso_msg and frame in self._asso_msg[cam]:
+        #     mtype, cam, frame, pax_id, bin_id = self._asso_msg[cam][frame]
+        #     if mtype == 'XFR':
+        #         _type = "TO" if cam == "cam09" else "FROM"
+        #         log = (
+        #             f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+        #             + f"BB: 0, 0, 0, 0 " +
+        #             f"PAX-ID: {pax_id} DVI-ID: {bin_id} theft: FALSE")
 
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
                 msglist, logs)

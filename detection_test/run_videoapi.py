@@ -284,7 +284,7 @@ class BatchPrecessingMain(object):
         parser.add_argument("--cameras",
                             type=str,
                             nargs="*",
-                            default=["9", "11"])
+                            default=["9", "11", "13"])
 
         parser.add_argument(
             "--flag_file",
