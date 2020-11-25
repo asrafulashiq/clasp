@@ -169,7 +169,7 @@ class IntegratorClass:
                     f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
                     +
                     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    + f"ID: P{row['id']}")
+                    + f"ID: {row['id']}")
                 logs.append(log)
 
         # get bin info.
@@ -218,7 +218,7 @@ class IntegratorClass:
                 if (row["type"] == "enter" and cam == "cam09") or \
                      row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
                     # xfr event
-                    _id = "B" + str(row["id"])
+                    _id = str(row["id"])
                     _type = "TO" if cam == "cam09" else "FROM"
                     log = (
                         f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
