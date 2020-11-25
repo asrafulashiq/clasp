@@ -150,7 +150,7 @@ class IntegratorClass:
         list_event_pax = []
         for _, row in info.iterrows():
             if not row.empty:  #row["type"] == "loc":
-                row['id'] = 'P' + row['id']
+                row['id'] = 'P' + str(row['id'])
                 list_info_pax.append([
                     row["id"], "pax", row["x1"], row["y1"], row["x2"],
                     row["y2"]
