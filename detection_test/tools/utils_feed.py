@@ -357,8 +357,8 @@ class DrawClass():
         msglist = each_step_arg["msg"]
         im_feed = vis_feed.draw(ims[0], ims[1], ims[2], frame_num, msglist)
 
-        f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
-        skimage.io.imsave(str(f_write), im_feed)
+        # f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
+        # skimage.io.imsave(str(f_write), im_feed)
 
     def _draw_frame(self, out1, out2, out3=None):
 
