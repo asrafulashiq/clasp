@@ -331,7 +331,7 @@ class DrawClass():
             self.plot_fn(all_out_args, self.feed_folder)
 
     def plot_fn(self, all_out_args, feed_folder):
-        with multiprocessing.Pool(processes=20) as pool:
+        with multiprocessing.Pool(processes=40) as pool:
             for each_step_arg in all_out_args:
                 # DrawClass.plot_fun_step(each_step_arg, feed_folder)
                 pool.apply_async(DrawClass.plot_fun_step,
@@ -358,8 +358,7 @@ class DrawClass():
         im_feed = vis_feed.draw(ims[0], ims[1], ims[2], frame_num, msglist)
 
         f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
-        # skimage.io.imsave(str(f_write), im_feed)
-        cv2.imwrite(str(f_write), im_feed)
+        cv2.imwrite(str(f_write), cv2.cvtColor(im_feed, cv2.COLOR_RGB2BGR))
 
     def _draw_frame(self, out1, out2, out3=None):
 
