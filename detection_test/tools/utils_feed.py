@@ -333,12 +333,13 @@ class DrawClass():
     def plot_fn(self, all_out_args, feed_folder):
         with multiprocessing.Pool(processes=20) as pool:
             for each_step_arg in all_out_args:
-                DrawClass.plot_fun_step(each_step_arg, feed_folder)
-            #     pool.apply_async(DrawClass.plot_fun_step,
-            #                      (each_step_arg, feed_folder),
-            #                      callback=lambda x: print("#"))
-            # pool.close()
-            # pool.join()
+                # DrawClass.plot_fun_step(each_step_arg, feed_folder)
+                pool.apply_async(DrawClass.plot_fun_step,
+                                 (each_step_arg, feed_folder),
+                                 callback=lambda x: print("#"),
+                                 error_callback=lambda e: print("error"))
+            pool.close()
+            pool.join()
 
     @staticmethod
     def plot_fun_step(each_step_arg, feed_folder):
