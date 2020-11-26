@@ -1,5 +1,7 @@
+import multiprocessing
 from pathlib import Path
 import cv2
+from numpy.core import multiarray
 from tqdm import tqdm
 import tools.utils as utils
 from visutils.vis_feed import VisFeed
@@ -255,7 +257,8 @@ class IntegratorClass:
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
                 msglist, logs)
 
-    def draw_im(self, im, info_bin, info_pax, font_scale=0.5):
+    @staticmethod
+    def draw_im(im, info_bin, info_pax, font_scale=0.5):
         for each_i in info_bin:
             bbox = [each_i[2], each_i[3], each_i[4], each_i[5]]
             im = vis.vis_bbox_with_str(
@@ -319,10 +322,44 @@ class DrawClass():
     def draw_batch(self, batch_frames, *csv_files):
         self.Info.load_info(*csv_files)
         # for out in tqdm(batch_frames, desc="Drawing", position=10):
+        all_out_args = []
         for out in batch_frames:
-            self._draw_frame(*out)
+            _args = self._draw_frame(*out)
+            all_out_args.append(_args)
+
+        if self.plot:
+            self.plot_fn(all_out_args, self.feed_folder)
+
+    def plot_fn(self, all_out_args, feed_folder):
+        with multiprocessing.Pool(processes=20) as pool:
+            for each_step_arg in all_out_args:
+                pool.apply(DrawClass.plot_fun_step,
+                           (each_step_arg, feed_folder))
+            pool.close()
+
+    @staticmethod
+    def plot_fun_step(each_step_arg, feed_folder):
+        ims = []
+        vis_feed = VisFeed()
+        for args in each_step_arg["args"]:
+            im, info_bin, info_pax = args
+            im = IntegratorClass.draw_im(im,
+                                         info_bin,
+                                         info_pax,
+                                         font_scale=0.7)
+            ims.append(im)
+        # msglist.extend(mlist)
+        frame_num = each_step_arg["frame"]
+        msglist = each_step_arg["msg"]
+        im_feed = vis_feed.draw(ims[0], ims[1], ims[2], frame_num, msglist)
+
+        f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
+        skimage.io.imsave(str(f_write), im_feed)
 
     def _draw_frame(self, out1, out2, out3=None):
+
+        out_args = []  # for multiprocess
+
         im1, imfile1, _ = out1
         im2, imfile2, _ = out2
         im3 = None
@@ -335,41 +372,46 @@ class DrawClass():
             frame_num, "cam09")
         self.full_log.extend(logs)
         if self.plot:
-            im1 = self.Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
+            # im1 = self.Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
+            out_args.append((im1, info_bin, info_pax))
 
         # print("#draw:1", flush=True)
         # Cam 11
         info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
             frame_num, "cam11")
+        msglist.extend(mlist)
         self.full_log.extend(logs)
         if self.plot:
-            im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+            # im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+            out_args.append((im2, info_bin, info_pax))
 
         if out3 is not None:
             frame_num3 = frame_to_time(imfile3)
             info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
                 frame_num3, "cam13")
+            msglist.extend(mlist)
             self.full_log.extend(logs)
             if self.plot:
-                im3 = self.Info.draw_im(im3,
-                                        info_bin,
-                                        info_pax,
-                                        font_scale=0.7)
-
+                # im3 = self.Info.draw_im(im3,
+                #                         info_bin,
+                #                         info_pax,
+                #                         font_scale=0.7)
+                out_args.append((im3, info_bin, info_pax))
         # News feed info
 
         # print("#draw:2", flush=True)
-        if self.plot:
-            # get message
-            msglist.extend(mlist)
-            im_feed = self.vis_feed.draw(im1, im2, im3, frame_num, msglist)
-            # print("#draw:2a", flush=True)
+        # if self.plot:
+        #     # get message
 
-            f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
-            skimage.io.imsave(str(f_write), im_feed)
-            # print("#draw:2b", flush=True)
+        #     im_feed = self.vis_feed.draw(im1, im2, im3, frame_num, msglist)
+        #     # print("#draw:2a", flush=True)
+
+        #     f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
+        #     skimage.io.imsave(str(f_write), im_feed)
+        #     # print("#draw:2b", flush=True)
 
         # print("#draw:3", flush=True)
+        return {"args": out_args, "frame": frame_num, "msg": msglist}
 
     def finish(self):
         log_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)),

@@ -70,7 +70,7 @@ cam13:
     _thres_out_bin_bound: [[177, 65], [180, 194], [74, 200], [74, 76]]
 
     _max_det_fail: 15
-    _max_track_fail: 0
+    _max_track_fail: 30
 
     _default_bin_state: "items"
     maxlen: 9
