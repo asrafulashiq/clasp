@@ -334,8 +334,10 @@ class DrawClass():
         with multiprocessing.Pool(processes=20) as pool:
             for each_step_arg in all_out_args:
                 pool.apply_async(DrawClass.plot_fun_step,
-                                 (each_step_arg, feed_folder))
+                                 (each_step_arg, feed_folder),
+                                 callback=lambda x: print("#"))
             pool.close()
+            pool.join()
 
     @staticmethod
     def plot_fun_step(each_step_arg, feed_folder):
