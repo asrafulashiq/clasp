@@ -112,12 +112,14 @@ class BinManager:
 
                     # left bin must precede current frame
                     if mbin_frame - time_offset > self.current_frame:
+                        i_man += 1
                         continue
 
                     # for camera 13, left frame and current frame should be close
                     if self._camera == "cam13" and np.abs(
                             mbin_frame - time_offset -
                             self.current_frame) > 100:
+                        i_man += 1
                         continue
 
                     label = mbin.label
