@@ -325,6 +325,7 @@ class DrawClass():
     def _draw_frame(self, out1, out2, out3=None):
         im1, imfile1, _ = out1
         im2, imfile2, _ = out2
+        im3 = None
         if out3 is not None:
             im3, imfile3, _ = out3
 
@@ -344,8 +345,6 @@ class DrawClass():
         if self.plot:
             im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
 
-        # Cam 13
-        im3 = None
         if out3 is not None:
             frame_num3 = frame_to_time(imfile3)
             info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
