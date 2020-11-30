@@ -119,27 +119,25 @@ class IntegratorClass:
             des = des[0]
             for each_split in des.split(","):
                 each_split = each_split.strip()
-                pp = parse("'{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}'",
-                           each_split)
-                if pp is not None:
-                    # bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
-                    #     pp['pax_id'])
-                    bin_id, pax_id = str(pp['bin_id']), str(pp['pax_id'])
-                    if "XFR" in pp['event_str']:
+
+                if 'XFR' in each_split:
+                    _msg = parse(("XFR: type: TO camera-num: {} frame: {} "
+                                  "time-offset: {} BB: [{}] PAX-ID: {pax_id} "
+                                  "DVI-ID: {bin_id} theft: FALSE"), each_split)
+                    asso_msg[cam][frame] = [
+                        'XFR', cam, frame, _msg["pax_id"], _msg["bin_id"],
+                        each_split.replace("[", "").replace("]", "")
+                    ]
+                elif 'Association' in each_split:
+                    # 1156,cam9,"['Association | P1 | owner of | Bin 3 |']"
+                    pp = parse(
+                        "'{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}'",
+                        each_split)
+                    if pp is not None:
+                        bin_id, pax_id = str(pp['bin_id']), str(pp['pax_id'])
                         if "owner of" in pp['tmp']:
                             # association
                             self.asso_info[cam][bin_id][frame] = pax_id
-                        else:
-                            asso_msg[cam][frame] = [
-                                'XFR', cam, frame, pax_id, bin_id
-                            ]
-                    elif "hand in" in pp['event_str']:
-                        pass
-                    elif "suspicious" in pp['event_str'].lower():
-                        asso_msg[cam][frame] = [
-                            'THEFT', cam, frame, pax_id, bin_id
-                        ]
-                        # each_split.replace("|", "").replace("'", "")
         return self.asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
@@ -174,7 +172,7 @@ class IntegratorClass:
         list_info_bin = []
         list_event_bin = []
 
-        asso_info = self.asso_info["cam09"]  # association from camera 09
+        asso_info = self.asso_info[cam]  # association from camera 09
         for _, row in info.iterrows():
             if row["type"] == "loc":
                 _id = str(row["id"])
@@ -245,14 +243,16 @@ class IntegratorClass:
             #             msglist.append([rr[0], to_sec(rr[1]), rr[2]])
             #             self.tmp.append(cam + rr[2])
 
-        # if cam in self._asso_msg and frame in self._asso_msg[cam]:
-        #     mtype, cam, frame, pax_id, bin_id = self._asso_msg[cam][frame]
-        #     if mtype == 'XFR':
-        #         _type = "TO" if cam == "cam09" else "FROM"
-        #         log = (
-        #             f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-        #             + f"BB: 0, 0, 0, 0 " +
-        #             f"PAX-ID: {pax_id} DVI-ID: {bin_id} theft: FALSE")
+        if cam in self._asso_msg and frame in self._asso_msg[cam]:
+            mtype, cam, frame, pax_id, bin_id, _msg = self._asso_msg[cam][
+                frame]
+            if mtype == 'XFR':
+                # _type = "TO" if cam == "cam09" else "FROM"
+                # log = (
+                #     f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                #     + f"BB: 0, 0, 0, 0 " +
+                #     f"PAX-ID: {pax_id} DVI-ID: {bin_id} theft: FALSE")
+                logs.append(_msg)
 
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
                 msglist, logs)
@@ -301,23 +301,6 @@ class DrawClass():
         self.feed_folder.mkdir(exist_ok=True)
 
         self.full_log = []
-
-    def run_process(self, batch_frames, *csv_files):
-        import multiprocessing
-
-        def get_proc():
-            return multiprocessing.Process(target=self.draw_batch,
-                                           args=(batch_frames, *csv_files))
-
-        if not hasattr(self, "proc"):
-            self.proc = get_proc()
-
-        if self.proc.is_alive():
-            self.proc.join()
-            # self.proc.terminate()
-            self.proc.close()
-            self.proc = get_proc()
-        self.proc.start()
 
     def draw_batch(self, batch_frames, *csv_files):
         self.Info.load_info(*csv_files)

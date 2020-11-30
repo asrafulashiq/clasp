@@ -69,7 +69,6 @@ class BatchPrecessingMain(object):
                 self.params.fmt_filename_out.format(
                     file_num=self.params.file_num, cam=cam))
             self.out_folder[cam].mkdir(parents=True, exist_ok=True)
-
         print(self.params)
 
     def process_batch_step(self) -> None:
