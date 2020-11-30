@@ -62,6 +62,8 @@ class ComplexityAnalysis(object):
 
             logger.info(f"{k} :: avg : {avg:.4f} s, max : {_max:.4f} s")
 
+        np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
+
     def process_memory(self):
         memory_mb = round(self.process.memory_info()[0] / (1024 * 1024))
         self.list_cpu_memory.append(memory_mb)

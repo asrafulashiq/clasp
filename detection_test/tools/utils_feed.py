@@ -117,8 +117,9 @@ class IntegratorClass:
             if des is None:
                 continue
             des = des[0]
-            for each_split in des.split(","):
-                each_split = each_split.strip()
+            des_splits = des.split("','")
+            for i, each_split in enumerate(des_splits):
+                each_split = each_split.strip().replace("'", "")
 
                 if 'XFR' in each_split:
                     _msg = parse(("XFR: type: TO camera-num: {} frame: {} "
