@@ -122,9 +122,9 @@ class IntegratorClass:
                 each_split = each_split.strip().replace("'", "")
 
                 if 'XFR' in each_split:
-                    _msg = parse(("XFR: type: TO camera-num: {} frame: {} "
+                    _msg = parse(("XFR: type: {} camera-num: {} frame: {} "
                                   "time-offset: {} BB: [{}] PAX-ID: {pax_id} "
-                                  "DVI-ID: {bin_id} theft: FALSE"), each_split)
+                                  "DVI-ID: {bin_id} theft: {}"), each_split)
                     asso_msg[cam][frame] = [
                         'XFR', cam, frame, _msg["pax_id"], _msg["bin_id"],
                         each_split.replace("[", "").replace("]", "")
