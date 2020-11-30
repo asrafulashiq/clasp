@@ -117,7 +117,7 @@ class IntegratorClass:
             if des is None:
                 continue
             des = des[0]
-            des_splits = des.split("','")
+            des_splits = des.split("', '")
             for i, each_split in enumerate(des_splits):
                 each_split = each_split.strip().replace("'", "")
 
