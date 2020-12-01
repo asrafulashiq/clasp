@@ -49,6 +49,8 @@ class IntegratorClass:
         self.fps = fps
         self.asso_info = defaultdict(lambda: defaultdict(dict))
 
+        self.msg = set()
+
     def load_info(self, bin_file, pax_file, nu_file_cam):
         # load bin
         self.df_bin = self.load_bin(bin_file)
@@ -259,9 +261,12 @@ class IntegratorClass:
                 logs.append(_msg)
 
                 if 'theft: true' in _msg.lower():
-                    msglist.append(f'Potential theft: {pax_id} - {bin_id}')
+                    feed_msg = f'Potential theft: {pax_id} - {bin_id}'
                 else:
-                    msglist.append(f'XFR : {pax_id} - {bin_id}')
+                    feed_msg = (f'XFR : {pax_id} - {bin_id}')
+                if feed_msg not in self.msg:
+                    msglist.append(feed_msg)
+                    self.msg.add(feed_msg)
 
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
                 msglist, logs)
