@@ -208,7 +208,7 @@ class IntegratorClass:
                     +
                     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
                     +
-                    f"ID: B{_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
                 )
                 logs.append(log)
             else:  # event type
