@@ -79,6 +79,7 @@ class IntegratorClass:
         df["x2"] = df["x2"] / 3
         df["y2"] = df["y2"] / 3
         df["camera"] = df["cam"]
+        df['id'] = 'B' + df['id'].astype(str)
         # load location type
         # df_new = df[df["type"] == "loc"].copy()
         # df_comb = df_new
@@ -136,7 +137,8 @@ class IntegratorClass:
                         "{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}",
                         each_split)
                     if pp is not None:
-                        bin_id, pax_id = str(pp['bin_id']), str(pp['pax_id'])
+                        bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
+                            pp['pax_id'])
                         if "owner of" in pp['tmp']:
                             # association
                             self.asso_info[cam][bin_id][frame] = pax_id
@@ -184,7 +186,7 @@ class IntegratorClass:
                     ffs = list(asso_info[_id])
                     for _f in ffs:
                         if frame >= _f:
-                            self.bin_pax[_id] = asso_info[_id][_f]
+                            self.bin_pax[_id] = str(asso_info[_id][_f])
                 else:
                     pass
 
@@ -206,7 +208,7 @@ class IntegratorClass:
                     +
                     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
                     +
-                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                    f"ID: B{_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
                 )
                 logs.append(log)
             else:  # event type
