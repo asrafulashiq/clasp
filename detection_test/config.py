@@ -144,6 +144,6 @@ def get_conf(parser):
 
     conf.fmt_filename_out = conf.out_dir + "/run/{file_num}" + conf.out_suffix + "/{cam}"
     conf.fmt_filename_out_detection = conf.out_dir + "/out_detection/{file_num}/{cam}"
-    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}"
+    conf.fmt_filename_out_feed = conf.out_dir + "/run/feed/{file_num}" + conf.out_suffix
     conf.fmt_filename_out_pkl = conf.out_dir + "/out_pkl/{file_num}_{cam}.pkl"
     return conf
