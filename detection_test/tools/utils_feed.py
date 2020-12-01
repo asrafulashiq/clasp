@@ -119,7 +119,8 @@ class IntegratorClass:
             des = des[0]
             des_splits = des.split("', '")
             for i, each_split in enumerate(des_splits):
-                each_split = each_split.strip().replace("'", "")
+                each_split = each_split.strip().replace("'",
+                                                        "").replace("'", "")
 
                 if 'XFR' in each_split:
                     _msg = parse(("XFR: type: {} camera-num: {} frame: {} "
@@ -132,7 +133,7 @@ class IntegratorClass:
                 elif 'Association' in each_split:
                     # 1156,cam9,"['Association | P1 | owner of | Bin 3 |']"
                     pp = parse(
-                        "'{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}'",
+                        "{event_str}P{pax_id:d}{tmp}Bin {bin_id:d}{_end}",
                         each_split)
                     if pp is not None:
                         bin_id, pax_id = str(pp['bin_id']), str(pp['pax_id'])
