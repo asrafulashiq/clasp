@@ -258,6 +258,11 @@ class IntegratorClass:
                 #     f"PAX-ID: {pax_id} DVI-ID: {bin_id} theft: FALSE")
                 logs.append(_msg)
 
+                if 'theft: true' in _msg.lower():
+                    msglist.append(f'Potential theft: {pax_id} - {bin_id}')
+                else:
+                    msglist.append(f'XFR : {pax_id} - {bin_id}')
+
         return (list_info_bin, list_info_pax, list_event_bin, list_event_pax,
                 msglist, logs)
 
