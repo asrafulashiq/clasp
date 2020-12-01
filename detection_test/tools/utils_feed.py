@@ -323,7 +323,7 @@ class DrawClass():
                                  callback=lambda x: print("#"),
                                  error_callback=lambda e: print("error"))
             pool.close()
-            # pool.join()
+            pool.join()
 
     @staticmethod
     def plot_fun_step(each_step_arg, feed_folder):
