@@ -323,7 +323,7 @@ class DrawClass():
                                  callback=lambda x: print("#"),
                                  error_callback=lambda e: print("error"))
             pool.close()
-            # pool.join()
+            pool.join()
 
     @staticmethod
     def plot_fun_step(each_step_arg, feed_folder):
@@ -343,6 +343,7 @@ class DrawClass():
 
         f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
         cv2.imwrite(str(f_write), cv2.cvtColor(im_feed, cv2.COLOR_RGB2BGR))
+        print(f"save to {f_write}")
 
     def _draw_frame(self, out1, out2, out3=None):
 
