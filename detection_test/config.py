@@ -93,7 +93,7 @@ def get_parser():
     parser.add_argument("--out_suffix", type=str, default="")
     parser.add_argument("--create_feed", "-f", action="store_true")
 
-    parser.add_argument("--spatial_scale_mul", type=float, default=2)
+    parser.add_argument("--spatial_scale_mul", type=float, default=1)
     parser.add_argument("--temporal_scale_mul", type=float, default=3)
 
     return parser
