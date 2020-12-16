@@ -1,18 +1,26 @@
 """ Main file to run the program """
+import torch
+torch.backends.cudnn.benchmark = True
 
 from pathlib import Path
-import cv2
 from tqdm import tqdm
 import tools.utils as utils
-from config import conf
+from config import get_conf, get_parser, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
-import torch
 from colorama import init, Fore
 
 init(autoreset=True)
+
+parser = get_parser()
+if os.uname()[1] == 'lambda-server':  # code is in clasp server
+    parser = add_server_specific_arg(parser)
+conf = get_conf(parser)
+
+# FIXME
+conf.run_detector = True
 
 if __name__ == "__main__":
     log = ClaspLogger()
@@ -42,6 +50,7 @@ if __name__ == "__main__":
         out_folder[cam] = Path(
             conf.fmt_filename_out.format(file_num=file_num, cam=cam))
         out_folder[cam].mkdir(parents=True, exist_ok=True)
+        print(f"out_folder {str(out_folder[cam])}")
 
         if cam == "cam13":
             # NOTE: camera 13 is 50 frames behind (approx)
@@ -64,6 +73,7 @@ if __name__ == "__main__":
 
         imlist.append(
             utils.get_images_from_dir(src_folder[cam],
+                                      size=conf.size,
                                       start_frame=start_frame,
                                       skip_end=conf.skip_end,
                                       delta=conf.delta,
@@ -107,7 +117,7 @@ if __name__ == "__main__":
 
         if cameras[i_cnt] == "cam13":
             frame_num += 50
-        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num}")
+        pbar.set_description(f"{Fore.CYAN} Processing: {frame_num}")
 
     if conf.write:
         manager.final_write()

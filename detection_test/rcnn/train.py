@@ -1,3 +1,7 @@
+"""usage:
+
+python train.py -a [annotation_file] -o [output_name] --size [image_size]   
+"""
 import torch
 import torch.nn as nn
 import torchvision
@@ -14,15 +18,17 @@ import model
 import coco_utils
 
 
-def get_transform(train=True, size=(640, 360)):
+def get_transform(train=True, size=(640, 360), orig_size=(1920, 1080)):
     transforms = []
     # converts the image, a PIL image, into a PyTorch Tensor
-    transforms.append(T.Resize(size))
-    transforms.append(T.ToTensor())
+    transforms.append(T.Resize(size, orig_size))
+
     if train:
         # during training, randomly flip the training images
         # and ground-truth for data augmentation
-        transforms.append(T.RandomHorizontalFlip(0.5))
+        # transforms.append(T.RandomHorizontalFlip(0.5))
+        transforms.append(T.ExtraBBAug())
+    transforms.append(T.ToTensor())
     return T.Compose(transforms)
 
 
@@ -35,17 +41,18 @@ if __name__ == "__main__":
         default=HOME + "/dataset/ALERT/alert_frames",
         help="root directory where the images are downloaded to")
 
-    parser.add_argument("--ann-file",
+    parser.add_argument("--ann_file",
+                        "-a",
                         type=str,
-                        default=HOME +
-                        "/dataset/clasp/clasp_annotations/ann.json",
+                        default=HOME + "/dataset/ALERT/annotations/ann.json",
                         help="annotation file")
-    parser.add_argument("--out-dir",
+    parser.add_argument("--out_dir",
                         type=str,
                         help="model output directory",
                         default=HOME + "/dataset/ALERT/trained_model")
 
-    parser.add_argument("--out-name",
+    parser.add_argument("--out_name",
+                        "-o",
                         type=str,
                         help="output model name",
                         default="model.pkl")
@@ -56,12 +63,21 @@ if __name__ == "__main__":
                         default=0.9)
     parser.add_argument("--ckpt", type=str, default=None)
     parser.add_argument("--seed", type=int, default=0)
-    parser.add_argument("--batch-size", type=int, default=8)
+    parser.add_argument("--batch_size", type=int, default=8)
     parser.add_argument("--epoch", type=int, default=50)
     parser.add_argument("--lr", type=float, default=0.001)
+    parser.add_argument("--num_workers", type=int, default=6)
+
+    parser.add_argument("--orig_size", type=str, default="1920x1080")
+    parser.add_argument("--size", type=str, default="640x360")
     args = parser.parse_args()
 
-    args.size = (640, 360)  # width, height
+    args.size = tuple(int(x) for x in args.size.split("x"))  # width, height
+    args.orig_size = tuple(int(x)
+                           for x in args.orig_size.split("x"))  # width, height
+
+    args.ann_file = os.path.abspath(os.path.expanduser(args.ann_file))
+    args.root = os.path.abspath(os.path.expanduser(args.root))
     print(args)
 
     np.random.seed(args.seed)
@@ -76,13 +92,13 @@ if __name__ == "__main__":
     dataset_train = coco_utils.get_coco(args.root,
                                         args.ann_file,
                                         transforms=get_transform(
-                                            True, args.size))
+                                            True, args.size, args.orig_size))
     dataset_test = coco_utils.get_coco(args.root,
                                        args.ann_file,
                                        transforms=get_transform(
-                                           False, args.size))
+                                           False, args.size, args.orig_size))
 
-    print(dataset_train[100][1])
+    print(dataset_train[80][1])
 
     # split into train and test
     train_size = int(args.split * len(dataset_train))
@@ -101,22 +117,24 @@ if __name__ == "__main__":
         num_workers=4,
         collate_fn=utils.collate_fn)
 
-    data_loader_test = torch.utils.data.DataLoader(dataset_test,
-                                                   batch_size=1,
-                                                   shuffle=False,
-                                                   num_workers=4,
-                                                   collate_fn=utils.collate_fn)
+    data_loader_test = torch.utils.data.DataLoader(
+        dataset_test,
+        batch_size=1,
+        shuffle=False,
+        num_workers=args.num_workers,
+        collate_fn=utils.collate_fn)
 
     # dataset[0]
 
     device = torch.device('cuda') if torch.cuda.is_available() \
         else torch.device('cpu')
 
-    model = model.get_model(num_classes=4)
+    model = model.get_model(num_classes=4, size=args.size)
     model.to(device)
 
     if args.ckpt is not None:
-        model.load_state_dict(torch.load(args.ckpt))
+        model.load_state_dict(
+            torch.load(os.path.expanduser(os.path.abspath(args.ckpt))))
 
     # construct an optimizer
     params = [p for p in model.parameters() if p.requires_grad]
@@ -141,5 +159,3 @@ if __name__ == "__main__":
         print("Finished epoch {}".format(epoch))
         lr_scheduler.step()
         torch.save(model.state_dict(), str(out_file))
-
-        # evaluate(model, data_loader_test, device=device)

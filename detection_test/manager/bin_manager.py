@@ -1,24 +1,22 @@
 """This script is responsible for managing bins in a camera"""
 
-import logging
 import os
 import numpy as np
 import collections
+import itertools
+import copy
+from omegaconf import OmegaConf
+
 from bin_process.bin import Bin
 from visutils.vis import vis_bins
 import tools.utils_geo as geo
 import tools.utils_box as utils_box
 from tools import nms
-from colorama import Fore, Back
 
 
 class BinManager:
-    def __init__(self,
-                 bins=None,
-                 log=None,
-                 detector=None,
-                 camera="cam09",
-                 write=True):
+    def __init__(self, config, bins=None, log=None, camera="cam09"):
+        self.config = config
         self.log = log
         if bins is None:
             self._current_bins = []
@@ -28,130 +26,50 @@ class BinManager:
 
         self._camera = camera
 
-        # initialize configuration
-        self._mul = 3
-        if camera == "cam09":
-            self.init_cam_9()
-        elif camera == "cam11":
-            self.init_cam_11()
-        elif camera == "cam13":
-            self.init_cam_13()
+        self.init_camera_params()
 
-        # number of iteration to wait for new bin detection
-        self._wait_new_bin = 15
-
-        self.detector = detector
         self.current_frame = -1
 
         # exit bin labels of previous cameras
         self._prev_cam_exit = None
 
         self._empty_bins = []
+        self._left_bins = []
         self._dummy_bin_count = collections.defaultdict(int)
 
-    @property
-    def detector(self):
-        return self._detector
+    def init_camera_params(self):
+        # initialize configuration
+        self._mul = 3
+        CWD = os.path.dirname(os.path.abspath(__file__))
+        conf_file = os.path.join(CWD, "bin_params.yml")
+        bin_params_for_camera = OmegaConf.load(conf_file)
 
-    @detector.setter
-    def detector(self, _det):
-        self._detector = _det
+        spatial_params = [
+            "_thres_incoming_bin_bound", "_thres_out_bin_bound",
+            "_box_conveyor_belt", "_min_dim"
+        ]
+        spatial_params_area = ["_min_area", "_max_area"]
 
-    def init_cam_9(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        # self._thres_incoming_bin_bound = [
-        #     (165, 117),
-        #     (164, 235),
-        #     (481, 222),
-        #     (475, 110),
-        # ]  # bound for detecting incoming
-
-        self._thres_incoming_bin_bound = [
-            (110, 117),
-            (110, 340),
-            (590, 292),
-            (570, 114),
+        temporal_params = [
+            "_thres_max_idle_count",
+            "_max_det_fail",
+            "_max_track_fail",
+            "maxlen",
         ]
 
-        self._thres_out_bin_bound = [
-            (60, 122),  # (111, 225),
-            (65, 243),  # (131, 113),
-            (90, 236),  # (73, 91),
-            (90, 119),  # (48, 213),
-        ]
-        # self._thres_incoming_bin_init_x = 1420 / 3
-        self._thres_max_idle_count = 5
-        self._box_conveyor_belt = [
-            (51, 120),  # (26, 210),
-            (60, 233),  # (61, 82),
-            (480, 226),  # (496, 180),
-            (474, 110),  # (467, 302),
-        ]  # conveyor belt co-ords (x,y) from bottom left
+        for k, v in itertools.chain(
+                bin_params_for_camera[self._camera].items(),
+                bin_params_for_camera['all'].items()):
+            if isinstance(v, str) and "*" in v:
+                v = eval(v)
+            if k in spatial_params:
+                v = recursive_mul(v, self.config.spatial_scale_mul)
+            elif k in spatial_params_area:
+                v = recursive_mul(v, self.config.spatial_scale_mul**2)
+            elif k in temporal_params:
+                v = recursive_mul(v, self.config.temporal_scale_mul)
 
-        self._max_det_fail = 8 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 5 * self._mul
-        self._rat_track_det = 0.8  # FIXME : should it be less
-
-        self._min_area = 40 * 40
-        self._min_dim = 50  # REVIEW: Is it okay, for camera 9?
-        self._max_area = 120 * 120
-
-    def init_cam_11(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        self._thres_max_idle_count = 5
-
-        self._thres_incoming_bin_bound = [(617, 189), (617, 90), (430, 70),
-                                          (430, 176)]
-
-        self._box_conveyor_belt = [(636, 189), (636, 60), (8, 60), (8, 189)]  #
-
-        # self._thres_out_bin_bound = [(0, 77), (0, 187), (15, 184), (15, 72)]
-        self._thres_out_bin_bound = [(0, 77), (0, 187), (90, 184), (90, 62)]
-        # NOTE: changed out bin bound to work on camera 13
-
-        self._max_det_fail = 4 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 3 * self._mul
-        self._rat_track_det = 1.2
-
-        self._min_dim = 40
-        self._max_area = 140 * 140
-        self._min_area = 40 * 70
-
-    def init_cam_13(self):
-        self._left_bins = []
-        self._min_iou = 0.4
-        self._bin_count = 0
-        self._thres_max_idle_count = 5
-
-        self._thres_incoming_bin_bound = [(450, 51), (450, 180), (590, 167),
-                                          (590, 48)]
-
-        self._box_conveyor_belt = [(177, 65), (180, 194), (590, 167),
-                                   (590, 48)]  #
-
-        self._thres_out_bin_bound = [(177, 65), (180, 194), (74, 200),
-                                     (74, 76)]
-
-        self._max_det_fail = 5 * self._mul
-        self._max_track_fail = 10 * self._mul
-
-        self._default_bin_state = "items"
-        self.maxlen = 3 * self._mul
-        self._rat_track_det = 1.2
-
-        self._min_dim = 40
-        self._max_area = 150 * 150
-        self._min_area = 40 * 70
+            setattr(self, k, v)
 
     # NOTE: ONLY FOR CAMERA 11 or 13
     def set_prev_cam_manager(self, _manager):
@@ -180,7 +98,10 @@ class BinManager:
         if self._camera in ("cam11", "cam13"):
             # set label based on camera 9
             try:
-                for i_man in range(len(self._manager_prev_cam._left_bins)):
+                # for i_man in range(len(self._manager_prev_cam._left_bins)):
+
+                i_man = 0
+                while True:
                     # while len(self._manager_prev_cam._left_bins) > 0:
                     mbin = self._manager_prev_cam._left_bins[i_man]["bin"]
                     mbin_frame = self._manager_prev_cam._left_bins[i_man][
@@ -191,12 +112,14 @@ class BinManager:
 
                     # left bin must precede current frame
                     if mbin_frame - time_offset > self.current_frame:
+                        i_man += 1
                         continue
 
                     # for camera 13, left frame and current frame should be close
                     if self._camera == "cam13" and np.abs(
                             mbin_frame - time_offset -
                             self.current_frame) > 100:
+                        i_man += 1
                         continue
 
                     label = mbin.label
@@ -208,44 +131,45 @@ class BinManager:
                         tmp_labs.append(bin.label)
                     for bin_with_frame in self._left_bins:
                         bin = bin_with_frame["bin"]
-                        if hasattr(bin, 'siammask'): bin.clear_track()
+                        bin.clear_track()
                         tmp_labs.append(bin.label)
                     if label in tmp_labs:
                         self._manager_prev_cam._left_bins.pop(i_man)
+                        # i_man += 1
                         continue
                     break
                 else:
                     return
             except IndexError:
                 state = "items"
-        # elif self._camera == "cam13":
-        #     # set label based on camera 9
-        #     try:
-        #         while len(self._manager_prev_cam._left_bins) > 0:
-        #             mbin = self._manager_prev_cam._left_bins.pop(0)["bin"]
-        #             mbin_frame = self._manager_prev_cam._left_bins.pop(
-        #                 0)["frame_num"]
+        elif self._camera == "cam13":
+            # set label based on camera 11
+            try:
+                while len(self._manager_prev_cam._left_bins) > 0:
+                    mbin = self._manager_prev_cam._left_bins.pop(0)["bin"]
+                    mbin_frame = self._manager_prev_cam._left_bins.pop(
+                        0)["frame_num"]
 
-        #             if mbin_frame - 50 <= self.current_frame:
-        #                 self._manager_prev_cam._left_bins.pop(0)
-        #                 continue
+                    if mbin_frame - 50 <= self.current_frame:
+                        self._manager_prev_cam._left_bins.pop(0)
+                        continue
 
-        #             label = mbin.label
-        #             state = mbin.state
-        #             tmp_labs = []
-        #             for bin in self._current_bins:
-        #                 tmp_labs.append(bin.label)
-        #             for bin_with_frame in self._left_bins:
-        #                 bin = bin_with_frame["bin"]
-        #                 tmp_labs.append(bin.label)
-        #             if label in tmp_labs:
-        #                 continue
-        #             break
-        #         else:  # else is only executed when there is not break inside while
-        #             return
-        #     except IndexError:
-        #         state = "items"
-        #         return
+                    label = mbin.label
+                    state = mbin.state
+                    tmp_labs = []
+                    for bin in self._current_bins:
+                        tmp_labs.append(bin.label)
+                    for bin_with_frame in self._left_bins:
+                        bin = bin_with_frame["bin"]
+                        tmp_labs.append(bin.label)
+                    if label in tmp_labs:
+                        continue
+                    break
+                else:  # else is only executed when there is not break inside while
+                    return
+            except IndexError:
+                state = "items"
+                return
 
         # NOTE: wait for new bin, wait at least 5 iteration to assign
         self._dummy_bin_count[label] += 1
@@ -265,12 +189,13 @@ class BinManager:
         # if label > 49:
         #     return
 
-        if self._camera != "cam09":
-            self._manager_prev_cam._left_bins.pop(i_man)
+        # FIXME why this?
+        # if self._camera != "cam09":
+        #     self._manager_prev_cam._left_bins.pop(i_man)
 
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
-        self.log.clasp_log(f"{self._camera} : Bin {self._bin_count} enters")
+        self.log.clasp_log(f"{self._camera} : Bin {label} enters")
 
         if self._camera == "cam09":
             self._current_events.append([
@@ -291,16 +216,7 @@ class BinManager:
                 f"B{new_bin.label} exits X-Ray",
             ])
 
-    def update_state(self, im, boxes, scores, classes, frame_num):
-
-        self.current_frame = frame_num
-        if im is None:
-            return
-
-        if classes is None:  # FIXME: ??
-            for bin in self._current_bins:
-                bin.increment_idle()
-
+    def _filter_boxes(self, im, boxes, scores, classes, frame_num):
         # --------------------------------- Refine bb -------------------------------- #
         if classes is not None:
             ind = [i for i in range(len(classes)) if classes[i] in ("items", )]
@@ -367,11 +283,12 @@ class BinManager:
                 scores[ind_sort],
                 classes[ind_sort],
             )
+        return boxes, scores, classes, ind
 
+    def _track_current_bins(self, im, boxes, scores, classes, frame_num, ind):
+        # ---------------------------- Track previous bin ---------------------------- #
         explored_indices = []
         tmp_iou = {}
-
-        # ---------------------------- Track previous bin ---------------------------- #
         if len(ind) > 0 and len(self._current_bins) > 0:
             M_iou = []
             for bin in self._current_bins:
@@ -460,6 +377,10 @@ class BinManager:
             for bin in self._current_bins:
                 bin.increment_det_fail()
 
+        return explored_indices, tmp_iou
+
+    def _detect_new_bin(self, im, boxes, scores, classes, frame_num, ind,
+                        explored_indices, tmp_iou):
         # ------------------------------ Detect new bin ------------------------------ #
         if len(ind) > 0:
             for i in range(boxes.shape[0]):
@@ -495,24 +416,74 @@ class BinManager:
 
                 self.add_bin(box, cls, im)  # add new bin
 
-        # detect bin exit
-        self.process_exit(im, frame_num)
-        return 0
+    def update_state(self, im, boxes, scores, classes, frame_num):
+
+        self.current_frame = frame_num
+        if im is None:
+            return
+
+        if classes is None:  # FIXME: ??
+            for bin in self._current_bins:
+                bin.increment_idle()
+
+        boxes, scores, classes, ind = self._filter_boxes(
+            im, boxes, scores, classes, frame_num)
+
+        explored_indices, tmp_iou = self._track_current_bins(
+            im, boxes, scores, classes, frame_num, ind)
+
+        self._detect_new_bin(im, boxes, scores, classes, frame_num, ind,
+                             explored_indices, tmp_iou)
+
+        self._process_exit(im, frame_num)
+        return 0  # successful return
 
     def visualize(self, im):
         return vis_bins(im, self._current_bins)
 
-    def process_exit(self, im, frame_num):
+    def _process_exit(self, im, frame_num):
         _ind = []
         for i in range(len(self)):
             bin = self._current_bins[i]
             if geo.point_in_box(bin.centroid, self._thres_out_bin_bound):
+                # FIXME: Only for camera 11
+                # bin is not completely out of bound from camera 11,
+                # it's still need to be tracked
+                if self._camera == "cam11":
+                    if not geo.point_in_box(bin.centroid,
+                                            self._thres_out_bin_bound):
+                        _ind.append(i)
+                    else:
+                        bin.clear_track()
+                        self.log.clasp_log(
+                            f"{self._camera} : Bin {bin.label} out from camera view"
+                        )
+                    # check if bin has already entered to cam 13
+                    found = False
+                    for _bininfo in self._left_bins:
+                        if bin.label == _bininfo["bin"].label:
+                            found = True
+                            break
+                    if found:
+                        continue
+
                 # bin exit
                 self.log.clasp_log(f"{self._camera} : Bin {bin.label} exits")
 
                 # delete tracker for resource minimization
-                if hasattr(bin, 'siammask'): bin.clear_track()
-                self._left_bins.append({"bin": bin, "frame_num": frame_num})
+                if self._camera != "cam11":
+                    bin.clear_track()
+                    self._left_bins.append({
+                        "bin": bin,
+                        "frame_num": frame_num
+                    })
+                else:
+                    _tmp = copy.copy(bin)
+                    _tmp.clear_track()
+                    self._left_bins.append({
+                        "bin": _tmp,
+                        "frame_num": frame_num
+                    })
 
                 if self._camera == "cam09":
                     msg = f"B{bin.label} enters X-Ray"
@@ -523,7 +494,6 @@ class BinManager:
                     self.current_frame, bin.label, bin.cls, *bin.pos, "exit",
                     msg
                 ])
-
             else:
                 pass_det = bin.num_det_fail < self._max_det_fail
                 pass_track = bin.num_track_fail < self._max_track_fail
@@ -559,8 +529,7 @@ class BinManager:
                                         # divested to current bin,
                                         # we left the id of other bin, and retain current bin
 
-                                        if hasattr(bin, 'siammask'):
-                                            bin.clear_track()
+                                        bin.clear_track()
                                         self._empty_bins.append(bin)
                                         other_bin.label = bin.label  # label swapped
                                         flag = False
@@ -580,7 +549,7 @@ class BinManager:
                                         )
                                         break
                             if flag:
-                                if hasattr(bin, 'siammask'): bin.clear_track()
+                                bin.clear_track()
                                 self._empty_bins.append(bin)
 
                     else:
@@ -632,7 +601,7 @@ class BinManager:
                     default_state=self._default_bin_state,
                     maxlen=self.maxlen,
                 )
-                if hasattr(new_bin, 'siammask'): new_bin.clear_track()
+                new_bin.clear_track()
                 if _type == "exit":
                     self._left_bins.append({
                         "bin": new_bin,
@@ -641,3 +610,13 @@ class BinManager:
                 elif _type == "empty":
                     self._empty_bins.append(new_bin)
                 self._bin_count = max(self._bin_count, _id)
+
+
+# ------------------------------ Helper function ----------------------------- #
+def recursive_mul(item, scale=1):
+    """ recursively multiply all elements in item """
+    if isinstance(item, collections.abc.Iterable):
+        item = type(item)([recursive_mul(x, scale) for x in item])
+        return item
+    else:
+        return type(item)(item * scale)

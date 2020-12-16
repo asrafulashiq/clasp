@@ -8,7 +8,7 @@ import tools.utils_box as utils
 import cv2
 import numpy as np
 import torch
-
+from loguru import logger
 # import simatrack
 
 from siammask.tools.test import siamese_init, siamese_track, load_config, load_pretrain
@@ -51,8 +51,11 @@ class Bin:
     def init_tracker(self, box, frame):
         if hasattr(self, 'siammask'):
             del self.siammask
+        if torch.cuda.device_count() > 1:
+            self.device = torch.device("cuda:1")
+        else:
+            self.device = torch.device("cuda:0")
         self.load_siammask()
-        self.device = torch.device("cuda:0")
         bb = tuple([box[0], box[1], box[2] - box[0] + 1, box[3] - box[1] + 1])
         x, y, w, h = bb
         target_pos = np.array([x + w / 2, y + h / 2])
@@ -81,7 +84,7 @@ class Bin:
 
         net = Custom(anchors=cfg["anchors"])
         net = load_pretrain(net, args.resume)
-        net.eval().cuda()
+        net.eval().to(self.device)
         self.siammask = net
         self.cfg_siam = cfg
 
@@ -106,8 +109,10 @@ class Bin:
                 status = False
             else:
                 status = True
+        except KeyboardInterrupt:
+            raise KeyboardInterrupt
         except:
-            print("======= TRACK ERROR =======")
+            logger.info("======= TRACK ERROR =======")
             status = False
 
         if status:

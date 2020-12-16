@@ -2,17 +2,15 @@ import os
 import sys
 import datetime
 from loguru import logger
-import logging
-from colorama import Fore, Back
 from tqdm import tqdm
 
 
 class ClaspLogger():
     def __init__(self):
-        self.logger = logger
+        self._logger = logger
 
         # sys.stdout logger
-        self.logger.configure(handlers=[
+        self._logger.configure(handlers=[
             dict(
                 sink=lambda x: tqdm.write(x, end=''),
                 level='DEBUG',
@@ -26,14 +24,15 @@ class ClaspLogger():
         filename = os.path.join(
             "./logs", "{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
                                                now.hour))
-        # self._level = logger.level("CUSTOM", no=45)
-        # # only add CUSTOM log into the logfile
-        # self.logger.add(sink=filename, level='CUSTOM', format="{message}")
 
-        self.logger.add(sink=filename,
-                        level='INFO',
-                        format="{time: MM-DD at HH:mm} | {message}")
+        self._logger.add(sink=filename,
+                         level='DEBUG',
+                         format="{time: MM-DD at HH:mm} | {message}")
         self.pre_msg = ""
+
+    @property
+    def logger(self):
+        return self._logger
 
     def info(self, msg, *args, **kwargs):
         self.logger.info(msg, *args, **kwargs)
@@ -51,5 +50,5 @@ class ClaspLogger():
         self.logger.log(level, msg)
 
     def clasp_log(self, msg):
-        self.logger.info("{} :: {}".format(self.pre_msg, msg))
+        self.logger.debug("{} :: {}".format(self.pre_msg, msg))
         # self.info(msg)

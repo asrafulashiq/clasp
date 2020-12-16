@@ -1,3 +1,5 @@
+"""python -m pdb coco_format_from_clasp_gt.py --out_name fullsize  --exp  exp3  --cam cam14 --size 1920x1080
+"""
 import json
 from pathlib import Path
 import pandas as pd
@@ -30,8 +32,8 @@ if __name__ == "__main__":
                         help="save path of json",
                         default="annotations")
     # default=HOME+'/dataset/clasp/clasp_annotations')
-    parser.add_argument("--out-name", type=str, default="anns")
-    parser.add_argument("--im-folder",
+    parser.add_argument("--out_name", type=str, default="anns")
+    parser.add_argument("--im_folder",
                         type=str,
                         default=HOME + '/dataset/ALERT/alert_frames')
     parser.add_argument("--test", action='store_true')

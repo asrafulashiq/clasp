@@ -1,17 +1,14 @@
 import torch
-import torch.nn as nn
-import torchvision
 import argparse
 import os
 from os.path import expanduser
-import utils
+import shutil
 from torchvision.transforms import functional as F
-
+import cv2
 import numpy as np
 from pathlib import Path
 
 import model as models
-import coco_utils
 
 import cv2
 import skimage
@@ -26,7 +23,7 @@ def draw_rect(img, boxes):
     else:
         pt1 = (int(boxes[0]), int(boxes[1]))
         pt2 = (int(boxes[2]), int(boxes[3]))
-        cv2.rectangle(img, pt1, pt2, (0, 0, 1.), 5)
+        cv2.rectangle(img, pt1, pt2, (0, 255, 0), 5)
         return img
 
 
@@ -45,15 +42,22 @@ if __name__ == "__main__":
                         type=str,
                         help="Image folder",
                         default=HOME +
-                        "/dataset/ALERT/alert_frames/exp1/cam09/")
-    parser.add_argument("--write-folder",
+                        "/dataset/ALERT/alert_frames/exp2/cam09/")
+    parser.add_argument("--write_folder",
                         type=str,
                         help="Image folder",
                         default=HOME + "/dataset/ALERT/out_rcnn/")
+    parser.add_argument("--size", type=str, default="640x360")
+    parser.add_argument("--range",
+                        type=int,
+                        nargs=3,
+                        default=[2600, 10000, 100])
+
     args = parser.parse_args()
     args.ckpt = expanduser(args.ckpt)
     args.folder = expanduser(args.folder)
     args.write_folder = expanduser(args.write_folder)
+    args.size = tuple(int(x) for x in args.size.split("x"))  # width, height
     print(args)
 
     np.random.seed(args.seed)
@@ -63,7 +67,7 @@ if __name__ == "__main__":
     device = torch.device('cuda') if torch.cuda.is_available() \
         else torch.device('cpu')
 
-    model = models.get_model(num_classes=4)
+    model = models.get_model(num_classes=4, size=args.size)
     model.to(device)
 
     if os.path.exists(args.ckpt):
@@ -76,13 +80,16 @@ if __name__ == "__main__":
     assert os.path.isdir(args.folder)
     imfiles = sorted(os.listdir(args.folder))
     write_folder = Path(args.write_folder)
-    write_folder.mkdir(exist_ok=True)
+    if write_folder.exists():
+        shutil.rmtree(str(write_folder))
+    write_folder.mkdir(exist_ok=True, parents=True)
 
-    for i in tqdm(range(3000, 6800, 100)):
+    for i in tqdm(range(*args.range)):
         filename = Path(args.folder) / f"{i:06d}.jpg"
         if filename.exists():
-            im = skimage.io.imread(str(filename))
-            im = skimage.img_as_float32(im)
+            im = cv2.cvtColor(cv2.imread(str(filename)), cv2.COLOR_BGR2RGB)
+            im = cv2.resize(im, args.size)
+            # im = skimage.img_as_float32(im)
             imt = F.to_tensor(im)
             with torch.no_grad():
                 output = model([imt.to(device)])
@@ -90,7 +97,7 @@ if __name__ == "__main__":
                 k: v.to(cpu_device).data.numpy()
                 for k, v in output[0].items()
             }
-            index = (((output["labels"] == 2) | (output["labels"] == 3)) &
+            index = (((output["labels"] == 2)) &
                      (output["scores"] > args.thres))
             if index.size > 0:
                 boxes = output["boxes"][index]

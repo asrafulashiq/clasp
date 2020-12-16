@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Counter
 from pycocotools.coco import COCO
 import numpy as np
 import matplotlib.pyplot as plt
@@ -20,21 +21,24 @@ def add_bbox_ann(I, anns):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--ann-file",
+                    "-a",
                     type=str,
                     default='annotations/anns_exp1_exp2_traincam9.json')
 parser.add_argument("--seed", type=int, default=0)
-parser.add_argument("--data-root",
+parser.add_argument("--data_root",
                     type=str,
                     default=os.environ['HOME'] + '/dataset/ALERT/alert_frames')
-parser.add_argument("--write-all", action="store_true")
+parser.add_argument("--write_all", action="store_true")
 parser.add_argument("--output", type=str, default="./output_fig")
+parser.add_argument("--size", type=str, default="640x360")
+
 args = parser.parse_args()
 
 np.random.seed(args.seed)
 
 annFile = args.ann_file
 ROOT = Path(args.data_root)
-size = (640, 360)
+size = tuple(int(x) for x in args.size.split("x"))  # width, height
 
 coco = COCO(annFile)
 
@@ -52,9 +56,12 @@ imgIds = coco.getImgIds(catIds=catIds)
 print("START.....")
 
 if not args.write_all:
+    counter = 0
     while True:
         plt.close('all')
-        img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
+        # img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
+        img = coco.loadImgs(imgIds[counter])[0]
+        counter += 1
         # img = coco.loadImgs([80])[0]
 
         imfile = ROOT / img['file_name']

@@ -13,7 +13,6 @@ import visutils.vis as vis
 from parse import parse
 from collections import defaultdict
 
-
 # Experiment
 file_num = "exp2_train"
 cameras = ["cam09", "cam11", "cam13"]

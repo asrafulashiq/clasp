@@ -5,6 +5,7 @@ import matplotlib
 import cv2
 import skimage
 import skimage.io
+from loguru import logger
 
 
 def plot_cv(image, axes=None, show=True, fig_number=None):
@@ -41,7 +42,7 @@ def get_images_from_dir(src_dir,
     for frame_num in frame_list:
         imfile = pathlib.Path(src_dir) / fmt.format(frame_num)
         if not imfile.exists():
-            print(imfile, "does not exist")
+            logger.info(imfile, "does not exist")
             continue
         if file_only:
             image = None
@@ -72,7 +73,7 @@ def get_fp_from_dir(src_dir,
     for frame_num in frame_list:
         imfile = pathlib.Path(src_dir) / fmt.format(frame_num)
         if not imfile.exists():
-            print(imfile, "does not exist")
+            logger.info(imfile, "does not exist")
             continue
         outfile = str(out_folder / imfile.name)
         files.append(outfile)

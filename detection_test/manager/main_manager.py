@@ -1,6 +1,9 @@
+import torch
+torch.backends.cudnn.benchmark = True
+
 from manager.bin_manager import BinManager
 # from manager.pax_manager import PAXManager
-from manager.detector import DummyDetector
+from manager.detector import DetectorObj
 
 import pickle
 import os
@@ -8,6 +11,24 @@ import numpy as np
 from pathlib import Path
 import pandas as pd
 from loguru import logger
+from tools.time_calculator import ComplexityAnalysis
+
+
+class Dummy:
+    def __init__(*args, **kwargs):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    def __enter__(self, *args, **kwargs):
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        return self
+
+    def __getattr__(self, *args, **kwargs):
+        return self
 
 
 class Manager:
@@ -17,12 +38,15 @@ class Manager:
             log=None,
             bin_only=True,
             write=True,  # whether to save intermediate results
-    ):
+            analyzer: ComplexityAnalysis = None):
         self.file_num = config.file_num
         self.bin_only = bin_only
         self.cameras = config.cameras
         self.config = config
         self.log = log
+        self.analyzer = analyzer
+        if self.analyzer is None:
+            self.analyzer = Dummy()
         if log is None:
             self.log = logger
             self.log.clasp_log = self.log.info
@@ -64,31 +88,37 @@ class Manager:
             self._det_bin[camera] = pickle.load(fp)
 
     def init_detectors(self):
-        detector = DummyDetector(ckpt=self.config.bin_ckpt,
-                                 thres=0.3,
-                                 labels_to_keep=(2, ))
+        detector = DetectorObj(ckpt=self.config.bin_ckpt,
+                               thres=0.3,
+                               labels_to_keep=(2, ),
+                               size=self.config.size,
+                               fp16=self.config.fp16)
         self._detector = detector
 
     def init_cameras(self):
         self._bin_managers = {}
 
         for camera in self.cameras:
-            self._bin_managers[camera] = BinManager(camera=camera,
+            self._bin_managers[camera] = BinManager(self.config,
+                                                    camera=camera,
                                                     log=self.log)
 
             # set previous camera manager
             if camera == "cam11":
                 self._bin_managers[camera].set_prev_cam_manager(
                     self._bin_managers.get(
-                        "cam09", BinManager(camera="cam09", log=self.log)))
+                        "cam09",
+                        BinManager(self.config, camera="cam09", log=self.log)))
             elif camera == "cam13":
                 self._bin_managers[camera].set_prev_cam_manager(
                     self._bin_managers.get(
-                        "cam11", BinManager(camera="cam11", log=self.log)))
+                        "cam11",
+                        BinManager(self.config, camera="cam11", log=self.log)))
             elif camera == "cam14":
                 self._bin_managers[camera].set_prev_cam_manager(
                     self._bin_managers.get(
-                        "cam13", BinManager(camera="cam13", log=self.log)))
+                        "cam13",
+                        BinManager(self.config, camera="cam13", log=self.log)))
 
     def get_item_bb(self, camera, frame_num, image):
         """ get results from pkl file """
@@ -112,9 +142,37 @@ class Manager:
         classes = classes[ind]
         return boxes, scores, classes
 
+    def pre_calculate_detector(self, imlist, return_im=True, max_batch=10):
+        if self.config.run_detector:
+            info_detector_list = self._detector.predict_box_batch(
+                imlist, max_batch=max_batch)
+            return info_detector_list
+
+    def run_tracking_per_frame(self,
+                               im=None,
+                               det=None,
+                               cam="cam09",
+                               frame_num=None,
+                               return_im=True):
+        self.current_frame = frame_num
+        self.log.addinfo(self.file_num, cam, frame_num)
+        if im is None:
+            self.log.warning("No image detected")
+            return im
+
+        if cam in self._bin_managers:
+            _, boxes, scores, classes = det
+            self._bin_managers[cam].update_state(im, boxes, scores, classes,
+                                                 frame_num)
+
+        if return_im:
+            with self.analyzer("DRAW_BIN", False):
+                ret = self.draw(im, cam=cam)
+            return ret
+
     def run_detector_image(self,
                            im=None,
-                           cam="cam09",
+                           cam=None,
                            frame_num=None,
                            return_im=True):
         """ main loop """
@@ -127,8 +185,8 @@ class Manager:
 
         # get dummy results
         if cam in self._bin_managers:
-            boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
-
+            with self.analyzer("DET"):
+                boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
             # # :: Something wrong with frame 2757 to 2761 of exp1 cam 09
             # if (boxes is not None and self.file_num == "exp1"
             #         and cam == "cam09" and frame_num >= 2757
@@ -143,12 +201,13 @@ class Manager:
             #         if frame_num > 2761:
             #             bin.init_tracker(pos, im)
             # else:
-
-            self._bin_managers[cam].update_state(im, boxes, scores, classes,
-                                                 frame_num)
-
+            with self.analyzer("TRACK"):
+                self._bin_managers[cam].update_state(im, boxes, scores,
+                                                     classes, frame_num)
         if return_im:
-            return self.draw(im, cam=cam)
+            with self.analyzer("DRAW_BIN", False):
+                ret = self.draw(im, cam=cam)
+            return ret
 
     def draw(self, im, cam="cam09"):
         if cam in self._bin_managers:
@@ -259,3 +318,39 @@ class Manager:
             fp.write("\n".join(self.write_list))
 
         self.log.info(f"Output info to : {write_file}")
+
+    # Live API log for NU
+    def init_data_dict(self):
+        self.data_dict_keys = [
+            "file", "cam", "frame", "id", "class", "x1", "y1", "x2", "y2",
+            "type", "msg"
+        ]
+        self.data_dict = {k: [] for k in self.data_dict_keys}
+
+    def load_info(self):
+        for cam, bin_manager in self._bin_managers.items():
+            for each_bin in bin_manager._current_bins:
+                bbox = ",".join(str(int(i)) for i in each_bin.pos)
+                line = (
+                    f"{self.file_num},{cam},{bin_manager.current_frame},{each_bin.label},{each_bin.cls},{bbox},"
+                    + f"loc, -1")
+                self.write_list.append(line)
+                vals = [
+                    self.file_num, cam, bin_manager.current_frame,
+                    each_bin.label, each_bin.cls,
+                    *[3 * int(_k) for _k in bbox.split(',')], "loc", "-1"
+                ]
+                kvpairs = {k: v
+                           for k, v in zip(self.data_dict_keys, vals)}.items()
+                self.data_dict = self.append_to_dict(self.data_dict, kvpairs)
+
+    def get_batch_info(self):
+        df = pd.DataFrame(self.data_dict)
+        return df
+
+    @staticmethod
+    def append_to_dict(dictionary, kvpairs):
+        for k, v in kvpairs:
+            if k in dictionary:
+                dictionary[k].append(v)
+        return dictionary
