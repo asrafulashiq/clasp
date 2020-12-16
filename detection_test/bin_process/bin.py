@@ -2,18 +2,14 @@
 Bin class description
 """
 
-import math
 from collections import deque
 import tools.utils_box as utils
-import cv2
 import numpy as np
 import torch
 from loguru import logger
-# import simatrack
 
 from siammask.tools.test import siamese_init, siamese_track, load_config, load_pretrain
 from siammask.siammask_sharp.custom import Custom
-import argparse
 
 
 class Bin:
