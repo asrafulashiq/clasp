@@ -30,7 +30,7 @@ def CleanInputDir(inputdir):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--start_frame", type=float, default=120.0)
+parser.add_argument("--start_frame", "-s", type=float, default=120.0)
 parser.add_argument("--duration", type=float, default=4)
 args = parser.parse_args()
 

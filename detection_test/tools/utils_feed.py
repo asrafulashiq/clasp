@@ -413,7 +413,11 @@ class DrawClass():
         #     # print("#draw:2b", flush=True)
 
         # print("#draw:3", flush=True)
-        return {"args": out_args, "frame": frame_num, "msg": list(self.msg)}
+        return {
+            "args": out_args,
+            "frame": frame_num,
+            "msg": list(self.Info.msg)
+        }
 
     def finish(self):
         log_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)),
