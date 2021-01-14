@@ -13,7 +13,6 @@ import os
 from colorama import init, Fore
 
 init(autoreset=True)
-
 parser = get_parser()
 if os.uname()[1] == 'lambda-server':  # code is in clasp server
     parser = add_server_specific_arg(parser)
