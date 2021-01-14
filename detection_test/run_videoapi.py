@@ -252,7 +252,7 @@ class BatchPrecessingMain(object):
                     else:
                         batch_files_to_process[cam].append(fname)
                 last_frame = cur_frame
-            self._last_frame[cam] = last_frame
+            self._last_frame[cam] = last_frame - skip_f
         return batch_files_to_process, flag
 
     @staticmethod

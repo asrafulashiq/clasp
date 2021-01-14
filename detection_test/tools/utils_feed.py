@@ -331,10 +331,11 @@ class DrawClass():
         with multiprocessing.Pool(processes=40) as pool:
             for each_step_arg in all_out_args:
                 # DrawClass.plot_fun_step(each_step_arg, feed_folder)
-                pool.apply_async(DrawClass.plot_fun_step,
-                                 (each_step_arg, feed_folder),
-                                 callback=lambda x: print("#"),
-                                 error_callback=lambda e: print("error"))
+                pool.apply_async(
+                    DrawClass.plot_fun_step,
+                    (each_step_arg, feed_folder),
+                    #  callback=lambda x: print("#"),
+                    error_callback=lambda e: print("error"))
             pool.close()
             pool.join()
 
@@ -413,7 +414,11 @@ class DrawClass():
         #     # print("#draw:2b", flush=True)
 
         # print("#draw:3", flush=True)
-        return {"args": out_args, "frame": frame_num, "msg": list(self.msg)}
+        return {
+            "args": out_args,
+            "frame": frame_num,
+            "msg": list(self.Info.msg)
+        }
 
     def finish(self):
         log_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)),

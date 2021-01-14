@@ -1,5 +1,5 @@
 all:
-    _wait_new_bin: 15
+    _wait_new_bin: 2
 
 cam09:
     _min_iou: 0.4
