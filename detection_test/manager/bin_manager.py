@@ -12,6 +12,7 @@ from visutils.vis import vis_bins
 import tools.utils_geo as geo
 import tools.utils_box as utils_box
 from tools import nms
+import pandas as pd
 
 
 class BinManager:
@@ -89,7 +90,7 @@ class BinManager:
     def __iter__(self):
         return iter(self._current_bins)
 
-    def add_bin(self, box, cls, im):
+    def add_bin(self, box, cls, im, safe=True):
 
         self._bin_count += 1
         label = self._bin_count
@@ -172,10 +173,11 @@ class BinManager:
                 return
 
         # NOTE: wait for new bin, wait at least 5 iteration to assign
-        self._dummy_bin_count[label] += 1
-        if self._dummy_bin_count[label] < self._wait_new_bin:
-            self._bin_count -= 1
-            return
+        if safe:
+            self._dummy_bin_count[label] += 1
+            if self._dummy_bin_count[label] < self._wait_new_bin:
+                self._bin_count -= 1
+                return
 
         new_bin = Bin(
             label=label,
@@ -184,10 +186,6 @@ class BinManager:
             default_state=self._default_bin_state,
             maxlen=self.maxlen,
         )
-
-        # # DEBUG
-        # if label > 49:
-        #     return
 
         # FIXME why this?
         # if self._camera != "cam09":
@@ -268,9 +266,6 @@ class BinManager:
                                                            _classes,
                                                            thresh=0.4,
                                                            low_score=0.3)
-                # boxes, scores, classes = nms.multi_nms(
-                #     _boxes, _scores, _classes, thresh=0.4, low_score=0.3
-                # )
         else:
             boxes, scores, classes = None, None, None
 
@@ -434,6 +429,9 @@ class BinManager:
 
         self._detect_new_bin(im, boxes, scores, classes, frame_num, ind,
                              explored_indices, tmp_iou)
+
+        # FIXME Add bin results from NU here
+        self._add_nu_multibb(im)
 
         self._process_exit(im, frame_num)
         return 0  # successful return
@@ -610,6 +608,61 @@ class BinManager:
                 elif _type == "empty":
                     self._empty_bins.append(new_bin)
                 self._bin_count = max(self._bin_count, _id)
+
+    def _add_nu_multibb(self, im):
+        """
+        check if there is any nu action
+
+        check if nu action bb matches with any bb by iou
+        if does not match, add nu bb as potential detection
+        start tracking nu bb
+        """
+
+        if not hasattr(self, "nu_bb"):
+            self.nu_bb = pd.read_csv("info/results-multibb-nu.txt",
+                                     header=None)
+            self.nu_bb = self.nu_bb.iloc[:, [0, 1, 10, 11, 12, 13]].copy()
+            self.nu_bb = self.nu_bb.drop_duplicates()
+            self.nu_bb.columns = ['cam', 'frame', 'x1', 'y1', 'x2', 'y2']
+            self.nu_bb['frame'] = (self.nu_bb['frame'] *
+                                   int(self.config.temporal_scale_mul))
+            self.nu_bb[['x1', 'x2']] *= self.config.size[0]
+            self.nu_bb[['y1', 'y2']] *= self.config.size[1]
+            self.nu_bb = self.nu_bb.sort_values(by='frame')
+            self.nu_bb.loc[:, 'cam'] = self.nu_bb['cam'].apply(
+                lambda x: x.replace('cam9', 'cam09'))
+
+        # get closest index from current frame
+        df = self.nu_bb[self.nu_bb['cam'] == self._camera]
+
+        idx = np.searchsorted(df['frame'], self.current_frame)
+        if (idx > 0 and (df.loc[idx, 'frame'] - self.current_frame) <=
+                self.config.temporal_scale_mul):
+            row = df[df['frame'] == df.loc[idx, 'frame']]
+            thresh_iou = 0.3
+
+            # import pdb
+            # pdb.set_trace()
+
+            for i, info in row.iterrows():
+                bbox = info[['x1', 'y1', 'x2', 'y2']].to_numpy()
+                # check if there's any bin bb close with info bb
+
+                found = False
+                for i in range(len(self)):
+                    bin = self._current_bins[i]
+                    iou_value = bin.iou_bbox(bbox, ratio_type="min")
+
+                    if iou_value > thresh_iou:
+                        found = True
+                        break
+
+                if not found:
+                    # if all iou's are less than thresh
+                    #   then this bb should be considered for tracking
+                    # import pdb
+                    # pdb.set_trace()
+                    self.add_bin(bbox, "item", im, safe=False)
 
 
 # ------------------------------ Helper function ----------------------------- #
