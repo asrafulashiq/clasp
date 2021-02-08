@@ -624,8 +624,8 @@ class BinManager:
             self.nu_bb = self.nu_bb.iloc[:, [0, 1, 10, 11, 12, 13]].copy()
             self.nu_bb = self.nu_bb.drop_duplicates()
             self.nu_bb.columns = ['cam', 'frame', 'x1', 'y1', 'x2', 'y2']
-            self.nu_bb['frame'] = (self.nu_bb['frame'] *
-                                   int(self.config.temporal_scale_mul))
+            # self.nu_bb['frame'] = (self.nu_bb['frame'] *
+            #                        int(self.config.temporal_scale_mul))
             self.nu_bb[['x1', 'x2']] *= self.config.size[0]
             self.nu_bb[['y1', 'y2']] *= self.config.size[1]
             self.nu_bb = self.nu_bb.sort_values(by='frame')
