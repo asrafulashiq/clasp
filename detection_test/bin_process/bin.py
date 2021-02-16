@@ -87,29 +87,29 @@ class Bin:
     @torch.no_grad()
     def update_tracker(self, frame):
         prev_pos = self.track_state["target_pos"]
-        try:
-            state = siamese_track(self.track_state,
-                                  frame,
-                                  mask_enable=True,
-                                  refine_enable=True,
-                                  device=self.device)  # track
-            target_pos = state["target_pos"]
-            target_sz = state["target_sz"]
+        # try:
+        state = siamese_track(self.track_state,
+                              frame,
+                              mask_enable=True,
+                              refine_enable=True,
+                              device=self.device)  # track
+        target_pos = state["target_pos"]
+        target_sz = state["target_sz"]
 
-            w, h = target_sz
-            x, y = target_pos - target_sz / 2
+        w, h = target_sz
+        x, y = target_pos - target_sz / 2
 
-            distance = np.linalg.norm(prev_pos - target_pos)
+        distance = np.linalg.norm(prev_pos - target_pos)
 
-            if distance > 60:  # NOTE: is this too large?
-                status = False
-            else:
-                status = True
-        except KeyboardInterrupt:
-            raise KeyboardInterrupt
-        except:
-            logger.info("======= TRACK ERROR =======")
+        if distance > 60:  # NOTE: is this too large?
             status = False
+        else:
+            status = True
+        # except KeyboardInterrupt:
+        #     raise KeyboardInterrupt
+        # except:
+        #     logger.info("======= TRACK ERROR =======")
+        #     status = False
 
         if status:
             x2, y2 = x + w, y + h

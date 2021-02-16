@@ -5,23 +5,16 @@ torch.backends.cudnn.benchmark = True
 from pathlib import Path
 from tqdm import tqdm
 import tools.utils as utils
-from config import get_conf, get_parser, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
 from colorama import init, Fore
+import hydra
 
-init(autoreset=True)
-parser = get_parser()
-if os.uname()[1] == 'lambda-server':  # code is in clasp server
-    parser = add_server_specific_arg(parser)
-conf = get_conf(parser)
 
-# FIXME
-conf.run_detector = True
-
-if __name__ == "__main__":
+@hydra.main(config_path="conf", config_name="config")
+def main(conf):
     log = ClaspLogger()
 
     file_num = conf.file_num
@@ -34,7 +27,10 @@ if __name__ == "__main__":
         "cam14": "cam13"
     }
 
-    manager = Manager(config=conf, log=log, bin_only=True, template_match=True)
+    manager = Manager(config=conf,
+                      log=log,
+                      bin_only=True,
+                      template_match=conf.template_match)
 
     imlist = []
     src_folder = {}
@@ -120,3 +116,7 @@ if __name__ == "__main__":
 
     if conf.write:
         manager.final_write()
+
+
+if __name__ == '__main__':
+    main()
