@@ -1,8 +1,7 @@
-""" Main file to run the program """
-import torch
-torch.backends.cudnn.benchmark = True
+""" Test background subtraction algorithm """
 
 from pathlib import Path
+import cv2
 from tqdm import tqdm
 import tools.utils as utils
 from config import get_conf, get_parser, add_server_specific_arg
@@ -10,16 +9,15 @@ from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
+import torch
 from colorama import init, Fore
 
 init(autoreset=True)
+
 parser = get_parser()
 if os.uname()[1] == 'lambda-server':  # code is in clasp server
     parser = add_server_specific_arg(parser)
 conf = get_conf(parser)
-
-# FIXME
-conf.run_detector = True
 
 if __name__ == "__main__":
     log = ClaspLogger()
@@ -34,8 +32,6 @@ if __name__ == "__main__":
         "cam14": "cam13"
     }
 
-    manager = Manager(config=conf, log=log, bin_only=True, template_match=True)
-
     imlist = []
     src_folder = {}
     out_folder = {}
@@ -49,7 +45,6 @@ if __name__ == "__main__":
         out_folder[cam] = Path(
             conf.fmt_filename_out.format(file_num=file_num, cam=cam))
         out_folder[cam].mkdir(parents=True, exist_ok=True)
-        print(f"out_folder {str(out_folder[cam])}")
 
         if cam == "cam13":
             # NOTE: camera 13 is 50 frames behind (approx)
@@ -72,7 +67,6 @@ if __name__ == "__main__":
 
         imlist.append(
             utils.get_images_from_dir(src_folder[cam],
-                                      size=conf.size,
                                       start_frame=start_frame,
                                       skip_end=conf.skip_end,
                                       delta=conf.delta,
@@ -81,42 +75,30 @@ if __name__ == "__main__":
 
     # Process loop
     pbar = tqdm(zip(*imlist))
-    for counter, ret in enumerate(pbar):
-        # load already computed info
-        if conf.info is not None and os.path.exists(conf.info):
-            for i_cnt in range(len(ret)):
-                im, imfile, frame_num = ret[i_cnt]
-                manager.load_info(conf.info,
-                                  frame_num,
-                                  im,
-                                  camera=cameras[i_cnt])
-            conf.info = None
-            if conf.write:
-                manager.write_info()
-            continue
 
-        # load exit info of previous camera
-        if conf.load_prev_exit_info:
-            for i_cnt in range(len(ret)):
-                manager.load_prev_exit_info(
-                    conf.info_prev,
-                    current_cam=cameras[i_cnt],
-                    prev_cam=dict_prev_cam[cameras[i_cnt]])
-            conf.load_prev_exit_info = False
+    fgbg = cv2.bgsegm.createBackgroundSubtractorCNT(minPixelStability=40,
+                                                    useHistory=True,
+                                                    maxPixelStability=500)
+
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    # fgbg = cv2.bgsegm.createBackgroundSubtractorGMG(initializationFrames=40)
+
+    for counter, ret in enumerate(pbar):
 
         for i_cnt in range(len(ret)):
             im, imfile, frame_num = ret[i_cnt]
-            new_im = manager.run_detector_image(im,
-                                                cam=cameras[i_cnt],
-                                                frame_num=frame_num)
-            skimage.io.imsave(str(out_folder[cameras[i_cnt]] / imfile.name),
-                              new_im)
-        if conf.write:
-            manager.write_info()
+            im = cv2.cvtColor(im, cv2.COLOR_RGB2GRAY)
+            im = cv2.GaussianBlur(im, (5, 5), 0)
 
-        if cameras[i_cnt] == "cam13":
-            frame_num += 50
-        pbar.set_description(f"{Fore.CYAN} Processing: {frame_num}")
+            fgmask = fgbg.apply(im)
+            fgmask = cv2.morphologyEx(fgmask, cv2.MORPH_OPEN, kernel)
 
-    if conf.write:
-        manager.final_write()
+            # fgmask = fgbg.apply(im)
+            # new_im = cv2.morphologyEx(fgmask, cv2.MORPH_OPEN, kernel)
+
+            new_im = cv2.addWeighted(im, 0.3, fgmask, 0.7, 0)
+            skimage.io.imsave(
+                str((Path("~/Desktop/tmp_folder") / imfile.name).expanduser()),
+                new_im)
+
+        pbar.set_description(f"Processing: {Fore.CYAN}{frame_num}")

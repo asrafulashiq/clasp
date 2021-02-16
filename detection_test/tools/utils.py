@@ -8,6 +8,23 @@ import skimage.io
 from loguru import logger
 
 
+class Dummy:
+    def __init__(self, *args, **kwargs):
+        pass
+
+    def __call__(self, *args, **kwargs):
+        return self
+
+    def __enter__(self, *args, **kwargs):
+        return self
+
+    def __exit__(self, *args, **kwargs):
+        return self
+
+    def __getattr__(self, *args, **kwargs):
+        return self
+
+
 def plot_cv(image, axes=None, show=True, fig_number=None):
     """ plot cv2 images  """
     if axes is None:
