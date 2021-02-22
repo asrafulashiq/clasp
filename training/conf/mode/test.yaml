@@ -1,0 +1,10 @@
+# @package _global_
+
+eval_only: true
+batch_size: 1
+
+result_output_dir: "./outputs"
+
+# visualize mode
+visualize: true
+num_items: 10

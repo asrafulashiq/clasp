@@ -1,0 +1,42 @@
+# @package _global_
+
+defaults:
+  - default_det2
+  - mode: train
+
+  - override hydra/hydra_logging: none
+  - override hydra/job_logging: none
+
+HOME: ${env:HOME}
+
+# image root
+im_dir: "${HOME}/dataset/ALERT/alert_frames/20191024/fps-10"
+out_dir: "${HOME}/dataset/ALERT/trained_model"
+out_name: "rcnn_det2.pkl"
+
+exp_name: "det2_model"
+# output_dir: "./ckpt/${exp_name}"
+output_dir: "./ckpt"
+
+ann_file: "../data/coco_annotation/test_exp2_traincam9_cam11_cam13.json"
+
+model_zoo: "COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml"
+
+dataset: "clasp_dataset"
+
+train_dataset: ${dataset}_train
+test_dataset: ${dataset}_test
+
+num_workers: 4
+num_classes: 2
+
+split: 0.9
+seed: 0
+
+orig_size: [1920, 1080]
+size: [640, 360]
+
+hydra:
+  run:
+    dir: .
+  output_subdir: null
