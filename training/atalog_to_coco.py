@@ -13,8 +13,10 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 import datetime
 from PIL import Image
-
+from omegaconf import DictConfig, OmegaConf
+import hydra
 from utils import read_ata_log_to_df, create_annotation_info, create_image_info
+import cv2
 
 
 def parse_file(fname):
@@ -49,36 +51,16 @@ CATEGORIES = [{
     "supercategory": 'bin'
 }]
 
-if __name__ == "__main__":
-    HOME = os.environ['HOME']
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--root", type=str, default='../data/annotation_gt')
-    parser.add_argument("--out",
-                        type=str,
-                        help="save path of json",
-                        default="../data/coco_annotation")
-    parser.add_argument("--out_name", type=str, default="test")
-    parser.add_argument("--im_folder",
-                        type=str,
-                        default=HOME +
-                        '/dataset/ALERT/alert_frames/20191024/fps-10/')
-    parser.add_argument("--test", action='store_true')
-    parser.add_argument("--exp", type=str, nargs='*', default=["exp2_train"])
-    parser.add_argument("--cam",
-                        type=str,
-                        nargs='*',
-                        default=["cam9", "cam11", "cam13"])
-    parser.add_argument('--size',
-                        type=str,
-                        default="640x360",
-                        help='image size(width x height)')
-    parser.add_argument("--frame_rate", type=int, default=30)
-    parser.add_argument("--seed", type=int, default=None)
-    args = parser.parse_args()
 
-    # if args.size is not None:
-    #     args.size = tuple(int(x) for x in args.size.split('x'))
-    print(args)
+def showInMovedWindow(winname, img, x, y):
+    cv2.namedWindow(winname)  # Create a named window
+    cv2.moveWindow(winname, x, y)  # Move it to (x,y)
+    cv2.imshow(winname, img)
+
+
+@hydra.main(config_name='atalog', config_path="conf")
+def main(args: DictConfig):
+    print(OmegaConf.to_yaml(args, resolve=True))
 
     Path(args.out).mkdir(exist_ok=True)
     out_name = args.out_name + '_' + ('all' if args.exp is None else '_'.join(
@@ -86,7 +68,6 @@ if __name__ == "__main__":
     out_path = os.path.join(args.out, out_name)
 
     # concatenate all annotations
-
     coco_output = {
         "info": INFO,
         "licenses": LICENSES,
@@ -100,6 +81,7 @@ if __name__ == "__main__":
 
     counter_id = 1
     counter_im = 1
+
     if args.test:
         if args.seed:
             np.random.seed(args.seed)
@@ -112,7 +94,7 @@ if __name__ == "__main__":
 
         catIds = coco.getCatIds(catNms=['item'])
         imgIds = coco.getImgIds(catIds=catIds)
-        for _ in range(20):
+        for _ in range(args.num_test):
             plt.close('all')
 
             img = coco.loadImgs(imgIds[np.random.randint(0, len(imgIds))])[0]
@@ -136,9 +118,8 @@ if __name__ == "__main__":
                 bb = tuple([int(i) for i in bb])
                 cv2.rectangle(I, bb[:2], bb[2:], (0, 255, 0), 5)
 
-            plt.imshow(I[:, :, ::-1])
-            plt.axis('off')
-            plt.show()
+            showInMovedWindow(str(imfile), cv2.resize(I, (640, 360)), 30, 30)
+            cv2.waitKey(0)
         raise SystemExit
 
     for exp in args.exp:
@@ -154,8 +135,8 @@ if __name__ == "__main__":
             for _, row in df.iterrows():
 
                 # frame starts from 0, but in the folder it starts from 1
-                image_filename_base = os.path.join(
-                    fcam, f"{row['frame']+1:05d}.jpg")
+                image_filename_base = os.path.join(fcam,
+                                                   eval(args.imfile_format))
                 image_filename = os.path.join(args.im_folder,
                                               image_filename_base)
                 image = Image.open(image_filename)
@@ -175,12 +156,11 @@ if __name__ == "__main__":
                     coco_output["images"].append(image_info)
 
                 # filter for associated annotations
-                category = 'item' if row['is_empty'] else 'bin_empty'
+                category = 'bin_empty' if row['is_empty'] == 'True' else 'item'
                 class_id = dict_cat[category]
                 category_info = {'id': class_id, 'is_crowd': 0}
 
                 width, height = image.size
-                # if args.size is None:
                 rat_w, rat_h = 1, 1
 
                 bounding_box = [
@@ -197,3 +177,8 @@ if __name__ == "__main__":
 
     with open(out_path, 'w') as ftarget:
         json.dump(coco_output, ftarget, indent=4)
+    print(f"save to {out_path}")
+
+
+if __name__ == "__main__":
+    main()

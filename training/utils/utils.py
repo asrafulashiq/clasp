@@ -34,7 +34,7 @@ def read_ata_log_to_df(filename: str) -> pd.DataFrame:
     if not memory:
         raise ValueError("No gt here")
     df = pd.DataFrame(memory, columns=columns)
-    df['is_empty'] = df['is_empty'].astype(bool)
+    # df.replace({'is_empty': {'True': True, 'False': False}})
     return df
 
 

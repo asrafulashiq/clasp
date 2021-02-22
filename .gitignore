@@ -19,7 +19,9 @@ settings.json
 *.vscode
 detection_test/.vscode
 
+events.out*
+**/ckpt/**
+
 **/*.swp
 !**/info/*
 !**/ata_output/*
-
