@@ -217,7 +217,10 @@ class BinManager:
     def _filter_boxes(self, im, boxes, scores, classes, frame_num):
         # --------------------------------- Refine bb -------------------------------- #
         if classes is not None:
-            ind = [i for i in range(len(classes)) if classes[i] in ("items", )]
+            ind = [
+                i for i in range(len(classes))
+                if classes[i] in ("items", "item", "bin_empty")
+            ]
         else:
             ind = []
 

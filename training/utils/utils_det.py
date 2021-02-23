@@ -14,6 +14,7 @@ def visualize_det2(dataset_dicts: List[dict],
                    count: int = 10) -> None:
     for d in random.sample(dataset_dicts, count):
         im = cv2.imread(d["file_name"])
+        im = cv2.resize(im, (640, 360))
         outputs = predictor(im)
         v = Visualizer(
             im[:, :, ::-1],

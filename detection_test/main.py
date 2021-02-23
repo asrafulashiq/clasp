@@ -12,6 +12,8 @@ import os
 from colorama import init, Fore
 import hydra
 
+init(autoreset=True)
+
 
 @hydra.main(config_path="conf", config_name="config")
 def main(conf):
@@ -112,7 +114,7 @@ def main(conf):
 
         if cameras[i_cnt] == "cam13":
             frame_num += 50
-        pbar.set_description(f"{Fore.CYAN} Processing: {frame_num}")
+        pbar.set_description(f"Processing: {frame_num}")
 
     if conf.write:
         manager.final_write()

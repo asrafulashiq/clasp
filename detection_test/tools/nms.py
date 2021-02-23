@@ -20,8 +20,10 @@ def multi_nms(dets, scores, classes, thresh=0.1, low_score=0.5):
         new_scores.append(_scr[keep])
         new_classes.append(_cls[keep])
 
-    return np.vstack(new_dets), np.vstack(new_scores).flatten(), \
-        np.vstack(new_classes).flatten()
+    # return np.vstack(new_dets), np.vstack(new_scores).flatten(), \
+    #     np.vstack(new_classes).flatten()
+    return np.vstack(new_dets), np.concatenate(new_scores).flatten(), \
+        np.concatenate(new_classes).flatten()
 
 
 def nms(dets, scores, thresh):

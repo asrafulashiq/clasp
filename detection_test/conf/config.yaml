@@ -1,16 +1,17 @@
 defaults:
+  - det2
   - override hydra/hydra_logging: none
   - override hydra/job_logging: none
 
 HOME: ${env:HOME}
 root: ${HOME}/dataset/ALERT/alert_frames/20191024/fps-10
 out_dir: ${HOME}/dataset/ALERT/clasp_data/output
-bin_ckpt: ${HOME}/dataset/ALERT/trained_model/weight_640x360.pkl
+# bin_ckpt: ${HOME}/dataset/ALERT/trained_model/weight_640x360.pkl
+bin_ckpt: ${HOME}/dataset/ALERT/trained_model/det2.pth
 
 write: true
 
 size: [640, 360]
-run_detector: true
 
 max_batch_detector: 10
 
@@ -37,7 +38,7 @@ create_feed: false
 spatial_scale_mul: 1
 temporal_scale_mul: 3
 
-template_match: true
+template_match: false
 
 delta: 1
 

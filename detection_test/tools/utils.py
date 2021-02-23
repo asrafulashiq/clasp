@@ -64,11 +64,16 @@ def get_images_from_dir(src_dir,
         if file_only:
             image = None
         else:
-            image = skimage.io.imread(str(imfile))
+            image = cv2.imread(str(imfile))
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
             image = cv2.resize(image,
                                tuple(size),
                                interpolation=cv2.INTER_LINEAR)
-        yield image, imfile, frame_num
+        try:
+            yield image, imfile, frame_num
+        except Exception as ex:
+            print(ex)
+            raise Exception
 
 
 def get_fp_from_dir(src_dir,
