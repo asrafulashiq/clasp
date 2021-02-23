@@ -96,7 +96,13 @@ def vis_txt(img, pos, txt, color=_RED, font_scale=0.5, thickness=1, y_pad=0):
     return img
 
 
-def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
+def vis_bbox(img,
+             bbox,
+             class_str=None,
+             thick=2,
+             alpha=0.1,
+             color=_RED,
+             filled=False):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
     (x0, y0, x1, y1) = bbox
@@ -104,37 +110,44 @@ def vis_bbox(img, bbox, class_str=None, thick=2, alpha=0.1, color=_RED):
     x1, y1 = int(x1), int(y1)
 
     overlay = img.copy()
-    cv2.rectangle(img, (x0, y0), (x1, y1), color, thickness=thick)
-    cv2.rectangle(overlay, (x0, y0), (x1, y1), color, -1)  # filled rectangle
+    cv2.rectangle(img, (x0, y0), (x1, y1),
+                  color,
+                  thickness=thick,
+                  lineType=cv2.LINE_AA)
+    if filled:
+        cv2.rectangle(overlay, (x0, y0), (x1, y1), color,
+                      -1)  # filled rectangle
 
-    cv2.addWeighted(overlay, alpha, img, 1 - alpha, 0, img)
+    if alpha > 0:
+        cv2.addWeighted(overlay, alpha, img, 1 - alpha, 0, img)
 
     return img
 
 
 def vis_bbox_with_str(
-        img,
-        bbox,
-        label,
-        belongs_to=None,
-        color=_RED,
-        thick=2,
-        font_scale=0.5,
-        color_txt=None,
+    img,
+    bbox,
+    label=None,
+    belongs_to=None,
+    color=_RED,
+    thick=2,
+    font_scale=0.5,
+    color_txt=None,
 ):
     """Visualizes a bounding box."""
     # img = img.astype(np.uint8)
     img = vis_bbox(img, bbox, thick=thick, color=color, alpha=0.15)
 
     # add text
-    img = vis_txt(
-        img,
-        bbox,
-        str(label),
-        color=color_txt,
-        thickness=thick * 2,
-        font_scale=font_scale,
-    )
+    if label is not None:
+        img = vis_txt(
+            img,
+            bbox,
+            str(label),
+            color=color_txt,
+            thickness=thick * 2,
+            font_scale=font_scale,
+        )
 
     if belongs_to is not None:
         img = vis_txt(
@@ -168,8 +181,9 @@ def vis_bins(img, bins):
 
                     location = bin.track_state['ploygon'].flatten()
                     img = cv2.polylines(
-                        img, [np.int0(location).reshape(
-                            (-1, 1, 2))], True, (0, 255, 0), 3)
+                        img, [np.int0(location).reshape((-1, 1, 2))],
+                        True, (0, 255, 0),
+                        thickness=2)
 
         img = vis_class_label(img,
                               bbox,

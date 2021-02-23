@@ -2,7 +2,7 @@ defaults:
   - config
 
 input: ""
-output: ""
+output: ${env:HOME}/Desktop/out_tmp_detector
 num: 100
 delta: 50
 

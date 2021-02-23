@@ -1,5 +1,6 @@
 defaults:
   - det2
+  - debug: default_debug
   - override hydra/hydra_logging: none
   - override hydra/job_logging: none
 

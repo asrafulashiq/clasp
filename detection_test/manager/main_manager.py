@@ -1,3 +1,4 @@
+from visutils.vis import vis_bbox
 import torch
 torch.backends.cudnn.benchmark = True
 
@@ -201,13 +202,25 @@ class Manager:
             #         if frame_num > 2761:
             #             bin.init_tracker(pos, im)
             # else:
+
             with self.analyzer("TRACK"):
                 self._bin_managers[cam].update_state(im, boxes, scores,
                                                      classes, frame_num)
+
+            if self.config.debug:
+                with self.analyzer("DEBUG"):
+                    for _i in range(len(boxes)):
+                        vis_bbox(im,
+                                 boxes[_i],
+                                 thick=2,
+                                 alpha=-1,
+                                 color=(51, 204, 255),
+                                 filled=False)
+
         if return_im:
             with self.analyzer("DRAW_BIN", False):
                 ret = self.draw(im, cam=cam)
-            return ret
+                return ret
 
     def draw(self, im, cam="cam09"):
         if cam in self._bin_managers:

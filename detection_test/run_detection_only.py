@@ -23,18 +23,18 @@ def main(args):
         shutil.rmtree(args.output)
     os.makedirs(args.output, exist_ok=True)
 
-    model = RCNN_Detector(args)
+    # model = RCNN_Detector(args)
 
-    # cfg = get_cfg()
-    # cfg.merge_from_file(model_zoo.get_config_file(args.model_zoo))
-    # cfg.DATASETS.TEST = ()
-    # cfg.MODEL.ROI_HEADS.NUM_CLASSES = args.num_classes
-    # cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = args.thresh  # set a custom testing threshold
-    # cfg.MODEL.WEIGHTS = args.bin_ckpt
-    # predictor = DefaultPredictor(cfg)
-    # predictor.aug = T.Resize((360, 640))
-    # model = build_model(cfg)
-    # DetectionCheckpointer(model).load(args.bin_ckpt)
+    cfg = get_cfg()
+    cfg.merge_from_file(model_zoo.get_config_file(args.model_zoo))
+    cfg.DATASETS.TEST = ()
+    cfg.MODEL.ROI_HEADS.NUM_CLASSES = args.num_classes
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = args.thresh  # set a custom testing threshold
+    cfg.MODEL.WEIGHTS = args.bin_ckpt
+    predictor = DefaultPredictor(cfg)
+    predictor.aug = T.Resize((360, 640))
+    model = build_model(cfg)
+    DetectionCheckpointer(model).load(args.bin_ckpt)
 
     list_of_files = sorted(os.listdir(args.input))[::args.delta]
 
@@ -45,17 +45,20 @@ def main(args):
         image = cv2.resize(image,
                            tuple(args.size),
                            interpolation=cv2.INTER_LINEAR)
-        # outputs = predictor(image)
-        outputs = model.predict_one(image)
+        outputs = predictor(image)
+        # outputs = model.predict_one(image)
         v = Visualizer(
             image[:, :, ::-1],
-            scale=0.5,
+            # scale=0.5,
             instance_mode=ColorMode.
             IMAGE_BW  # remove the colors of unsegmented pixels. This option is only available for segmentation models
         )
         out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-        cv2.imshow("", out.get_image()[:, :, ::-1])
-        cv2.waitKey(0)
+        # cv2.imshow("", out.get_image()[:, :, ::-1])
+        # cv2.waitKey(0)
+
+        cv2.imwrite(os.path.join(args.output, f"{i:06d}.jpg"),
+                    out.get_image()[:, :, ::-1])
 
 
 if __name__ == "__main__":
