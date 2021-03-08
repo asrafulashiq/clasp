@@ -21,7 +21,11 @@ detection_test/.vscode
 
 events.out*
 **/ckpt/**
+**/.cenv
 
 **/*.swp
 !**/info/*
 !**/ata_output/*
+
+
+
