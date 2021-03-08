@@ -1,0 +1,15 @@
+# detectron 2 default argumnets
+
+config_file: ""
+resume: false
+
+eval_only: false
+num_gpus: 1
+num_machines: 1
+
+machine_rank: 0
+port: 65500
+
+dist_url: "tcp://127.0.0.1:${port}"
+
+opts: null # optional opts

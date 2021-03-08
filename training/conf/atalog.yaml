@@ -1,0 +1,37 @@
+defaults:
+  - override hydra/hydra_logging: none
+  - override hydra/job_logging: none
+
+HOME: ${env:HOME}
+
+root: "../data/annotation_gt"
+out: "../data/coco_annotation"
+out_name: "test"
+
+im_folder: ${HOME}/dataset/ALERT/alert_frames/20191024/fps-10/
+
+imfile_format: f"{row['frame']+1:05d}.jpg"
+
+# im_folder: ${HOME}/dataset/ALERT/gt_annotations/10fps_frames/
+# imfile_format: f"cam{row['camera_num']}_{row['frame']+1:06d}.jpg"
+
+test: false
+num_test: 20
+
+exp:
+  - exp2_train
+
+cam:
+  - cam9
+  - cam11
+  - cam13
+
+size: "640x360"
+
+frame_rate: 30
+seed: 0
+
+hydra:
+  run:
+    dir: .
+  output_subdir: null

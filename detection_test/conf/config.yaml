@@ -1,0 +1,57 @@
+defaults:
+  - det2
+  - debug: default_debug
+  - override hydra/hydra_logging: none
+  - override hydra/job_logging: none
+
+HOME: ${env:HOME}
+root: ${HOME}/dataset/ALERT/alert_frames/20191024/fps-10
+out_dir: ${HOME}/dataset/ALERT/clasp_data/output
+# bin_ckpt: ${HOME}/dataset/ALERT/trained_model/weight_640x360.pkl
+bin_ckpt: ${HOME}/dataset/ALERT/trained_model/det2.pth
+
+write: true
+
+size: [640, 360]
+
+max_batch_detector: 10
+
+info: null
+info_prev: null
+
+fp16: false
+
+file_num: exp2_train
+cameras:
+  - "cam09"
+  - "cam11"
+
+start_frame: 800
+skip_end: 0
+end_frame: null
+
+plot: false
+load_prev_exit_info: false
+
+out_suffix: ""
+create_feed: false
+
+spatial_scale_mul: 1
+temporal_scale_mul: 3
+
+template_match: false
+
+delta: 1
+
+fmt: "{:05d}.jpg"
+fmt_filename_src: "${root}/{file_num}/{cam}"
+
+fmt_filename_out: "${out_dir}/run/{file_num}${out_suffix}/{cam}"
+fmt_filename_out_detection: "${out_dir}/out_detection/{file_num}/{cam}"
+fmt_filename_out_feed: "${out_dir}/run/feed/{file_num}${out_suffix}"
+fmt_filename_out_pkl: "${out_dir}/out_pkl/{file_num}_{cam}.pkl"
+
+hydra:
+  run:
+    dir: .
+  output_subdir: null

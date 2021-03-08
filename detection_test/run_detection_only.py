@@ -1,55 +1,65 @@
+from detectron2.modeling.meta_arch.build import build_model
 import skimage.io
-from manager.detector import DetectorObj
+from manager.detectron2_utils import DetectorObj, RCNN_Detector
 import os
 import argparse
 import shutil
 import cv2
 from tqdm import tqdm
+import hydra
 
-if os.uname()[1] == 'lambda-server':
-    _HOME = "/home/rpi"
-else:
-    _HOME = os.environ["HOME"]
+from detectron2.utils.visualizer import ColorMode
+from detectron2.checkpoint import DetectionCheckpointer
+from detectron2.config import get_cfg
+from detectron2 import model_zoo
+from detectron2.engine import DefaultPredictor
+from detectron2.utils.visualizer import Visualizer
+from detectron2.data import transforms as T
 
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--input", "-i", type=str, default=None, required=True)
-    parser.add_argument("--output",
-                        "-o",
-                        type=str,
-                        default=None,
-                        required=True)
-    parser.add_argument("--size", type=str, default="640x360")
-    parser.add_argument(
-        "--bin_ckpt",
-        type=str,
-        default=_HOME + "/dataset/ALERT/trained_model/model_cam9_11_13_14.pkl",
-    )
-    parser.add_argument("--num", "-n", type=int, default=None)
-    parser.add_argument("--delta", "-d", type=int, default=1)
 
-    args = parser.parse_args()
-    args.size = tuple(int(x) for x in args.size.split('x'))
-    args.input = os.path.expanduser(args.input)
-    args.output = os.path.expanduser(args.output)
-    args.bin_ckpt = os.path.expanduser(args.bin_ckpt)
-
+@hydra.main(config_path="conf", config_name="conf_detector_only")
+def main(args):
     if os.path.exists(args.output):
         shutil.rmtree(args.output)
     os.makedirs(args.output, exist_ok=True)
 
-    detector = DetectorObj(ckpt=args.bin_ckpt, thres=0.3, labels_to_keep=(2, ))
+    # model = RCNN_Detector(args)
+
+    cfg = get_cfg()
+    cfg.merge_from_file(model_zoo.get_config_file(args.model_zoo))
+    cfg.DATASETS.TEST = ()
+    cfg.MODEL.ROI_HEADS.NUM_CLASSES = args.num_classes
+    cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = args.thresh  # set a custom testing threshold
+    cfg.MODEL.WEIGHTS = args.bin_ckpt
+    predictor = DefaultPredictor(cfg)
+    predictor.aug = T.Resize((360, 640))
+    model = build_model(cfg)
+    DetectionCheckpointer(model).load(args.bin_ckpt)
+
     list_of_files = sorted(os.listdir(args.input))[::args.delta]
 
     for i, imfilebase in enumerate(tqdm(list_of_files)):
         imfile = os.path.join(args.input, imfilebase)
-        image = cv2.cvtColor(cv2.imread(str(imfile)), cv2.COLOR_BGR2RGB)
+        # image = cv2.cvtColor(cv2.imread(str(imfile)), cv2.COLOR_BGR2RGB)
+        image = cv2.imread(str(imfile))
         image = cv2.resize(image,
                            tuple(args.size),
                            interpolation=cv2.INTER_LINEAR)
-        im_with_bb, boxes, scores, classes = detector.predict_box(image,
-                                                                  show=True)
-        skimage.io.imsave(os.path.join(args.output, imfilebase), im_with_bb)
+        outputs = predictor(image)
+        # outputs = model.predict_one(image)
+        v = Visualizer(
+            image[:, :, ::-1],
+            # scale=0.5,
+            instance_mode=ColorMode.
+            IMAGE_BW  # remove the colors of unsegmented pixels. This option is only available for segmentation models
+        )
+        out = v.draw_instance_predictions(outputs["instances"].to("cpu"))
+        # cv2.imshow("", out.get_image()[:, :, ::-1])
+        # cv2.waitKey(0)
 
-        if args.num is not None and i >= args.num:
-            break
+        cv2.imwrite(os.path.join(args.output, f"{i:06d}.jpg"),
+                    out.get_image()[:, :, ::-1])
+
+
+if __name__ == "__main__":
+    main()

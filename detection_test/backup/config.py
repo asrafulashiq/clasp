@@ -15,7 +15,7 @@ def get_parser():
     parser.add_argument(
         "--root",
         type=str,
-        default=_HOME + "/dataset/ALERT/alert_frames/20191024",
+        default=_HOME + "/dataset/ALERT/alert_frames/20191024/fps-10",
         help="root direcotory of all frames",
     )
 
@@ -74,7 +74,6 @@ def get_parser():
     parser.add_argument("--start_frame", type=int, default=2500)
     parser.add_argument("--skip_end", type=int, default=0)
     parser.add_argument("--end_frame", type=int, default=None)
-    parser.add_argument("--delta", type=int, default=3)
     parser.add_argument("--plot", action="store_true")
 
     # NOTE: DEBUG only
@@ -94,7 +93,10 @@ def get_parser():
     parser.add_argument("--create_feed", "-f", action="store_true")
 
     parser.add_argument("--spatial_scale_mul", type=float, default=1)
+
+    # NOTE important: skip frame
     parser.add_argument("--temporal_scale_mul", type=float, default=3)
+    parser.add_argument("--delta", type=int, default=1)
 
     return parser
 
@@ -134,7 +136,7 @@ def get_conf(parser):
     conf.info_prev = expanduser(
         conf.info_prev) if conf.info_prev is not None else None
 
-    conf.fmt = "{:06d}.jpg"  # frame name format
+    conf.fmt = "{:05d}.jpg"  # frame name format
 
     if os.uname()[1] == 'lambda-server':  # code is in clasp server
         conf.fmt = "frame{:05d}.jpg"

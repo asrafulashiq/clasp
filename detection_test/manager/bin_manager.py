@@ -12,6 +12,7 @@ from visutils.vis import vis_bins
 import tools.utils_geo as geo
 import tools.utils_box as utils_box
 from tools import nms
+import pandas as pd
 
 
 class BinManager:
@@ -89,7 +90,7 @@ class BinManager:
     def __iter__(self):
         return iter(self._current_bins)
 
-    def add_bin(self, box, cls, im):
+    def add_bin(self, box, cls, im, safe=True):
 
         self._bin_count += 1
         label = self._bin_count
@@ -172,10 +173,11 @@ class BinManager:
                 return
 
         # NOTE: wait for new bin, wait at least 5 iteration to assign
-        self._dummy_bin_count[label] += 1
-        if self._dummy_bin_count[label] < self._wait_new_bin:
-            self._bin_count -= 1
-            return
+        if safe:
+            self._dummy_bin_count[label] += 1
+            if self._dummy_bin_count[label] < self._wait_new_bin:
+                self._bin_count -= 1
+                return
 
         new_bin = Bin(
             label=label,
@@ -184,10 +186,6 @@ class BinManager:
             default_state=self._default_bin_state,
             maxlen=self.maxlen,
         )
-
-        # # DEBUG
-        # if label > 49:
-        #     return
 
         # FIXME why this?
         # if self._camera != "cam09":
@@ -219,7 +217,10 @@ class BinManager:
     def _filter_boxes(self, im, boxes, scores, classes, frame_num):
         # --------------------------------- Refine bb -------------------------------- #
         if classes is not None:
-            ind = [i for i in range(len(classes)) if classes[i] in ("items", )]
+            ind = [
+                i for i in range(len(classes))
+                if classes[i] in ("items", "item", "bin_empty")
+            ]
         else:
             ind = []
 
@@ -268,9 +269,6 @@ class BinManager:
                                                            _classes,
                                                            thresh=0.4,
                                                            low_score=0.3)
-                # boxes, scores, classes = nms.multi_nms(
-                #     _boxes, _scores, _classes, thresh=0.4, low_score=0.3
-                # )
         else:
             boxes, scores, classes = None, None, None
 

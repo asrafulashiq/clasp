@@ -1,34 +1,20 @@
+from visutils.vis import vis_bbox
 import torch
 torch.backends.cudnn.benchmark = True
 
 from manager.bin_manager import BinManager
 # from manager.pax_manager import PAXManager
-from manager.detector import DetectorObj
+from manager.detectron2_utils import DetectorObj
 
 import pickle
 import os
 import numpy as np
 from pathlib import Path
 import pandas as pd
+from typing import Tuple, List, Any, Optional
 from loguru import logger
 from tools.time_calculator import ComplexityAnalysis
-
-
-class Dummy:
-    def __init__(*args, **kwargs):
-        pass
-
-    def __call__(self, *args, **kwargs):
-        return self
-
-    def __enter__(self, *args, **kwargs):
-        return self
-
-    def __exit__(self, *args, **kwargs):
-        return self
-
-    def __getattr__(self, *args, **kwargs):
-        return self
+from tools.utils import Dummy
 
 
 class Manager:
@@ -38,6 +24,7 @@ class Manager:
             log=None,
             bin_only=True,
             write=True,  # whether to save intermediate results
+            template_match=False,
             analyzer: ComplexityAnalysis = None):
         self.file_num = config.file_num
         self.bin_only = bin_only
@@ -68,6 +55,12 @@ class Manager:
         if write:
             self.write_list = []
 
+        if template_match:
+            from tools.template_match_detector import TemplateMatchDetector
+            self.empty_bin_template_matches = TemplateMatchDetector()
+        else:
+            self.empty_bin_template_matches = None
+
     def get_info_from_frame(self, df, frame, cam="cam09"):
         if frame not in df["frame"].values:
             frame += 1
@@ -88,11 +81,7 @@ class Manager:
             self._det_bin[camera] = pickle.load(fp)
 
     def init_detectors(self):
-        detector = DetectorObj(ckpt=self.config.bin_ckpt,
-                               thres=0.3,
-                               labels_to_keep=(2, ),
-                               size=self.config.size,
-                               fp16=self.config.fp16)
+        detector = DetectorObj(self.config)
         self._detector = detector
 
     def init_cameras(self):
@@ -120,8 +109,10 @@ class Manager:
                         "cam13",
                         BinManager(self.config, camera="cam13", log=self.log)))
 
-    def get_item_bb(self, camera, frame_num, image):
+    def get_item_bb(self, camera, frame_num,
+                    image) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
         """ get results from pkl file """
+        # boxes: x1, y1, x2, y2
         boxes, scores, classes = None, None, None
         if self.config.run_detector:
             _, boxes, scores, classes = self._detector.predict_box(image,
@@ -129,6 +120,7 @@ class Manager:
         else:
             if frame_num in self._det_bin[camera]:
                 boxes, scores, classes, _ = self._det_bin[camera][frame_num]
+
         return boxes, scores, classes
 
     def filter_det(self, ret, class_to_keep="items"):
@@ -187,6 +179,15 @@ class Manager:
         if cam in self._bin_managers:
             with self.analyzer("DET"):
                 boxes, scores, classes = self.get_item_bb(cam, frame_num, im)
+
+                if self.empty_bin_template_matches:
+                    _b, _s, _c = self.empty_bin_template_matches.detect(im)
+                    if len(_b) > 0:
+                        # boxes, scores, classes = _b, _s, _c
+                        boxes = np.concatenate((boxes, _b), axis=0)
+                        scores = np.concatenate((scores, _s), axis=0)
+                        classes = np.concatenate((classes, _c), axis=0)
+
             # # :: Something wrong with frame 2757 to 2761 of exp1 cam 09
             # if (boxes is not None and self.file_num == "exp1"
             #         and cam == "cam09" and frame_num >= 2757
@@ -201,13 +202,25 @@ class Manager:
             #         if frame_num > 2761:
             #             bin.init_tracker(pos, im)
             # else:
+
             with self.analyzer("TRACK"):
                 self._bin_managers[cam].update_state(im, boxes, scores,
                                                      classes, frame_num)
+
+            if self.config.debug:
+                with self.analyzer("DEBUG"):
+                    for _i in range(len(boxes)):
+                        vis_bbox(im,
+                                 boxes[_i],
+                                 thick=2,
+                                 alpha=-1,
+                                 color=(51, 204, 255),
+                                 filled=False)
+
         if return_im:
             with self.analyzer("DRAW_BIN", False):
                 ret = self.draw(im, cam=cam)
-            return ret
+                return ret
 
     def draw(self, im, cam="cam09"):
         if cam in self._bin_managers:

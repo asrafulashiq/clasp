@@ -1,0 +1,8 @@
+root: /data/CLASP-DATA/CLASP2-data/20191024/frames
+mode: training
+file_num: exp2
+out_dir: /home/rpi/dataset/ALERT/clasp_data/output
+
+fmt: "frame{:05d}.jpg"
+
+fmt_filename_src: "${root}/20191024-${mode}-{cam}{file_num}"

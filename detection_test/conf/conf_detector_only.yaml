@@ -1,0 +1,9 @@
+defaults:
+  - config
+
+input: ""
+output: ${env:HOME}/Desktop/out_tmp_detector
+num: 100
+delta: 50
+
+bin_ckpt: "/data/home/islama6/projects/clasp/training/ckpt/model_final.pth"
