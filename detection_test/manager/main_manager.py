@@ -208,13 +208,14 @@ class Manager:
                                                      classes, frame_num)
 
             if self.config.debug:
+                from visutils import vis
                 with self.analyzer("DEBUG"):
                     for _i in range(len(boxes)):
                         vis_bbox(im,
                                  boxes[_i],
                                  thick=2,
                                  alpha=-1,
-                                 color=(51, 204, 255),
+                                 color=vis._ORANGE,
                                  filled=False)
 
         if return_im:
@@ -245,6 +246,9 @@ class Manager:
                     row["y2"], row["type"], row["frame"]
                 ])
             self._bin_managers[cam].add_exit_info(list_info)
+
+    # ----------------------------------- Other ---------------------------------- #
+    # --------------------------- Not updated properly --------------------------- #
 
     def load_prev_exit_info(self,
                             info_file,

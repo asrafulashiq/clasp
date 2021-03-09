@@ -3,9 +3,8 @@ import pathlib
 from matplotlib import pyplot as plt
 import matplotlib
 import cv2
-import skimage
-import skimage.io
 from loguru import logger
+from enum import Enum
 
 
 class Dummy:
@@ -16,10 +15,12 @@ class Dummy:
         return self
 
     def __enter__(self, *args, **kwargs):
-        return self
+        return None
 
-    def __exit__(self, *args, **kwargs):
-        return self
+    def __exit__(self, exc_type, exc_val, traceback):
+        if exc_type is not None:
+            print(exc_type, exc_val)
+        return False
 
     def __getattr__(self, *args, **kwargs):
         return self
@@ -100,3 +101,22 @@ def get_fp_from_dir(src_dir,
         outfile = str(out_folder / imfile.name)
         files.append(outfile)
     return files
+
+
+class BinType(int, Enum):
+    """Custom type for bin and dvi"""
+    BIN_EMPTY = 0
+    BIN_DVI = 1
+
+    def __str__(self):
+        if self == BinType.BIN_EMPTY:
+            return "BIN"
+        else:
+            return "DVI"
+
+    __repr__ = __str__
+    name = __str__
+
+    @property
+    def super_type(self):
+        return "items"

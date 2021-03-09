@@ -7,7 +7,8 @@ from tqdm import tqdm
 import tools.utils as utils
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
-import skimage
+import cv2
+from omegaconf import OmegaConf
 import os
 from colorama import init, Fore
 import hydra
@@ -17,6 +18,7 @@ init(autoreset=True)
 
 @hydra.main(config_path="conf", config_name="config")
 def main(conf):
+    conf = OmegaConf.create(OmegaConf.to_yaml(conf, resolve=True))
     log = ClaspLogger()
 
     file_num = conf.file_num
@@ -107,8 +109,8 @@ def main(conf):
             new_im = manager.run_detector_image(im,
                                                 cam=cameras[i_cnt],
                                                 frame_num=frame_num)
-            skimage.io.imsave(str(out_folder[cameras[i_cnt]] / imfile.name),
-                              new_im)
+            cv2.imwrite(str(out_folder[cameras[i_cnt]] / imfile.name),
+                        new_im[..., ::-1])
         if conf.write:
             manager.write_info()
 

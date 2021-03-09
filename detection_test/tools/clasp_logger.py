@@ -50,5 +50,4 @@ class ClaspLogger():
         self.logger.log(level, msg)
 
     def clasp_log(self, msg):
-        self.logger.debug("{} :: {}".format(self.pre_msg, msg))
-        # self.info(msg)
+        self.logger.info("{} :: {}".format(self.pre_msg, msg))
