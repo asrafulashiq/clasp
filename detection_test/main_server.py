@@ -4,7 +4,6 @@ torch.backends.cudnn.benchmark = True
 from pathlib import Path
 import cv2
 from tqdm import tqdm
-from config import get_parser, get_conf, add_server_specific_arg
 from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
@@ -20,8 +19,10 @@ import time
 from tools.utils_video_api import YAMLCommunicator
 from tools.time_calculator import ComplexityAnalysis
 from tools.utils_feed import DrawClass
-import PIL
 from colorama import init
+import hydra
+from omegaconf import OmegaConf, DictConfig
+
 
 init(autoreset=True)
 
@@ -29,13 +30,9 @@ complexity_analyzer = ComplexityAnalysis()
 
 
 class BatchPrecessingMain(object):
-    def __init__(self) -> None:
+    def __init__(self, params) -> None:
 
-        self.params = self.config_parser()
-        self.params.run_detector = True
-        # NOTE newsfeed plot
-        self.params.plot = True
-        self.params.write = True
+        self.params = params
 
         self.logger = ClaspLogger()
 
@@ -107,11 +104,6 @@ class BatchPrecessingMain(object):
                 for _, ret in enumerate(pbar):
                     _rets_cam = []
                     for i_cnt in range(len(ret)):
-                        # complexity_analyzer.start("READ")
-                        # im, imfile, frame_num = self.load_images_from_files(
-                        #     [ret[i_cnt]], size=self.params.size, file_only=False)[0]
-                        # complexity_analyzer.pause("READ")
-
                         im, imfile, frame_num, det = ret[i_cnt]
                         with complexity_analyzer("TRACK", False):
                             new_im = self.manager.run_tracking_per_frame(
@@ -260,166 +252,11 @@ class BatchPrecessingMain(object):
         image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
         return image
 
-    def config_parser(self) -> argparse.Namespace:
-        parser = get_parser()
-        if os.uname()[1] == 'lambda-server':  # code is in clasp server
-            parser = add_server_specific_arg(parser)
-        parser = argparse.ArgumentParser(parents=[parser],
-                                         conflict_handler='resolve')
 
-        # parser.add_argument("--show_info")
-
-        # add parser for video access
-        parser.add_argument(
-            "--root",
-            type=str,
-            default="/data/ALERT-SHARE/alert-api-wrapper-data",
-            help="root direcotory of all frames",
-        )
-
-        parser.add_argument("--ata_out", type=str, default="ata.txt")
-        parser.add_argument("--file-num", type=str, default="exp2training")
-        parser.add_argument("--cameras",
-                            type=str,
-                            nargs="*",
-                            default=["9", "11", "13"])
-
-        parser.add_argument(
-            "--flag_file",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_Wrapper.yaml"
-        )
-        parser.add_argument("--max_files_in_batch", type=int, default=30)
-        parser.add_argument("--debug", "-d", action="store_true")
-        parser.add_argument(
-            "--batch_out_folder",
-            type=str,
-            default="/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/")
-        parser.add_argument(
-            "--rpi_flagfile",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_RPI.yaml"
-        )
-
-        parser.add_argument(
-            "--mu_flagfile",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_MU.yaml"
-        )
-
-        parser.add_argument(
-            "--neu_result_file",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_batch_association.csv"
-        )
-
-        parser.add_argument(
-            "--mu_result_file",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/mu/log_batch_mu_current.csv"
-        )
-
-        parser.add_argument(
-            "--rpi_result_file",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_result.csv"
-        )
-
-        parser.add_argument(
-            "--neu_flagfile",
-            type=str,
-            default=
-            "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_NEU.yaml"
-        )
-
-        parser.add_argument("--duration", type=float, default=4)
-        parser.add_argument("--fps", type=int, default=10)
-
-        parser.add_argument("--save_im", type=str, default="false")
-
-        if parser.parse_known_args()[0].debug:
-            parser.add_argument(
-                "--flag_file",
-                type=str,
-                default="/home/rpi/data/wrapper_log/Flags_Wrapper.yaml")
-            parser.add_argument("--max_files_in_batch", type=int, default=30)
-            parser.add_argument("--debug", action="store_true")
-            parser.add_argument(
-                "--batch_out_folder",
-                type=str,
-                default=
-                "/data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/")
-            parser.add_argument(
-                "--rpi_flagfile",
-                type=str,
-                default="/home/rpi/data/wrapper_log/Flags_RPI.yaml")
-
-            parser.add_argument(
-                "--mu_flagfile",
-                type=str,
-                default="/home/rpi/data/wrapper_log/Flags_MU.yaml")
-
-            parser.add_argument(
-                "--neu_result_file",
-                type=str,
-                default="/home/rpi/data/wrapper_log/log_batch_association.csv")
-
-            parser.add_argument(
-                "--mu_result_file",
-                type=str,
-                default="/home/rpi/data/wrapper_log/log_batch_mu_current.csv")
-
-            parser.add_argument(
-                "--rpi_result_file",
-                type=str,
-                default="/home/rpi/data/wrapper_log/rpi_result.csv")
-
-            parser.add_argument(
-                "--neu_flagfile",
-                type=str,
-                default="/home/rpi/data/wrapper_log/Flags_NEU.yaml")
-
-            parser.add_argument(
-                "--root",
-                type=str,
-                default="/home/rpi/data/wrapper_data/",
-                help="root direcotory of all frames",
-            )
-
-        # NOTE where to start
-        parser.add_argument("--start_frame", type=int, default=0)
-
-        conf = get_conf(parser)
-        return conf
+@hydra.main(config_path="conf", config_name="config")
+def main(cfg: DictConfig):
+    runner = BatchPrecessingMain(cfg)
+    runner.run()
 
 
 if __name__ == "__main__":
-    runner = BatchPrecessingMain()
-    runner.run()
-
-    # def load_images_from_files(self,
-    #                            file_list: List[str],
-    #                            size=(640, 360),
-    #                            file_only=False
-    #                            ) -> List[Tuple[np.ndarray, str, int]]:
-    #     """ get images as numpy array from a folder"""
-    #     data = []
-    #     for imfile in file_list:
-    #         imfile = pathlib.Path(imfile)
-    #         if not imfile.exists():
-    #             logger.info(imfile, "does not exist")
-    #             continue
-    #         if file_only:
-    #             image = None
-    #         else:
-    #             image = self.read_image(imfile)
-    #         # get frame number
-    #         frame_num = int(imfile.stem.split('_')[-1])
-    #         data.append((image, imfile, frame_num))
-    #     return data
