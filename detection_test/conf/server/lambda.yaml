@@ -1,6 +1,6 @@
 # @package _global_
 
-root: /data/CLASP-DATA/CLASP2-data/20191024/frames
+root: /data/ALERT-SHARE/alert-api-wrapper-data/
 mode: training
 out_dir: /home/rpi/dataset/ALERT/clasp_data/output
 
