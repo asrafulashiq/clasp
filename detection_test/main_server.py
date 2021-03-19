@@ -8,12 +8,10 @@ from tools.clasp_logger import ClaspLogger
 from manager.main_manager import Manager
 import skimage
 import os
-import numpy as np
 from loguru import logger
 import pathlib
 import copy
 from colorama import init, Fore
-import argparse
 from typing import Any, Sequence, Dict, List, Optional, Tuple
 import time
 from tools.utils_video_api import YAMLCommunicator
@@ -22,7 +20,6 @@ from tools.utils_feed import DrawClass
 from colorama import init
 import hydra
 from omegaconf import OmegaConf, DictConfig
-
 
 init(autoreset=True)
 
@@ -260,3 +257,4 @@ def main(cfg: DictConfig):
 
 
 if __name__ == "__main__":
+    main()
