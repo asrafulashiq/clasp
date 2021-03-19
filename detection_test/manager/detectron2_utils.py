@@ -179,7 +179,7 @@ class RCNN_Detector():
             output = {
                 k: v
                 for k, v in self.get_ret_from_prediction(
-                    batch_output[i]['instances'].to("cpu"))
+                    batch_output[i]['instances'].to("cpu")).items()
             }
             index = (np.isin(output["pred_classes"], self.labels_to_keep) &
                      (output["scores"] > self.thresh))
