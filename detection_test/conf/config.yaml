@@ -1,9 +1,10 @@
 defaults:
   - det2
   - bin_params@bin_params
-  - debug: default_debug
   - override hydra/hydra_logging: none
   - override hydra/job_logging: none
+
+debug: true
 
 HOME: ${env:HOME}
 root: ${HOME}/dataset/ALERT/alert_frames/20191024/fps-10

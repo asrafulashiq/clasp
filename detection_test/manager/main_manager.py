@@ -210,13 +210,14 @@ class Manager:
             if self.config.debug:
                 from visutils import vis
                 with self.analyzer("DEBUG"):
-                    for _i in range(len(boxes)):
-                        vis_bbox(im,
-                                 boxes[_i],
-                                 thick=2,
-                                 alpha=-1,
-                                 color=vis._ORANGE,
-                                 filled=False)
+                    if boxes is not None:
+                        for _i in range(len(boxes)):
+                            vis_bbox(im,
+                                     boxes[_i],
+                                     thick=2,
+                                     alpha=-1,
+                                     color=vis._ORANGE,
+                                     filled=False)
 
         if return_im:
             with self.analyzer("DRAW_BIN", False):
