@@ -163,9 +163,17 @@ class RCNN_Detector():
 
     @torch.no_grad()
     def predict_batch(self, imlist):
-        imt = [F.to_tensor(im) for im in imlist]
-        imlist_gpu = torch.stack(imt, dim=0).to(self.device)
-        batch_output = self.model(imlist_gpu)
+        inputs = []
+        for im in imlist:
+            height, width = im.shape[:2]
+            imt = torch.as_tensor(im.astype("float32").transpose(2, 0, 1))
+            inputs.append({
+                "image": imt.to(self.device),
+                "height": height,
+                "width": width
+            })
+
+        batch_output = self.model(inputs)
         results = []
         for i in range(len(imlist)):
             output = {
