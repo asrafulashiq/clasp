@@ -18,7 +18,8 @@ cameras:
 
 flag_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_Wrapper.yaml
 
-max_files_in_batch: 30
+max_batch_detector: 30 # NOTE how many images in one detectron batch
+
 batch_out_folder: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/
 rpi_flagfile: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_RPI.yaml
 mu_flagfile: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_MU.yaml
