@@ -23,6 +23,8 @@ info_prev: null
 
 fp16: false
 
+workers_plot: 20
+
 file_num: exp2_train
 cameras:
   - "cam09"

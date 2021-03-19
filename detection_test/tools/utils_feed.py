@@ -328,7 +328,7 @@ class DrawClass():
             self.plot_fn(all_out_args, self.feed_folder)
 
     def plot_fn(self, all_out_args, feed_folder):
-        with multiprocessing.Pool(processes=40) as pool:
+        with multiprocessing.Pool(processes=self.conf.workers_plot) as pool:
             for each_step_arg in all_out_args:
                 # DrawClass.plot_fun_step(each_step_arg, feed_folder)
                 pool.apply_async(
