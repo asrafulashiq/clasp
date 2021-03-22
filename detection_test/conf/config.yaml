@@ -55,6 +55,8 @@ fmt_filename_out_detection: "${out_dir}/out_detection/{file_num}/{cam}"
 fmt_filename_out_feed: "${out_dir}/run/feed/{file_num}${out_suffix}"
 fmt_filename_out_pkl: "${out_dir}/out_pkl/{file_num}_{cam}.pkl"
 
+draw_newsfeed: true
+
 hydra:
   run:
     dir: .

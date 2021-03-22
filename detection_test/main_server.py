@@ -54,7 +54,9 @@ class BatchPrecessingMain(object):
             rpi_flagfile=self.params.rpi_flagfile,
             neu_flagfile=self.params.neu_flagfile,
             mu_flagfile=self.params.neu_flagfile)
-        self.drawing_obj = DrawClass(conf=self.params, plot=True)
+
+        if self.params.draw_newsfeed:
+            self.drawing_obj = DrawClass(conf=self.params, plot=True)
 
         # output folder name for each camera
         self.out_folder = {}
@@ -178,15 +180,16 @@ class BatchPrecessingMain(object):
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
     def on_after_batch_processing(self, batch_frames) -> None:
-        with complexity_analyzer("DRAW"):
-            # self.drawing_obj.run_process(batch_frames,
-            #                              self.params.rpi_result_file,
-            #                              self.params.mu_result_file,
-            #                              self.params.neu_result_file)
-            self.drawing_obj.draw_batch(batch_frames,
-                                        self.params.rpi_result_file,
-                                        self.params.mu_result_file,
-                                        self.params.neu_result_file)
+        if self.params.draw_newsfeed:
+            with complexity_analyzer("DRAW"):
+                # self.drawing_obj.run_process(batch_frames,
+                #                              self.params.rpi_result_file,
+                #                              self.params.mu_result_file,
+                #                              self.params.neu_result_file)
+                self.drawing_obj.draw_batch(batch_frames,
+                                            self.params.rpi_result_file,
+                                            self.params.mu_result_file,
+                                            self.params.neu_result_file)
 
     def run(self):
         with complexity_analyzer("INIT"):
@@ -207,7 +210,9 @@ class BatchPrecessingMain(object):
                 counter += 1
             pbar.close()
 
-        self.drawing_obj.finish()
+        if self.params.draw_newsfeed:
+            self.drawing_obj.finish()
+
         complexity_analyzer.final_info()
 
     def _get_batch_file_names(self, load_image=False) -> bool:
