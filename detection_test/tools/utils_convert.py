@@ -61,7 +61,7 @@ def read_mu(filename, scale=None):
     else:
         header = [
             'frame', 'camera', 'timeoffset', 'x1', 'y1', 'x2', 'y2', 'id',
-            'firstused'
+            'firstused', 'tu'
         ]
 
         df = pd.read_csv(str(filename),
