@@ -67,6 +67,7 @@ def read_mu(filename, scale=None):
         df = pd.read_csv(str(filename),
                          sep=",",
                          header=None,
+                         skiprows=1,
                          names=header,
                          index_col=0)
 
