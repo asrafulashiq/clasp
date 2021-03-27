@@ -311,7 +311,7 @@ class Manager:
 
         # _name = f"log_info_{self.config.file_num}.csv"
         # write_file = Path(self.config.out_dir) / "run" / "info" / _name
-        write_file = self.config.rpi_all_results_csv
+        write_file = Path(self.config.rpi_all_results_csv)
         write_file.parent.mkdir(exist_ok=True, parents=True)
 
         with write_file.open("w") as fp:

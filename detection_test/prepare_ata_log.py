@@ -15,15 +15,10 @@ def main(cfg: DictConfig):
     #     "frame"] + 50  # FIXME: For some reason, there is a 50 frame lag
 
     # PAX
-    df_pax = read_mu([pax_file_9, pax_file_11, pax_file_13])
+    df_pax = read_mu(cfg.mu_result_file)
 
     # NU
-    asso_info, theft_info = {}, {}
-    asso_info["cam09"], theft_info["cam09"] = read_nu_association(nu_file_cam9)
-    asso_info["cam11"], theft_info["cam11"] = read_nu_association(
-        nu_file_cam11)
-    asso_info["cam13"], theft_info["cam13"] = read_nu_association(
-        nu_file_cam13)
+    asso_info, theft_info = read_nu_association(cfg.neu_result_file)
 
     # -------------------------------- Create Log -------------------------------- #
     full_log = defaultdict(list)
