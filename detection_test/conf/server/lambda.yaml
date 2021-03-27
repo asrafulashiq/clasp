@@ -29,6 +29,8 @@ neu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_batch_associat
 mu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/mu/log_batch_mu_current.csv
 rpi_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_result.csv
 
+rpi_all_results_csv: /home/rpi/dataset/ALERT/clasp_data/output/run/info/inof_${file_num}.csv
+
 duration: 4
 fps: 10
 save_im: false

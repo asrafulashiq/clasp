@@ -278,25 +278,6 @@ class Manager:
                 list_info)
         self.log.info("Loaded previous exit info")
 
-    def load_info(self, info_file, frame_num, image, camera="cam09"):
-        df = pd.read_csv(
-            str(info_file),
-            sep=",",
-            header=None,
-            names=[
-                "file", "camera", "frame", "id", "class", "x1", "y1", "x2",
-                "y2", "type", "msg"
-            ],
-            index_col=None,
-        )
-
-        df = df.drop(df[df['frame'] == 'None'].index)
-        df['frame'] = df['frame'].astype(int)
-        list_info = self.get_info_from_frame(df, frame_num, camera)
-        self._bin_managers[camera].add_info(list_info, image)
-        self.write_info_upto_frame(df, frame_num, camera)
-        self.write_exit_info_upto_frame(df, frame_num, camera)
-
     def write_info(self):
         """ write a line to the info file """
 
@@ -328,8 +309,9 @@ class Manager:
                 )
                 self.write_list.append(line)
 
-        _name = f"info_{self.config.file_num}_{''.join(self.config.cameras)}.csv"
-        write_file = Path(self.config.out_dir) / "run" / _name
+        # _name = f"log_info_{self.config.file_num}.csv"
+        # write_file = Path(self.config.out_dir) / "run" / "info" / _name
+        write_file = self.config.rpi_all_results_csv
         write_file.parent.mkdir(exist_ok=True, parents=True)
 
         with write_file.open("w") as fp:

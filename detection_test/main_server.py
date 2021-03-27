@@ -121,7 +121,7 @@ class BatchPrecessingMain(object):
 
                     batch_frames.append(_rets_cam)
                     if self.params.write:
-                        self.manager.load_info()
+                        self.manager.write_info()
 
                     # if self.cameras[i_cnt] == "cam13":
                     #     frame_num += 50
@@ -129,9 +129,9 @@ class BatchPrecessingMain(object):
                         f"{Fore.CYAN} Processing: {cam_frame_num}")
 
                 if self.params.write:
+                    # write info for NEU at each step
                     df_batch = self.manager.get_batch_info()
                     write_path = self.params.rpi_result_file
-                    # write output files for NU
                     df_batch['timeoffset'] = df_batch['frame'].apply(
                         lambda frame: '{:.2f}'.format(frame / self.params.fps))
                     df_batch.to_csv(write_path, index=False, header=True)
@@ -182,10 +182,6 @@ class BatchPrecessingMain(object):
     def on_after_batch_processing(self, batch_frames) -> None:
         if self.params.draw_newsfeed:
             with complexity_analyzer("DRAW"):
-                # self.drawing_obj.run_process(batch_frames,
-                #                              self.params.rpi_result_file,
-                #                              self.params.mu_result_file,
-                #                              self.params.neu_result_file)
                 self.drawing_obj.draw_batch(batch_frames,
                                             self.params.rpi_result_file,
                                             self.params.mu_result_file,
@@ -214,6 +210,10 @@ class BatchPrecessingMain(object):
             self.drawing_obj.finish()
 
         complexity_analyzer.final_info()
+
+        # write all results to csv
+        if self.params.write:
+            self.manager.final_write()
 
     def _get_batch_file_names(self, load_image=False) -> bool:
         """ return: True denotes there are some files to process """
