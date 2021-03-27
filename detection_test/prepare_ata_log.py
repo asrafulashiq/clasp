@@ -5,6 +5,7 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 from tools.utils_convert import read_nu_association, read_mu, read_rpi
+from rich import print as rprint
 
 
 @hydra.main(config_path="conf", config_name="config")
@@ -57,19 +58,18 @@ def main(cfg: DictConfig):
             if _type == "loc":
                 # LOC: type: DVI camera-num: 11 frame: 3699 time-offset: 123.3 BB: 1785, 258, 1914, 549
                 # ID: B2 PAX-ID: P1 left-behind: false
-                if camera == "cam13" and frame > 9410 and _id == "B27" and conf.file_num == "exp2":
-                    log_msg = (
-                        f"LOC: type: {type_log} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
-                        +
-                        f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} "
-                        + "left-behind: true")
-                else:
-                    log_msg = (
-                        f"LOC: type: {type_log} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
-                        +
-                        f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} "
-                        + "left-behind: false"
-                    )  # FIXME: left-behind calculation
+                # if camera == "cam13" and frame > 9410 and _id == "B27" and conf.file_num == "exp2":
+                #     log_msg = (
+                #         f"LOC: type: {type_log} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
+                #         +
+                #         f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} "
+                #         + "left-behind: true")
+                # else:
+                log_msg = (
+                    f"LOC: type: {type_log} camera-num: {cam} frame: {frame} time-offset: {frame/30:.2f} "
+                    +
+                    f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id} PAX-ID: {pax_id} " +
+                    "left-behind: false")  # FIXME: left-behind calculation
             elif _type in ("chng", "empty"):
                 # XFR: type: FROM camera-num: 13 frame: 4765 time-offset: 158.83
                 # BB: 1353, 204, 1590, 462 owner-ID: P2 DVI-ID: B5 theft: FALSE
@@ -117,6 +117,14 @@ def main(cfg: DictConfig):
                 + f"BB: {x1}, {y1}, {x2}, {y2} ID: {_id}")
 
         full_log[cam].append(log_msg)
+
+    for each_cam in full_log:
+        fp_writename = cfg.ata_output
+        with open(fp_writename, 'w') as fp:
+            fp.write('\n'.join(full_log[each_cam]))
+        rprint(
+            f"Write camera [green]{each_cam}[/green] to log file : [italic yellow]{fp_writename}[/italic yellow]"
+        )
 
 
 if __name__ == "__main__":
