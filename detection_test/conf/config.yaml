@@ -14,7 +14,7 @@ bin_ckpt: ${HOME}/dataset/ALERT/trained_model/det2.pth
 
 rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/info_${file_num}.csv
 
-ata_output: ${HOME}/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}.csv
+ata_output: ${HOME}/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}
 
 write: true
 

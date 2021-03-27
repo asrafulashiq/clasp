@@ -119,7 +119,7 @@ def main(cfg: DictConfig):
         full_log[cam].append(log_msg)
 
     for each_cam in full_log:
-        fp_writename = cfg.ata_output
+        fp_writename = cfg.ata_output + f"_{each_cam}.txt"
         with open(fp_writename, 'w') as fp:
             fp.write('\n'.join(full_log[each_cam]))
         rprint(

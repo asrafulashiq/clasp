@@ -31,7 +31,7 @@ rpi_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_resu
 
 rpi_all_results_csv: /home/rpi/dataset/ALERT/clasp_data/output/run/info/inof_${file_num}.csv
 
-ata_output: /home/rpi/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}.csv
+ata_output: /home/rpi/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}
 
 duration: 4
 fps: 10
