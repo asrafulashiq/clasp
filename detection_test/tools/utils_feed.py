@@ -263,9 +263,11 @@ class IntegratorClass:
                 logs.append(_msg)
 
                 if 'theft: true' in _msg.lower():
-                    feed_msg = f'Potential theft: {pax_id} - {bin_id}'
+                    feed_msg = (cam, to_sec(frame),
+                                f'Potential theft: {pax_id} - {bin_id}')
                 else:
-                    feed_msg = (f'XFR : {pax_id} - {bin_id}')
+                    feed_msg = (cam, to_sec(frame),
+                                f'XFR : {pax_id} - {bin_id}')
                 if feed_msg not in self.msg:
                     msglist.append(feed_msg)
                     self.msg.add(feed_msg)
