@@ -127,7 +127,7 @@ class IntegratorClass:
 
                 if 'XFR' in each_split:
                     _msg = parse(("XFR: type: {} camera-num: {} frame: {} "
-                                  "time-offset: {} BB: [{}] PAX-ID: {pax_id} "
+                                  "time-offset: {} BB: {} PAX-ID: {pax_id} "
                                   "DVI-ID: {bin_id} theft: {}"), each_split)
                     asso_msg[cam][frame] = [
                         'XFR', cam, frame, _msg["pax_id"], _msg["bin_id"],
@@ -432,93 +432,3 @@ class DrawClass():
 
         # with open(str(write_file), "w") as fp:
         #     fp.write("\n".join(self.full_log))
-
-
-# if __name__ == "__main__":
-
-#     out_folder = {}
-#     imlist = []
-
-#     if conf.plot:
-#         vis_feed = VisFeed()  # Visualization class
-
-#         # Output folder path of the feed
-#         feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
-#         if feed_folder.exists():
-#             shutil.rmtree(str(feed_folder))
-#         feed_folder.mkdir(exist_ok=True)
-
-#     Info = IntegratorClass()  # integrate info from 3 groups
-
-#     imlist = []
-#     src_folder = {}
-#     out_folder = {}
-
-#     for cam in cameras:
-#         src_folder[cam] = Path(conf.root) / file_num / cam
-#         assert src_folder[cam].exists()
-
-#         if cam == "cam13":
-#             start_frame = conf.start_frame - 50  # cam 13 lags by 50 frames from cam 09 and 11
-#         else:
-#             start_frame = conf.start_frame
-
-#         imlist.append(
-#             utils.get_images_from_dir(src_folder[cam],
-#                                       start_frame=start_frame,
-#                                       skip_end=conf.skip_end,
-#                                       delta=conf.delta,
-#                                       end_frame=conf.end_frame,
-#                                       file_only=(not conf.plot)))
-
-#     full_log_cam09 = []
-#     full_log_cam11 = []
-#     full_log_cam13 = []
-
-#     for out1, out2, out3 in tqdm(zip(*imlist)):
-#         im1, imfile1, _ = out1
-#         im2, imfile2, _ = out2
-#         im3, imfile3, _ = out3
-
-#         frame_num = int(Path(imfile1).stem) - 1
-
-#         # Cam 09
-#         info_bin, info_pax, event_bin, event_pax, msglist, logs = Info.get_info_from_frame(
-#             frame_num, "cam09")
-#         full_log_cam09.extend(logs)
-#         if conf.plot:
-#             im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
-
-#         # Cam 11
-#         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
-#             frame_num, "cam11")
-#         full_log_cam11.extend(logs)
-#         if conf.plot:
-#             im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
-
-#         # Cam 13
-#         frame_num3 = int(Path(imfile3).stem) - 1
-#         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
-#             frame_num3, "cam13")
-#         full_log_cam13.extend(logs)
-#         if conf.plot:
-#             im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
-
-#         # News feed info
-#         if conf.plot:
-#             # get message
-#             msglist.extend(mlist)
-#             im_feed = vis_feed.draw(im1, im2, im3, frame_num, msglist)
-
-#             f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
-#             skimage.io.imsave(str(f_write), im_feed)
-
-#     # Write ata output file for scoring
-#     with open("ata_cam9.txt", "w") as fp:
-#         fp.write("\n".join(full_log_cam09))
-
-#     with open("ata_cam11.txt", "w") as fp:
-#         fp.write("\n".join(full_log_cam11))
-
-#     with open("ata_cam13.txt", "w") as fp:
-#         fp.write("\n".join(full_log_cam13))
