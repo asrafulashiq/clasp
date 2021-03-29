@@ -165,12 +165,12 @@ class IntegratorClass:
                     pax_type = "TSO"
                 else:
                     pax_type = "PAX"
-                log = (
-                    f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                    +
-                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    + f"ID: {row['id']}")
-                logs.append(log)
+                # log = (
+                #     f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                #     +
+                #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                #     + f"ID: {row['id']}")
+                # logs.append(log)
 
         # get bin info.
         df = self.df_bin
@@ -205,14 +205,14 @@ class IntegratorClass:
 
                 # FIXME left-behind calculation
                 left_behind = "false"
-                log = (
-                    f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                    +
-                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    +
-                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
-                )
-                logs.append(log)
+                # log = (
+                #     f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                #     +
+                #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                #     +
+                #     f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                # )
+                # logs.append(log)
             else:  # event type
                 if (row["type"] == "enter" and cam == "cam09") or \
                      row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
@@ -426,11 +426,12 @@ class DrawClass():
         }
 
     def finish(self):
-        write_file = Path(self.config.rpi_all_results_csv)
-        write_file.parent.mkdir(exist_ok=True, parents=True)
+        pass
+        # write_file = Path(self.config.rpi_all_results_csv)
+        # write_file.parent.mkdir(exist_ok=True, parents=True)
 
-        with open(str(write_file), "w") as fp:
-            fp.write("\n".join(self.full_log))
+        # with open(str(write_file), "w") as fp:
+        #     fp.write("\n".join(self.full_log))
 
 
 # if __name__ == "__main__":
