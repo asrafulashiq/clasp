@@ -121,6 +121,7 @@ class BatchPrecessingMain(object):
 
                     batch_frames.append(_rets_cam)
                     if self.params.write:
+                        self.manager.load_info()
                         self.manager.write_info()
 
                     # if self.cameras[i_cnt] == "cam13":
