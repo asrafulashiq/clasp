@@ -205,14 +205,16 @@ class IntegratorClass:
 
                 # FIXME left-behind calculation
                 left_behind = "FALSE"
-                log = (
-                    f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                    +
-                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    +
-                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
-                )
-                logs.append(log)
+
+                if self.bin_pax.get(_id, ""):
+                    log = (
+                        f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                        +
+                        f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                        +
+                        f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                    )
+                    logs.append(log)
             else:  # event type
                 if (row["type"] == "enter" and cam == "cam09") or \
                      row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
