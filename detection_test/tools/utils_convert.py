@@ -85,60 +85,76 @@ def read_mu(filename, scale=None):
         return df
 
 
-def read_nu_association(nu_file1):
-    """Convert NU association info  
-
-    Example:
-        5242,cam9,"['|P5| left hand in |Bin 14|', '|P5| is the owner of |Bin 14|']
-        5628,cam9,"['|P5| right hand in |Bin 18|', '|P5| is suspicious with |Bin 18|']"
-        5215,cam9,['|P5| left hand in |Bin 14|']
-
-    Returns:
-        [dict]: key is `bin_id`, and value is a dict
-                        where key is `frame_number` and value is associated `pax_id`
+def read_nu_association(nu_file: str) -> list:
     """
-    if nu_file1 is None:
-        return {}, {}
+    format: 
+    1476| cam13 | XFR: type: FROM camera-num: 13 frame: 1476 time-offset: 0.0 \
+        BB: 486, 210, 772, 504 PAX-ID: P1 DVI-ID: B1 theft: TRUE
 
-    df_all = pd.read_csv(str(nu_file1),
-                         header=None,
-                         names=["frame", "cam", "des"])
+    Args:
+        nu_file ([type]): [description]
+    """
+    lines = []
+    with open(nu_file, 'r') as fp:
+        for line in fp:
+            if "XFR" not in line: continue
+            lines.append(line.split("|")[2].strip())
+    return lines
 
-    association_information = {}
-    theft_information = {}
-    cameras = df_all["cam"].unique().tolist()
 
-    for cam in cameras:
-        df = df_all[df_all['cam'] == cam]
+# def read_nu_association(nu_file1):
+#     """Convert NU association info
 
-        asso_info = defaultdict(dict)
-        theft_info = defaultdict(dict)
-        for _, row in df.iterrows():
-            frame = row["frame"]
-            des = row["des"]
-            des = parse("[{}]", des)
-            if des is None:
-                continue
-            des = des[0]
-            for each_split in des.split(","):
-                each_split = each_split.strip()
-                pp = parse("'|P{pax_id:d}|{event_str}|Bin {bin_id:d}|'",
-                           each_split)
-                if pp is not None:
-                    bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
-                        pp['pax_id'])
-                    if "owner of" in pp['event_str']:
-                        # association
-                        asso_info[bin_id][frame] = pax_id
-                    elif "hand in" in pp['event_str']:
-                        pass
-                    elif "suspicious" in pp['event_str']:
-                        theft_info[bin_id][frame] = pax_id
-        association_information[cam.replace("cam9", "cam09")] = asso_info
-        theft_information[cam.replace("cam9", "cam09")] = theft_info
+#     Example:
+#         5242,cam9,"['|P5| left hand in |Bin 14|', '|P5| is the owner of |Bin 14|']
+#         5628,cam9,"['|P5| right hand in |Bin 18|', '|P5| is suspicious with |Bin 18|']"
+#         5215,cam9,['|P5| left hand in |Bin 14|']
 
-    return association_information, theft_information
+#     Returns:
+#         [dict]: key is `bin_id`, and value is a dict
+#                         where key is `frame_number` and value is associated `pax_id`
+#     """
+#     if nu_file1 is None:
+#         return {}, {}
 
+#     df_all = pd.read_csv(str(nu_file1),
+#                          header=None,
+#                          names=["frame", "cam", "des"])
+
+#     association_information = {}
+#     theft_information = {}
+#     cameras = df_all["cam"].unique().tolist()
+
+#     for cam in cameras:
+#         df = df_all[df_all['cam'] == cam]
+
+#         asso_info = defaultdict(dict)
+#         theft_info = defaultdict(dict)
+#         for _, row in df.iterrows():
+#             frame = row["frame"]
+#             des = row["des"]
+#             des = parse("[{}]", des)
+#             if des is None:
+#                 continue
+#             des = des[0]
+#             for each_split in des.split(","):
+#                 each_split = each_split.strip()
+#                 pp = parse("'|P{pax_id:d}|{event_str}|Bin {bin_id:d}|'",
+#                            each_split)
+#                 if pp is not None:
+#                     bin_id, pax_id = 'B' + str(pp['bin_id']), 'P' + str(
+#                         pp['pax_id'])
+#                     if "owner of" in pp['event_str']:
+#                         # association
+#                         asso_info[bin_id][frame] = pax_id
+#                     elif "hand in" in pp['event_str']:
+#                         pass
+#                     elif "suspicious" in pp['event_str']:
+#                         theft_info[bin_id][frame] = pax_id
+#         association_information[cam.replace("cam9", "cam09")] = asso_info
+#         theft_information[cam.replace("cam9", "cam09")] = theft_info
+
+#     return association_information, theft_information
 
 # def read_mu(filename, scale=None):
 #     """Convert MU log files to same format

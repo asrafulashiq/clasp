@@ -329,6 +329,7 @@ class Manager:
         self.data_dict = {k: [] for k in self.data_dict_keys}
 
     def load_info(self):
+        # load info of current batch for NEU
         for cam, bin_manager in self._bin_managers.items():
             for each_bin in bin_manager._current_bins:
                 bbox = ",".join(str(int(i)) for i in each_bin.pos)

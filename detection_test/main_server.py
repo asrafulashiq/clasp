@@ -121,8 +121,8 @@ class BatchPrecessingMain(object):
 
                     batch_frames.append(_rets_cam)
                     if self.params.write:
-                        self.manager.load_info()
-                        self.manager.write_info()
+                        self.manager.load_info()  # for NEU
+                        self.manager.write_info()  # for ata log
 
                     # if self.cameras[i_cnt] == "cam13":
                     #     frame_num += 50

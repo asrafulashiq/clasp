@@ -19,7 +19,7 @@ def main(cfg: DictConfig):
     df_pax = read_mu(cfg.mu_result_file)
 
     # NU
-    asso_info, theft_info = read_nu_association(cfg.neu_result_file)
+    asso_lines = read_nu_association(cfg.neu_all_result_file)
 
     # -------------------------------- Create Log -------------------------------- #
     full_log = defaultdict(list)
@@ -47,14 +47,15 @@ def main(cfg: DictConfig):
                 type_log = "PAX"
 
         if _class == 'dvi':
-            pax_id = "NA"
+            # pax_id = "NA"
+            pax_id = row['pax_id']
 
             # owner's id is collected from camera 09
-            if _id in asso_info["cam09"]:
-                ffs = list(asso_info["cam09"][_id])
-                for _f in ffs:
-                    if frame >= _f:
-                        pax_id = asso_info["cam09"][_id][_f]
+            # if _id in asso_info["cam09"]:
+            #     ffs = list(asso_info["cam09"][_id])
+            #     for _f in ffs:
+            #         if frame >= _f:
+            #             pax_id = asso_info["cam09"][_id][_f]
             if _type == "loc":
                 # LOC: type: DVI camera-num: 11 frame: 3699 time-offset: 123.3 BB: 1785, 258, 1914, 549
                 # ID: B2 PAX-ID: P1 left-behind: false
@@ -80,19 +81,21 @@ def main(cfg: DictConfig):
                 xfr_type = 'TO' if cam == '09' else 'FROM'
                 if _type == "empty":
                     xfr_type = 'FROM'
-                # check potential theft
-                _theft = "FALSE"
-                if _id in theft_info[camera]:
-                    ffs = theft_info[camera][_id]
-                    for _f in ffs:
-                        if np.abs(frame - _f) < 100:
-                            _theft = "TRUE"
-                            pax_id = ffs[_f]
-                            xfr_type = 'FROM'
-                            del ffs[_f]
-                            break
+                # # check potential theft
+                # _theft = "FALSE"
+                # if _id in theft_info[camera]:
+                #     ffs = theft_info[camera][_id]
+                #     for _f in ffs:
+                #         if np.abs(frame - _f) < 100:
+                #             _theft = "TRUE"
+                #             pax_id = ffs[_f]
+                #             xfr_type = 'FROM'
+                #             del ffs[_f]
+                #             break
 
                 if pax_id != "NA":
+                    _theft = "FALSE"
+
                     # get pax BB
                     paxes = df_comb[(df_comb['class'] == 'pax')
                                     & (df_comb['id'] == pax_id)
