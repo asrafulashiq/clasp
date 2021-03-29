@@ -1,33 +1,14 @@
 import multiprocessing
 from pathlib import Path
 import cv2
-from numpy.core import multiarray
-from tqdm import tqdm
-import tools.utils as utils
 from visutils.vis_feed import VisFeed
 import glob, os
 import pandas as pd
-import skimage
 import shutil
 import pandas as pd
 import visutils.vis as vis
 from parse import parse
 from collections import defaultdict
-
-# Experiment
-# file_num = "exp2_train"
-# cameras = ["cam09", "cam11", "cam13"]
-
-# # PAX and Bin detection files
-# bin_file = "./info/info_offset.csv"
-
-# pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
-# pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
-# pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
-
-# nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
-# nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
-# nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
 
 
 def to_sec(frame, fps=10):
@@ -35,7 +16,6 @@ def to_sec(frame, fps=10):
 
 
 def frame_to_time(imfile):
-    # frame_num = int(Path(imfile1).stem) - 1
     frame_num = int(Path(imfile).stem.split("_")[-1])
     return frame_num
 
@@ -59,17 +39,7 @@ class IntegratorClass:
         self.df_pax = self.refine_pax_df(pax_file)
 
         # get association info
-
-        asso_info, self._asso_msg = self.get_association_info(nu_file_cam)
-        # for k, v in _asso_msg.items():
-        #     if k not in self.asso_info:
-        #         asso_info[k] = {}
-        #     asso_info[k].update(v)
-
-        # for cam, _v1 in asso_info.items():
-        #     for bin_id, _v2 in _v1.items():
-        #         for fnum, pax_id in _v2.items():
-        #             self.asso_info[cam][bin_id][fnum] = pax_id
+        _ = self.get_association_info(nu_file_cam)
 
         print("loaded")
 
@@ -144,7 +114,8 @@ class IntegratorClass:
                         if "owner of" in pp['tmp']:
                             # association
                             self.asso_info[cam][bin_id][frame] = pax_id
-        return self.asso_info, asso_msg
+        self._asso_msg = asso_msg
+        # return self.asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
         # get pax info
@@ -417,8 +388,11 @@ class DrawClass():
         }
 
     def finish(self):
-        write_file = Path(self.conf.rpi_all_results_csv)
+        # write ata output
+        write_file = Path(self.conf.ata_output)
         write_file.parent.mkdir(exist_ok=True, parents=True)
 
         with open(str(write_file), "w") as fp:
             fp.write("\n".join(self.full_log))
+
+        print(f"write to ", write_file)
