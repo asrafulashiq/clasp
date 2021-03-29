@@ -147,35 +147,41 @@ class BatchPrecessingMain(object):
             if self.params.create_feed:
                 self.on_after_batch_processing(batch_frames)
         else:
-            while True:
-                ret = self.yaml_communicator.is_association_ready()
-                if ret:
-                    self.on_after_batch_processing(batch_frames)
-                    break
+            with complexity_analyzer("WAIT_NEU_ASSO"):
+                while True:
+                    ret = self.yaml_communicator.is_association_ready()
+                    if ret:
+                        self.on_after_batch_processing(batch_frames)
+                        break
 
         # Set batch processed flag
         self.yaml_communicator.set_batch_processed()
 
-        while True:
-            if self.params.debug:
-                # set people processed
-                self.yaml_communicator._set_flag('People_Processed', 'TRUE',
-                                                 self.params.mu_flagfile)
-                # set association ready
-                self.yaml_communicator._set_flag('Association_Ready', 'TRUE',
-                                                 self.params.neu_flagfile)
-                if (self.yaml_communicator.check_next_batch_ready()):
-                    self.yaml_communicator.set_batch_processed(value='FALSE')
-                    self.logger.info("Batch processed set to FALSE")
-                    break
-            else:
-                if (self.yaml_communicator.check_next_batch_ready()
-                        and not self.yaml_communicator.
-                        check_people_processed_ready()
-                        and not self.yaml_communicator.is_association_ready()):
-                    self.yaml_communicator.set_batch_processed(value='FALSE')
-                    self.logger.info("Batch processed set to FALSE")
-                    break
+        with complexity_analyzer("WAIT_NEXT_BATCH"):
+            while True:
+                if self.params.debug:
+                    # set people processed
+                    self.yaml_communicator._set_flag('People_Processed',
+                                                     'TRUE',
+                                                     self.params.mu_flagfile)
+                    # set association ready
+                    self.yaml_communicator._set_flag('Association_Ready',
+                                                     'TRUE',
+                                                     self.params.neu_flagfile)
+                    if (self.yaml_communicator.check_next_batch_ready()):
+                        self.yaml_communicator.set_batch_processed(
+                            value='FALSE')
+                        self.logger.info("Batch processed set to FALSE")
+                        break
+                else:
+                    if (self.yaml_communicator.check_next_batch_ready()
+                            and not self.yaml_communicator.
+                            check_people_processed_ready() and
+                            not self.yaml_communicator.is_association_ready()):
+                        self.yaml_communicator.set_batch_processed(
+                            value='FALSE')
+                        self.logger.info("Batch processed set to FALSE")
+                        break
 
         # tell NU that bin is not processed
         self.yaml_communicator.set_bin_processed(value='FALSE')
