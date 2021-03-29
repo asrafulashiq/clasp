@@ -209,8 +209,8 @@ class BatchPrecessingMain(object):
         if self.params.draw_newsfeed:
             self.drawing_obj.finish()
 
-        import pdb
-        pdb.set_trace()
+        # import pdb
+        # pdb.set_trace()
         complexity_analyzer.final_info()
 
         # write all results to csv
