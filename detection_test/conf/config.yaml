@@ -27,7 +27,7 @@ info_prev: null
 
 fp16: false
 
-workers_plot: 20
+workers_plot: 0
 
 file_num: exp2_train
 cameras:
