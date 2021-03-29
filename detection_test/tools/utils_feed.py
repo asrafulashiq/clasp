@@ -165,12 +165,12 @@ class IntegratorClass:
                     pax_type = "TSO"
                 else:
                     pax_type = "PAX"
-                # log = (
-                #     f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                #     +
-                #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                #     + f"ID: {row['id']}")
-                # logs.append(log)
+                log = (
+                    f"LOC: type: {pax_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                    +
+                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                    + f"ID: {row['id']}")
+                logs.append(log)
 
         # get bin info.
         df = self.df_bin
@@ -204,30 +204,30 @@ class IntegratorClass:
                 ])
 
                 # FIXME left-behind calculation
-                left_behind = "false"
-                # log = (
-                #     f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                #     +
-                #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                #     +
-                #     f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
-                # )
-                # logs.append(log)
+                left_behind = "FALSE"
+                log = (
+                    f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                    +
+                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                    +
+                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                )
+                logs.append(log)
             else:  # event type
                 if (row["type"] == "enter" and cam == "cam09") or \
                      row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
                     # xfr event
                     _id = str(row["id"])
                     _type = "TO" if cam == "cam09" else "FROM"
-                    # log = (
-                    #     f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                    #     +
-                    #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    #     +
-                    #     f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
-                    # )
-                    # logs.append(log)
-                    # continue
+                    log = (
+                        f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                        +
+                        f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                        +
+                        f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
+                    )
+                    logs.append(log)
+                    continue
                 # Which event to skip
                 if row["type"] not in ("enter", "exit"):
                     pass  # skip event
@@ -405,20 +405,7 @@ class DrawClass():
                 #                         info_pax,
                 #                         font_scale=0.7)
                 out_args.append((im3, info_bin, info_pax))
-        # News feed info
 
-        # print("#draw:2", flush=True)
-        # if self.plot:
-        #     # get message
-
-        #     im_feed = self.vis_feed.draw(im1, im2, im3, frame_num, msglist)
-        #     # print("#draw:2a", flush=True)
-
-        #     f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
-        #     skimage.io.imsave(str(f_write), im_feed)
-        #     # print("#draw:2b", flush=True)
-
-        # print("#draw:3", flush=True)
         return {
             "args": out_args,
             "frame": frame_num,
@@ -426,9 +413,8 @@ class DrawClass():
         }
 
     def finish(self):
-        pass
-        # write_file = Path(self.config.rpi_all_results_csv)
-        # write_file.parent.mkdir(exist_ok=True, parents=True)
+        write_file = Path(self.config.rpi_all_results_csv)
+        write_file.parent.mkdir(exist_ok=True, parents=True)
 
-        # with open(str(write_file), "w") as fp:
-        #     fp.write("\n".join(self.full_log))
+        with open(str(write_file), "w") as fp:
+            fp.write("\n".join(self.full_log))
