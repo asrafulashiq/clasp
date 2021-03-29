@@ -1,5 +1,6 @@
 # @package _global_
 
+HOME: ${env:HOME}
 root: /data/ALERT-SHARE/alert-api-wrapper-data/
 mode: training
 out_dir: /home/rpi/dataset/ALERT/clasp_data/output
@@ -29,9 +30,9 @@ neu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_batch_associat
 mu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/mu/log_batch_mu_current.csv
 rpi_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_result.csv
 
-rpi_all_results_csv: /home/rpi/dataset/ALERT/clasp_data/output/run/info/inof_${file_num}.csv
+rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/inof_${file_num}.csv
 
-ata_output: /home/rpi/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}
+ata_output: ${HOME}/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}
 
 duration: 4
 fps: 10
