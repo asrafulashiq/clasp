@@ -25,9 +25,13 @@ class ClaspLogger():
             "./logs", "{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
                                                now.hour))
 
-        self._logger.add(sink=filename,
-                         level='DEBUG',
-                         format="{time: MM-DD at HH:mm} | {message}")
+        try:
+            self._logger.add(sink=filename,
+                             level='DEBUG',
+                             format="{time: MM-DD at HH:mm} | {message}")
+        except PermissionError:
+            self._logger.warning(f"permission error on file {filename}")
+
         self.pre_msg = ""
 
     @property

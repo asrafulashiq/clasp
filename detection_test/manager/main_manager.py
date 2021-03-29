@@ -321,6 +321,7 @@ class Manager:
 
     # Live API log for NU
     def init_data_dict(self):
+        # file', 'cam', 'frame', 'id', 'class', 'x1', 'y1', 'x2', 'y2', 'type', 'msg', 'timeoffset'
         self.data_dict_keys = [
             "file", "cam", "frame", "id", "class", "x1", "y1", "x2", "y2",
             "type", "msg"
