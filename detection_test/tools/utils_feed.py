@@ -417,7 +417,7 @@ class DrawClass():
         }
 
     def finish(self):
-        write_file = Path(self.config.rpi_all_results_csv)
+        write_file = Path(self.conf.rpi_all_results_csv)
         write_file.parent.mkdir(exist_ok=True, parents=True)
 
         with open(str(write_file), "w") as fp:
