@@ -110,9 +110,9 @@ class BatchPrecessingMain(object):
                                 det,
                                 cam=self.cameras[i_cnt],
                                 frame_num=frame_num,
-                                return_im=self.params.save_im == "true")
+                                return_im=self.params.save_im)
 
-                        if self.params.save_im == "true":
+                        if self.params.save_im:
                             skimage.io.imsave(
                                 str(self.out_folder[self.cameras[i_cnt]] /
                                     Path(imfile).name), new_im)

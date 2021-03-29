@@ -321,23 +321,28 @@ class DrawClass():
         # for out in tqdm(batch_frames, desc="Drawing", position=10):
         all_out_args = []
         for out in batch_frames:
-            _args = self._draw_frame(*out)
+            _args = self._extract_info_for_draw_frame(*out)
             all_out_args.append(_args)
 
         if self.plot:
             self.plot_fn(all_out_args, self.feed_folder)
 
     def plot_fn(self, all_out_args, feed_folder):
-        with multiprocessing.Pool(processes=self.conf.workers_plot) as pool:
+        if self.conf.workers_plot > 1:
+            with multiprocessing.Pool(
+                    processes=self.conf.workers_plot) as pool:
+                for each_step_arg in all_out_args:
+                    # DrawClass.plot_fun_step(each_step_arg, feed_folder)
+                    pool.apply_async(
+                        DrawClass.plot_fun_step,
+                        (each_step_arg, feed_folder),
+                        #  callback=lambda x: print("#"),
+                        error_callback=lambda e: print("error"))
+                pool.close()
+                pool.join()
+        else:
             for each_step_arg in all_out_args:
-                # DrawClass.plot_fun_step(each_step_arg, feed_folder)
-                pool.apply_async(
-                    DrawClass.plot_fun_step,
-                    (each_step_arg, feed_folder),
-                    #  callback=lambda x: print("#"),
-                    error_callback=lambda e: print("error"))
-            pool.close()
-            pool.join()
+                DrawClass.plot_fun_step(each_step_arg, feed_folder)
 
     @staticmethod
     def plot_fun_step(each_step_arg, feed_folder):
@@ -359,7 +364,7 @@ class DrawClass():
         cv2.imwrite(str(f_write), cv2.cvtColor(im_feed, cv2.COLOR_RGB2BGR))
         # print(f"save to {f_write}")
 
-    def _draw_frame(self, out1, out2, out3=None):
+    def _extract_info_for_draw_frame(self, out1, out2, out3=None):
 
         out_args = []  # for multiprocess
 
@@ -421,11 +426,10 @@ class DrawClass():
         }
 
     def finish(self):
-        log_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                  "..", "ata_logs")
-        os.makedirs(log_folder, exist_ok=True)
-        logpath = os.path.join(log_folder, self.conf.ata_out)
-        with open(logpath, "w") as fp:
+        write_file = Path(self.config.rpi_all_results_csv)
+        write_file.parent.mkdir(exist_ok=True, parents=True)
+
+        with open(str(write_file), "w") as fp:
             fp.write("\n".join(self.full_log))
 
 
