@@ -52,16 +52,19 @@ class ComplexityAnalysis(object):
 
     def get_time_info(self):
         logger.info("Time info")
+        from prettytable import PrettyTable
+        table = PrettyTable(field_names=["Metric", "Avg", "Current", "Max"])
         for k in self.dict_time:
             if len(self.dict_time[k]) == 0:
                 continue
+            current = self.dict_time[k][-1]
             avg, _max = np.mean(self.dict_time[k]), max(self.dict_time[k])
             if not self.dict_batch_mode[k]:
                 avg *= self.frames_per_batch
                 _max *= self.frames_per_batch
+            table.add_row([k, avg, current, _max])
 
-            logger.info(f"{k} :: avg : {avg:.4f} s, max : {_max:.4f} s")
-
+        logger.info(f"\n{table.get_string()}\n")
         np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
 
     def process_memory(self):
