@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from collections import defaultdict
 from contextlib import contextmanager
+from prettytable import PrettyTable
 
 
 class ComplexityAnalysis(object):
@@ -52,7 +53,6 @@ class ComplexityAnalysis(object):
 
     def get_time_info(self):
         logger.info("Time info")
-        from prettytable import PrettyTable
         table = PrettyTable(field_names=["Metric", "Avg", "Current", "Max"])
         for k, vlist in self.dict_time.items():
             if len(vlist) == 0:
