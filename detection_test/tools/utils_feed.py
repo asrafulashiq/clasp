@@ -302,7 +302,7 @@ class DrawClass():
 
     def plot_fn(self, all_out_args, feed_folder):
         if self.conf.workers_plot > 1:
-            with multiprocessing.Pool(
+            with multiprocessing.get_context('spawn').Pool(
                     processes=self.conf.workers_plot) as pool:
                 for each_step_arg in all_out_args:
                     # DrawClass.plot_fun_step(each_step_arg, feed_folder)
