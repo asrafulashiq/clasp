@@ -62,7 +62,7 @@ class ComplexityAnalysis(object):
             if not self.dict_batch_mode[k]:
                 avg *= self.frames_per_batch
                 _max *= self.frames_per_batch
-            table.add_row([k, avg, current, _max])
+            table.add_row([k, f"{avg:.4f}", f"{current:.4f}", f"{_max:.4f}"])
 
         logger.info(f"\n{table.get_string()}\n")
         np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
