@@ -286,7 +286,7 @@ class DrawClass():
         self.feed_folder = Path(conf.out_dir) / "run" / conf.file_num / "feed"
         if self.feed_folder.exists():
             shutil.rmtree(str(self.feed_folder))
-        self.feed_folder.mkdir(exist_ok=True)
+        self.feed_folder.mkdir(exist_ok=True, parents=True)
 
         self.full_log = []
 
