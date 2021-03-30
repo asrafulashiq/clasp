@@ -1,11 +1,12 @@
 import cv2
 import numpy as np
 
-_GRAY = (218, 227, 218)
+_GRAY = (128, 128, 128)
 _GREEN = (18, 127, 15)
 _WHITE = (255, 255, 255)
 _RED = (255, 10, 10)
 _BLUE = (10, 10, 255)
+_ORANGE = (245, 236, 66)
 
 class_to_color = {"passengers": _BLUE, "items": _GREEN, "other": _RED}
 
@@ -26,7 +27,10 @@ def vis_class_label(img,
     font = cv2.FONT_HERSHEY_SIMPLEX
     if len(class_str) != 0:
         txt = class_str
-        ((txt_w, txt_h), _) = cv2.getTextSize(txt, font, 0.5, 1)
+        ((txt_w, txt_h), _) = cv2.getTextSize(txt,
+                                              font,
+                                              font_scale,
+                                              thickness=thickness)
         # Place text background.
         back_tl = x0, y0 - int(1.5 * txt_h)
         back_br = x0 + int(1.5 * txt_w), y0
@@ -34,21 +38,19 @@ def vis_class_label(img,
         cv2.rectangle(img, back_tl, back_br, color, thickness=1)
         # Show text.
         txt_tl = x0 + int(0.05 * txt_w), y0 - int(0.3 * txt_h)
-        cv2.putText(
-            img,
-            txt,
-            txt_tl,
-            font,
-            0.5,
-            color_str,
-            lineType=cv2.LINE_AA,
-            thickness=1,
-        )
+        cv2.putText(img,
+                    txt,
+                    txt_tl,
+                    font,
+                    font_scale,
+                    color_str,
+                    lineType=cv2.LINE_AA,
+                    thickness=thickness)
 
     # put label
     if label:
-        ((lbl_w, lbl_h), _) = cv2.getTextSize(str(label), font,
-                                              1.2 * font_scale, thickness)
+        ((lbl_w, lbl_h), _) = cv2.getTextSize(str(label), font, 2 * font_scale,
+                                              thickness * 2)
         lbl_tl = (
             int((x0 + x1) / 2) - int(0.3 * lbl_w),
             int((y0 + y1) / 2) - int(0 * lbl_h),
@@ -58,9 +60,9 @@ def vis_class_label(img,
             str(label),
             lbl_tl,
             font,
-            1.2 * font_scale,
+            2 * font_scale,
             color_str,
-            thickness=thickness,
+            thickness=thickness * 2,
             lineType=cv2.LINE_AA,
         )
 
@@ -118,8 +120,8 @@ def vis_bbox(img,
         cv2.rectangle(overlay, (x0, y0), (x1, y1), color,
                       -1)  # filled rectangle
 
-    if alpha > 0:
-        cv2.addWeighted(overlay, alpha, img, 1 - alpha, 0, img)
+    # if alpha > 0:
+    #     cv2.addWeighted(overlay, alpha, img, 1, 0, img)
 
     return img
 
@@ -182,7 +184,8 @@ def vis_bins(img, bins):
                     location = bin.track_state['ploygon'].flatten()
                     img = cv2.polylines(
                         img, [np.int0(location).reshape((-1, 1, 2))],
-                        True, (0, 255, 0),
+                        True,
+                        _GREEN,
                         thickness=2)
 
         img = vis_class_label(img,
@@ -191,7 +194,7 @@ def vis_bins(img, bins):
                               label,
                               color_str=(255, 0, 0),
                               font_scale=0.7,
-                              thickness=2)
+                              thickness=1)
 
     return img
 

@@ -3,6 +3,8 @@ Bin class description
 """
 
 from collections import deque
+from tools.utils import BinType
+from typing import Any, Optional
 import tools.utils_box as utils
 import numpy as np
 import torch
@@ -13,20 +15,26 @@ from siammask.siammask_sharp.custom import Custom
 
 
 class Bin:
-    def __init__(self,
-                 label=None,
-                 state=None,
-                 pos=None,
-                 default_state="items",
-                 maxlen=10):
+    def __init__(
+            self,
+            label: Optional[int] = None,
+            #  state: Optional[str] = None,
+            bin_type: Optional[BinType] = None,
+            #  cls: str = "DVI",
+            pos: Any = None,
+            # default_state="items",
+            maxlen=10):
 
         self.maxlen = maxlen
         self.init_conf()
 
-        self._default_state = default_state
-        self._label = label
-        self.state = state
+        # from setter method
+        self.label = label
+        self.bin_type = bin_type
+
         self.pos = pos  # (x1, y1, x2, y2)
+
+        # self.state = state
 
     def init_conf(self):
         self._state_conf_num = 20
@@ -37,6 +45,8 @@ class Bin:
         self._num_tracker_fail = 0
 
         self._pos_count = 0
+        self._bin_type = None
+        self._count_persistent_type = 0
 
     # def init_tracker(self, box, frame):
     #     self.tracker = cv2.TrackerKCF_create()
@@ -152,15 +162,31 @@ class Bin:
 
     @property
     def state(self):
-        return "items"
+        return self.bin_type.super_type
+
+    @property
+    def bin_type(self):
+        return self._bin_type
+
+    @bin_type.setter
+    def bin_type(self, _type: BinType):
+        if self.bin_type != _type:
+            self._count_persistent_type = 0
+        self._bin_type = _type
 
     @property
     def cls(self):
-        return "items"
+        return str(self.bin_type)
 
     @property
     def pos(self):
         return self._pos
+
+    @pos.setter
+    def pos(self, new_pos):
+        self._pos = new_pos
+        self._pos_count += 1
+        self._count_persistent_type += 1
 
     @property
     def width(self):
@@ -178,11 +204,6 @@ class Bin:
     @property
     def idle_count(self):
         return self._idle_count
-
-    @pos.setter
-    def pos(self, new_pos):
-        self._pos = new_pos
-        self._pos_count += 1
 
     def reset_det_fail(self):
         self._num_detection_fail = 0
@@ -235,4 +256,4 @@ class Bin:
         return str(self)
 
     def __str__(self):
-        return f"Bin :: label :{self.label} \n BB: {self.pos}"
+        return f"[Bin] label :{self.label}, BB: {self.pos}"

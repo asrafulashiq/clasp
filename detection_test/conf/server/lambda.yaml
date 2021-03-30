@@ -1,8 +1,46 @@
-root: /data/CLASP-DATA/CLASP2-data/20191024/frames
+# @package _global_
+
+HOME: ${env:HOME}
+root: /data/ALERT-SHARE/alert-api-wrapper-data/
 mode: training
-file_num: exp2
 out_dir: /home/rpi/dataset/ALERT/clasp_data/output
 
 fmt: "frame{:05d}.jpg"
 
 fmt_filename_src: "${root}/20191024-${mode}-{cam}{file_num}"
+
+ata_out: ata.txt
+file_num: exp2training
+
+cameras:
+  - "9"
+  - "11"
+  - "13"
+
+flag_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_Wrapper.yaml
+
+max_batch_detector: 30 # NOTE how many images in one detectron batch
+
+batch_out_folder: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/
+rpi_flagfile: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_RPI.yaml
+mu_flagfile: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_MU.yaml
+neu_flagfile: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/Flags_NEU.yaml
+
+neu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_batch_association.csv
+mu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/mu/log_batch_mu_current.csv
+rpi_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_result.csv
+
+rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/inof_${file_num}.csv
+neu_all_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_NEU_all_pose.txt
+
+ata_output: ${HOME}/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}
+
+duration: 4
+fps: 10
+save_im: false
+start_frame: 0
+run_detector: true
+write: true
+plot: true # news-feed plot
+
+debug: false

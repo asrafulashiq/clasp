@@ -208,14 +208,16 @@ class Manager:
                                                      classes, frame_num)
 
             if self.config.debug:
+                from visutils import vis
                 with self.analyzer("DEBUG"):
-                    for _i in range(len(boxes)):
-                        vis_bbox(im,
-                                 boxes[_i],
-                                 thick=2,
-                                 alpha=-1,
-                                 color=(51, 204, 255),
-                                 filled=False)
+                    if boxes is not None:
+                        for _i in range(len(boxes)):
+                            vis_bbox(im,
+                                     boxes[_i],
+                                     thick=2,
+                                     alpha=-1,
+                                     color=vis._ORANGE,
+                                     filled=False)
 
         if return_im:
             with self.analyzer("DRAW_BIN", False):
@@ -246,6 +248,9 @@ class Manager:
                 ])
             self._bin_managers[cam].add_exit_info(list_info)
 
+    # ----------------------------------- Other ---------------------------------- #
+    # --------------------------- Not updated properly --------------------------- #
+
     def load_prev_exit_info(self,
                             info_file,
                             current_cam="cam11",
@@ -272,25 +277,6 @@ class Manager:
             self._bin_managers[current_cam]._manager_prev_cam.add_exit_info(
                 list_info)
         self.log.info("Loaded previous exit info")
-
-    def load_info(self, info_file, frame_num, image, camera="cam09"):
-        df = pd.read_csv(
-            str(info_file),
-            sep=",",
-            header=None,
-            names=[
-                "file", "camera", "frame", "id", "class", "x1", "y1", "x2",
-                "y2", "type", "msg"
-            ],
-            index_col=None,
-        )
-
-        df = df.drop(df[df['frame'] == 'None'].index)
-        df['frame'] = df['frame'].astype(int)
-        list_info = self.get_info_from_frame(df, frame_num, camera)
-        self._bin_managers[camera].add_info(list_info, image)
-        self.write_info_upto_frame(df, frame_num, camera)
-        self.write_exit_info_upto_frame(df, frame_num, camera)
 
     def write_info(self):
         """ write a line to the info file """
@@ -323,8 +309,9 @@ class Manager:
                 )
                 self.write_list.append(line)
 
-        _name = f"info_{self.config.file_num}_{''.join(self.config.cameras)}.csv"
-        write_file = Path(self.config.out_dir) / "run" / _name
+        # _name = f"log_info_{self.config.file_num}.csv"
+        # write_file = Path(self.config.out_dir) / "run" / "info" / _name
+        write_file = Path(self.config.rpi_all_results_csv)
         write_file.parent.mkdir(exist_ok=True, parents=True)
 
         with write_file.open("w") as fp:
@@ -334,6 +321,7 @@ class Manager:
 
     # Live API log for NU
     def init_data_dict(self):
+        # file', 'cam', 'frame', 'id', 'class', 'x1', 'y1', 'x2', 'y2', 'type', 'msg', 'timeoffset'
         self.data_dict_keys = [
             "file", "cam", "frame", "id", "class", "x1", "y1", "x2", "y2",
             "type", "msg"
@@ -341,6 +329,7 @@ class Manager:
         self.data_dict = {k: [] for k in self.data_dict_keys}
 
     def load_info(self):
+        # load info of current batch for NEU
         for cam, bin_manager in self._bin_managers.items():
             for each_bin in bin_manager._current_bins:
                 bbox = ",".join(str(int(i)) for i in each_bin.pos)

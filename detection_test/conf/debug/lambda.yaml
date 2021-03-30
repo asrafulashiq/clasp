@@ -1,0 +1,18 @@
+# @package _global_
+debug: true
+
+out_dir: ${HOME}/dataset/ALERT/clasp_data/output_debug
+
+root: /home/rpi/data/wrapper_data/
+flag_file: /home/rpi/data/wrapper_log/Flags_Wrapper.yaml
+batch_out_folder: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/
+
+rpi_flagfile: /home/rpi/data/wrapper_log/Flags_RPI.yaml
+mu_flagfile: /home/rpi/data/wrapper_log/Flags_MU.yaml
+neu_flagfile: /home/rpi/data/wrapper_log/Flags_NEU.yaml
+
+neu_result_file: /home/rpi/data/wrapper_log/log_batch_association.csv
+mu_result_file: /home/rpi/data/wrapper_log/log_batch_mu_current.csv
+rpi_result_file: /home/rpi/data/wrapper_log/rpi_result.csv
+
+start_frame: 0

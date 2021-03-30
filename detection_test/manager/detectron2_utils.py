@@ -9,6 +9,7 @@ import numpy as np
 import torch
 from tqdm import tqdm
 import cv2
+from tools.utils import BinType
 
 _GRAY = (218, 227, 218)
 _GREEN = (18, 127, 15)
@@ -17,7 +18,7 @@ _RED = (255, 10, 10)
 _BLUE = (10, 10, 255)
 
 class_to_color = {"item": _GREEN, "bin_empty": _RED}
-clas_idx_to_str = {0: "bin_empty", 1: "item"}
+# clas_idx_to_str = {0: "bin_empty", 1: "item"}
 
 
 def format_boxes(boxes, scores, classes, thresh=0.8):
@@ -32,14 +33,19 @@ def format_boxes(boxes, scores, classes, thresh=0.8):
     for i in sorted_inds:
         bbox = boxes[i]
         score = scores[i]
-        clss = clas_idx_to_str[int(classes[i])]
+        # clss = clas_idx_to_str[int(classes[i])]
+        try:
+            clss = BinType(int(classes[i]))
+        except ValueError as e:
+            raise ValueError(f"{classes[i]} not a valid type") from e
+
         if score < thresh:
             continue
         _boxes.append(bbox)
         _score.append(score)
         _class.append(clss)
 
-    return np.array(_boxes), np.array(_score), np.array(_class)
+    return np.array(_boxes), np.array(_score), np.array(_class, dtype=BinType)
 
 
 class DetectorObj:
@@ -157,15 +163,23 @@ class RCNN_Detector():
 
     @torch.no_grad()
     def predict_batch(self, imlist):
-        imt = [F.to_tensor(im) for im in imlist]
-        imlist_gpu = torch.stack(imt, dim=0).to(self.device)
-        batch_output = self.model(imlist_gpu)
+        inputs = []
+        for im in imlist:
+            height, width = im.shape[:2]
+            imt = torch.as_tensor(im.astype("float32").transpose(2, 0, 1))
+            inputs.append({
+                "image": imt.to(self.device),
+                "height": height,
+                "width": width
+            })
+
+        batch_output = self.model(inputs)
         results = []
         for i in range(len(imlist)):
             output = {
                 k: v
                 for k, v in self.get_ret_from_prediction(
-                    batch_output[i]['instances'].to("cpu"))
+                    batch_output[i]['instances'].to("cpu")).items()
             }
             index = (np.isin(output["pred_classes"], self.labels_to_keep) &
                      (output["scores"] > self.thresh))
@@ -197,7 +211,8 @@ class RCNN_Detector():
 def get_clasp_dataset():
     """A dummy CLASP dataset that includes only the 'classes' field."""
     classes = ["bin_empty", "item"]
-    ds = {i: name for i, name in enumerate(classes)}
+    # ds = {i: name for i, name in enumerate(classes)}
+    ds = {0: "bin_empty", 1: "item"}
     return ds
 
 
@@ -207,42 +222,29 @@ def get_class_string(class_index, dataset):
     return class_text
 
 
-def _create_text_labels(classes, scores, class_names):
-    """
-    Args:
-        classes (list[int] or None):
-        scores (list[float] or None):
-        class_names (list[str] or None):
+# def _create_text_labels(classes, scores, class_names):
+#     """
+#     Args:
+#         classes (list[int] or None):
+#         scores (list[float] or None):
+#         class_names (list[str] or None):
 
-    Returns:
-        list[str] or None
-    """
-    labels = None
-    if classes is not None and class_names is not None and len(
-            class_names) > 0:
-        labels = [class_names[i] for i in classes]
-    if scores is not None:
-        if labels is None:
-            labels = ["{:.0f}%".format(s * 100) for s in scores]
-        else:
-            labels = [
-                "{} {:.0f}%".format(l, s * 100)
-                for l, s in zip(labels, scores)
-            ]
-    return labels
-
-
-def get_clasp_dataset():
-    """A dummy CLASP dataset that includes only the 'classes' field."""
-    classes = ["__background__", "passengers", "items", "other"]
-    ds = {i: name for i, name in enumerate(classes)}
-    return ds
-
-
-def get_class_string(class_index, dataset):
-    class_text = (dataset[class_index]
-                  if dataset is not None else "id{:d}".format(class_index))
-    return class_text
+#     Returns:
+#         list[str] or None
+#     """
+#     labels = None
+#     if classes is not None and class_names is not None and len(
+#             class_names) > 0:
+#         labels = [class_names[i] for i in classes]
+#     if scores is not None:
+#         if labels is None:
+#             labels = ["{:.0f}%".format(s * 100) for s in scores]
+#         else:
+#             labels = [
+#                 "{} {:.0f}%".format(l, s * 100)
+#                 for l, s in zip(labels, scores)
+#             ]
+#     return labels
 
 
 def vis_class(img, pos, class_str, font_scale=0.5):

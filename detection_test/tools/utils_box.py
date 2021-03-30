@@ -40,9 +40,12 @@ def iou_bbox(bbox1, bbox2, ratio_type='comb'):
         area_combined = min(area_a, area_b)
     elif ratio_type == 'max':
         area_combined = max(area_a, area_b)
+    elif ratio_type == 'min1':
+        area_combined = max(area_a, min(area_a, area_b))
+    elif ratio_type == 'min2':
+        area_combined = max(area_b, min(area_a, area_b))
     else:
         area_combined = area_a + area_b - area_overlap
-
     # RATIO OF AREA OF OVERLAP OVER COMBINED AREA
     iou = area_overlap / (area_combined + 1e-5)
     return iou

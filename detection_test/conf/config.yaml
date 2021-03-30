@@ -1,14 +1,20 @@
 defaults:
   - det2
-  - debug: default_debug
+  - bin_params@bin_params
   - override hydra/hydra_logging: none
   - override hydra/job_logging: none
+
+debug: true
 
 HOME: ${env:HOME}
 root: ${HOME}/dataset/ALERT/alert_frames/20191024/fps-10
 out_dir: ${HOME}/dataset/ALERT/clasp_data/output
 # bin_ckpt: ${HOME}/dataset/ALERT/trained_model/weight_640x360.pkl
 bin_ckpt: ${HOME}/dataset/ALERT/trained_model/det2.pth
+
+rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/info_${file_num}.csv
+
+ata_output: ${HOME}/dataset/ALERT/clasp_data/output/run/info/ata_${file_num}
 
 write: true
 
@@ -20,6 +26,8 @@ info: null
 info_prev: null
 
 fp16: false
+
+workers_plot: 0
 
 file_num: exp2_train
 cameras:
@@ -50,6 +58,8 @@ fmt_filename_out: "${out_dir}/run/{file_num}${out_suffix}/{cam}"
 fmt_filename_out_detection: "${out_dir}/out_detection/{file_num}/{cam}"
 fmt_filename_out_feed: "${out_dir}/run/feed/{file_num}${out_suffix}"
 fmt_filename_out_pkl: "${out_dir}/out_pkl/{file_num}_{cam}.pkl"
+
+draw_newsfeed: true
 
 hydra:
   run:

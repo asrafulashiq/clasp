@@ -4,4 +4,5 @@ model_zoo: "COCO-Detection/faster_rcnn_R_50_FPN_1x.yaml"
 num_classes: 2
 run_detector: true
 
-thresh: 0.8
+# threshold for detection
+thresh: 0.7

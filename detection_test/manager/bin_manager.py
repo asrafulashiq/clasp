@@ -1,12 +1,15 @@
 """This script is responsible for managing bins in a camera"""
 
 import os
+from typing import Any, Dict, List, NewType, Optional, Sequence, TypeVar
+from nptyping import NDArray
 import numpy as np
 import collections
 import itertools
 import copy
 from omegaconf import OmegaConf
 
+from tools.utils import BinType
 from bin_process.bin import Bin
 from visutils.vis import vis_bins
 import tools.utils_geo as geo
@@ -14,15 +17,21 @@ import tools.utils_box as utils_box
 from tools import nms
 import pandas as pd
 
+ImageType = Optional[NDArray[(Any, Any, 3), np.float]]
+BoxesType = NDArray[(Any, 4), np.float]
+ScoresType = NDArray[(Any, ), np.float]
+
+ClassesType = NDArray[(Any, ), Any]  # last Any should be BinType
+
 
 class BinManager:
     def __init__(self, config, bins=None, log=None, camera="cam09"):
         self.config = config
         self.log = log
         if bins is None:
-            self._current_bins = []
+            self._current_bins: List[Bin] = []
         else:
-            self._current_bins = bins
+            self._current_bins: List[Bin] = bins
         self._current_events = []
 
         self._camera = camera
@@ -41,9 +50,10 @@ class BinManager:
     def init_camera_params(self):
         # initialize configuration
         self._mul = 3
-        CWD = os.path.dirname(os.path.abspath(__file__))
-        conf_file = os.path.join(CWD, "bin_params.yml")
-        bin_params_for_camera = OmegaConf.load(conf_file)
+        # CWD = os.path.dirname(os.path.abspath(__file__))
+        # conf_file = os.path.join(CWD, "bin_params.yml")
+        # bin_params_for_camera = OmegaConf.load(conf_file)
+        bin_params_for_camera = OmegaConf.to_container(self.config.bin_params)
 
         spatial_params = [
             "_thres_incoming_bin_bound", "_thres_out_bin_bound",
@@ -90,11 +100,19 @@ class BinManager:
     def __iter__(self):
         return iter(self._current_bins)
 
-    def add_bin(self, box, cls, im, safe=True):
+    def add_bin(self,
+                box: NDArray[(Any, 4), np.float],
+                cls: BinType,
+                im: ImageType,
+                safe=True):
 
         self._bin_count += 1
         label = self._bin_count
-        state = cls
+        # state = "items"
+
+        if self._camera != "cam09" and cls == BinType.BIN_EMPTY:
+            # NOTE empty bin is detected only in camera 9
+            return
 
         if self._camera in ("cam11", "cam13"):
             # set label based on camera 9
@@ -142,7 +160,7 @@ class BinManager:
                 else:
                     return
             except IndexError:
-                state = "items"
+                pass
         elif self._camera == "cam13":
             # set label based on camera 11
             try:
@@ -169,7 +187,6 @@ class BinManager:
                 else:  # else is only executed when there is not break inside while
                     return
             except IndexError:
-                state = "items"
                 return
 
         # NOTE: wait for new bin, wait at least 5 iteration to assign
@@ -181,9 +198,8 @@ class BinManager:
 
         new_bin = Bin(
             label=label,
-            state=state,
+            bin_type=cls,
             pos=box,
-            default_state=self._default_bin_state,
             maxlen=self.maxlen,
         )
 
@@ -214,12 +230,14 @@ class BinManager:
                 f"B{new_bin.label} exits X-Ray",
             ])
 
-    def _filter_boxes(self, im, boxes, scores, classes, frame_num):
+    def _filter_boxes(self, im: ImageType, boxes: BoxesType,
+                      scores: ScoresType, classes: ClassesType,
+                      frame_num: int):
         # --------------------------------- Refine bb -------------------------------- #
         if classes is not None:
             ind = [
                 i for i in range(len(classes))
-                if classes[i] in ("items", "item", "bin_empty")
+                # if classes[i] in ("items", "item", "bin_empty")
             ]
         else:
             ind = []
@@ -283,7 +301,9 @@ class BinManager:
             )
         return boxes, scores, classes, ind
 
-    def _track_current_bins(self, im, boxes, scores, classes, frame_num, ind):
+    def _track_current_bins(self, im: ImageType, boxes: BoxesType,
+                            scores: ScoresType, classes: ClassesType,
+                            frame_num: int, ind: int):
         # ---------------------------- Track previous bin ---------------------------- #
         explored_indices = []
         tmp_iou = {}
@@ -292,7 +312,7 @@ class BinManager:
             for bin in self._current_bins:
                 iou_to_boxes = []
                 for _counter in range(boxes.shape[0]):
-                    _iou = bin.iou_bbox(boxes[_counter])
+                    _iou = bin.iou_bbox(boxes[_counter], ratio_type='comb')
                     iou_to_boxes.append(_iou)
                 M_iou.append(iou_to_boxes)
             M_iou = np.array(M_iou)
@@ -314,7 +334,7 @@ class BinManager:
                         tmp_iou.get(_counter, 0),
                         utils_box.iou_bbox(boxes[_counter],
                                            bin.pos,
-                                           ratio_type='min'))
+                                           ratio_type='comb'))
 
                 # closest_index = np.argmax(iou_to_boxes)
                 closest_index = int(box_ind_min[bcount])
@@ -361,7 +381,7 @@ class BinManager:
                             else:
                                 bin.init_tracker(new_box, im)
 
-                        #! DEBUG
+                        bin.bin_type = classes[closest_index]
                         bin.pos = new_box
                         explored_indices.append(closest_index)
 
@@ -369,16 +389,17 @@ class BinManager:
                             bin.init_tracker(new_box, im)
                     else:
                         bin.increment_det_fail()
-                        # bin.pos = _bb_track
-                        # bin.increment_idle()
+
         else:
             for bin in self._current_bins:
                 bin.increment_det_fail()
 
         return explored_indices, tmp_iou
 
-    def _detect_new_bin(self, im, boxes, scores, classes, frame_num, ind,
-                        explored_indices, tmp_iou):
+    def _detect_new_bin(self, im: ImageType, boxes: BoxesType,
+                        scores: ScoresType, classes: ClassesType,
+                        frame_num: int, ind: List, explored_indices: List,
+                        tmp_iou: Dict):
         # ------------------------------ Detect new bin ------------------------------ #
         if len(ind) > 0:
             for i in range(boxes.shape[0]):
@@ -414,7 +435,8 @@ class BinManager:
 
                 self.add_bin(box, cls, im)  # add new bin
 
-    def update_state(self, im, boxes, scores, classes, frame_num):
+    def update_state(self, im: ImageType, boxes: BoxesType, scores: ScoresType,
+                     classes: ClassesType, frame_num: int):
 
         self.current_frame = frame_num
         if im is None:
@@ -436,13 +458,50 @@ class BinManager:
         self._process_exit(im, frame_num)
         return 0  # successful return
 
-    def visualize(self, im):
+    def visualize(self, im: ImageType):
         return vis_bins(im, self._current_bins)
 
     def _process_exit(self, im, frame_num):
         _ind = []
+
+        list_overlap = []
         for i in range(len(self)):
             bin = self._current_bins[i]
+            do_exit = False
+            _l = []
+            for j in range(len(self)):
+                if j == i: _l.append(-1)
+                _iou = bin.iou_bbox(self._current_bins[j].pos,
+                                    ratio_type='min1')
+                _l.append(_iou)
+            list_overlap.append(_l)
+
+        for i in range(len(self)):
+            bin = self._current_bins[i]
+
+            # overlam min with all other bins
+            do_exit = False
+            for j in range(len(self)):
+                _iou = list_overlap[i][j]
+                if (_iou > 0.8 and self._current_bins[j].bin_type ==
+                        bin.bin_type == BinType.BIN_EMPTY):
+                    # exit next bin
+                    do_exit = True
+                    list_overlap[j][i] = -1
+                    break
+
+                if do_exit:
+                    self.log.clasp_log(
+                        f"{self._camera} : Bin {bin.label} deleted")
+
+                    continue
+
+            if (self._camera != "cam09" and bin.bin_type == BinType.BIN_EMPTY
+                    and bin._count_persistent_type > 5):
+                # empty bin
+                self.log.clasp_log(f"{self._camera} : Bin {bin.label} empty")
+                continue
+
             if geo.point_in_box(bin.centroid, self._thres_out_bin_bound):
                 # FIXME: Only for camera 11
                 # bin is not completely out of bound from camera 11,
@@ -500,8 +559,32 @@ class BinManager:
                 else:
                     # something is wrong
                     if not pass_det:
-                        self.log.clasp_log(
-                            f"{self._camera} : Bin {bin.label} divested")
+                        # divested only if there's a bigger bin
+                        for j in range(len(self._current_bins)):
+                            if list_overlap[i][j] > 0.9:
+
+                                list_overlap[j][i] = -1
+                                bin.clear_track()
+
+                                # log
+                                other_bin = self._current_bins[j]
+                                self.log.clasp_log(
+                                    f"{self._camera} : Bin {bin.label} divested"
+                                )
+                                self._current_events.append([
+                                    self.current_frame,
+                                    other_bin.label,
+                                    other_bin.cls,
+                                    *other_bin.pos,
+                                    "chng",
+                                    f"Item {other_bin.label} divested/revested",
+                                ])
+                                self._empty_bins.append(bin)
+
+                                break
+                        else:  # if not break
+                            self.log.clasp_log(
+                                f"{self._camera} : Bin {bin.label} deleted")
 
                         if self._camera != "cam09":
                             msg = f"B{bin.label} empty"
@@ -514,41 +597,41 @@ class BinManager:
                                 msg,
                             ])
 
-                        else:
-                            # REVIEW: check if bin has overlap with other bins, cam09 only
-                            flag = True
-                            for other_bin in self._current_bins:
-                                if other_bin.label != bin.label:
-                                    _iou = utils_box.iou_bbox(
-                                        bin.pos, other_bin.pos, "combined")
+                        # else:
+                        #     # REVIEW: check if bin has overlap with other bins, cam09 only
+                        #     flag = True
+                        #     for other_bin in self._current_bins:
+                        #         if other_bin.label != bin.label:
+                        #             _iou = utils_box.iou_bbox(
+                        #                 bin.pos, other_bin.pos, "combined")
 
-                                    if _iou > 0.5:
-                                        # NOTE: In this case, we say that other bin has been
-                                        # divested to current bin,
-                                        # we left the id of other bin, and retain current bin
+                        #             if _iou > 0.5:
+                        #                 # NOTE: In this case, we say that other bin has been
+                        #                 # divested to current bin,
+                        #                 # we left the id of other bin, and retain current bin
 
-                                        bin.clear_track()
-                                        self._empty_bins.append(bin)
-                                        other_bin.label = bin.label  # label swapped
-                                        flag = False
+                        #                 bin.clear_track()
+                        #                 self._empty_bins.append(bin)
+                        #                 other_bin.label = bin.label  # label swapped
+                        #                 flag = False
 
-                                        # log
-                                        self._current_events.append([
-                                            self.current_frame,
-                                            other_bin.label,
-                                            other_bin.cls,
-                                            *other_bin.pos,
-                                            "chng",
-                                            f"Item {other_bin.label} divested/revested",
-                                        ])
+                        #                 # log
+                        #                 self._current_events.append([
+                        #                     self.current_frame,
+                        #                     other_bin.label,
+                        #                     other_bin.cls,
+                        #                     *other_bin.pos,
+                        #                     "chng",
+                        #                     f"Item {other_bin.label} divested/revested",
+                        #                 ])
 
-                                        self.log.info(
-                                            f"Item {other_bin.label} divested/revested"
-                                        )
-                                        break
-                            if flag:
-                                bin.clear_track()
-                                self._empty_bins.append(bin)
+                        #                 self.log.info(
+                        #                     f"Item {other_bin.label} divested/revested"
+                        #                 )
+                        #                 break
+                        #     if flag:
+                        #         bin.clear_track()
+                        #         self._empty_bins.append(bin)
 
                     else:
                         # NOTE: bin content changed
@@ -571,32 +654,35 @@ class BinManager:
 
         self._current_bins = [self._current_bins[i] for i in _ind]
 
-    def add_info(self, list_info, im):
+    def add_info(self, list_info: List[Any], im):
         for each_i in list_info:
             _id, cls, x1, y1, x2, y2 = each_i
-            if cls == "items":
+            if isinstance(cls, BinType):
                 box = [x1, y1, x2, y2]
                 self._bin_count = max(self._bin_count, _id)
                 new_bin = Bin(
                     label=_id,
-                    state=cls,
+                    # state=cls,
+                    bin_type=cls,
                     pos=box,
-                    default_state=self._default_bin_state,
+                    # default_state=self._default_bin_state,
                     maxlen=self.maxlen,
                 )
                 new_bin.init_tracker(box, im)
                 self._current_bins.append(new_bin)
+            else:
+                raise ValueError(f"{cls} is not of type BinType")
 
-    def add_exit_info(self, list_info):
+    def add_exit_info(self, list_info: List[Any]):
         for each_i in list_info:
             _id, cls, x1, y1, x2, y2, _type, frame_num = each_i
-            if cls == "items":
+            if isinstance(cls, BinType):
                 box = [x1, y1, x2, y2]
                 new_bin = Bin(
                     label=_id,
-                    state=cls,
+                    bin_type=cls,
                     pos=box,
-                    default_state=self._default_bin_state,
+                    # default_state=self._default_bin_state,
                     maxlen=self.maxlen,
                 )
                 new_bin.clear_track()
@@ -608,6 +694,8 @@ class BinManager:
                 elif _type == "empty":
                     self._empty_bins.append(new_bin)
                 self._bin_count = max(self._bin_count, _id)
+            else:
+                raise ValueError(f"{cls} is not of type BinType")
 
 
 # ------------------------------ Helper function ----------------------------- #

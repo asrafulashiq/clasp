@@ -1,33 +1,14 @@
 import multiprocessing
 from pathlib import Path
 import cv2
-from numpy.core import multiarray
-from tqdm import tqdm
-import tools.utils as utils
 from visutils.vis_feed import VisFeed
 import glob, os
 import pandas as pd
-import skimage
 import shutil
 import pandas as pd
 import visutils.vis as vis
 from parse import parse
 from collections import defaultdict
-
-# Experiment
-# file_num = "exp2_train"
-# cameras = ["cam09", "cam11", "cam13"]
-
-# # PAX and Bin detection files
-# bin_file = "./info/info_offset.csv"
-
-# pax_file_9 = "./info/cam09exp2_logs_fullv1.txt"
-# pax_file_11 = "./info/cam11exp2_logs_fullv1.txt"
-# pax_file_13 = "./info/cam13exp2_logs_fullv1.txt"
-
-# nu_file_cam9 = "./info/cam_09_exp2_associated_events.csv"
-# nu_file_cam11 = "./info/cam_11_exp2_associated_events.csv"
-# nu_file_cam13 = "./info/cam_13_exp2_associated_events.csv"
 
 
 def to_sec(frame, fps=10):
@@ -35,7 +16,6 @@ def to_sec(frame, fps=10):
 
 
 def frame_to_time(imfile):
-    # frame_num = int(Path(imfile1).stem) - 1
     frame_num = int(Path(imfile).stem.split("_")[-1])
     return frame_num
 
@@ -59,17 +39,7 @@ class IntegratorClass:
         self.df_pax = self.refine_pax_df(pax_file)
 
         # get association info
-
-        asso_info, self._asso_msg = self.get_association_info(nu_file_cam)
-        # for k, v in _asso_msg.items():
-        #     if k not in self.asso_info:
-        #         asso_info[k] = {}
-        #     asso_info[k].update(v)
-
-        # for cam, _v1 in asso_info.items():
-        #     for bin_id, _v2 in _v1.items():
-        #         for fnum, pax_id in _v2.items():
-        #             self.asso_info[cam][bin_id][fnum] = pax_id
+        _ = self.get_association_info(nu_file_cam)
 
         print("loaded")
 
@@ -127,7 +97,7 @@ class IntegratorClass:
 
                 if 'XFR' in each_split:
                     _msg = parse(("XFR: type: {} camera-num: {} frame: {} "
-                                  "time-offset: {} BB: [{}] PAX-ID: {pax_id} "
+                                  "time-offset: {} BB: {} PAX-ID: {pax_id} "
                                   "DVI-ID: {bin_id} theft: {}"), each_split)
                     asso_msg[cam][frame] = [
                         'XFR', cam, frame, _msg["pax_id"], _msg["bin_id"],
@@ -144,7 +114,7 @@ class IntegratorClass:
                         if "owner of" in pp['tmp']:
                             # association
                             self.asso_info[cam][bin_id][frame] = pax_id
-        return self.asso_info, asso_msg
+        self._asso_msg = asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
         # get pax info
@@ -204,30 +174,32 @@ class IntegratorClass:
                 ])
 
                 # FIXME left-behind calculation
-                left_behind = "false"
-                log = (
-                    f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                    +
-                    f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    +
-                    f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
-                )
-                logs.append(log)
+                left_behind = "FALSE"
+
+                if self.bin_pax.get(_id, ""):
+                    log = (
+                        f"LOC: type: DVI camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                        +
+                        f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                        +
+                        f"ID: {_id} PAX-ID: {self.bin_pax.get(_id, 'NA')} left-behind: {left_behind}"
+                    )
+                    logs.append(log)
             else:  # event type
                 if (row["type"] == "enter" and cam == "cam09") or \
                      row["type"] == "chng" or (row["type"] == "empty" and cam != "cam09"):
                     # xfr event
                     _id = str(row["id"])
                     _type = "TO" if cam == "cam09" else "FROM"
-                    # log = (
-                    #     f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
-                    #     +
-                    #     f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
-                    #     +
-                    #     f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
-                    # )
-                    # logs.append(log)
-                    # continue
+                    log = (
+                        f"XFR: type: {_type} camera-num: {cam[3:5]} frame: {frame} time-offset: {frame/self.fps:.2f} "
+                        +
+                        f"BB: {int(row['x1']*3)}, {int(row['y1']*3)}, {int(row['x2']*3)}, {int(row['y2']*3)} "
+                        +
+                        f"PAX-ID: {self.bin_pax.get(_id, 'NA')} DVI-ID: {_id} theft: FALSE"
+                    )
+                    logs.append(log)
+                    continue
                 # Which event to skip
                 if row["type"] not in ("enter", "exit"):
                     pass  # skip event
@@ -261,9 +233,11 @@ class IntegratorClass:
                 logs.append(_msg)
 
                 if 'theft: true' in _msg.lower():
-                    feed_msg = f'Potential theft: {pax_id} - {bin_id}'
+                    feed_msg = (cam, to_sec(frame),
+                                f'Potential theft: {pax_id} - {bin_id}')
                 else:
-                    feed_msg = (f'XFR : {pax_id} - {bin_id}')
+                    feed_msg = (cam, to_sec(frame),
+                                f'XFR : {pax_id} - {bin_id}')
                 if feed_msg not in self.msg:
                     msglist.append(feed_msg)
                     self.msg.add(feed_msg)
@@ -321,23 +295,28 @@ class DrawClass():
         # for out in tqdm(batch_frames, desc="Drawing", position=10):
         all_out_args = []
         for out in batch_frames:
-            _args = self._draw_frame(*out)
+            _args = self._extract_info_for_draw_frame(*out)
             all_out_args.append(_args)
 
         if self.plot:
             self.plot_fn(all_out_args, self.feed_folder)
 
     def plot_fn(self, all_out_args, feed_folder):
-        with multiprocessing.Pool(processes=40) as pool:
+        if self.conf.workers_plot > 1:
+            with multiprocessing.Pool(
+                    processes=self.conf.workers_plot) as pool:
+                for each_step_arg in all_out_args:
+                    # DrawClass.plot_fun_step(each_step_arg, feed_folder)
+                    pool.apply_async(
+                        DrawClass.plot_fun_step,
+                        (each_step_arg, feed_folder),
+                        #  callback=lambda x: print("#"),
+                        error_callback=lambda e: print("error"))
+                pool.close()
+                pool.join()
+        else:
             for each_step_arg in all_out_args:
-                # DrawClass.plot_fun_step(each_step_arg, feed_folder)
-                pool.apply_async(
-                    DrawClass.plot_fun_step,
-                    (each_step_arg, feed_folder),
-                    #  callback=lambda x: print("#"),
-                    error_callback=lambda e: print("error"))
-            pool.close()
-            pool.join()
+                DrawClass.plot_fun_step(each_step_arg, feed_folder)
 
     @staticmethod
     def plot_fun_step(each_step_arg, feed_folder):
@@ -359,7 +338,7 @@ class DrawClass():
         cv2.imwrite(str(f_write), cv2.cvtColor(im_feed, cv2.COLOR_RGB2BGR))
         # print(f"save to {f_write}")
 
-    def _draw_frame(self, out1, out2, out3=None):
+    def _extract_info_for_draw_frame(self, out1, out2, out3=None):
 
         out_args = []  # for multiprocess
 
@@ -400,20 +379,7 @@ class DrawClass():
                 #                         info_pax,
                 #                         font_scale=0.7)
                 out_args.append((im3, info_bin, info_pax))
-        # News feed info
 
-        # print("#draw:2", flush=True)
-        # if self.plot:
-        #     # get message
-
-        #     im_feed = self.vis_feed.draw(im1, im2, im3, frame_num, msglist)
-        #     # print("#draw:2a", flush=True)
-
-        #     f_write = self.feed_folder / (str(frame_num).zfill(4) + ".jpg")
-        #     skimage.io.imsave(str(f_write), im_feed)
-        #     # print("#draw:2b", flush=True)
-
-        # print("#draw:3", flush=True)
         return {
             "args": out_args,
             "frame": frame_num,
@@ -421,99 +387,11 @@ class DrawClass():
         }
 
     def finish(self):
-        log_folder = os.path.join(os.path.abspath(os.path.dirname(__file__)),
-                                  "..", "ata_logs")
-        os.makedirs(log_folder, exist_ok=True)
-        logpath = os.path.join(log_folder, self.conf.ata_out)
-        with open(logpath, "w") as fp:
+        # write ata output
+        write_file = Path(self.conf.ata_output)
+        write_file.parent.mkdir(exist_ok=True, parents=True)
+
+        with open(str(write_file), "w") as fp:
             fp.write("\n".join(self.full_log))
 
-
-# if __name__ == "__main__":
-
-#     out_folder = {}
-#     imlist = []
-
-#     if conf.plot:
-#         vis_feed = VisFeed()  # Visualization class
-
-#         # Output folder path of the feed
-#         feed_folder = Path(conf.out_dir) / "run" / file_num / "feed"
-#         if feed_folder.exists():
-#             shutil.rmtree(str(feed_folder))
-#         feed_folder.mkdir(exist_ok=True)
-
-#     Info = IntegratorClass()  # integrate info from 3 groups
-
-#     imlist = []
-#     src_folder = {}
-#     out_folder = {}
-
-#     for cam in cameras:
-#         src_folder[cam] = Path(conf.root) / file_num / cam
-#         assert src_folder[cam].exists()
-
-#         if cam == "cam13":
-#             start_frame = conf.start_frame - 50  # cam 13 lags by 50 frames from cam 09 and 11
-#         else:
-#             start_frame = conf.start_frame
-
-#         imlist.append(
-#             utils.get_images_from_dir(src_folder[cam],
-#                                       start_frame=start_frame,
-#                                       skip_end=conf.skip_end,
-#                                       delta=conf.delta,
-#                                       end_frame=conf.end_frame,
-#                                       file_only=(not conf.plot)))
-
-#     full_log_cam09 = []
-#     full_log_cam11 = []
-#     full_log_cam13 = []
-
-#     for out1, out2, out3 in tqdm(zip(*imlist)):
-#         im1, imfile1, _ = out1
-#         im2, imfile2, _ = out2
-#         im3, imfile3, _ = out3
-
-#         frame_num = int(Path(imfile1).stem) - 1
-
-#         # Cam 09
-#         info_bin, info_pax, event_bin, event_pax, msglist, logs = Info.get_info_from_frame(
-#             frame_num, "cam09")
-#         full_log_cam09.extend(logs)
-#         if conf.plot:
-#             im1 = Info.draw_im(im1, info_bin, info_pax, font_scale=0.75)
-
-#         # Cam 11
-#         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
-#             frame_num, "cam11")
-#         full_log_cam11.extend(logs)
-#         if conf.plot:
-#             im2 = Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
-
-#         # Cam 13
-#         frame_num3 = int(Path(imfile3).stem) - 1
-#         info_bin, info_pax, event_bin, event_pax, mlist, logs = Info.get_info_from_frame(
-#             frame_num3, "cam13")
-#         full_log_cam13.extend(logs)
-#         if conf.plot:
-#             im3 = Info.draw_im(im3, info_bin, info_pax, font_scale=0.7)
-
-#         # News feed info
-#         if conf.plot:
-#             # get message
-#             msglist.extend(mlist)
-#             im_feed = vis_feed.draw(im1, im2, im3, frame_num, msglist)
-
-#             f_write = feed_folder / (str(frame_num).zfill(4) + ".jpg")
-#             skimage.io.imsave(str(f_write), im_feed)
-
-#     # Write ata output file for scoring
-#     with open("ata_cam9.txt", "w") as fp:
-#         fp.write("\n".join(full_log_cam09))
-
-#     with open("ata_cam11.txt", "w") as fp:
-#         fp.write("\n".join(full_log_cam11))
-
-#     with open("ata_cam13.txt", "w") as fp:
-#         fp.write("\n".join(full_log_cam13))
+        print(f"write to ", write_file)

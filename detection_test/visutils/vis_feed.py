@@ -11,11 +11,11 @@ _BLACK = (0, 0, 0)
 
 class ImModule():
     def __init__(
-            self,
-            width,
-            height,
-            pre_text="Camera 9 : ",
-            padding=0.05,
+        self,
+        width,
+        height,
+        pre_text="Camera 9 : ",
+        padding=0.05,
     ):
         self.width = width
         self.height = height
