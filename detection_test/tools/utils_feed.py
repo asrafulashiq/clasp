@@ -96,6 +96,7 @@ class IntegratorClass:
                                                         "").replace("'", "")
 
                 if 'XFR' in each_split:
+                    each_split = each_split.replace("owner-ID", "PAX-ID")
                     _msg = parse(("XFR: type: {} camera-num: {} frame: {} "
                                   "time-offset: {} BB: {} PAX-ID: {pax_id} "
                                   "DVI-ID: {bin_id} theft: {}"), each_split)
