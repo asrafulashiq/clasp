@@ -90,7 +90,8 @@ class Manager:
         for camera in self.cameras:
             self._bin_managers[camera] = BinManager(self.config,
                                                     camera=camera,
-                                                    log=self.log)
+                                                    log=self.log,
+                                                    analyzer=self.analyzer)
 
             # set previous camera manager
             if camera == "cam11":

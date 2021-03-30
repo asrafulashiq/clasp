@@ -103,7 +103,6 @@ class BatchPrecessingMain(object):
                     _rets_cam = []
                     for i_cnt in range(len(ret)):
                         im, imfile, frame_num, det = ret[i_cnt]
-                        # with complexity_analyzer("TRACK", False):
                         new_im = self.manager.run_tracking_per_frame(
                             im,
                             det,

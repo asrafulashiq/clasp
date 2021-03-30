@@ -1,6 +1,7 @@
 """This script is responsible for managing bins in a camera"""
 
 import os
+from tools.time_calculator import ComplexityAnalysis
 from typing import Any, Dict, List, NewType, Optional, Sequence, TypeVar
 from nptyping import NDArray
 import numpy as np
@@ -25,7 +26,12 @@ ClassesType = NDArray[(Any, ), Any]  # last Any should be BinType
 
 
 class BinManager:
-    def __init__(self, config, bins=None, log=None, camera="cam09"):
+    def __init__(self,
+                 config,
+                 bins=None,
+                 log=None,
+                 camera="cam09",
+                 analyzer: Optional[ComplexityAnalysis] = None):
         self.config = config
         self.log = log
         if bins is None:
@@ -33,6 +39,7 @@ class BinManager:
         else:
             self._current_bins: List[Bin] = bins
         self._current_events = []
+        self.analyzer = analyzer
 
         self._camera = camera
 
@@ -444,16 +451,20 @@ class BinManager:
             for bin in self._current_bins:
                 bin.increment_idle()
 
-        boxes, scores, classes, ind = self._filter_boxes(
-            im, boxes, scores, classes, frame_num)
+        with self.analyzer(f"TRACK_FILTERBOX_{self._camera}"):
+            boxes, scores, classes, ind = self._filter_boxes(
+                im, boxes, scores, classes, frame_num)
 
-        explored_indices, tmp_iou = self._track_current_bins(
-            im, boxes, scores, classes, frame_num, ind)
+        with self.analyzer(f"TRACK_CURRENT_{self._camera}"):
+            explored_indices, tmp_iou = self._track_current_bins(
+                im, boxes, scores, classes, frame_num, ind)
 
-        self._detect_new_bin(im, boxes, scores, classes, frame_num, ind,
-                             explored_indices, tmp_iou)
+        with self.analyzer(f"TRACK_NEW_{self._camera}"):
+            self._detect_new_bin(im, boxes, scores, classes, frame_num, ind,
+                                 explored_indices, tmp_iou)
 
-        self._process_exit(im, frame_num)
+        with self.analyzer(f"TRACK_EXIT_{self._camera}"):
+            self._process_exit(im, frame_num)
         return 0  # successful return
 
     def visualize(self, im: ImageType):
