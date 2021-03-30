@@ -24,7 +24,7 @@ class ComplexityAnalysis(object):
         self.dict_start = defaultdict(float)
         self.dict_batch_mode = defaultdict(bool)
 
-        self.frames_per_batch = 1
+        self.frames_per_batch = 40
 
     @contextmanager
     def __call__(self, field=None, batch_mode=True):
@@ -54,14 +54,17 @@ class ComplexityAnalysis(object):
         logger.info("Time info")
         from prettytable import PrettyTable
         table = PrettyTable(field_names=["Metric", "Avg", "Current", "Max"])
-        for k in self.dict_time:
-            if len(self.dict_time[k]) == 0:
+        for k, vlist in self.dict_time.items():
+            if len(vlist) == 0:
                 continue
-            current = self.dict_time[k][-1]
-            avg, _max = np.mean(self.dict_time[k]), max(self.dict_time[k])
             if not self.dict_batch_mode[k]:
-                avg *= self.frames_per_batch
-                _max *= self.frames_per_batch
+                vlist = [
+                    sum(vlist[i:i + self.frames_per_batch])
+                    for i in range(0, len(vlist), self.frames_per_batch)
+                ]
+            current = vlist[-1]
+            avg, _max = np.mean(vlist), max(vlist)
+
             table.add_row([k, f"{avg:.4f}", f"{current:.4f}", f"{_max:.4f}"])
 
         logger.info(f"\n{table.get_string()}\n")

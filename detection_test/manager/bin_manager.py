@@ -451,19 +451,19 @@ class BinManager:
             for bin in self._current_bins:
                 bin.increment_idle()
 
-        with self.analyzer(f"TRACK_FILTERBOX_{self._camera}"):
+        with self.analyzer(f"TRACK_FILTERBOX_{self._camera}", True):
             boxes, scores, classes, ind = self._filter_boxes(
                 im, boxes, scores, classes, frame_num)
 
-        with self.analyzer(f"TRACK_CURRENT_{self._camera}"):
+        with self.analyzer(f"TRACK_CURRENT_{self._camera}", True):
             explored_indices, tmp_iou = self._track_current_bins(
                 im, boxes, scores, classes, frame_num, ind)
 
-        with self.analyzer(f"TRACK_NEW_{self._camera}"):
+        with self.analyzer(f"TRACK_NEW_{self._camera}", True):
             self._detect_new_bin(im, boxes, scores, classes, frame_num, ind,
                                  explored_indices, tmp_iou)
 
-        with self.analyzer(f"TRACK_EXIT_{self._camera}"):
+        with self.analyzer(f"TRACK_EXIT_{self._camera}", True):
             self._process_exit(im, frame_num)
         return 0  # successful return
 

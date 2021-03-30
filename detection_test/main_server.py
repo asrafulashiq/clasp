@@ -193,7 +193,7 @@ class BatchPrecessingMain(object):
                                             self.params.neu_result_file)
 
     def run(self):
-        with complexity_analyzer("INIT"):
+        with complexity_analyzer("ALL"):
             counter = 0
             pbar = tqdm(position=1)
             while self.yaml_communicator.is_end_of_frames() is False:
