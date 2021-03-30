@@ -115,7 +115,6 @@ class IntegratorClass:
                             # association
                             self.asso_info[cam][bin_id][frame] = pax_id
         self._asso_msg = asso_msg
-        # return self.asso_info, asso_msg
 
     def get_info_from_frame(self, frame, cam="cam09"):
         # get pax info
