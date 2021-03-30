@@ -98,18 +98,18 @@ class BatchPrecessingMain(object):
             pbar = tqdm(zip(*batch_files_to_process.values()),
                         total=len(batch_files_to_process[self.cameras[0]]),
                         position=5)
-            with complexity_analyzer("BIN_PROCESS"):
+            with complexity_analyzer("BIN_TRACKING"):
                 for _, ret in enumerate(pbar):
                     _rets_cam = []
                     for i_cnt in range(len(ret)):
                         im, imfile, frame_num, det = ret[i_cnt]
-                        with complexity_analyzer("TRACK", False):
-                            new_im = self.manager.run_tracking_per_frame(
-                                im,
-                                det,
-                                cam=self.cameras[i_cnt],
-                                frame_num=frame_num,
-                                return_im=self.params.save_im)
+                        # with complexity_analyzer("TRACK", False):
+                        new_im = self.manager.run_tracking_per_frame(
+                            im,
+                            det,
+                            cam=self.cameras[i_cnt],
+                            frame_num=frame_num,
+                            return_im=self.params.save_im)
 
                         if self.params.save_im:
                             skimage.io.imsave(
