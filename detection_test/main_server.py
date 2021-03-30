@@ -28,9 +28,7 @@ complexity_analyzer = ComplexityAnalysis()
 
 class BatchPrecessingMain(object):
     def __init__(self, params) -> None:
-
         self.params = params
-
         self.logger = ClaspLogger()
 
         cam = copy.deepcopy(self.params.cameras)
@@ -56,7 +54,8 @@ class BatchPrecessingMain(object):
             mu_flagfile=self.params.neu_flagfile)
 
         if self.params.draw_newsfeed:
-            self.drawing_obj = DrawClass(conf=self.params, plot=True)
+            self.drawing_obj = DrawClass(conf=self.params,
+                                         plot=self.params.plot)
 
         # output folder name for each camera
         self.out_folder = {}

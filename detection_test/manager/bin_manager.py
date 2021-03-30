@@ -117,8 +117,6 @@ class BinManager:
         if self._camera in ("cam11", "cam13"):
             # set label based on camera 9
             try:
-                # for i_man in range(len(self._manager_prev_cam._left_bins)):
-
                 i_man = 0
                 while True:
                     # while len(self._manager_prev_cam._left_bins) > 0:

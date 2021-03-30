@@ -1,9 +1,4 @@
 import pandas as pd
-import os
-import sys
-import numpy as np
-from collections import defaultdict
-from parse import parse
 
 
 def read_rpi(filename, scale=None):
