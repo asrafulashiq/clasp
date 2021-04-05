@@ -51,6 +51,7 @@ temporal_scale_mul: 3
 template_match: false
 
 delta: 1
+fps: 10
 
 fmt: "{:05d}.jpg"
 fmt_filename_src: "${root}/{file_num}/{cam}"

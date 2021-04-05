@@ -95,12 +95,14 @@ class ComplexityAnalysis(object):
 
     def final_info(self):
         self.get_time_info()
-        logger.debug(
-            f"gpu memory: avg: {np.mean(self.list_gpu_memory)} MB, max: {max(self.list_gpu_memory)} MB"
-        )
-        logger.debug(
-            f"cpu memory: avg: {np.mean(self.list_cpu_memory)} MB, max: {max(self.list_cpu_memory)} MB"
-        )
+        if self.list_gpu_memory:
+            logger.debug(
+                f"gpu memory: avg: {np.mean(self.list_gpu_memory)} MB, max: {max(self.list_gpu_memory)} MB"
+            )
+        if self.list_cpu_memory:
+            logger.debug(
+                f"cpu memory: avg: {np.mean(self.list_cpu_memory)} MB, max: {max(self.list_cpu_memory)} MB"
+            )
 
     def close(self):
         tracemalloc.stop()
