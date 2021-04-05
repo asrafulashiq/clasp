@@ -330,6 +330,11 @@ class DrawClass():
                                          font_scale=0.7)
             ims.append(im)
         # msglist.extend(mlist)
+        if len(ims) < 2:
+            ims.append(None)
+        if len(ims) < 3:
+            ims.append(None)
+
         frame_num = each_step_arg["frame"]
         msglist = each_step_arg["msg"]
         im_feed = vis_feed.draw(ims[0], ims[1], ims[2], frame_num, msglist)
