@@ -338,12 +338,14 @@ class DrawClass():
         cv2.imwrite(str(f_write), cv2.cvtColor(im_feed, cv2.COLOR_RGB2BGR))
         # print(f"save to {f_write}")
 
-    def _extract_info_for_draw_frame(self, out1, out2, out3=None):
+    def _extract_info_for_draw_frame(self, out1, out2=None, out3=None):
 
         out_args = []  # for multiprocess
 
         im1, imfile1, _ = out1
-        im2, imfile2, _ = out2
+        im2 = None
+        if out2 is not None:
+            im2, imfile2, _ = out2
         im3 = None
         if out3 is not None:
             im3, imfile3, _ = out3
@@ -359,13 +361,14 @@ class DrawClass():
 
         # print("#draw:1", flush=True)
         # Cam 11
-        info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
-            frame_num, "cam11")
-        msglist.extend(mlist)
-        self.full_log.extend(logs)
-        if self.plot:
-            # im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
-            out_args.append((im2, info_bin, info_pax))
+        if out2 is not None:
+            info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
+                frame_num, "cam11")
+            msglist.extend(mlist)
+            self.full_log.extend(logs)
+            if self.plot:
+                # im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+                out_args.append((im2, info_bin, info_pax))
 
         if out3 is not None:
             frame_num3 = frame_to_time(imfile3)
