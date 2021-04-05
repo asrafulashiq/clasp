@@ -142,8 +142,8 @@ class BatchPrecessingMain(object):
         # TODO create combined log and feed
         if self.params.debug:
             self.logger.debug("DEBUG: mock create combined output")
-            if self.params.create_feed:
-                self.on_after_batch_processing(batch_frames)
+            # if self.params.create_feed:
+            self.on_after_batch_processing(batch_frames)
         else:
             with complexity_analyzer("WAIT_NEU_ASSO"):
                 while True:
