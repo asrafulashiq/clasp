@@ -38,12 +38,12 @@ start_frame: 800
 skip_end: 0
 end_frame: null
 
-plot: false
 load_prev_exit_info: false
 
 out_suffix: ""
 # create_feed: false
 draw_newsfeed: true
+plot: false
 
 spatial_scale_mul: 1
 temporal_scale_mul: 3
