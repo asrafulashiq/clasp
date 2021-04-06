@@ -219,5 +219,5 @@ class VisFeed():
         return canvas
 
 
-def to_sec(frame, fps=30):
+def to_sec(frame, fps=10):
     return int(frame) // fps
