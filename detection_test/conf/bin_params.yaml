@@ -63,7 +63,8 @@ cam13:
     _bin_count: 0
     _thres_max_idle_count: 5
 
-    _thres_incoming_bin_bound: [[450, 51], [450, 180], [590, 167], [590, 48]]
+    # _thres_incoming_bin_bound: [[450, 51], [450, 180], [590, 167], [590, 48]]
+    _thres_incoming_bin_bound: [[387, 51], [387, 180], [482, 167], [482, 48]]
 
     _box_conveyor_belt: [[177, 65], [180, 194], [590, 167], [590, 48]] #
 

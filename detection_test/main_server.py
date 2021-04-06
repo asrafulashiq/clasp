@@ -43,9 +43,9 @@ class BatchPrecessingMain(object):
             cam: (self.params.start_frame - 1)
             for cam in self.cameras
         }
-        if "cam13" in self._last_frame:
-            self._last_frame["cam13"] = (self.params.start_frame - 1 -
-                                         int(50 / 30 * params.fps))
+        # if "cam13" in self._last_frame:
+        #     self._last_frame["cam13"] = (self.params.start_frame - 1 -
+        #                                  int(50 / 30 * params.fps))
 
         self.manager = Manager(config=self.params,
                                log=self.logger,
@@ -258,10 +258,10 @@ class BatchPrecessingMain(object):
                         batch_files_to_process[cam].append(fname)
                 last_frame = cur_frame
 
-                # NOTE: for cam13
-                if cam == 'cam13' and len(batch_files_to_process[cam]) >= len(
-                        batch_files_to_process[self.cameras[0]]):
-                    break
+                # # NOTE: for cam13
+                # if cam == 'cam13' and len(batch_files_to_process[cam]) >= len(
+                #         batch_files_to_process[self.cameras[0]]):
+                #     break
 
             self._last_frame[cam] = last_frame - skip_f
         return batch_files_to_process, flag
