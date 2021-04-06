@@ -284,7 +284,8 @@ class DrawClass():
         self.conf = conf
 
         # Output folder path of the feed
-        self.feed_folder = Path(conf.out_dir) / "run" / conf.file_num / "feed"
+        self.feed_folder = Path(conf.folder_out_feed)
+        # Path(conf.out_dir) / "run" / conf.file_num / "feed"
         if self.feed_folder.exists():
             shutil.rmtree(str(self.feed_folder))
         self.feed_folder.mkdir(exist_ok=True, parents=True)
