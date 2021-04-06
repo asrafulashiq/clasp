@@ -257,6 +257,12 @@ class BatchPrecessingMain(object):
                     else:
                         batch_files_to_process[cam].append(fname)
                 last_frame = cur_frame
+
+                # NOTE: for cam13
+                if cam == 'cam13' and len(batch_files_to_process[cam]) >= len(
+                        batch_files_to_process[self.cameras[0]]):
+                    break
+
             self._last_frame[cam] = last_frame - skip_f
         return batch_files_to_process, flag
 
