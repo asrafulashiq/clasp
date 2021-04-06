@@ -237,11 +237,12 @@ class BatchPrecessingMain(object):
 
             skip_f = 0
             while skip_f < 5:
-                cur_frame = max(0, last_frame + 1)
+                cur_frame = last_frame + 1
 
                 # file name
-                fname = os.path.join(self.params.root,
-                                     f"cam{cam_num}_{cur_frame:06d}.jpg")
+                fname = os.path.join(
+                    self.params.root,
+                    f"cam{cam_num}_{max(cur_frame, 1):06d}.jpg")
                 if not os.path.exists(fname):
                     skip_f += 1
                 else:
