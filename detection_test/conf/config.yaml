@@ -53,7 +53,7 @@ template_match: false
 delta: 1
 fps: 10
 
-folder_out_feed: "${out_dir}/run/feed/{file_num}${out_suffix}"
+folder_out_feed: "${out_dir}/run/feed/${file_num}${out_suffix}"
 
 fmt: "{:05d}.jpg"
 fmt_filename_src: "${root}/{file_num}/{cam}"

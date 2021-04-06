@@ -22,8 +22,8 @@ class ClaspLogger():
 
         now = datetime.datetime.now()
         filename = os.path.join(
-            "./logs", "{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
-                                               now.hour))
+            "./logs", "{}_{}_{}_{}_{}.txt".format(now.year, now.month, now.day,
+                                                  now.hour, now.minute))
 
         try:
             self._logger.add(sink=filename,
