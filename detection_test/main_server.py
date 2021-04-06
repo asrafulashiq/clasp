@@ -242,7 +242,8 @@ class BatchPrecessingMain(object):
                 # file name
                 fname = os.path.join(
                     self.params.root,
-                    f"cam{cam_num}_{max(cur_frame, 1):06d}.jpg")
+                    f"cam{cam_num}_{max(cur_frame, self.params.start_frame+1):06d}.jpg"
+                )
                 if not os.path.exists(fname):
                     skip_f += 1
                 else:
