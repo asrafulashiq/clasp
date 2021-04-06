@@ -30,7 +30,7 @@ neu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_batch_associat
 mu_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/mu/log_batch_mu_current.csv
 rpi_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/runtime-files/rpi_result.csv
 
-rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/inof_${file_num}.csv
+rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/info_${file_num}.csv
 neu_all_result_file: /data/ALERT-SHARE/alert-api-wrapper-data/NEU/log_NEU_all_pose.txt
 
 folder_out_feed: "${out_dir}/run/${file_num}${out_suffix}/feed"

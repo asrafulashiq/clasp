@@ -113,11 +113,8 @@ class BinManager:
                 im: ImageType,
                 safe=True):
 
-        if self._camera == "cam09":
-            self._bin_count += 1
-            label = self._bin_count
-        else:
-            label = None
+        self._bin_count += 1
+        label = self._bin_count
 
         if self._camera != "cam09" and cls == BinType.BIN_EMPTY:
             # NOTE empty bin is detected only in camera 9
@@ -125,6 +122,7 @@ class BinManager:
 
         if self._camera in ("cam11", "cam13"):
             # set label based on camera 9
+            label = None
             try:
                 i_man = 0
                 do_return = False
@@ -173,6 +171,7 @@ class BinManager:
                     break
 
                 if do_return:
+                    self._bin_count -= 1
                     return
             except IndexError:
                 return
@@ -205,13 +204,14 @@ class BinManager:
         #         return
 
         if label is None:
+            self._bin_count -= 1
             return
 
         # NOTE: wait for new bin, wait at least 5 iteration to assign
         if safe and self._camera != "cam13":
             self._dummy_bin_count[label] += 1
             if self._dummy_bin_count[label] < self._wait_new_bin:
-                # self._bin_count -= 1
+                self._bin_count -= 1
                 return
 
         new_bin = Bin(
@@ -224,7 +224,6 @@ class BinManager:
         # FIXME why this?
         if self._camera != "cam09":
             self._manager_prev_cam._left_bins.pop(i_man)
-            self._bin_count += 1
 
         new_bin.init_tracker(box, im)
         self._current_bins.append(new_bin)
