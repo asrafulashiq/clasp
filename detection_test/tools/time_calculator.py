@@ -28,10 +28,14 @@ class ComplexityAnalysis(object):
         self.frames_per_batch = 40
 
     @contextmanager
-    def __call__(self, field=None, batch_mode=True):
-        self.start(field, batch_mode)
+    def __call__(self, field=None, batch_mode=True, disable=False):
+        if not disable:
+            self.start(field, batch_mode)
+
         yield
-        self.pause(field)
+
+        if not disable:
+            self.pause(field)
 
     def start(self, field=None, batch_mode=True):
         if field is None:

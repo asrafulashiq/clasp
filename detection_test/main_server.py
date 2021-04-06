@@ -19,7 +19,7 @@ from tools.time_calculator import ComplexityAnalysis
 from tools.utils_feed import DrawClass
 from colorama import init
 import hydra
-from omegaconf import OmegaConf, DictConfig
+from omegaconf import DictConfig
 
 init(autoreset=True)
 
@@ -40,9 +40,13 @@ class BatchPrecessingMain(object):
             self.params.duration * self.params.fps * len(self.cameras))
 
         self._last_frame: Dict[str, int] = {
-            cam: self.params.start_frame - 1
+            cam: (self.params.start_frame - 1)
             for cam in self.cameras
         }
+        if "cam13" in self._last_frame:
+            self._last_frame["cam13"] = (self.params.start_frame - 1 -
+                                         int(50 / 30 * params.fps))
+
         self.manager = Manager(config=self.params,
                                log=self.logger,
                                bin_only=True,
@@ -139,7 +143,6 @@ class BatchPrecessingMain(object):
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
 
-        # TODO create combined log and feed
         if self.params.debug:
             self.logger.debug("DEBUG: mock create combined output")
             # if self.params.create_feed:
@@ -234,7 +237,7 @@ class BatchPrecessingMain(object):
 
             skip_f = 0
             while skip_f < 5:
-                cur_frame = last_frame + 1
+                cur_frame = max(0, last_frame + 1)
 
                 # file name
                 fname = os.path.join(self.params.root,
