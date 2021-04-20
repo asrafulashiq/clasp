@@ -119,7 +119,7 @@ class RCNN_Detector():
 
         checkpointer = DetectionCheckpointer(self.model)
         checkpointer.load(self.cfg.MODEL.WEIGHTS)
-        self.model.to(self.device)
+        self.model.to(self.device, non_blocking=True)
 
         self.labels_to_keep = labels_to_keep
         self.thresh = thresh
@@ -139,7 +139,7 @@ class RCNN_Detector():
         height, width = im.shape[:2]
         imt = torch.as_tensor(im.astype("float32").transpose(2, 0, 1))
         inputs = [{
-            "image": imt.to(self.device),
+            "image": imt.to(self.device, non_blocking=True),
             "height": height,
             "width": width
         }]
@@ -168,7 +168,7 @@ class RCNN_Detector():
             height, width = im.shape[:2]
             imt = torch.as_tensor(im.astype("float32").transpose(2, 0, 1))
             inputs.append({
-                "image": imt.to(self.device),
+                "image": imt.to(self.device, non_blocking=True),
                 "height": height,
                 "width": width
             })

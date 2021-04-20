@@ -141,8 +141,52 @@ def siamese_init(im, target_pos, target_sz, model, hp=None, device='cpu'):
     z_crop = get_subwindow_tracking(im, target_pos, p.exemplar_size, s_z,
                                     avg_chans)
 
+    z = z_crop.unsqueeze(0)
+
+    # net.template(z.to(device, non_blocking=True))
+    template = net.features(z.to(device, non_blocking=True))
+
+    if p.windowing == 'cosine':
+        window = np.outer(np.hanning(p.score_size), np.hanning(p.score_size))
+    elif p.windowing == 'uniform':
+        window = np.ones((p.score_size, p.score_size))
+    window = np.tile(window.flatten(), p.anchor_num)
+
+    state['p'] = p
+    state['net'] = net
+    state['avg_chans'] = avg_chans
+    state['window'] = window
+    state['target_pos'] = target_pos
+    state['target_sz'] = target_sz
+    return state, template
+
+
+def siamese_init_back(im, target_pos, target_sz, model, hp=None, device='cpu'):
+    state = dict()
+    state['im_h'] = im.shape[0]
+    state['im_w'] = im.shape[1]
+    p = TrackerConfig()
+    p.update(hp, model.anchors)
+
+    p.renew()
+
+    net = model
+    p.scales = model.anchors['scales']
+    p.ratios = model.anchors['ratios']
+    p.anchor_num = model.anchor_num
+    p.anchor = generate_anchor(model.anchors, p.score_size)
+    avg_chans = np.mean(im, axis=(0, 1))
+
+    wc_z = target_sz[0] + p.context_amount * sum(target_sz)
+    hc_z = target_sz[1] + p.context_amount * sum(target_sz)
+    s_z = round(np.sqrt(wc_z * hc_z))
+    # initialize the exemplar
+    z_crop = get_subwindow_tracking(im, target_pos, p.exemplar_size, s_z,
+                                    avg_chans)
+
     z = Variable(z_crop.unsqueeze(0))
-    net.template(z.to(device))
+
+    net.template(z.to(device, non_blocking=True))
 
     if p.windowing == 'cosine':
         window = np.outer(np.hanning(p.score_size), np.hanning(p.score_size))
@@ -157,6 +201,133 @@ def siamese_init(im, target_pos, target_sz, model, hp=None, device='cpu'):
     state['target_pos'] = target_pos
     state['target_sz'] = target_sz
     return state
+
+
+def siamese_track_batch(states,
+                        template_zfs,
+                        im,
+                        mask_enable=False,
+                        refine_enable=False,
+                        device='cpu',
+                        debug=False):
+
+    x_crops = []
+    info = []
+
+    for state in states:
+        p = state['p']
+        net = state['net']
+        avg_chans = state['avg_chans']
+        window = state['window']
+        target_pos = state['target_pos']
+        target_sz = state['target_sz']
+
+        wc_x = target_sz[1] + p.context_amount * sum(target_sz)
+        hc_x = target_sz[0] + p.context_amount * sum(target_sz)
+        s_x = np.sqrt(wc_x * hc_x)
+        scale_x = p.exemplar_size / s_x
+        d_search = (p.instance_size - p.exemplar_size) / 2
+        pad = d_search / scale_x
+        s_x = s_x + 2 * pad
+
+        # extract scaled crops for search region x at previous target position
+        x_crop = get_subwindow_tracking(im, target_pos, p.instance_size,
+                                        round(s_x), avg_chans).unsqueeze(0)
+        x_crops.append(x_crop)
+
+        info.append((target_sz, target_pos, p, window, scale_x, avg_chans))
+
+    x_crops = torch.cat(x_crops, dim=0)
+    template_zfs = torch.cat(template_zfs, dim=0)
+    assert len(x_crops) == len(template_zfs)
+
+    scores, deltas = net.track_batch(
+        x_crops.to(device, non_blocking=True),
+        template_zfs.to(device, non_blocking=True))
+
+    def change(r):
+        return np.maximum(r, 1. / r)
+
+    def sz(w, h):
+        pad = (w + h) * 0.5
+        sz2 = (w + pad) * (h + pad)
+        return np.sqrt(sz2)
+
+    def sz_wh(wh):
+        pad = (wh[0] + wh[1]) * 0.5
+        sz2 = (wh[0] + pad) * (wh[1] + pad)
+        return np.sqrt(sz2)
+
+    states_ = []
+    for i in range(len(x_crops)):
+        score = scores[[i]]
+        delta = deltas[[i]]
+
+        state = states[i]
+        target_sz, target_pos, p, window, scale_x, avg_chans = info[i]
+
+        delta = delta.permute(1, 2, 3,
+                              0).contiguous().view(4, -1).data.cpu().numpy()
+        score = F.softmax(score.permute(1, 2, 3,
+                                        0).contiguous().view(2,
+                                                             -1).permute(1, 0),
+                          dim=1).data[:, 1].cpu().numpy()
+
+        delta[0, :] = delta[0, :] * p.anchor[:, 2] + p.anchor[:, 0]
+        delta[1, :] = delta[1, :] * p.anchor[:, 3] + p.anchor[:, 1]
+        delta[2, :] = np.exp(delta[2, :]) * p.anchor[:, 2]
+        delta[3, :] = np.exp(delta[3, :]) * p.anchor[:, 3]
+
+        # size penalty
+        target_sz_in_crop = target_sz * scale_x
+        s_c = change(
+            sz(delta[2, :], delta[3, :]) /
+            (sz_wh(target_sz_in_crop)))  # scale penalty
+        r_c = change((target_sz_in_crop[0] / target_sz_in_crop[1]) /
+                     (delta[2, :] / delta[3, :]))  # ratio penalty
+
+        penalty = np.exp(-(r_c * s_c - 1) * p.penalty_k)
+        pscore = penalty * score
+
+        # cos window (motion model)
+        pscore = pscore * (1 -
+                           p.window_influence) + window * p.window_influence
+        best_pscore_id = np.argmax(pscore)
+
+        pred_in_crop = delta[:, best_pscore_id] / scale_x
+        lr = penalty[best_pscore_id] * score[
+            best_pscore_id] * p.lr  # lr for OTB
+
+        res_x = pred_in_crop[0] + target_pos[0]
+        res_y = pred_in_crop[1] + target_pos[1]
+
+        res_w = target_sz[0] * (1 - lr) + pred_in_crop[2] * lr
+        res_h = target_sz[1] * (1 - lr) + pred_in_crop[3] * lr
+
+        target_pos = np.array([res_x, res_y])
+        target_sz = np.array([res_w, res_h])
+
+        target_pos[0] = max(0, min(state['im_w'], target_pos[0]))
+        target_pos[1] = max(0, min(state['im_h'], target_pos[1]))
+        target_sz[0] = max(10, min(state['im_w'], target_sz[0]))
+        target_sz[1] = max(10, min(state['im_h'], target_sz[1]))
+
+        state_ = dict()
+        state_["p"] = p
+        state_["net"] = net
+        state_["avg_chans"] = avg_chans
+        state_["window"] = window
+        state_["im_w"] = state["im_w"]
+        state_["im_h"] = state["im_h"]
+
+        state_['target_pos'] = target_pos
+        state_['target_sz'] = target_sz
+        state_['score'] = score[best_pscore_id]
+        state_['mask'] = []
+        state_['ploygon'] = []
+        states_.append(state_)
+
+    return states_
 
 
 def siamese_track(state,
@@ -200,9 +371,10 @@ def siamese_track(state,
                                avg_chans).unsqueeze(0))
 
     if mask_enable:
-        score, delta, mask = net.track_mask(x_crop.to(device))
+        score, delta, mask = net.track_mask(
+            x_crop.to(device, non_blocking=True))
     else:
-        score, delta = net.track(x_crop.to(device))
+        score, delta = net.track(x_crop.to(device, non_blocking=True))
 
     delta = delta.permute(1, 2, 3, 0).contiguous().view(4,
                                                         -1).data.cpu().numpy()
@@ -262,8 +434,10 @@ def siamese_track(state,
 
         if refine_enable:
             mask = net.track_refine(
-                (delta_y, delta_x)).to(device).sigmoid().squeeze().view(
-                    p.out_size, p.out_size).cpu().data.numpy()
+                (delta_y,
+                 delta_x)).to(device,
+                              non_blocking=True).sigmoid().squeeze().view(
+                                  p.out_size, p.out_size).cpu().data.numpy()
         else:
             mask = mask[0, :, delta_y, delta_x].sigmoid(). \
                 squeeze().view(p.out_size, p.out_size).cpu().data.numpy()

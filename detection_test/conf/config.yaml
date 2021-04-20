@@ -16,7 +16,7 @@ siam_params:
   ckpt: "siammask/siammask_sharp/SiamMask_VOT_LD.pth"
   conf_siam: "siammask/siammask_sharp/config_vot.json"
   mask_enable: false
-  refine_enable: false
+  refine_enable: true
 
 rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/info_${file_num}.csv
 

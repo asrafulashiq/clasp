@@ -30,7 +30,7 @@ def load_siammask():
 
     net = Custom(anchors=cfg["anchors"])
     net = load_pretrain(net, args.resume)
-    net.eval().cuda()
+    net.eval().cuda(non_blocking=True)
     siammask = net
     cfg_siam = cfg
     return siammask, cfg_siam
@@ -66,7 +66,7 @@ for cam in cameras:
 device = torch.device("cuda:0")
 
 siammask, cfg = load_siammask()
-siammask.to(device).eval()
+siammask.to(device, non_blocking=True).eval()
 
 for f, ret in enumerate(tqdm(zip(*imlist))):
     out1 = ret[0]

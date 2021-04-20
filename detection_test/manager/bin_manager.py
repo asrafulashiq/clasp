@@ -2,7 +2,7 @@
 
 import os
 from tools.time_calculator import ComplexityAnalysis
-from typing import Any, Dict, List, NewType, Optional, Sequence, TypeVar
+from typing import Any, Dict, List, Optional
 from nptyping import NDArray
 import numpy as np
 import collections
@@ -11,12 +11,11 @@ import copy
 from omegaconf import OmegaConf
 
 from tools.utils import BinType
-from bin_process.bin import Bin
+from bin_process.bin import Bin, BinCollectionTracker
 from visutils.vis import vis_bins
 import tools.utils_geo as geo
 import tools.utils_box as utils_box
 from tools import nms
-import pandas as pd
 
 ImageType = Optional[NDArray[(Any, Any, 3), np.float]]
 BoxesType = NDArray[(Any, 4), np.float]
@@ -53,6 +52,8 @@ class BinManager:
         self._empty_bins = []
         self._left_bins = []
         self._dummy_bin_count = collections.defaultdict(int)
+
+        self.bin_tracker = BinCollectionTracker(self.config)
 
     def init_camera_params(self):
         # initialize configuration
@@ -209,7 +210,8 @@ class BinManager:
                       bin_type=cls,
                       pos=box,
                       maxlen=self.maxlen,
-                      conf=self.config)
+                      conf=self.config,
+                      bin_collection_tracker=self.bin_tracker)
 
         # FIXME why this?
         if self._camera != "cam09":
@@ -329,8 +331,12 @@ class BinManager:
             box_ind_min = utils_box.get_min_ind_row(
                 M_iou, thres=0.5)  # NOTE: Is this too small thres
             counter_box_ind_min = collections.Counter(box_ind_min)
+
+            self.bin_tracker.update_tracker(im, self._current_bins)
+
             for bcount, bin in enumerate(self._current_bins):
-                status, _bb_track = bin.update_tracker(im)
+                # status, _bb_track = bin.update_tracker(im)
+                status, _bb_track = bin.out_update_tracker
                 if not status:
                     bin.increment_track_fail()
                 else:
@@ -676,7 +682,8 @@ class BinManager:
                               bin_type=cls,
                               pos=box,
                               maxlen=self.maxlen,
-                              conf=self.config)
+                              conf=self.config,
+                              bin_collection_tracker=self.bin_tracker)
                 new_bin.init_tracker(box, im)
                 self._current_bins.append(new_bin)
             else:
@@ -691,7 +698,8 @@ class BinManager:
                               bin_type=cls,
                               pos=box,
                               maxlen=self.maxlen,
-                              conf=self.config)
+                              conf=self.config,
+                              bin_collection_tracker=self.bin_tracker)
                 new_bin.clear_track()
                 if _type == "exit":
                     self._left_bins.append({

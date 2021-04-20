@@ -14,7 +14,8 @@ class SiamMask(nn.Module):
     def __init__(self, anchors=None, o_sz=63, g_sz=127):
         super(SiamMask, self).__init__()
         self.anchors = anchors  # anchor_cfg
-        self.anchor_num = len(self.anchors["ratios"]) * len(self.anchors["scales"])
+        self.anchor_num = len(self.anchors["ratios"]) * len(
+            self.anchors["scales"])
         self.anchor = Anchors(anchors)
         self.features = None
         self.rpn_model = None
@@ -30,7 +31,8 @@ class SiamMask(nn.Module):
         if not self.anchor.generate_all_anchors(image_center, size):
             return
         all_anchors = self.anchor.all_anchors[1]  # cx, cy, w, h
-        self.all_anchors = torch.from_numpy(all_anchors).float().cuda()
+        self.all_anchors = torch.from_numpy(all_anchors).float().cuda(
+            non_blocking=True)
         self.all_anchors = [self.all_anchors[i] for i in range(4)]
 
     def feature_extractor(self, x):
@@ -44,13 +46,16 @@ class SiamMask(nn.Module):
         pred_mask = self.mask_model(template, search)
         return pred_mask
 
-    def _add_rpn_loss(self, label_cls, label_loc, lable_loc_weight, label_mask, label_mask_weight,
-                      rpn_pred_cls, rpn_pred_loc, rpn_pred_mask):
+    def _add_rpn_loss(self, label_cls, label_loc, lable_loc_weight, label_mask,
+                      label_mask_weight, rpn_pred_cls, rpn_pred_loc,
+                      rpn_pred_mask):
         rpn_loss_cls = select_cross_entropy_loss(rpn_pred_cls, label_cls)
 
-        rpn_loss_loc = weight_l1_loss(rpn_pred_loc, label_loc, lable_loc_weight)
+        rpn_loss_loc = weight_l1_loss(rpn_pred_loc, label_loc,
+                                      lable_loc_weight)
 
-        rpn_loss_mask, iou_m, iou_5, iou_7 = select_mask_logistic_loss(rpn_pred_mask, label_mask, label_mask_weight)
+        rpn_loss_mask, iou_m, iou_5, iou_7 = select_mask_logistic_loss(
+            rpn_pred_mask, label_mask, label_mask_weight)
 
         return rpn_loss_cls, rpn_loss_loc, rpn_loss_mask, iou_m, iou_5, iou_7
 
@@ -61,7 +66,8 @@ class SiamMask(nn.Module):
         template_feature = self.feature_extractor(template)
         search_feature = self.feature_extractor(search)
         rpn_pred_cls, rpn_pred_loc = self.rpn(template_feature, search_feature)
-        rpn_pred_mask = self.mask(template_feature, search_feature)  # (b, 63*63, w, h)
+        rpn_pred_mask = self.mask(template_feature,
+                                  search_feature)  # (b, 63*63, w, h)
 
         if softmax:
             rpn_pred_cls = self.softmax(rpn_pred_cls)
@@ -69,7 +75,7 @@ class SiamMask(nn.Module):
 
     def softmax(self, cls):
         b, a2, h, w = cls.size()
-        cls = cls.view(b, 2, a2//2, h, w)
+        cls = cls.view(b, 2, a2 // 2, h, w)
         cls = cls.permute(0, 2, 3, 4, 1).contiguous()
         cls = F.log_softmax(cls, dim=4)
         return cls
@@ -97,7 +103,10 @@ class SiamMask(nn.Module):
 
         outputs = dict()
 
-        outputs['predict'] = [rpn_pred_loc, rpn_pred_cls, rpn_pred_mask, template_feature, search_feature]
+        outputs['predict'] = [
+            rpn_pred_loc, rpn_pred_cls, rpn_pred_mask, template_feature,
+            search_feature
+        ]
 
         if self.training:
             rpn_loss_cls, rpn_loss_loc, rpn_loss_mask, iou_acc_mean, iou_acc_5, iou_acc_7 = \
@@ -115,14 +124,15 @@ class SiamMask(nn.Module):
 
     def track(self, x, cls_kernel=None, loc_kernel=None, softmax=False):
         xf = self.feature_extractor(x)
-        rpn_pred_cls, rpn_pred_loc = self.rpn_model.track(xf, cls_kernel, loc_kernel)
+        rpn_pred_cls, rpn_pred_loc = self.rpn_model.track(
+            xf, cls_kernel, loc_kernel)
         if softmax:
             rpn_pred_cls = self.softmax(rpn_pred_cls)
         return rpn_pred_cls, rpn_pred_loc
 
 
 def get_cls_loss(pred, label, select):
-    if select.nelement() == 0: return pred.sum()*0.
+    if select.nelement() == 0: return pred.sum() * 0.
     pred = torch.index_select(pred, 0, select)
     label = torch.index_select(label, 0, select)
 
@@ -132,8 +142,10 @@ def get_cls_loss(pred, label, select):
 def select_cross_entropy_loss(pred, label):
     pred = pred.view(-1, 2)
     label = label.view(-1)
-    pos = Variable(label.data.eq(1).nonzero().squeeze()).cuda()
-    neg = Variable(label.data.eq(0).nonzero().squeeze()).cuda()
+    pos = Variable(
+        label.data.eq(1).nonzero().squeeze()).cuda(non_blocking=True)
+    neg = Variable(
+        label.data.eq(0).nonzero().squeeze()).cuda(non_blocking=True)
 
     loss_pos = get_cls_loss(pred, label, pos)
     loss_neg = get_cls_loss(pred, label, neg)
@@ -158,7 +170,8 @@ def weight_l1_loss(pred_loc, label_loc, loss_weight):
 def select_mask_logistic_loss(p_m, mask, weight, o_sz=63, g_sz=127):
     weight = weight.view(-1)
     pos = Variable(weight.data.eq(1).nonzero().squeeze())
-    if pos.nelement() == 0: return p_m.sum() * 0, p_m.sum() * 0, p_m.sum() * 0, p_m.sum() * 0
+    if pos.nelement() == 0:
+        return p_m.sum() * 0, p_m.sum() * 0, p_m.sum() * 0, p_m.sum() * 0
 
     p_m = p_m.permute(0, 2, 3, 1).contiguous().view(-1, 1, o_sz, o_sz)
     p_m = torch.index_select(p_m, 0, pos)
@@ -179,12 +192,14 @@ def iou_measure(pred, label):
     mask_sum = pred.eq(1).add(label.eq(1))
     intxn = torch.sum(mask_sum == 2, dim=1).float()
     union = torch.sum(mask_sum > 0, dim=1).float()
-    iou = intxn/union
-    return torch.mean(iou), (torch.sum(iou > 0.5).float()/iou.shape[0]), (torch.sum(iou > 0.7).float()/iou.shape[0])
-    
+    iou = intxn / union
+    return torch.mean(iou), (torch.sum(iou > 0.5).float() /
+                             iou.shape[0]), (torch.sum(iou > 0.7).float() /
+                                             iou.shape[0])
+
 
 if __name__ == "__main__":
-    p_m = torch.randn(4, 63*63, 25, 25)
+    p_m = torch.randn(4, 63 * 63, 25, 25)
     cls = torch.randn(4, 1, 25, 25) > 0.9
     mask = torch.randn(4, 1, 255, 255) * 2 - 1
 

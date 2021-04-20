@@ -145,14 +145,15 @@ class Refine(nn.Module):
     def forward(self, f, corr_feature, pos=None, test=False):
         if test:
             p0 = torch.nn.functional.pad(
-                f[0], [16, 16, 16, 16])[:, :, 4 * pos[0]:4 * pos[0] + 61, 4 *
-                                        pos[1]:4 * pos[1] + 61]
+                f[0], [16, 16, 16, 16])[:, :, 4 * pos[0]:4 * pos[0] + 61,
+                                        4 * pos[1]:4 * pos[1] + 61]
             p1 = torch.nn.functional.pad(
-                f[1], [8, 8, 8, 8])[:, :, 2 * pos[0]:2 * pos[0] + 31, 2 *
-                                    pos[1]:2 * pos[1] + 31]
+                f[1], [8, 8, 8, 8])[:, :, 2 * pos[0]:2 * pos[0] + 31,
+                                    2 * pos[1]:2 * pos[1] + 31]
             p2 = torch.nn.functional.pad(f[2],
-                                         [4, 4, 4, 4])[:, :, pos[0]:pos[0] +
-                                                       15, pos[1]:pos[1] + 15]
+                                         [4, 4, 4, 4])[:, :,
+                                                       pos[0]:pos[0] + 15,
+                                                       pos[1]:pos[1] + 15]
         else:
             p0 = F.unfold(f[0], (61, 61), padding=0, stride=4).permute(
                 0, 2, 1).contiguous().view(-1, 64, 61, 61)
@@ -205,6 +206,11 @@ class Custom(SiamMask):
     def track(self, search):
         search = self.features(search)
         rpn_pred_cls, rpn_pred_loc = self.rpn(self.zf, search)
+        return rpn_pred_cls, rpn_pred_loc
+
+    def track_batch(self, search, zfs):
+        search = self.features(search)
+        rpn_pred_cls, rpn_pred_loc = self.rpn(zfs, search)
         return rpn_pred_cls, rpn_pred_loc
 
     def track_mask(self, search):
