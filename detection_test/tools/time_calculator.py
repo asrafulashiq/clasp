@@ -7,6 +7,7 @@ import numpy as np
 import torch
 from collections import defaultdict
 from contextlib import contextmanager
+from prettytable import PrettyTable
 
 
 class ComplexityAnalysis(object):
@@ -24,13 +25,17 @@ class ComplexityAnalysis(object):
         self.dict_start = defaultdict(float)
         self.dict_batch_mode = defaultdict(bool)
 
-        self.frames_per_batch = 1
+        self.frames_per_batch = 40
 
     @contextmanager
-    def __call__(self, field=None, batch_mode=True):
-        self.start(field, batch_mode)
+    def __call__(self, field=None, batch_mode=True, disable=False):
+        if not disable:
+            self.start(field, batch_mode)
+
         yield
-        self.pause(field)
+
+        if not disable:
+            self.pause(field)
 
     def start(self, field=None, batch_mode=True):
         if field is None:
@@ -52,16 +57,21 @@ class ComplexityAnalysis(object):
 
     def get_time_info(self):
         logger.info("Time info")
-        for k in self.dict_time:
-            if len(self.dict_time[k]) == 0:
+        table = PrettyTable(field_names=["Metric", "Avg", "Current", "Max"])
+        for k, vlist in self.dict_time.items():
+            if len(vlist) == 0:
                 continue
-            avg, _max = np.mean(self.dict_time[k]), max(self.dict_time[k])
             if not self.dict_batch_mode[k]:
-                avg *= self.frames_per_batch
-                _max *= self.frames_per_batch
+                vlist = [
+                    sum(vlist[i:i + self.frames_per_batch])
+                    for i in range(0, len(vlist), self.frames_per_batch)
+                ]
+            current = vlist[-1]
+            avg, _max = np.mean(vlist), max(vlist)
 
-            logger.info(f"{k} :: avg : {avg:.4f} s, max : {_max:.4f} s")
+            table.add_row([k, f"{avg:.4f}", f"{current:.4f}", f"{_max:.4f}"])
 
+        logger.info(f"\n{table.get_string()}\n")
         np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
 
     def process_memory(self):
@@ -89,12 +99,14 @@ class ComplexityAnalysis(object):
 
     def final_info(self):
         self.get_time_info()
-        logger.debug(
-            f"gpu memory: avg: {np.mean(self.list_gpu_memory)} MB, max: {max(self.list_gpu_memory)} MB"
-        )
-        logger.debug(
-            f"cpu memory: avg: {np.mean(self.list_cpu_memory)} MB, max: {max(self.list_cpu_memory)} MB"
-        )
+        if self.list_gpu_memory:
+            logger.debug(
+                f"gpu memory: avg: {np.mean(self.list_gpu_memory)} MB, max: {max(self.list_gpu_memory)} MB"
+            )
+        if self.list_cpu_memory:
+            logger.debug(
+                f"cpu memory: avg: {np.mean(self.list_cpu_memory)} MB, max: {max(self.list_cpu_memory)} MB"
+            )
 
     def close(self):
         tracemalloc.stop()

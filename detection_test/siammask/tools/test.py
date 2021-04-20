@@ -417,8 +417,8 @@ def track_vot(model,
             if len(location) == 8:
                 if mask_enable:
                     mask = mask > state['p'].seg_thr
-                    im_show[:, :, 2] = mask * 255 + (1 -
-                                                     mask) * im_show[:, :, 2]
+                    im_show[:, :,
+                            2] = mask * 255 + (1 - mask) * im_show[:, :, 2]
                 location_int = np.int0(location)
                 cv2.polylines(im_show, [location_int.reshape((-1, 1, 2))],
                               True, (0, 255, 255), 3)

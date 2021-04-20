@@ -96,6 +96,7 @@ class IntegratorClass:
                                                         "").replace("'", "")
 
                 if 'XFR' in each_split:
+                    each_split = each_split.replace("owner-ID", "PAX-ID")
                     _msg = parse(("XFR: type: {} camera-num: {} frame: {} "
                                   "time-offset: {} BB: {} PAX-ID: {pax_id} "
                                   "DVI-ID: {bin_id} theft: {}"), each_split)
@@ -233,10 +234,10 @@ class IntegratorClass:
                 logs.append(_msg)
 
                 if 'theft: true' in _msg.lower():
-                    feed_msg = (cam, to_sec(frame),
+                    feed_msg = (cam, to_sec(frame, self.fps),
                                 f'Potential theft: {pax_id} - {bin_id}')
                 else:
-                    feed_msg = (cam, to_sec(frame),
+                    feed_msg = (cam, to_sec(frame, self.fps),
                                 f'XFR : {pax_id} - {bin_id}')
                 if feed_msg not in self.msg:
                     msglist.append(feed_msg)
@@ -283,16 +284,16 @@ class DrawClass():
         self.conf = conf
 
         # Output folder path of the feed
-        self.feed_folder = Path(conf.out_dir) / "run" / conf.file_num / "feed"
+        self.feed_folder = Path(conf.folder_out_feed)
+        # Path(conf.out_dir) / "run" / conf.file_num / "feed"
         if self.feed_folder.exists():
             shutil.rmtree(str(self.feed_folder))
-        self.feed_folder.mkdir(exist_ok=True)
+        self.feed_folder.mkdir(exist_ok=True, parents=True)
 
         self.full_log = []
 
     def draw_batch(self, batch_frames, *csv_files):
         self.Info.load_info(*csv_files)
-        # for out in tqdm(batch_frames, desc="Drawing", position=10):
         all_out_args = []
         for out in batch_frames:
             _args = self._extract_info_for_draw_frame(*out)
@@ -330,6 +331,11 @@ class DrawClass():
                                          font_scale=0.7)
             ims.append(im)
         # msglist.extend(mlist)
+        if len(ims) < 2:
+            ims.append(None)
+        if len(ims) < 3:
+            ims.append(None)
+
         frame_num = each_step_arg["frame"]
         msglist = each_step_arg["msg"]
         im_feed = vis_feed.draw(ims[0], ims[1], ims[2], frame_num, msglist)
@@ -338,12 +344,14 @@ class DrawClass():
         cv2.imwrite(str(f_write), cv2.cvtColor(im_feed, cv2.COLOR_RGB2BGR))
         # print(f"save to {f_write}")
 
-    def _extract_info_for_draw_frame(self, out1, out2, out3=None):
+    def _extract_info_for_draw_frame(self, out1, out2=None, out3=None):
 
         out_args = []  # for multiprocess
 
         im1, imfile1, _ = out1
-        im2, imfile2, _ = out2
+        im2 = None
+        if out2 is not None:
+            im2, imfile2, _ = out2
         im3 = None
         if out3 is not None:
             im3, imfile3, _ = out3
@@ -359,13 +367,14 @@ class DrawClass():
 
         # print("#draw:1", flush=True)
         # Cam 11
-        info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
-            frame_num, "cam11")
-        msglist.extend(mlist)
-        self.full_log.extend(logs)
-        if self.plot:
-            # im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
-            out_args.append((im2, info_bin, info_pax))
+        if out2 is not None:
+            info_bin, info_pax, event_bin, event_pax, mlist, logs = self.Info.get_info_from_frame(
+                frame_num, "cam11")
+            msglist.extend(mlist)
+            self.full_log.extend(logs)
+            if self.plot:
+                # im2 = self.Info.draw_im(im2, info_bin, info_pax, font_scale=0.7)
+                out_args.append((im2, info_bin, info_pax))
 
         if out3 is not None:
             frame_num3 = frame_to_time(imfile3)

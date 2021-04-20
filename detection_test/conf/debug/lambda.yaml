@@ -15,4 +15,6 @@ neu_result_file: /home/rpi/data/wrapper_log/log_batch_association.csv
 mu_result_file: /home/rpi/data/wrapper_log/log_batch_mu_current.csv
 rpi_result_file: /home/rpi/data/wrapper_log/rpi_result.csv
 
+ata_output: ${HOME}/dataset/ALERT/clasp_data/output_debug/info/ata_${file_num}
+
 start_frame: 0

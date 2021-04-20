@@ -19,7 +19,7 @@ from tools.time_calculator import ComplexityAnalysis
 from tools.utils_feed import DrawClass
 from colorama import init
 import hydra
-from omegaconf import OmegaConf, DictConfig
+from omegaconf import DictConfig
 
 init(autoreset=True)
 
@@ -28,9 +28,7 @@ complexity_analyzer = ComplexityAnalysis()
 
 class BatchPrecessingMain(object):
     def __init__(self, params) -> None:
-
         self.params = params
-
         self.logger = ClaspLogger()
 
         cam = copy.deepcopy(self.params.cameras)
@@ -42,9 +40,13 @@ class BatchPrecessingMain(object):
             self.params.duration * self.params.fps * len(self.cameras))
 
         self._last_frame: Dict[str, int] = {
-            cam: self.params.start_frame - 1
+            cam: (self.params.start_frame - 1)
             for cam in self.cameras
         }
+        # if "cam13" in self._last_frame:
+        #     self._last_frame["cam13"] = (self.params.start_frame - 1 -
+        #                                  int(50 / 30 * params.fps))
+
         self.manager = Manager(config=self.params,
                                log=self.logger,
                                bin_only=True,
@@ -56,7 +58,8 @@ class BatchPrecessingMain(object):
             mu_flagfile=self.params.neu_flagfile)
 
         if self.params.draw_newsfeed:
-            self.drawing_obj = DrawClass(conf=self.params, plot=True)
+            self.drawing_obj = DrawClass(conf=self.params,
+                                         plot=self.params.plot)
 
         # output folder name for each camera
         self.out_folder = {}
@@ -99,18 +102,17 @@ class BatchPrecessingMain(object):
             pbar = tqdm(zip(*batch_files_to_process.values()),
                         total=len(batch_files_to_process[self.cameras[0]]),
                         position=5)
-            with complexity_analyzer("BIN_PROCESS"):
+            with complexity_analyzer("BIN_TRACKING"):
                 for _, ret in enumerate(pbar):
                     _rets_cam = []
                     for i_cnt in range(len(ret)):
                         im, imfile, frame_num, det = ret[i_cnt]
-                        with complexity_analyzer("TRACK", False):
-                            new_im = self.manager.run_tracking_per_frame(
-                                im,
-                                det,
-                                cam=self.cameras[i_cnt],
-                                frame_num=frame_num,
-                                return_im=self.params.save_im)
+                        new_im = self.manager.run_tracking_per_frame(
+                            im,
+                            det,
+                            cam=self.cameras[i_cnt],
+                            frame_num=frame_num,
+                            return_im=self.params.save_im)
 
                         if self.params.save_im:
                             skimage.io.imsave(
@@ -141,11 +143,10 @@ class BatchPrecessingMain(object):
         # tell NU that bin is processed
         self.yaml_communicator.set_bin_processed(value='TRUE')
 
-        # TODO create combined log and feed
         if self.params.debug:
             self.logger.debug("DEBUG: mock create combined output")
-            if self.params.create_feed:
-                self.on_after_batch_processing(batch_frames)
+            # if self.params.create_feed:
+            self.on_after_batch_processing(batch_frames)
         else:
             with complexity_analyzer("WAIT_NEU_ASSO"):
                 while True:
@@ -195,7 +196,7 @@ class BatchPrecessingMain(object):
                                             self.params.neu_result_file)
 
     def run(self):
-        with complexity_analyzer("INIT"):
+        with complexity_analyzer("ALL"):
             counter = 0
             pbar = tqdm(position=1)
             while self.yaml_communicator.is_end_of_frames() is False:
@@ -239,8 +240,10 @@ class BatchPrecessingMain(object):
                 cur_frame = last_frame + 1
 
                 # file name
-                fname = os.path.join(self.params.root,
-                                     f"cam{cam_num}_{cur_frame:06d}.jpg")
+                fname = os.path.join(
+                    self.params.root,
+                    f"cam{cam_num}_{max(cur_frame, self.params.start_frame+1):06d}.jpg"
+                )
                 if not os.path.exists(fname):
                     skip_f += 1
                 else:
@@ -254,6 +257,12 @@ class BatchPrecessingMain(object):
                     else:
                         batch_files_to_process[cam].append(fname)
                 last_frame = cur_frame
+
+                # # NOTE: for cam13
+                # if cam == 'cam13' and len(batch_files_to_process[cam]) >= len(
+                #         batch_files_to_process[self.cameras[0]]):
+                #     break
+
             self._last_frame[cam] = last_frame - skip_f
         return batch_files_to_process, flag
 
