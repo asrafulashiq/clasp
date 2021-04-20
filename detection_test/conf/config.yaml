@@ -9,8 +9,14 @@ debug: true
 HOME: ${env:HOME}
 root: ${HOME}/dataset/ALERT/alert_frames/20191024/fps-10
 out_dir: ${HOME}/dataset/ALERT/clasp_data/output
-# bin_ckpt: ${HOME}/dataset/ALERT/trained_model/weight_640x360.pkl
+
 bin_ckpt: ${HOME}/dataset/ALERT/trained_model/det2.pth
+
+siam_params:
+  ckpt: "siammask/siammask_sharp/SiamMask_VOT_LD.pth"
+  conf_siam: "siammask/siammask_sharp/config_vot.json"
+  mask_enable: false
+  refine_enable: false
 
 rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output/run/info/info_${file_num}.csv
 

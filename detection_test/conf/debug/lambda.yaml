@@ -17,4 +17,6 @@ rpi_result_file: /home/rpi/data/wrapper_log/rpi_result.csv
 
 ata_output: ${HOME}/dataset/ALERT/clasp_data/output_debug/info/ata_${file_num}
 
+rpi_all_results_csv: ${HOME}/dataset/ALERT/clasp_data/output_debug/info/info_${file_num}.csv
+
 start_frame: 0

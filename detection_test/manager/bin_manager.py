@@ -98,15 +98,6 @@ class BinManager:
         else:
             raise Exception("This is only allowed in camera 11 or 13")
 
-    def __len__(self):
-        return len(self._current_bins)
-
-    def __getitem__(self, index):
-        return self._current_bins[index]
-
-    def __iter__(self):
-        return iter(self._current_bins)
-
     def add_bin(self,
                 box: NDArray[(Any, 4), np.float],
                 cls: BinType,
@@ -214,12 +205,11 @@ class BinManager:
                 self._bin_count -= 1
                 return
 
-        new_bin = Bin(
-            label=label,
-            bin_type=cls,
-            pos=box,
-            maxlen=self.maxlen,
-        )
+        new_bin = Bin(label=label,
+                      bin_type=cls,
+                      pos=box,
+                      maxlen=self.maxlen,
+                      conf=self.config)
 
         # FIXME why this?
         if self._camera != "cam09":
@@ -682,14 +672,11 @@ class BinManager:
             if isinstance(cls, BinType):
                 box = [x1, y1, x2, y2]
                 self._bin_count = max(self._bin_count, _id)
-                new_bin = Bin(
-                    label=_id,
-                    # state=cls,
-                    bin_type=cls,
-                    pos=box,
-                    # default_state=self._default_bin_state,
-                    maxlen=self.maxlen,
-                )
+                new_bin = Bin(label=_id,
+                              bin_type=cls,
+                              pos=box,
+                              maxlen=self.maxlen,
+                              conf=self.config)
                 new_bin.init_tracker(box, im)
                 self._current_bins.append(new_bin)
             else:
@@ -700,13 +687,11 @@ class BinManager:
             _id, cls, x1, y1, x2, y2, _type, frame_num = each_i
             if isinstance(cls, BinType):
                 box = [x1, y1, x2, y2]
-                new_bin = Bin(
-                    label=_id,
-                    bin_type=cls,
-                    pos=box,
-                    # default_state=self._default_bin_state,
-                    maxlen=self.maxlen,
-                )
+                new_bin = Bin(label=_id,
+                              bin_type=cls,
+                              pos=box,
+                              maxlen=self.maxlen,
+                              conf=self.config)
                 new_bin.clear_track()
                 if _type == "exit":
                     self._left_bins.append({
@@ -718,6 +703,15 @@ class BinManager:
                 self._bin_count = max(self._bin_count, _id)
             else:
                 raise ValueError(f"{cls} is not of type BinType")
+
+    def __len__(self):
+        return len(self._current_bins)
+
+    def __getitem__(self, index):
+        return self._current_bins[index]
+
+    def __iter__(self):
+        return iter(self._current_bins)
 
 
 # ------------------------------ Helper function ----------------------------- #

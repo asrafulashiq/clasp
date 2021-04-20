@@ -9,35 +9,31 @@ import tools.utils_box as utils
 import numpy as np
 import torch
 from loguru import logger
+from omegaconf import DictConfig
 
 from siammask.tools.test import siamese_init, siamese_track, load_config, load_pretrain
 from siammask.siammask_sharp.custom import Custom
 
 
 class Bin:
-    def __init__(
-            self,
-            label: Optional[int] = None,
-            #  state: Optional[str] = None,
-            bin_type: Optional[BinType] = None,
-            #  cls: str = "DVI",
-            pos: Any = None,
-            # default_state="items",
-            maxlen=10):
+    def __init__(self,
+                 label: Optional[int] = None,
+                 bin_type: Optional[BinType] = None,
+                 pos: Any = None,
+                 maxlen: int = 10,
+                 conf: Optional[DictConfig] = None):
 
+        self.conf = conf
         self.maxlen = maxlen
         self.init_conf()
 
         # from setter method
         self.label = label
         self.bin_type = bin_type
-
         self.pos = pos  # (x1, y1, x2, y2)
 
-        # self.state = state
-
     def init_conf(self):
-        self._state_conf_num = 20
+        # self._state_conf_num = 20
         self._state_store_list = deque([], maxlen=self.maxlen)
 
         self._idle_count = 0
@@ -47,11 +43,6 @@ class Bin:
         self._pos_count = 0
         self._bin_type = None
         self._count_persistent_type = 0
-
-    # def init_tracker(self, box, frame):
-    #     self.tracker = cv2.TrackerKCF_create()
-    #     bb = tuple([box[0], box[1], box[2]-box[0]+1, box[3]-box[1]+1])
-    #     self.tracker.init(frame, bb)
 
     @torch.no_grad()
     def init_tracker(self, box, frame):
@@ -80,11 +71,9 @@ class Bin:
             pass
 
         args = Empty()
-        # args.resume = "siammask/siammask_sharp/SiamMask_DAVIS.pth"
-        # args.config = "siammask/siammask_sharp/config_davis.json"
 
-        args.resume = "siammask/siammask_sharp/SiamMask_VOT_LD.pth"
-        args.config = "siammask/siammask_sharp/config_vot.json"
+        args.resume = self.conf.siam_params.ckpt
+        args.config = self.conf.siam_params.conf_siam
 
         cfg = load_config(args)
 
@@ -97,12 +86,13 @@ class Bin:
     @torch.no_grad()
     def update_tracker(self, frame):
         prev_pos = self.track_state["target_pos"]
-        # try:
-        state = siamese_track(self.track_state,
-                              frame,
-                              mask_enable=True,
-                              refine_enable=True,
-                              device=self.device)  # track
+
+        state = siamese_track(
+            self.track_state,
+            frame,
+            mask_enable=self.conf.siam_params.mask_enable,
+            refine_enable=self.conf.siam_params.refine_enable,
+            device=self.device)
         target_pos = state["target_pos"]
         target_sz = state["target_sz"]
 
@@ -115,11 +105,6 @@ class Bin:
             status = False
         else:
             status = True
-        # except KeyboardInterrupt:
-        #     raise KeyboardInterrupt
-        # except:
-        #     logger.info("======= TRACK ERROR =======")
-        #     status = False
 
         if status:
             x2, y2 = x + w, y + h
