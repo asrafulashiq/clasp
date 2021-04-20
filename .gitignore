@@ -23,6 +23,8 @@ events.out*
 **/ckpt/**
 **/.cenv
 
+time.npy
+
 **/*.swp
 !**/info/*
 !**/ata_output/*

@@ -72,7 +72,7 @@ class ComplexityAnalysis(object):
             table.add_row([k, f"{avg:.4f}", f"{current:.4f}", f"{_max:.4f}"])
 
         logger.info(f"\n{table.get_string()}\n")
-        np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
+        # np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
 
     def process_memory(self):
         memory_mb = round(self.process.memory_info()[0] / (1024 * 1024))
