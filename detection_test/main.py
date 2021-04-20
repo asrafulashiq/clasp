@@ -12,6 +12,7 @@ from omegaconf import OmegaConf
 import os
 from colorama import init, Fore
 import hydra
+from tools.time_calculator import ComplexityAnalysis
 
 init(autoreset=True)
 
@@ -31,10 +32,12 @@ def main(conf):
         "cam14": "cam13"
     }
 
+    analyzer = ComplexityAnalysis()
     manager = Manager(config=conf,
                       log=log,
                       bin_only=True,
-                      template_match=conf.template_match)
+                      template_match=conf.template_match,
+                      analyzer=analyzer)
 
     imlist = []
     src_folder = {}
@@ -117,6 +120,9 @@ def main(conf):
         if cameras[i_cnt] == "cam13":
             frame_num += 50
         pbar.set_description(f"Processing: {frame_num}")
+
+        if counter % 50 == 0:
+            analyzer.get_time_info()
 
     if conf.write:
         manager.final_write()
