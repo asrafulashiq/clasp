@@ -26,8 +26,9 @@ class SiamRPN(nn.Module):
         # cx,cy,w,h
         if not self.anchor.generate_all_anchors(image_center, size):
             return
-        all_anchors = self.anchor.all_anchors[1] # cx, cy, w, h
-        self.all_anchors = torch.from_numpy(all_anchors).float().cuda()
+        all_anchors = self.anchor.all_anchors[1]  # cx, cy, w, h
+        self.all_anchors = torch.from_numpy(all_anchors).float().cuda(
+            non_blocking=True)
         self.all_anchors = [self.all_anchors[i] for i in range(4)]
 
     def feature_extractor(self, x):
@@ -37,8 +38,8 @@ class SiamRPN(nn.Module):
         pred_cls, pred_loc = self.rpn_model(template, search)
         return pred_cls, pred_loc
 
-    def _add_rpn_loss(self, label_cls, label_loc, lable_loc_weight, rpn_pred_cls,
-                      rpn_pred_loc):
+    def _add_rpn_loss(self, label_cls, label_loc, lable_loc_weight,
+                      rpn_pred_cls, rpn_pred_loc):
         '''
         :param compute_anchor_targets_fn: functions to produce anchors' learning targets.
         :param rpn_pred_cls: [B, num_anchors * 2, h, w], output of rpn for classification.
@@ -47,7 +48,8 @@ class SiamRPN(nn.Module):
         '''
         rpn_loss_cls = select_cross_entropy_loss(rpn_pred_cls, label_cls)
 
-        rpn_loss_loc = weight_l1_loss(rpn_pred_loc, label_loc, lable_loc_weight)
+        rpn_loss_loc = weight_l1_loss(rpn_pred_loc, label_loc,
+                                      lable_loc_weight)
 
         # classification accuracy, top1
         acc = torch.zeros(1)  # TODO
@@ -66,7 +68,7 @@ class SiamRPN(nn.Module):
 
     def softmax(self, cls):
         b, a2, h, w = cls.size()
-        cls = cls.view(b, 2, a2//2, h, w)
+        cls = cls.view(b, 2, a2 // 2, h, w)
         cls = cls.permute(0, 2, 3, 4, 1).contiguous()
         cls = F.log_softmax(cls, dim=4)
         return cls
@@ -87,14 +89,18 @@ class SiamRPN(nn.Module):
             label_loc = input['label_loc']
             lable_loc_weight = input['label_loc_weight']
 
-        rpn_pred_cls, rpn_pred_loc, template_feature, search_feature = self.run(template, search, softmax=self.training)
+        rpn_pred_cls, rpn_pred_loc, template_feature, search_feature = self.run(
+            template, search, softmax=self.training)
 
         outputs = dict(predict=[], losses=[], accuracy=[])
 
-        outputs['predict'] = [rpn_pred_loc, rpn_pred_cls, template_feature, search_feature]
+        outputs['predict'] = [
+            rpn_pred_loc, rpn_pred_cls, template_feature, search_feature
+        ]
         if self.training:
-            rpn_loss_cls, rpn_loss_loc, rpn_acc = self._add_rpn_loss(label_cls, label_loc, lable_loc_weight,
-                                                                     rpn_pred_cls, rpn_pred_loc)
+            rpn_loss_cls, rpn_loss_loc, rpn_acc = self._add_rpn_loss(
+                label_cls, label_loc, lable_loc_weight, rpn_pred_cls,
+                rpn_pred_loc)
             outputs['losses'] = [rpn_loss_cls, rpn_loss_loc]
         return outputs
 
@@ -105,7 +111,8 @@ class SiamRPN(nn.Module):
 
     def track(self, x, cls_kernel=None, loc_kernel=None, softmax=False):
         xf = self.feature_extractor(x)
-        rpn_pred_cls, rpn_pred_loc = self.rpn_model.track(xf, cls_kernel, loc_kernel)
+        rpn_pred_cls, rpn_pred_loc = self.rpn_model.track(
+            xf, cls_kernel, loc_kernel)
         if softmax:
             rpn_pred_cls = self.softmax(rpn_pred_cls)
         return rpn_pred_cls, rpn_pred_loc
@@ -121,8 +128,10 @@ def get_cls_loss(pred, label, select):
 def select_cross_entropy_loss(pred, label):
     pred = pred.view(-1, 2)
     label = label.view(-1)
-    pos = Variable(label.data.eq(1).nonzero().squeeze()).cuda()
-    neg = Variable(label.data.eq(0).nonzero().squeeze()).cuda()
+    pos = Variable(
+        label.data.eq(1).nonzero().squeeze()).cuda(non_blocking=True)
+    neg = Variable(
+        label.data.eq(0).nonzero().squeeze()).cuda(non_blocking=True)
 
     loss_pos = get_cls_loss(pred, label, pos)
     loss_neg = get_cls_loss(pred, label, neg)

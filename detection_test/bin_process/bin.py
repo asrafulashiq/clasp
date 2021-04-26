@@ -11,17 +11,57 @@ import torch
 from loguru import logger
 from omegaconf import DictConfig
 
-from siammask.tools.test import siamese_init, siamese_track, load_config, load_pretrain
+from siammask.tools.test import (siamese_init, siamese_track,
+                                 siamese_track_batch, load_config,
+                                 load_pretrain)
 from siammask.siammask_sharp.custom import Custom
 
 
-class Bin:
+class BinCollectionTracker:
+    def __init__(self, conf: DictConfig) -> None:
+        self.conf = conf
+        if torch.cuda.device_count() > 1:
+            self.device = torch.device("cuda:1")
+        else:
+            self.device = torch.device("cuda:0")
+
+        self.load_siammask()
+
+    def load_siammask(self):
+        args = type('', (), {})()  # empty class
+        args.resume = self.conf.siam_params.ckpt
+        args.config = self.conf.siam_params.conf_siam
+
+        cfg = load_config(args)
+
+        net = Custom(anchors=cfg["anchors"])
+        net = load_pretrain(net, args.resume)
+        net.eval().to(self.device, non_blocking=True)
+        self.siammask = net
+        self.cfg_siam = cfg
+
+    @torch.no_grad()
+    def update_tracker(self, frame, bins):
+        states = siamese_track_batch(
+            [bin.track_state for bin in bins],
+            [bin.template_zf for bin in bins],
+            frame,
+            mask_enable=self.conf.siam_params.mask_enable,
+            refine_enable=self.conf.siam_params.refine_enable,
+            device=self.device)
+
+        for i in range(len(bins)):
+            bins[i].update_tracker(frame, states[i])
+
+
+class Bin(object):
     def __init__(self,
                  label: Optional[int] = None,
                  bin_type: Optional[BinType] = None,
                  pos: Any = None,
                  maxlen: int = 10,
-                 conf: Optional[DictConfig] = None):
+                 conf: Optional[DictConfig] = None,
+                 bin_collection_tracker: BinCollectionTracker = None):
 
         self.conf = conf
         self.maxlen = maxlen
@@ -31,6 +71,8 @@ class Bin:
         self.label = label
         self.bin_type = bin_type
         self.pos = pos  # (x1, y1, x2, y2)
+
+        self.bin_collection_tracker = bin_collection_tracker
 
     def init_conf(self):
         # self._state_conf_num = 20
@@ -52,25 +94,29 @@ class Bin:
             self.device = torch.device("cuda:1")
         else:
             self.device = torch.device("cuda:0")
-        self.load_siammask()
+
+        self.siammask = self.bin_collection_tracker.siammask
+        self.cfg_siam = self.bin_collection_tracker.cfg_siam
+
+        if self.siammask is None:
+            self.load_siammask()
+
         bb = tuple([box[0], box[1], box[2] - box[0] + 1, box[3] - box[1] + 1])
         x, y, w, h = bb
         target_pos = np.array([x + w / 2, y + h / 2])
         target_sz = np.array([w, h])
-        state = siamese_init(frame,
-                             target_pos,
-                             target_sz,
-                             self.siammask,
-                             self.cfg_siam["hp"],
-                             device=self.device)
+        state, template_zf = siamese_init(frame,
+                                          target_pos,
+                                          target_sz,
+                                          self.siammask,
+                                          self.cfg_siam["hp"],
+                                          device=self.device)
         self.track_state = state
+        self.template_zf = template_zf
 
     @torch.no_grad()
     def load_siammask(self):
-        class Empty:
-            pass
-
-        args = Empty()
+        args = type('', (), {})()
 
         args.resume = self.conf.siam_params.ckpt
         args.config = self.conf.siam_params.conf_siam
@@ -79,20 +125,21 @@ class Bin:
 
         net = Custom(anchors=cfg["anchors"])
         net = load_pretrain(net, args.resume)
-        net.eval().to(self.device)
+        net.eval().to(self.device, non_blocking=True)
         self.siammask = net
         self.cfg_siam = cfg
 
     @torch.no_grad()
-    def update_tracker(self, frame):
+    def update_tracker(self, frame, state=None):
         prev_pos = self.track_state["target_pos"]
 
-        state = siamese_track(
-            self.track_state,
-            frame,
-            mask_enable=self.conf.siam_params.mask_enable,
-            refine_enable=self.conf.siam_params.refine_enable,
-            device=self.device)
+        if state is None:
+            state = siamese_track(
+                self.track_state,
+                frame,
+                mask_enable=self.conf.siam_params.mask_enable,
+                refine_enable=self.conf.siam_params.refine_enable,
+                device=self.device)
         target_pos = state["target_pos"]
         target_sz = state["target_sz"]
 
@@ -113,6 +160,8 @@ class Bin:
         else:
             # tracker failed
             bbox = None
+
+        self.out_update_tracker = (status, bbox)
 
         return status, bbox
 

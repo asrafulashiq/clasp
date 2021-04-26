@@ -1,4 +1,5 @@
 """ Main file to run the program """
+from tools.time_calculator import ComplexityAnalysis
 import torch
 torch.backends.cudnn.benchmark = True
 
