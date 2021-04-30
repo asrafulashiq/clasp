@@ -37,7 +37,7 @@ def load_pretrain(model, pretrained_path):
     # else:
     #     device = torch.cuda.current_device()
     #     pretrained_dict = torch.load(pretrained_path, map_location=lambda storage, loc: storage.cuda(device))
-    pretrained_dict = torch.load(pretrained_path)
+    pretrained_dict = torch.load(pretrained_path, map_location='cpu')
     if "state_dict" in pretrained_dict.keys():
         pretrained_dict = remove_prefix(pretrained_dict['state_dict'],
                                         'module.')
