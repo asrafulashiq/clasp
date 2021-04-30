@@ -464,7 +464,7 @@ class BinManager:
             boxes, scores, classes, ind = self._filter_boxes(
                 im, boxes, scores, classes, frame_num)
 
-        with self.analyzer(f"TRACK_CURRENT_{self._camera}", False, False):
+        with self.analyzer(f"TRACK_CURRENT_{self._camera}", False, True):
             explored_indices, tmp_iou = self._track_current_bins(
                 im, boxes, scores, classes, frame_num, ind)
 
