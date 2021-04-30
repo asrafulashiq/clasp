@@ -12,7 +12,7 @@ import datetime
 
 
 def get_time(time_posix, format="%H:%M:%S:%f"):
-    return datetime.datetime.fromtimestamp(time_posix).strftime(format)
+    return datetime.datetime.fromtimestamp(time_posix).strftime(format)[:-3]
 
 
 class ComplexityAnalysis(object):
