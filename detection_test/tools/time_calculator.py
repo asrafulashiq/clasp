@@ -11,7 +11,7 @@ from prettytable import PrettyTable
 import datetime
 
 
-def get_time(time_posix, format="%H:%M:%S:%f"):
+def get_time(time_posix, format="%H:%M:%S.%f"):
     return datetime.datetime.fromtimestamp(time_posix).strftime(format)[:-3]
 
 
