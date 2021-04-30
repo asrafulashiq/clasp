@@ -8,6 +8,11 @@ import torch
 from collections import defaultdict
 from contextlib import contextmanager
 from prettytable import PrettyTable
+import datetime
+
+
+def get_time(time_posix, format="%H:%M:%S"):
+    return datetime.datetime.fromtimestamp(time_posix).strftime(format)
 
 
 class ComplexityAnalysis(object):
@@ -21,8 +26,8 @@ class ComplexityAnalysis(object):
         self.list_cpu_memory = []
 
         self.dict_time = {}
-        self.dict_start = {}
         self.dict_start = defaultdict(float)
+        self.dict_end = defaultdict(float)
         self.dict_batch_mode = defaultdict(bool)
 
         self.frames_per_batch = 40
@@ -52,12 +57,14 @@ class ComplexityAnalysis(object):
         assert field in self.dict_time
         assert field in self.dict_start
 
-        time_passed = time.time() - self.dict_start[field]
+        self.dict_end[field] = time.time()
+        time_passed = self.dict_end[field] - self.dict_start[field]
         self.dict_time[field].append(time_passed)
 
     def get_time_info(self):
         logger.info("Time info")
-        table = PrettyTable(field_names=["Metric", "Avg", "Current", "Max"])
+        table = PrettyTable(
+            field_names=["Metric", "Avg", "Current", "Max", "Start", "End"])
         for k, vlist in self.dict_time.items():
             if len(vlist) == 0:
                 continue
@@ -69,7 +76,16 @@ class ComplexityAnalysis(object):
             current = vlist[-1]
             avg, _max = np.mean(vlist), max(vlist)
 
-            table.add_row([k, f"{avg:.4f}", f"{current:.4f}", f"{_max:.4f}"])
+            time_start = get_time(self.dict_start[k])
+            time_end = get_time(self.dict_end[k])
+            table.add_row([
+                k,
+                f"{avg:.4f}",
+                f"{current:.4f}",
+                f"{_max:.4f}",
+                f"{time_start}",
+                f"{time_end}",
+            ])
 
         logger.info(f"\n{table.get_string()}\n")
         # np.save("ata_logs/time.npy", self.dict_time, allow_pickle=True)
