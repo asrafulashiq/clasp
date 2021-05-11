@@ -1,5 +1,6 @@
+from PIL import Image
 import torch
-torch.backends.cudnn.benchmark = True
+torch.backends.cudnn.benchmark = False
 
 from pathlib import Path
 import cv2
@@ -57,7 +58,7 @@ class BatchPrecessingMain(object):
             neu_flagfile=self.params.neu_flagfile,
             mu_flagfile=self.params.neu_flagfile)
 
-        if self.params.draw_newsfeed:
+        if self.params.create_ata:
             self.drawing_obj = DrawClass(conf=self.params,
                                          plot=self.params.plot)
 
@@ -124,6 +125,8 @@ class BatchPrecessingMain(object):
                     batch_frames.append(_rets_cam)
                     if self.params.write:
                         self.manager.load_info()  # for NEU
+
+                    if self.params.create_ata:
                         self.manager.write_info()  # for ata log
 
                     # if self.cameras[i_cnt] == "cam13":
@@ -183,12 +186,11 @@ class BatchPrecessingMain(object):
                             value='FALSE')
                         self.logger.info("Batch processed set to FALSE")
                         break
-
         # tell NU that bin is not processed
         self.yaml_communicator.set_bin_processed(value='FALSE')
 
     def on_after_batch_processing(self, batch_frames) -> None:
-        if self.params.draw_newsfeed:
+        if self.params.create_ata:
             with complexity_analyzer("DRAW"):
                 self.drawing_obj.draw_batch(batch_frames,
                                             self.params.rpi_result_file,
@@ -205,16 +207,17 @@ class BatchPrecessingMain(object):
                         self.process_batch_step()
 
                     complexity_analyzer.current_memory_usage()
+                    self.logger.info(f"Batch number: {counter + 1}")
                     complexity_analyzer.get_time_info()
 
                 else:
-                    time.sleep(0.05)  # pause for 0.1 sec
+                    time.sleep(0.01)  # pause for 0.01 sec
                 pbar.set_description(Fore.YELLOW + f"Loop {counter}")
                 pbar.update()
                 counter += 1
             pbar.close()
 
-        if self.params.draw_newsfeed:
+        if self.params.create_ata:
             self.drawing_obj.finish()
 
         # import pdb
@@ -246,6 +249,7 @@ class BatchPrecessingMain(object):
                 )
                 if not os.path.exists(fname):
                     skip_f += 1
+                    print(fname)
                 else:
                     skip_f = 0
                     flag = True
@@ -271,6 +275,12 @@ class BatchPrecessingMain(object):
         image = cv2.cvtColor(cv2.imread(str(imfile)), cv2.COLOR_BGR2RGB)
         image = cv2.resize(image, tuple(size), interpolation=cv2.INTER_LINEAR)
         return image
+
+        # import numpy as np
+        # im = Image.open(str(imfile)).convert('RGB')
+        # im = im.resize(tuple(size), resample=Image.BILINEAR)
+        # image = np.asarray(im)
+        # return image
 
 
 @hydra.main(config_path="conf", config_name="config")
