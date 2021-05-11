@@ -48,7 +48,7 @@ load_prev_exit_info: false
 
 out_suffix: ""
 # create_feed: false
-draw_newsfeed: true
+create_ata: false
 plot: false
 
 spatial_scale_mul: 1

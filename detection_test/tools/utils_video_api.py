@@ -73,7 +73,7 @@ class YAMLCommunicator(object):
             return value
         except:
             # catch any error here
-            time.sleep(0.5)  # wait for 0.5 sec
+            time.sleep(0.01)  # wait for 0.5 sec
             logger.error("Reading error while setting file!!")
             self._set_flag(flag_name, value, filename)
 
