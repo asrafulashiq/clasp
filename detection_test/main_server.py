@@ -21,6 +21,7 @@ from tools.utils_feed import DrawClass
 from colorama import init
 import hydra
 from omegaconf import DictConfig
+import rich
 
 init(autoreset=True)
 
@@ -207,14 +208,15 @@ class BatchPrecessingMain(object):
                         self.process_batch_step()
 
                     complexity_analyzer.current_memory_usage()
-                    self.logger.info(f"Batch number: {counter + 1}")
+                    self.logger.debug(f"Batch number: {counter + 1}")
                     complexity_analyzer.get_time_info()
 
+                    counter += 1
                 else:
                     time.sleep(0.01)  # pause for 0.01 sec
                 pbar.set_description(Fore.YELLOW + f"Loop {counter}")
                 pbar.update()
-                counter += 1
+
             pbar.close()
 
         if self.params.create_ata:
@@ -249,7 +251,7 @@ class BatchPrecessingMain(object):
                 )
                 if not os.path.exists(fname):
                     skip_f += 1
-                    print(fname)
+                    # print(fname)
                 else:
                     skip_f = 0
                     flag = True
